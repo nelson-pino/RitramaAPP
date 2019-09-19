@@ -11,6 +11,8 @@ namespace RitramaAPP.Clases
 {
     public class SupplyManager
     {
+        // Codigo para administrar todos los procesos de Preveedores   
+
         Conexion micomm = new Conexion();
         public DataSet ds = new DataSet();
         DataTable dtsupply = new DataTable();
