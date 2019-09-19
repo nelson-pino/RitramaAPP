@@ -55,13 +55,17 @@ namespace RitramaAPP
 
             }
         }
-       
         public class MESSAGES_TEXT_SYSTEM_MODULES
         {
             public class MODULO_RECEPCIONES
             {
                 public static string MESSAGE_TEXT_RECEPCIONES_ERROR_ADD_DOCUMENTS = "Error al incluir ordenes de recepcion de materia prima(MASTER)..error code:";
             }
+        }
+        public class PATH_FILES
+        {
+            public static string FILE_TXT_MATERIA_PRIMA = @"C:\Users\Npino\Desktop\DATA\data.txt";
+
         }
     }
 }

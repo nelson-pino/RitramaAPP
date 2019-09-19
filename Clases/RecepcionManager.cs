@@ -249,53 +249,56 @@ namespace RitramaAPP.Clases
         public List<ClassRecepcion> DownloadDataMateriaPrimaTxtMovil()
         {
             CultureInfo cultures = new CultureInfo("en-US");
-            string path = @"C:\Users\Npino\Desktop\DATA\data.txt";
+            string path = R.PATH_FILES.FILE_TXT_MATERIA_PRIMA;
             List<ClassRecepcion> lista = new List<ClassRecepcion>();
-            try
+            if (File.Exists(path))
             {
-                using (StreamReader sr = new StreamReader(path))
+                try
                 {
-                    while (sr.Peek() >= 0)
+                    using (StreamReader sr = new StreamReader(path))
                     {
-                        string str;
-                        string[] strArray;
-                        str = sr.ReadLine();
-                        strArray = str.Split(',');
-                        string strWidth = strArray[2];
-                        string strLenght = strArray[3];
-                        int lenWidth = strWidth.Length;
-                        int lenLenght = strLenght.Length;
-                        strWidth = strWidth.Substring(1, lenWidth-1);
-                        strLenght = strLenght.Substring(1, lenLenght-1);
-                        decimal WidthValue = Math.Round(Convert.ToDecimal(strWidth,cultures),
-                        2,MidpointRounding.AwayFromZero);
-                        decimal LenghtValue = Math.Round(Convert.ToDecimal(strLenght,cultures),
-                        2, MidpointRounding.AwayFromZero);
-                        ClassRecepcion recepcion = new ClassRecepcion
+                        while (sr.Peek() >= 0)
                         {
-                            Orden = strArray[0],
-                            Part_Number = strArray[1],
-                            ProductName = SearchProductName(strArray[1]),
-                            Width = WidthValue,
-                            Lenght = LenghtValue,
-                            Roll_ID = (strArray[4])
-                        };
-                        lista.Add(recepcion);
+                            string str;
+                            string[] strArray;
+                            str = sr.ReadLine();
+                            strArray = str.Split(',');
+                            string strWidth = strArray[2];
+                            string strLenght = strArray[3];
+                            int lenWidth = strWidth.Length;
+                            int lenLenght = strLenght.Length;
+                            strWidth = strWidth.Substring(1, lenWidth - 1);
+                            strLenght = strLenght.Substring(1, lenLenght - 1);
+                            decimal WidthValue = Math.Round(Convert.ToDecimal(strWidth, cultures),
+                            2, MidpointRounding.AwayFromZero);
+                            decimal LenghtValue = Math.Round(Convert.ToDecimal(strLenght, cultures),
+                            2, MidpointRounding.AwayFromZero);
+                            ClassRecepcion recepcion = new ClassRecepcion
+                            {
+                                Orden = strArray[0],
+                                Part_Number = strArray[1],
+                                ProductName = SearchProductName(strArray[1]),
+                                Width = WidthValue,
+                                Lenght = LenghtValue,
+                                Roll_ID = (strArray[4])
+                            };
+                            lista.Add(recepcion);
+                        }
                     }
+
                 }
-                //foreach (var item in lista)
-                //{
-                //    Add(item);
-                //}
-                //MessageBox.Show("Operacion realizada con exito.");
-                return lista;
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al descargar data del dispositivo movil...Error Code:" + ex);
+                    lista = null;
+                    return lista;
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Error al descargar data del dispositivo movil...Error Code:"+ ex);
-                lista = null;
-                return lista;
+                MessageBox.Show("el archivo txt no existe...");
             }
+            return lista;
         }
         public string SearchProductName(string product_id)
         {
