@@ -81,5 +81,14 @@ namespace RitramaAPP.form
                 }
             }
         }
+
+        private void Bot_validar_Click(object sender, EventArgs e)
+        {
+            // Validar los datos extraidos del movil.
+            foreach (ClassRecepcion item in lista)
+            {
+                
+            }
+        }
     }
 }

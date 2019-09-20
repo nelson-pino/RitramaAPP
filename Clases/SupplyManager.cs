@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace RitramaAPP.Clases
@@ -17,8 +14,65 @@ namespace RitramaAPP.Clases
         public DataSet ds = new DataSet();
         DataTable dtsupply = new DataTable();
         SqlDataAdapter dasupply = new SqlDataAdapter();
-     
-       
+
+        public Boolean CommandSqlGeneric(string db, string query, List<SqlParameter> spc)
+        {
+            try
+            {
+                micomm.Conectar(db);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = query
+                };
+                if (spc.Count > 0)
+                {
+                    foreach (SqlParameter item in spc)
+                    {
+                        comando.Parameters.Add(item);
+                    }
+                }
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+                micomm.Desconectar();
+                MessageBox.Show("proceso realizado con exito...");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al insertar nuevo registro de proveedor...Error Code:" + ex);
+                return false;
+            }
+        }
+
+        public Boolean VerificarExisteOrden(string orden)
+        {
+            int result;
+            micomm.Conectar(R.SQL.DATABASE.NAME);
+            SqlCommand comando = new SqlCommand
+            {
+                CommandType = CommandType.Text,
+                CommandText = R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_VERIFY_ORDEN_REPEAT,
+                Connection = micomm.cnn
+            };
+            SqlParameter p1 = new SqlParameter("@p1", orden);
+            comando.Parameters.Add(p1);
+            result = Convert.ToInt16(comando.ExecuteScalar());
+            micomm.Desconectar();
+            comando.Dispose();
+            if (result == 1)
+            {
+                // La orden de Recepcion ya existe en la base de datos
+                return true;
+            }
+            else
+            {
+                // no existe.
+                return false;
+            }
+        }
+
         public Boolean ProveedorExiste(string codigo)
         {
             int result;
@@ -67,7 +121,25 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-        public Boolean Add(ClassSupply proveedor)
+        public void Add(ClassSupply datos)
+        {
+            //lleno la coleccion de parametros.
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = datos.Supply_ID},
+                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.NVarChar, Value = datos.Supply_Name},
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.NVarChar, Value = datos.Supply_Direcc},
+                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.NVarChar, Value = datos.Supply_Phone},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.NVarChar, Value = datos.Supply_Email},
+                new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.Bit, Value = datos.Anulado},
+                new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.Bit, Value = datos.unid_master_1},
+                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.Bit, Value = datos.unid_master_2}
+            };
+            //llamo al comando sql generico.
+            CommandSqlGeneric(R.SQL.DATABASE.NAME,
+                R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_INSERT_PROVEEDORES, sp);
+        }
+        public Boolean AddOld(ClassSupply proveedor)
         {
             try
             {

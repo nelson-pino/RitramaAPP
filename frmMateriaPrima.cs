@@ -74,11 +74,7 @@ namespace RitramaAPP
             RecepcionManager manager = new RecepcionManager();
             List<ClassRecepcion> lista = new List<ClassRecepcion>();
             lista = manager.DownloadDataMateriaPrimaTxtMovil();
-            // Validar los datos extraidos del movil.
-            foreach (ClassRecepcion item in lista)
-            {
-
-            }
+           
        
 
 

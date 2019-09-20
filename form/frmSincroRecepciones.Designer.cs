@@ -172,6 +172,7 @@
             this.bot_validar.TabIndex = 4;
             this.bot_validar.Text = "Validar Data";
             this.bot_validar.UseVisualStyleBackColor = true;
+            this.bot_validar.Click += new System.EventHandler(this.Bot_validar_Click);
             // 
             // frmSincroRecepciones
             // 
