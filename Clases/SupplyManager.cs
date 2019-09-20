@@ -17,19 +17,16 @@ namespace RitramaAPP.Clases
         public DataSet ds = new DataSet();
         DataTable dtsupply = new DataTable();
         SqlDataAdapter dasupply = new SqlDataAdapter();
-        string db = "RITRAMA";
-        string sql1 = "SELECT Proveedor_ID,Proveedor_Name,Preveedor_phone,Preveedor_Dir,Preveedor_email,anulado,unidad_master_1,unidad_master_2 FROM provider";
-        string sql2 = "INSERT INTO provider (Proveedor_ID,Proveedor_Name,Preveedor_Dir,Preveedor_phone,Preveedor_email,anulado,unidad_master_1,unidad_master_2) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8)";
-        string sql3 = "UPDATE provider SET Proveedor_Name=@p2,Preveedor_Dir=@p3,Preveedor_phone=@p4,Preveedor_email=@p5,anulado=@p6,unidad_master_1=@p7,unidad_master_2=@p8 WHERE Proveedor_ID=@p1";
-        string sql5 = "SELECT count(*) FROM provider WHERE proveedor_id=@p1";
+     
+       
         public Boolean ProveedorExiste(string codigo)
         {
             int result;
-            micomm.Conectar(db);
+            micomm.Conectar(R.SQL.DATABASE.NAME);
             SqlCommand comando = new SqlCommand
             {
                 CommandType = CommandType.Text,
-                CommandText = sql5,
+                CommandText = R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_COUNT_PROVEEDORES,
                 Connection = micomm.cnn
             };
             SqlParameter p1 = new SqlParameter("@p1", codigo);
@@ -50,13 +47,12 @@ namespace RitramaAPP.Clases
         {
             try
             {
-                micomm.Conectar(db);
+                micomm.Conectar(R.SQL.DATABASE.NAME);
                 SqlCommand comando = new SqlCommand
                 {
                     Connection = micomm.cnn,
                     CommandType = CommandType.Text,
-                    CommandText = sql1
-
+                    CommandText = R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_SELECT_PROVEEDORES
                 };
                 comando.ExecuteNonQuery();
                 dasupply.SelectCommand = comando;
@@ -75,12 +71,12 @@ namespace RitramaAPP.Clases
         {
             try
             {
-                micomm.Conectar(db);
+                micomm.Conectar(R.SQL.DATABASE.NAME);
                 SqlCommand comando = new SqlCommand
                 {
                     Connection = micomm.cnn,
                     CommandType = CommandType.Text,
-                    CommandText = sql2
+                    CommandText = R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_INSERT_PROVEEDORES
                 };
                 SqlParameter p1 = new SqlParameter("@p1", proveedor.Supply_ID);
                 SqlParameter p2 = new SqlParameter("@p2", proveedor.Supply_Name);
@@ -114,12 +110,12 @@ namespace RitramaAPP.Clases
         {
             try
             {
-                micomm.Conectar(db);
+                micomm.Conectar(R.SQL.DATABASE.NAME);
                 SqlCommand comando = new SqlCommand
                 {
                     Connection = micomm.cnn,
                     CommandType = CommandType.Text,
-                    CommandText = sql3
+                    CommandText = R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_UPDATE_PROVEEDORES
 
                 };
                 SqlParameter p1 = new SqlParameter("@p1", proveedor.Supply_ID);

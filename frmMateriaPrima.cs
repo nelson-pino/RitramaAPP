@@ -74,7 +74,11 @@ namespace RitramaAPP
             RecepcionManager manager = new RecepcionManager();
             List<ClassRecepcion> lista = new List<ClassRecepcion>();
             lista = manager.DownloadDataMateriaPrimaTxtMovil();
+            // Validar los datos extraidos del movil.
+            foreach (ClassRecepcion item in lista)
+            {
 
+            }
        
 
 
@@ -186,13 +190,13 @@ namespace RitramaAPP
             recepcion.Splice = Convert.ToInt16(txt_splice.Text);
             recepcion.Core = Convert.ToDecimal(txt_core.Text);
             recepcion.Anulado = false;
-            recepcion.fecha_produccion = Convert.ToDateTime(txt_fecha_produccion.Text);
-            recepcion.master = rad_masterRolls.Checked;
+            recepcion.Fecha_produccion = Convert.ToDateTime(txt_fecha_produccion.Text);
+            recepcion.Master = rad_masterRolls.Checked;
             recepcion.Resma = rad_resmas.Checked;
             recepcion.Graphics = rad_graphics.Checked;
             recepcion.Embarque = txt_num_embarque.Text;
             recepcion.Palet_number = txt_numero_palet.Text;
-            recepcion.palet_cant = Convert.ToInt32(txt_cant_palet.Text);
+            recepcion.Palet_cant = Convert.ToInt32(txt_cant_palet.Text);
             recepcion.Palet_paginas = Convert.ToInt32(txt_paginas.Text);
             // Validar la entidad documento recepcion.
             if (recepcion.Orden == string.Empty)
@@ -242,7 +246,7 @@ namespace RitramaAPP
                     MessageBox.Show("debe suministrar un valor valido para palet number...");
                     return;
                 }
-                if (recepcion.palet_cant <= 0)
+                if (recepcion.Palet_cant <= 0)
                 {
                     MessageBox.Show("debe suministrar un valor valido para cantidad en el palet...");
                     return;
@@ -259,7 +263,7 @@ namespace RitramaAPP
             ClassRecepcion recepcion = new ClassRecepcion
             {
                 Orden = txt_orden.Text,
-                fecha_produccion = Convert.ToDateTime(txt_fecha_produccion.Text),
+                Fecha_produccion = Convert.ToDateTime(txt_fecha_produccion.Text),
                 Embarque = txt_num_embarque.Text,
                 Roll_ID = txt_roll_id.Text,
                 Ubicacion = txt_ubic.Text,
@@ -563,6 +567,11 @@ namespace RitramaAPP
             OpcionesMenu(1);
             OpcionesForms(2);
             EditMode = 2;
+        }
+
+        private void Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

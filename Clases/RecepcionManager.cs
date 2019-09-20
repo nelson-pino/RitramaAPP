@@ -88,13 +88,13 @@ namespace RitramaAPP.Clases
                 SqlParameter p10 = new SqlParameter("@p10", recepcion.Anulado);
                 SqlParameter p11 = new SqlParameter("@p11", recepcion.Fecha_reg);
                 SqlParameter p12 = new SqlParameter("@p12", recepcion.Hora_reg);
-                SqlParameter p13 = new SqlParameter("@p13", recepcion.fecha_produccion);
-                SqlParameter p14 = new SqlParameter("@p14", recepcion.master);
+                SqlParameter p13 = new SqlParameter("@p13", recepcion.Fecha_produccion);
+                SqlParameter p14 = new SqlParameter("@p14", recepcion.Master);
                 SqlParameter p15 = new SqlParameter("@p15", recepcion.Resma);
                 SqlParameter p16 = new SqlParameter("@p16", recepcion.Graphics);
                 SqlParameter p17 = new SqlParameter("@p17", recepcion.Embarque);
                 SqlParameter p18 = new SqlParameter("@p18", recepcion.Palet_number);
-                SqlParameter p19 = new SqlParameter("@p19", recepcion.palet_cant);
+                SqlParameter p19 = new SqlParameter("@p19", recepcion.Palet_cant);
                 SqlParameter p20 = new SqlParameter("@p20", recepcion.Palet_paginas);
                 comando.Parameters.Add(p1);
                 comando.Parameters.Add(p2);
@@ -140,7 +140,7 @@ namespace RitramaAPP.Clases
 
                 };
                 SqlParameter p1 = new SqlParameter("@p1", recepcion.Orden);
-                SqlParameter p2 = new SqlParameter("@p2", recepcion.fecha_produccion);
+                SqlParameter p2 = new SqlParameter("@p2", recepcion.Fecha_produccion);
                 SqlParameter p3 = new SqlParameter("@p3", recepcion.Embarque);
                 SqlParameter p4 = new SqlParameter("@p4", recepcion.Roll_ID);
                 SqlParameter p5 = new SqlParameter("@p5", recepcion.Anulado);

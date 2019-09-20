@@ -24,13 +24,13 @@ namespace RitramaAPP
         public string Unidad { get; set; }
         public string ProductName { get; set; }
         public Boolean Anulado { get; set; }
-        public DateTime fecha_produccion { get; set; }
-        public Boolean master { get; set; }
+        public DateTime Fecha_produccion { get; set; }
+        public Boolean Master { get; set; }
         public Boolean Resma { get; set; }
         public Boolean Graphics { get; set; }
         public string Embarque { get; set; }
         public string Palet_number { get; set; }
-        public int palet_cant { get; set; }
+        public int Palet_cant { get; set; }
         public int Palet_paginas { get; set; }
     }
 }

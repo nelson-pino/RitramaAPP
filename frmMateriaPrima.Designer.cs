@@ -142,7 +142,7 @@
             // txt_fecha_rec
             // 
             this.txt_fecha_rec.Location = new System.Drawing.Point(200, 79);
-            this.txt_fecha_rec.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_fecha_rec.Margin = new System.Windows.Forms.Padding(2);
             this.txt_fecha_rec.Name = "txt_fecha_rec";
             this.txt_fecha_rec.Size = new System.Drawing.Size(183, 20);
             this.txt_fecha_rec.TabIndex = 4;
@@ -150,7 +150,7 @@
             // txt_id_supply
             // 
             this.txt_id_supply.Location = new System.Drawing.Point(16, 233);
-            this.txt_id_supply.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_id_supply.Margin = new System.Windows.Forms.Padding(2);
             this.txt_id_supply.Name = "txt_id_supply";
             this.txt_id_supply.ReadOnly = true;
             this.txt_id_supply.Size = new System.Drawing.Size(115, 20);
@@ -170,7 +170,7 @@
             // txt_supply_name
             // 
             this.txt_supply_name.Location = new System.Drawing.Point(208, 232);
-            this.txt_supply_name.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_supply_name.Margin = new System.Windows.Forms.Padding(2);
             this.txt_supply_name.Name = "txt_supply_name";
             this.txt_supply_name.ReadOnly = true;
             this.txt_supply_name.Size = new System.Drawing.Size(260, 20);
@@ -190,7 +190,7 @@
             // txt_part_number
             // 
             this.txt_part_number.Location = new System.Drawing.Point(17, 265);
-            this.txt_part_number.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_part_number.Margin = new System.Windows.Forms.Padding(2);
             this.txt_part_number.Name = "txt_part_number";
             this.txt_part_number.ReadOnly = true;
             this.txt_part_number.Size = new System.Drawing.Size(115, 20);
@@ -210,7 +210,7 @@
             // txt_product_name
             // 
             this.txt_product_name.Location = new System.Drawing.Point(208, 265);
-            this.txt_product_name.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_product_name.Margin = new System.Windows.Forms.Padding(2);
             this.txt_product_name.Name = "txt_product_name";
             this.txt_product_name.ReadOnly = true;
             this.txt_product_name.Size = new System.Drawing.Size(261, 20);
@@ -252,7 +252,7 @@
             // txt_splice
             // 
             this.txt_splice.Location = new System.Drawing.Point(9, 442);
-            this.txt_splice.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_splice.Margin = new System.Windows.Forms.Padding(2);
             this.txt_splice.Name = "txt_splice";
             this.txt_splice.ReadOnly = true;
             this.txt_splice.Size = new System.Drawing.Size(143, 20);
@@ -261,7 +261,7 @@
             // txt_core
             // 
             this.txt_core.Location = new System.Drawing.Point(202, 442);
-            this.txt_core.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_core.Margin = new System.Windows.Forms.Padding(2);
             this.txt_core.Name = "txt_core";
             this.txt_core.ReadOnly = true;
             this.txt_core.Size = new System.Drawing.Size(183, 20);
@@ -281,7 +281,7 @@
             // txt_roll_id
             // 
             this.txt_roll_id.Location = new System.Drawing.Point(208, 190);
-            this.txt_roll_id.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_roll_id.Margin = new System.Windows.Forms.Padding(2);
             this.txt_roll_id.Name = "txt_roll_id";
             this.txt_roll_id.ReadOnly = true;
             this.txt_roll_id.Size = new System.Drawing.Size(143, 20);
@@ -290,7 +290,7 @@
             // txt_ubic
             // 
             this.txt_ubic.Location = new System.Drawing.Point(9, 485);
-            this.txt_ubic.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_ubic.Margin = new System.Windows.Forms.Padding(2);
             this.txt_ubic.Name = "txt_ubic";
             this.txt_ubic.ReadOnly = true;
             this.txt_ubic.Size = new System.Drawing.Size(183, 20);
@@ -310,7 +310,7 @@
             // txt_orden_supply
             // 
             this.txt_orden_supply.Location = new System.Drawing.Point(11, 80);
-            this.txt_orden_supply.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_orden_supply.Margin = new System.Windows.Forms.Padding(2);
             this.txt_orden_supply.Name = "txt_orden_supply";
             this.txt_orden_supply.ReadOnly = true;
             this.txt_orden_supply.Size = new System.Drawing.Size(148, 20);
@@ -330,7 +330,7 @@
             // txt_lenght
             // 
             this.txt_lenght.Location = new System.Drawing.Point(202, 403);
-            this.txt_lenght.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_lenght.Margin = new System.Windows.Forms.Padding(2);
             this.txt_lenght.Name = "txt_lenght";
             this.txt_lenght.ReadOnly = true;
             this.txt_lenght.Size = new System.Drawing.Size(182, 20);
@@ -343,10 +343,11 @@
             this.panel1.Controls.Add(this.label15);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(832, 82);
             this.panel1.TabIndex = 33;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel1_Paint);
             // 
             // label15
             // 
@@ -362,7 +363,7 @@
             // txt_width
             // 
             this.txt_width.Location = new System.Drawing.Point(9, 403);
-            this.txt_width.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_width.Margin = new System.Windows.Forms.Padding(2);
             this.txt_width.Name = "txt_width";
             this.txt_width.ReadOnly = true;
             this.txt_width.Size = new System.Drawing.Size(143, 20);
@@ -495,7 +496,7 @@
             this.CHK_ANULADO.AutoSize = true;
             this.CHK_ANULADO.Enabled = false;
             this.CHK_ANULADO.Location = new System.Drawing.Point(500, 137);
-            this.CHK_ANULADO.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CHK_ANULADO.Margin = new System.Windows.Forms.Padding(2);
             this.CHK_ANULADO.Name = "CHK_ANULADO";
             this.CHK_ANULADO.Size = new System.Drawing.Size(123, 17);
             this.CHK_ANULADO.TabIndex = 36;
@@ -527,7 +528,7 @@
             // txt_orden
             // 
             this.txt_orden.Location = new System.Drawing.Point(16, 146);
-            this.txt_orden.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_orden.Margin = new System.Windows.Forms.Padding(2);
             this.txt_orden.Name = "txt_orden";
             this.txt_orden.ReadOnly = true;
             this.txt_orden.Size = new System.Drawing.Size(143, 20);
@@ -548,7 +549,7 @@
             // txt_fecha_reg
             // 
             this.txt_fecha_reg.Location = new System.Drawing.Point(111, 45);
-            this.txt_fecha_reg.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_fecha_reg.Margin = new System.Windows.Forms.Padding(2);
             this.txt_fecha_reg.Name = "txt_fecha_reg";
             this.txt_fecha_reg.ReadOnly = true;
             this.txt_fecha_reg.Size = new System.Drawing.Size(104, 20);
@@ -557,7 +558,7 @@
             // txt_hora_reg
             // 
             this.txt_hora_reg.Location = new System.Drawing.Point(219, 45);
-            this.txt_hora_reg.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_hora_reg.Margin = new System.Windows.Forms.Padding(2);
             this.txt_hora_reg.Name = "txt_hora_reg";
             this.txt_hora_reg.ReadOnly = true;
             this.txt_hora_reg.Size = new System.Drawing.Size(84, 20);
@@ -578,7 +579,7 @@
             // 
             this.bot_search_product.Enabled = false;
             this.bot_search_product.Location = new System.Drawing.Point(136, 263);
-            this.bot_search_product.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bot_search_product.Margin = new System.Windows.Forms.Padding(2);
             this.bot_search_product.Name = "bot_search_product";
             this.bot_search_product.Size = new System.Drawing.Size(22, 19);
             this.bot_search_product.TabIndex = 44;
@@ -590,7 +591,7 @@
             // 
             this.bot_search_provider.Enabled = false;
             this.bot_search_provider.Location = new System.Drawing.Point(135, 232);
-            this.bot_search_provider.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bot_search_provider.Margin = new System.Windows.Forms.Padding(2);
             this.bot_search_provider.Name = "bot_search_provider";
             this.bot_search_provider.Size = new System.Drawing.Size(22, 19);
             this.bot_search_provider.TabIndex = 45;
@@ -602,7 +603,7 @@
             // 
             this.txt_fecha_produccion.Enabled = false;
             this.txt_fecha_produccion.Location = new System.Drawing.Point(208, 152);
-            this.txt_fecha_produccion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_fecha_produccion.Margin = new System.Windows.Forms.Padding(2);
             this.txt_fecha_produccion.Name = "txt_fecha_produccion";
             this.txt_fecha_produccion.Size = new System.Drawing.Size(182, 20);
             this.txt_fecha_produccion.TabIndex = 1;
@@ -632,7 +633,7 @@
             // txt_num_embarque
             // 
             this.txt_num_embarque.Location = new System.Drawing.Point(16, 190);
-            this.txt_num_embarque.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_num_embarque.Margin = new System.Windows.Forms.Padding(2);
             this.txt_num_embarque.Name = "txt_num_embarque";
             this.txt_num_embarque.ReadOnly = true;
             this.txt_num_embarque.Size = new System.Drawing.Size(143, 20);
@@ -642,9 +643,9 @@
             // 
             this.groupBox1.Controls.Add(this.LABEL_CONTADOR_REGISTRO);
             this.groupBox1.Location = new System.Drawing.Point(574, 502);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(214, 81);
             this.groupBox1.TabIndex = 50;
             this.groupBox1.TabStop = false;
@@ -655,7 +656,7 @@
             this.rad_masterRolls.AutoSize = true;
             this.rad_masterRolls.Enabled = false;
             this.rad_masterRolls.Location = new System.Drawing.Point(27, 22);
-            this.rad_masterRolls.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rad_masterRolls.Margin = new System.Windows.Forms.Padding(2);
             this.rad_masterRolls.Name = "rad_masterRolls";
             this.rad_masterRolls.Size = new System.Drawing.Size(83, 17);
             this.rad_masterRolls.TabIndex = 0;
@@ -669,7 +670,7 @@
             this.rad_graphics.AutoSize = true;
             this.rad_graphics.Enabled = false;
             this.rad_graphics.Location = new System.Drawing.Point(27, 66);
-            this.rad_graphics.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rad_graphics.Margin = new System.Windows.Forms.Padding(2);
             this.rad_graphics.Name = "rad_graphics";
             this.rad_graphics.Size = new System.Drawing.Size(67, 17);
             this.rad_graphics.TabIndex = 2;
@@ -684,9 +685,9 @@
             this.groupBox2.Controls.Add(this.rad_graphics);
             this.groupBox2.Controls.Add(this.rad_masterRolls);
             this.groupBox2.Location = new System.Drawing.Point(16, 287);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(199, 98);
             this.groupBox2.TabIndex = 54;
             this.groupBox2.TabStop = false;
@@ -697,7 +698,7 @@
             this.rad_resmas.AutoSize = true;
             this.rad_resmas.Enabled = false;
             this.rad_resmas.Location = new System.Drawing.Point(27, 44);
-            this.rad_resmas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rad_resmas.Margin = new System.Windows.Forms.Padding(2);
             this.rad_resmas.Name = "rad_resmas";
             this.rad_resmas.Size = new System.Drawing.Size(58, 17);
             this.rad_resmas.TabIndex = 3;
@@ -715,9 +716,9 @@
             this.groupBox3.Controls.Add(this.label19);
             this.groupBox3.Controls.Add(this.txt_numero_palet);
             this.groupBox3.Location = new System.Drawing.Point(228, 292);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox3.Size = new System.Drawing.Size(188, 93);
             this.groupBox3.TabIndex = 55;
             this.groupBox3.TabStop = false;
@@ -736,7 +737,7 @@
             // txt_paginas
             // 
             this.txt_paginas.Location = new System.Drawing.Point(72, 63);
-            this.txt_paginas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_paginas.Margin = new System.Windows.Forms.Padding(2);
             this.txt_paginas.Name = "txt_paginas";
             this.txt_paginas.ReadOnly = true;
             this.txt_paginas.Size = new System.Drawing.Size(76, 20);
@@ -745,7 +746,7 @@
             // txt_cant_palet
             // 
             this.txt_cant_palet.Location = new System.Drawing.Point(72, 41);
-            this.txt_cant_palet.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_cant_palet.Margin = new System.Windows.Forms.Padding(2);
             this.txt_cant_palet.Name = "txt_cant_palet";
             this.txt_cant_palet.ReadOnly = true;
             this.txt_cant_palet.Size = new System.Drawing.Size(76, 20);
@@ -774,7 +775,7 @@
             // txt_numero_palet
             // 
             this.txt_numero_palet.Location = new System.Drawing.Point(72, 18);
-            this.txt_numero_palet.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_numero_palet.Margin = new System.Windows.Forms.Padding(2);
             this.txt_numero_palet.Name = "txt_numero_palet";
             this.txt_numero_palet.ReadOnly = true;
             this.txt_numero_palet.Size = new System.Drawing.Size(76, 20);
@@ -785,7 +786,7 @@
             this.bot_convert.Enabled = false;
             this.bot_convert.Image = ((System.Drawing.Image)(resources.GetObject("bot_convert.Image")));
             this.bot_convert.Location = new System.Drawing.Point(387, 401);
-            this.bot_convert.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bot_convert.Margin = new System.Windows.Forms.Padding(2);
             this.bot_convert.Name = "bot_convert";
             this.bot_convert.Size = new System.Drawing.Size(29, 22);
             this.bot_convert.TabIndex = 56;
@@ -806,7 +807,7 @@
             // txt_lote
             // 
             this.txt_lote.Location = new System.Drawing.Point(11, 45);
-            this.txt_lote.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_lote.Margin = new System.Windows.Forms.Padding(2);
             this.txt_lote.Name = "txt_lote";
             this.txt_lote.ReadOnly = true;
             this.txt_lote.Size = new System.Drawing.Size(98, 20);
@@ -821,9 +822,9 @@
             this.groupBox4.Controls.Add(this.txt_hora_reg);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Location = new System.Drawing.Point(9, 518);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox4.Size = new System.Drawing.Size(326, 76);
             this.groupBox4.TabIndex = 59;
             this.groupBox4.TabStop = false;
@@ -834,7 +835,7 @@
             this.chk_master_mts.AutoSize = true;
             this.chk_master_mts.Enabled = false;
             this.chk_master_mts.Location = new System.Drawing.Point(472, 232);
-            this.chk_master_mts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chk_master_mts.Margin = new System.Windows.Forms.Padding(2);
             this.chk_master_mts.Name = "chk_master_mts";
             this.chk_master_mts.Size = new System.Drawing.Size(129, 17);
             this.chk_master_mts.TabIndex = 60;
@@ -846,7 +847,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Enabled = false;
             this.checkBox1.Location = new System.Drawing.Point(350, 547);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(103, 17);
             this.checkBox1.TabIndex = 61;
@@ -901,7 +902,7 @@
             this.Controls.Add(this.txt_fecha_rec);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmMateriaPrima";
             this.Text = "frmMateriaPrima";
             this.Load += new System.EventHandler(this.FrmMateriaPrima_Load);
