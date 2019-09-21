@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grid_item = new System.Windows.Forms.DataGridView();
             this.REGISTROS_TRANSFERIDOS = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -55,14 +55,14 @@
             this.grid_item.AllowUserToResizeRows = false;
             this.grid_item.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.grid_item.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grid_item.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grid_item.DefaultCellStyle = dataGridViewCellStyle2;
             this.grid_item.Location = new System.Drawing.Point(9, 10);
             this.grid_item.Margin = new System.Windows.Forms.Padding(2);
             this.grid_item.MultiSelect = false;
@@ -180,7 +180,7 @@
             this.bot_tranferir_data.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bot_tranferir_data.Image = global::RitramaAPP.Properties.Resources.Upload;
             this.bot_tranferir_data.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bot_tranferir_data.Location = new System.Drawing.Point(436, 366);
+            this.bot_tranferir_data.Location = new System.Drawing.Point(438, 366);
             this.bot_tranferir_data.Margin = new System.Windows.Forms.Padding(2);
             this.bot_tranferir_data.Name = "bot_tranferir_data";
             this.bot_tranferir_data.Size = new System.Drawing.Size(153, 54);
@@ -188,6 +188,7 @@
             this.bot_tranferir_data.Text = "Transferir Data";
             this.bot_tranferir_data.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.bot_tranferir_data.UseVisualStyleBackColor = true;
+            this.bot_tranferir_data.Click += new System.EventHandler(this.Bot_tranferir_data_Click);
             // 
             // chk_isvalid
             // 

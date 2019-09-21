@@ -87,7 +87,7 @@ namespace RitramaAPP.form
 
         private void Bot_validar_Click(object sender, EventArgs e)
         {
-           
+            VALID_DATA();
         }   
 
         private void Grid_item_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -202,6 +202,42 @@ namespace RitramaAPP.form
                 }
             }
             chk_isvalid.Checked = true;
+        }
+
+        private void Bot_tranferir_data_Click(object sender, EventArgs e)
+        {
+            //SAVE DATA RECEPCIONES
+            foreach (DataGridViewRow row in grid_item.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells["total_ok"].Value))
+                {
+                    ClassRecepcion data = new ClassRecepcion();
+                    data.Orden = Convert.ToString(row.Cells["orden"].Value);
+                    data.Fecha_reg = DateTime.Today;
+                    data.Hora_reg = DateTime.Now.ToString();
+                    data.Part_Number = Convert.ToString(row.Cells["id_product"].Value);
+                    data.ProductName = Convert.ToString(row.Cells["product_name"].Value); ;
+                    data.Supply_Id = Convert.ToString(row.Cells["proveedor_id"].Value); ;
+                    data.SupplyName = Convert.ToString(row.Cells["proveedor_name"].Value); ;
+                    data.Width = Convert.ToDecimal(row.Cells["width"].Value); ;
+                    data.Lenght = Convert.ToDecimal(row.Cells["lenght"].Value);
+                    data.Roll_ID = Convert.ToString(row.Cells["rollid"].Value);
+                    data.Ubicacion = "";
+                    data.Splice = 0;
+                    data.Core = 0;
+                    data.Anulado = false;
+                    data.Fecha_produccion = DateTime.Today;
+                    data.Master = true;
+                    data.Resma = false;
+                    data.Graphics = false;
+                    data.Embarque = "";
+                    data.Palet_number = "";
+                    data.Palet_cant = 0;
+                    data.Palet_paginas = 0;
+                    recepmanager.Add(data);
+                }
+            }
+            MessageBox.Show("Se guardaron los datos correctamente.");
         }
     }
 }
