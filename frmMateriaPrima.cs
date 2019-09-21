@@ -413,6 +413,7 @@ namespace RitramaAPP
                     rad_graphics.Checked = true;
                 }
             }
+
         }
         private void Txt_orden_Validating(object sender, CancelEventArgs e)
         {
@@ -559,12 +560,6 @@ namespace RitramaAPP
             OpcionesForms(2);
             EditMode = 2;
         }
-
-        private void Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void FrmMateriaPrima_FormClosed(object sender, FormClosedEventArgs e)
         {
             bs.Dispose();

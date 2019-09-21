@@ -11,7 +11,7 @@ namespace RitramaAPP.Clases
 {
     public class ProductsManager
     {
-        Conexion micomm = new Conexion();
+        readonly Conexion micomm = new Conexion();
         public DataSet ds = new DataSet();
         readonly DataTable dtproducto = new DataTable();
         readonly SqlDataAdapter daproducto = new SqlDataAdapter();
@@ -20,6 +20,8 @@ namespace RitramaAPP.Clases
         readonly string sql2 = "INSERT INTO producto (Product_ID,Product_Name,Product_Descrip,Product_Ref,Codebar,Category_ID,MasterRolls,Resmas,Graphics,anulado,precio) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11)";
         readonly string sql3 = "UPDATE producto SET Product_Name=@p2,Product_Descrip=@p3,Product_Ref=@p4,Codebar=@p5,precio=@p6,Category_ID=@p7,MasterRolls=@p8,Resmas=@p9,Graphics=@p10,anulado=@p11 WHERE Product_ID=@p1";
         readonly string sql4="SELECT count(*) FROM producto WHERE product_id=@p1";
+        public DataTable Dtproducto => dtproducto;
+
         public Boolean ToList()
         {
             try
@@ -141,28 +143,30 @@ namespace RitramaAPP.Clases
         public DataTable GetTableProductsOnly()
         {
             DataTable dt = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter();
-            try
+            using (SqlDataAdapter da = new SqlDataAdapter())
             {
-                micomm.Conectar(db);
-                SqlCommand comando = new SqlCommand
+                try
                 {
-                    Connection = micomm.cnn,
-                    CommandType = CommandType.Text,
-                    CommandText = sql1
+                    micomm.Conectar(db);
+                    SqlCommand comando = new SqlCommand
+                    {
+                        Connection = micomm.cnn,
+                        CommandType = CommandType.Text,
+                        CommandText = sql1
 
-                };
-                comando.ExecuteNonQuery();
-                da.SelectCommand = comando;
-                da.Fill(dt);
-                comando.Dispose();
-                micomm.Desconectar();
-                return dt;
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("Error al cargar la lista de productos. error code:" + ex);
-                return dt;
+                    };
+                    comando.ExecuteNonQuery();
+                    da.SelectCommand = comando;
+                    da.Fill(dt);
+                    comando.Dispose();
+                    micomm.Desconectar();
+                    return dt;
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Error al cargar la lista de productos. error code:" + ex);
+                    return dt;
+                }
             }
 
         }
@@ -183,10 +187,12 @@ namespace RitramaAPP.Clases
             comando.Dispose();
             if (result == 1)
             {
+                // producto existe
                 return true;
             }
             else
             {
+                //producto no existe
                 return false;
             }
         }

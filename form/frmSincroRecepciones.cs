@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RitramaAPP.Clases;
+
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace RitramaAPP.form
 {
@@ -19,7 +18,7 @@ namespace RitramaAPP.form
         public DataTable Dtsupply { get; set; }
         public List<ClassRecepcion> Lista { get; set; }
         int fila_actual = 0;
-       
+        ProductsManager productsmanager = new ProductsManager();
         private void FrmSincroRecepciones_Load(object sender, EventArgs e)
         {
             SetStyleGrid();
@@ -86,23 +85,56 @@ namespace RitramaAPP.form
 
         private void Bot_validar_Click(object sender, EventArgs e)
         {
+
             // Validar los datos extraidos del movil.
+            // validar los datos del proveedor
             foreach (ClassRecepcion item in Lista)
             {
-                //validar los datos del proveedor
                 if (item.Supply_Id == "" || item.Supply_Id == null)
                 {
                     MessageBox.Show("complete los datos de proveedor");
                     return;
                 } 
             }
+            txt_consola.Text = "la verificacion de proveedores es OK...";
+            
+            // validar que los productos existan en la base de datos.
             foreach (ClassRecepcion item in Lista)
             {
-                
+                if (productsmanager.ProductoExiste(item.Part_Number.ToString()) == false)
+                {
+                    //un producto no existe
+                    MessageBox.Show("complete los datos de los productos.");
+                    return;
+                } 
             }
-            MessageBox.Show("los datos estan validados.");
+            txt_consola.Text = "la verificacion de productos es OK...";
+
+
             chk_isvalid.Checked = true;
             
+        }
+
+        private void Grid_item_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            foreach (DataGridViewRow Myrow in grid_item.Rows)
+            {
+                if (Myrow.Cells["product_name"].Value == null || Convert.ToString(Myrow.Cells["product_name"].Value) == string.Empty)
+                {
+
+                    Myrow.DefaultCellStyle.BackColor = Color.Red;
+
+                }
+                else
+                {
+                    Myrow.DefaultCellStyle.BackColor = Color.LightGreen;
+                }
+            }
+        }
+
+        private void Grid_item_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
