@@ -26,7 +26,7 @@ namespace RitramaAPP
                 {
                     public static string SQL_QUERY_SELECT_PRODUCTS = "SELECT Product_ID, Product_Name FROM producto";
                     public static string SQL_QUERY_SELECT_TYPE_PRODUCT = "SELECT MasterRolls,Resmas,Graphics FROM producto WHERE product_id=@p1";
-                    public static string SQL_QUERY_SELECT_PRODUCT_NAME = "";
+                    public static string SQL_QUERY_SELECT_PRODUCT_NAME = "SELECT  Product_Name FROM producto WHERE product_id=@p1";
                 }
                 public class CUSTOMERS
                 {
@@ -68,6 +68,15 @@ namespace RitramaAPP
         }
         public class MESSAGES_TEXT_SYSTEM_MODULES
         {
+            public class MODULO_PRODUCTOS
+            {
+                public static string MESSAGE_SELECT_LOADPRODUCTOS_FAIL = "error al cargar la tabla de productos...error code:";
+
+            }
+            public class MODULO_PROVEEDORES
+            {
+                public static string MESSAGE_SELECT_LOADPROVEEDORES_FAIL = "Error al cargar la tabla de providers...error code: ";
+            }
             public class MODULO_RECEPCIONES
             {
                 public static string MESSAGE_TEXT_RECEPCIONES_ERROR_ADD_DOCUMENTS = "Error al incluir ordenes de recepcion de materia prima(MASTER)..error code:";
@@ -75,6 +84,8 @@ namespace RitramaAPP
                 public static string MESSAGE_INSERT_RECEPCIONES_FAIL = "Error al tratar de registrar los datos de las recepciones de materia prima.";
                 public static string MESSAGE_UPDATE_RECEPCIONES_OK = "Se actualizo la informacion de la orden de recepcion";
                 public static string MESSAGE_UPDATE_RECEPCIONES_FAIL = "Error al tratar de actualizar los datos de la orden de recepcion";
+                public static string MESSAGE_SELECT_LOADRECEPCIONES_FAIL = "Error al tratar de traer los datos de las recepciones de materia prima.";
+
             }
         }
         public class PATH_FILES

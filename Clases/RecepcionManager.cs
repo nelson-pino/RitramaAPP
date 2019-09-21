@@ -64,7 +64,30 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-       
+        public Boolean CommandSqlGenericUpdateDs(string db, string query, SqlDataAdapter da, string dt, string messagefail)
+        {
+            try
+            {
+                micomm.Conectar(db);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = query
+                };
+                comando.ExecuteNonQuery();
+                da.SelectCommand = comando;
+                da.Fill(ds, dt);
+                comando.Dispose();
+                micomm.Desconectar();
+                return true;
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(messagefail + ex);
+                return false;
+            }
+        }
         public void Add(ClassRecepcion datos)
         {
             CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_INSERT_DOCS_RECEPCIONES,
@@ -77,125 +100,20 @@ namespace RitramaAPP.Clases
             SetParametersUpdate(datos), R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_UPDATE_RECEPCIONES_OK,
             R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_UPDATE_RECEPCIONES_FAIL);
         }
-       
-        public Boolean Updatexxx(ClassRecepcion recepcion)
+        public void LoadRecepciones()
         {
-            try
-            {
-                micomm.Conectar(R.SQL.DATABASE.NAME);
-                SqlCommand comando = new SqlCommand
-                {
-                    Connection = micomm.cnn,
-                    CommandType = CommandType.Text,
-                    CommandText = R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_UPDATE_ORDEN_RECEPCION
-
-                };
-                SqlParameter p1 = new SqlParameter("@p1", recepcion.Orden);
-                SqlParameter p2 = new SqlParameter("@p2", recepcion.Fecha_produccion);
-                SqlParameter p3 = new SqlParameter("@p3", recepcion.Embarque);
-                SqlParameter p4 = new SqlParameter("@p4", recepcion.Roll_ID);
-                SqlParameter p5 = new SqlParameter("@p5", recepcion.Anulado);
-                SqlParameter p6 = new SqlParameter("@p6", recepcion.Ubicacion);
-                SqlParameter p7 = new SqlParameter("@p7", recepcion.Supply_Id);
-                SqlParameter p8 = new SqlParameter("@p8", recepcion.Width);
-                SqlParameter p9 = new SqlParameter("@p9", recepcion.Lenght);
-                SqlParameter p10 = new SqlParameter("@p10", recepcion.Splice);
-                SqlParameter p11 = new SqlParameter("@p11", recepcion.Core);
-                comando.Parameters.Add(p1);
-                comando.Parameters.Add(p2);
-                comando.Parameters.Add(p3);
-                comando.Parameters.Add(p4);
-                comando.Parameters.Add(p5);
-                comando.Parameters.Add(p6);
-                comando.Parameters.Add(p7);
-                comando.Parameters.Add(p8);
-                comando.Parameters.Add(p9);
-                comando.Parameters.Add(p10);
-                comando.Parameters.Add(p11);
-                comando.ExecuteNonQuery();
-                comando.Dispose();
-                micomm.Desconectar();
-                MessageBox.Show("Se actualizaron los datos con exito...");
-                return true;
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("Error al modificar recepciones de materia prima...Error Code:" + ex);
-                return false;
-
-            }
+            CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME,R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_SELECT_ORDENES_RECEPCION,
+                darecepcion, "dtrecepcion",R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_SELECT_LOADRECEPCIONES_FAIL);
         }
-        public Boolean LoadRecepciones()
+        public void LoadProducts()
         {
-            try
-            {
-                micomm.Conectar(R.SQL.DATABASE.NAME);
-                SqlCommand comando = new SqlCommand
-                {
-                    Connection = micomm.cnn,
-                    CommandType = CommandType.Text,
-                    CommandText = R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_SELECT_ORDENES_RECEPCION
-                };
-                comando.ExecuteNonQuery();
-                darecepcion.SelectCommand = comando;
-                darecepcion.Fill(ds, "dtrecepcion");
-                comando.Dispose();
-                micomm.Desconectar();
-                return true;
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("error al traer las ordenes de recepcion...error code:" + ex);
-                return false;
-            }
+            CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_SELECT_PRODUCTS,
+                daproducto,"dtproducto", R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PRODUCTOS.MESSAGE_SELECT_LOADPRODUCTOS_FAIL);
         }
-        public Boolean LoadProducts()
+        public void LoadProviders()
         {
-            try
-            {
-                micomm.Conectar(R.SQL.DATABASE.NAME);
-                SqlCommand comando = new SqlCommand
-                {
-                    Connection = micomm.cnn,
-                    CommandType = CommandType.Text,
-                    CommandText = R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_SELECT_PRODUCTS
-                };
-                comando.ExecuteNonQuery();
-                daproducto.SelectCommand = comando;
-                daproducto.Fill(ds, "dtproducto");
-                comando.Dispose();
-                micomm.Desconectar();
-                return true;
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("error al cargar la tabla de productos...error code:" + ex);
-                return false;
-            }
-        }
-        public Boolean LoadProviders()
-        {
-            try
-            {
-                micomm.Conectar(R.SQL.DATABASE.NAME);
-                SqlCommand comando = new SqlCommand
-                {
-                    Connection = micomm.cnn,
-                    CommandType = CommandType.Text,
-                    CommandText = R.SQL.QUERY_SQL.PROVIDERS.SQL_QUERY_SELECT_PROVEEDORES
-                };
-                comando.ExecuteNonQuery();
-                daprovider.SelectCommand = comando;
-                daprovider.Fill(ds, "dtprovider");
-                comando.Dispose();
-                micomm.Desconectar();
-                return true;
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("error al cargar la tabla de providers...error code:" + ex);
-                return false;
-            }
+            CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PROVIDERS.SQL_QUERY_SELECT_PROVEEDORES,
+               daprovider, "dtprovider", R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PROVEEDORES.MESSAGE_SELECT_LOADPROVEEDORES_FAIL);
         }
         public List<ClassRecepcion> DownloadDataMateriaPrimaTxtMovil()
         {

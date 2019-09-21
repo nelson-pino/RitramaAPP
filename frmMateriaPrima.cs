@@ -370,38 +370,48 @@ namespace RitramaAPP
 
         private void Bot_search_provider_Click(object sender, EventArgs e)
         {
-            SeleccionProveedores BrowseProviders = new SeleccionProveedores
+            using (SeleccionProveedores BrowseProviders = new SeleccionProveedores
             {
                 dtsupply = ds.Tables["dtprovider"]
-            };
-            BrowseProviders.ShowDialog();
-            txt_id_supply.Text = BrowseProviders.GetProviderID;
-            txt_supply_name.Text = BrowseProviders.GetProviderName;
-            //int itemFound = bs.Find("Proveedor_ID", BrowseProviders.itemSelected);
-            //bs.Position = itemFound;
-            chk_master_mts.Checked = manager.VericarMasterollMetros(BrowseProviders.GetProviderID);
+            })
+            {
+                BrowseProviders.ShowDialog();
+                if (BrowseProviders.GetProviderID == null || BrowseProviders.GetProviderID == string.Empty)
+                {
+                    return;
+                }
+                txt_id_supply.Text = BrowseProviders.GetProviderID;
+                txt_supply_name.Text = BrowseProviders.GetProviderName;
+                chk_master_mts.Checked = manager.VericarMasterollMetros(BrowseProviders.GetProviderID);
+            }
         }
         private void Bot_search_product_Click(object sender, EventArgs e)
         {
-            SeleccionProductos BrowseProducts = new SeleccionProductos
+            using (SeleccionProductos BrowseProducts = new SeleccionProductos
             {
                 dtproducto = ds.Tables["dtproducto"]
-            };
-            BrowseProducts.ShowDialog();
-            txt_part_number.Text = BrowseProducts.GetProductId;
-            txt_product_name.Text = BrowseProducts.GetProductName;
-            int tipo = manager.VerifarProductType(BrowseProducts.GetProductId);
-            if (tipo == 1)
+            })
             {
-                rad_masterRolls.Checked = true;
-            }
-            else if (tipo == 2)
-            {
-                rad_resmas.Checked = true;
-            }
-            else if (tipo == 3)
-            {
-                rad_graphics.Checked = true;
+                BrowseProducts.ShowDialog();
+                if (BrowseProducts.GetProductId == null || BrowseProducts.GetProductId == string.Empty)
+                {
+                    return;
+                }
+                txt_part_number.Text = BrowseProducts.GetProductId;
+                txt_product_name.Text = BrowseProducts.GetProductName;
+                int tipo = manager.VerifarProductType(BrowseProducts.GetProductId);
+                if (tipo == 1)
+                {
+                    rad_masterRolls.Checked = true;
+                }
+                else if (tipo == 2)
+                {
+                    rad_resmas.Checked = true;
+                }
+                else if (tipo == 3)
+                {
+                    rad_graphics.Checked = true;
+                }
             }
         }
         private void Txt_orden_Validating(object sender, CancelEventArgs e)
