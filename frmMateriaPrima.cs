@@ -95,9 +95,9 @@ namespace RitramaAPP
             //    //dr["Core"] = item.Core;
             //    itemsincro.Rows.Add(dr);
             //}
-            frmSincroRecepciones sincro = new frmSincroRecepciones();
-            sincro.lista = lista;
-            sincro.dtsupply = ds.Tables["dtprovider"];
+            FrmSincroRecepciones sincro = new FrmSincroRecepciones();
+            sincro.Lista = lista;
+            sincro.Dtsupply = ds.Tables["dtprovider"];
             sincro.ShowDialog();
         }
         private void Bot_siguiente_Click(object sender, EventArgs e)

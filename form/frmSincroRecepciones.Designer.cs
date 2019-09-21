@@ -1,6 +1,6 @@
 ﻿namespace RitramaAPP.form
 {
-    partial class frmSincroRecepciones
+    partial class FrmSincroRecepciones
     {
         /// <summary>
         /// Required designer variable.

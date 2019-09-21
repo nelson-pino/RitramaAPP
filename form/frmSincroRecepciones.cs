@@ -10,20 +10,20 @@ using System.Windows.Forms;
 
 namespace RitramaAPP.form
 {
-    public partial class frmSincroRecepciones : Form
+    public partial class FrmSincroRecepciones : Form
     {
-        public frmSincroRecepciones()
+        public FrmSincroRecepciones()
         {
             InitializeComponent();
         }
-        public DataTable dtsupply { get; set; }
-        public List<ClassRecepcion> lista { get; set; }
+        public DataTable Dtsupply { get; set; }
+        public List<ClassRecepcion> Lista { get; set; }
         int fila_actual = 0;
         private void FrmSincroRecepciones_Load(object sender, EventArgs e)
         {
             SetStyleGrid();
-            grid_item.DataSource = lista;
-            REGISTROS_TRANSFERIDOS.Text = "Registros transferidos :" + lista.Count().ToString();
+            grid_item.DataSource = Lista;
+            REGISTROS_TRANSFERIDOS.Text = "Registros transferidos :" + Lista.Count().ToString();
 
         }
         private void SetStyleGrid()
@@ -40,11 +40,13 @@ namespace RitramaAPP.form
         }
         public void CREATE_COLUMN_TEXTBOX_GRID(string name,int wid,string text,string campodb)
         {
-            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
-            col.Name =  name;
-            col.Width = wid;
-            col.HeaderText = text;
-            col.DataPropertyName = campodb;
+            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
+            {
+                Name = name,
+                Width = wid,
+                HeaderText = text,
+                DataPropertyName = campodb
+            };
             grid_item.Columns.Add(col);
         }
 
@@ -52,7 +54,7 @@ namespace RitramaAPP.form
         {
             SeleccionProveedores BrowseProviders = new SeleccionProveedores
             {
-                dtsupply = this.dtsupply
+                dtsupply = this.Dtsupply
             };
             BrowseProviders.ShowDialog();
             txt_id_proveedor.Text = BrowseProviders.GetProviderID;
@@ -85,7 +87,7 @@ namespace RitramaAPP.form
         private void Bot_validar_Click(object sender, EventArgs e)
         {
             // Validar los datos extraidos del movil.
-            foreach (ClassRecepcion item in lista)
+            foreach (ClassRecepcion item in Lista)
             {
                 
             }
