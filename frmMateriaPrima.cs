@@ -562,8 +562,12 @@ namespace RitramaAPP
         }
         private void FrmMateriaPrima_FormClosed(object sender, FormClosedEventArgs e)
         {
-            bs.Dispose();
-            ds.Dispose();
+            
+        }
+
+        private void Toolsbar_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

@@ -18,12 +18,14 @@ namespace RitramaAPP.form
         public DataTable Dtsupply { get; set; }
         public List<ClassRecepcion> Lista { get; set; }
         int fila_actual = 0;
-        ProductsManager productsmanager = new ProductsManager();
+        readonly ProductsManager productsmanager = new ProductsManager();
+        readonly RecepcionManager recepmanager = new RecepcionManager();
         private void FrmSincroRecepciones_Load(object sender, EventArgs e)
         {
             SetStyleGrid();
             grid_item.DataSource = Lista;
             REGISTROS_TRANSFERIDOS.Text = "Registros Leidos :" + Lista.Count().ToString();
+            grid_item.ClearSelection();
         }
         private void SetStyleGrid()
         {
@@ -36,19 +38,11 @@ namespace RitramaAPP.form
             CREATE_COLUMN_TEXTBOX_GRID("rollid", 120, "Roll Id.", "Roll_ID");
             CREATE_COLUMN_TEXTBOX_GRID("proveedor_id", 60, "Prov. Id", "Supply_Id");
             CREATE_COLUMN_TEXTBOX_GRID("proveedor_name", 200, "Nombre del Proveedor", "SupplyName");
+            CREATE_COLUMN_CHECKBOX_GRID("proveedor_ok", 60, "proveedor_ok","");
+            CREATE_COLUMN_CHECKBOX_GRID("product_ok", 60, "product_ok","");
+            CREATE_COLUMN_CHECKBOX_GRID("orden_ok", 60, "orden_ok", "");
+            CREATE_COLUMN_CHECKBOX_GRID("total_ok", 60, "total_ok", "");
         }
-        public void CREATE_COLUMN_TEXTBOX_GRID(string name,int wid,string text,string campodb)
-        {
-            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
-            {
-                Name = name,
-                Width = wid,
-                HeaderText = text,
-                DataPropertyName = campodb
-            };
-            grid_item.Columns.Add(col);
-        }
-
         private void Bot_search_proveedor_Click(object sender, EventArgs e)
         {
             SeleccionProveedores BrowseProviders = new SeleccionProveedores
@@ -62,6 +56,10 @@ namespace RitramaAPP.form
 
         private void Bot_register_select_Click(object sender, EventArgs e)
         {
+            if (txt_id_proveedor.Text == "")
+            {
+                MessageBox.Show("seleccione en proveedor primero.");
+            }
             grid_item.Rows[fila_actual].Cells["proveedor_id"].Value = txt_id_proveedor.Text;
             grid_item.Rows[fila_actual].Cells["proveedor_name"].Value = txt_proveedor_name.Text;
         }
@@ -73,6 +71,10 @@ namespace RitramaAPP.form
 
         private void Bot_register_all_Click(object sender, EventArgs e)
         {
+            if (txt_id_proveedor.Text == "")
+            {
+                MessageBox.Show("seleccione en proveedor primero.");
+            }
             for (int i=0; i<= grid_item.Rows.Count-1; i++)
             {
                 if (Convert.ToString(grid_item.Rows[i].Cells["proveedor_id"].Value) == "")
@@ -85,56 +87,121 @@ namespace RitramaAPP.form
 
         private void Bot_validar_Click(object sender, EventArgs e)
         {
-
-            // Validar los datos extraidos del movil.
-            // validar los datos del proveedor
-            foreach (ClassRecepcion item in Lista)
-            {
-                if (item.Supply_Id == "" || item.Supply_Id == null)
-                {
-                    MessageBox.Show("complete los datos de proveedor");
-                    return;
-                } 
-            }
-            txt_consola.Text = "la verificacion de proveedores es OK...";
-            
-            // validar que los productos existan en la base de datos.
-            foreach (ClassRecepcion item in Lista)
-            {
-                if (productsmanager.ProductoExiste(item.Part_Number.ToString()) == false)
-                {
-                    //un producto no existe
-                    MessageBox.Show("complete los datos de los productos.");
-                    return;
-                } 
-            }
-            txt_consola.Text = "la verificacion de productos es OK...";
-
-
-            chk_isvalid.Checked = true;
-            
-        }
+           
+        }   
 
         private void Grid_item_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             foreach (DataGridViewRow Myrow in grid_item.Rows)
             {
-                if (Myrow.Cells["product_name"].Value == null || Convert.ToString(Myrow.Cells["product_name"].Value) == string.Empty)
+                if(Myrow.Cells["total_ok"].Value != null)
                 {
+                    if (Convert.ToBoolean(Myrow.Cells["total_ok"].Value) == false)
+                    {
 
-                    Myrow.DefaultCellStyle.BackColor = Color.Red;
+                        Myrow.DefaultCellStyle.BackColor = Color.Red;
 
-                }
-                else
-                {
-                    Myrow.DefaultCellStyle.BackColor = Color.LightGreen;
+                    }
+                    else
+                    {
+                        Myrow.DefaultCellStyle.BackColor = Color.LightGreen;
+                    }
                 }
             }
         }
-
-        private void Grid_item_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        public void CREATE_COLUMN_TEXTBOX_GRID(string name, int wid, string text, string campodb)
         {
+            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
+            {
+                Name = name,
+                Width = wid,
+                HeaderText = text,
+                DataPropertyName = campodb
+            };
+            grid_item.Columns.Add(col);
+        }
+        public void CREATE_COLUMN_CHECKBOX_GRID(string name, int wid, string text, string campodb)
+        {
+            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
+            {
+                Name = name,
+                Width = wid,
+                HeaderText = text,
+                DataPropertyName = campodb
+            };
+            grid_item.Columns.Add(col);
+        }
+        public void VALID_DATA()
+        {
+            // Validar los datos extraidos del movil.
+            // validar los datos del proveedor
+            int fil = 0;
+            foreach (ClassRecepcion item in Lista)
+            {
 
+                if (item.Supply_Id == "" || item.Supply_Id == null)
+                {
+                    MessageBox.Show("complete los datos de proveedor");
+                    grid_item.Rows[fil].Cells["proveedor_ok"].Value = false;
+                    return;
+                }
+                else
+                {
+                    grid_item.Rows[fil].Cells["proveedor_ok"].Value = true;
+                }
+                fil += 1;
+            }
+            txt_consola.Text = "la verificacion de proveedores es OK...";
+
+            // validar que los productos existan en la base de datos.
+            fil = 0;
+            foreach (ClassRecepcion item in Lista)
+            {
+                if (productsmanager.ProductoExiste(item.Part_Number.ToString()) == false)
+                {
+                    //un producto no existe
+                    grid_item.Rows[fil].Cells["product_ok"].Value = false;
+                    //return;
+                }
+                else
+                {
+                    grid_item.Rows[fil].Cells["product_ok"].Value = true;
+                }
+                fil += 1;
+            }
+            txt_consola.Text = "la verificacion de productos es OK...";
+            //valid que las ordenes no se repitan
+            fil = 0;
+            foreach (ClassRecepcion item in Lista)
+            {
+                if (recepmanager.VerificarExisteOrden(item.Orden) == true)
+                {
+                    //existe ordenes repetidas...
+                    MessageBox.Show("existen ordenes repetidas. numero de orden: " + item.Orden);
+                    grid_item.Rows[fil].Cells["orden_ok"].Value = false;
+                    //return;
+                }
+                else
+                {
+                    grid_item.Rows[fil].Cells["orden_ok"].Value = true;
+                }
+                fil += 1;
+            }
+            // validacion total
+            for (int i = 0; i <= grid_item.Rows.Count - 1; i++)
+            {
+                if (Convert.ToBoolean(grid_item.Rows[i].Cells["proveedor_ok"].Value) &&
+                    Convert.ToBoolean(grid_item.Rows[i].Cells["product_ok"].Value) &&
+                    Convert.ToBoolean(grid_item.Rows[i].Cells["orden_ok"].Value))
+                {
+                    grid_item.Rows[i].Cells["total_ok"].Value = true;
+                }
+                else
+                {
+                    grid_item.Rows[i].Cells["total_ok"].Value = false;
+                }
+            }
+            chk_isvalid.Checked = true;
         }
     }
 }

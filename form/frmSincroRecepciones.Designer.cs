@@ -74,7 +74,6 @@
             this.grid_item.Size = new System.Drawing.Size(582, 294);
             this.grid_item.TabIndex = 0;
             this.grid_item.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_item_CellClick);
-            this.grid_item.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_item_CellContentClick);
             this.grid_item.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.Grid_item_CellFormatting);
             // 
             // REGISTROS_TRANSFERIDOS

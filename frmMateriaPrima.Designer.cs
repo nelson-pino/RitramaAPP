@@ -387,6 +387,7 @@
             this.toolsbar.Size = new System.Drawing.Size(832, 27);
             this.toolsbar.TabIndex = 35;
             this.toolsbar.Text = "toolStrip1";
+            this.toolsbar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Toolsbar_ItemClicked);
             // 
             // bot_primero
             // 
