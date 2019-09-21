@@ -19,12 +19,12 @@ namespace RitramaAPP.form
         public DataTable Dtsupply { get; set; }
         public List<ClassRecepcion> Lista { get; set; }
         int fila_actual = 0;
+       
         private void FrmSincroRecepciones_Load(object sender, EventArgs e)
         {
             SetStyleGrid();
             grid_item.DataSource = Lista;
-            REGISTROS_TRANSFERIDOS.Text = "Registros transferidos :" + Lista.Count().ToString();
-
+            REGISTROS_TRANSFERIDOS.Text = "Registros Leidos :" + Lista.Count().ToString();
         }
         private void SetStyleGrid()
         {
@@ -89,8 +89,20 @@ namespace RitramaAPP.form
             // Validar los datos extraidos del movil.
             foreach (ClassRecepcion item in Lista)
             {
+                //validar los datos del proveedor
+                if (item.Supply_Id == "" || item.Supply_Id == null)
+                {
+                    MessageBox.Show("complete los datos de proveedor");
+                    return;
+                } 
+            }
+            foreach (ClassRecepcion item in Lista)
+            {
                 
             }
+            MessageBox.Show("los datos estan validados.");
+            chk_isvalid.Checked = true;
+            
         }
     }
 }

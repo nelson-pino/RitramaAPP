@@ -31,15 +31,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grid_item = new System.Windows.Forms.DataGridView();
             this.REGISTROS_TRANSFERIDOS = new System.Windows.Forms.Label();
-            this.bot_tranferir_data = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.bot_register_all = new System.Windows.Forms.Button();
-            this.bot_register_select = new System.Windows.Forms.Button();
             this.txt_proveedor_name = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.bot_search_proveedor = new System.Windows.Forms.Button();
             this.txt_id_proveedor = new System.Windows.Forms.TextBox();
             this.bot_validar = new System.Windows.Forms.Button();
+            this.bot_register_all = new System.Windows.Forms.Button();
+            this.bot_register_select = new System.Windows.Forms.Button();
+            this.bot_tranferir_data = new System.Windows.Forms.Button();
+            this.chk_isvalid = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.grid_item)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -76,58 +77,27 @@
             // 
             this.REGISTROS_TRANSFERIDOS.AutoSize = true;
             this.REGISTROS_TRANSFERIDOS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.REGISTROS_TRANSFERIDOS.Location = new System.Drawing.Point(10, 317);
+            this.REGISTROS_TRANSFERIDOS.Location = new System.Drawing.Point(381, 464);
             this.REGISTROS_TRANSFERIDOS.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.REGISTROS_TRANSFERIDOS.Name = "REGISTROS_TRANSFERIDOS";
             this.REGISTROS_TRANSFERIDOS.Size = new System.Drawing.Size(174, 13);
             this.REGISTROS_TRANSFERIDOS.TabIndex = 1;
             this.REGISTROS_TRANSFERIDOS.Text = "REGISTRO_TRANSFERIDOS";
             // 
-            // bot_tranferir_data
-            // 
-            this.bot_tranferir_data.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bot_tranferir_data.Location = new System.Drawing.Point(456, 375);
-            this.bot_tranferir_data.Margin = new System.Windows.Forms.Padding(2);
-            this.bot_tranferir_data.Name = "bot_tranferir_data";
-            this.bot_tranferir_data.Size = new System.Drawing.Size(135, 54);
-            this.bot_tranferir_data.TabIndex = 2;
-            this.bot_tranferir_data.Text = "Transferir Data";
-            this.bot_tranferir_data.UseVisualStyleBackColor = true;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.bot_register_all);
-            this.groupBox1.Controls.Add(this.bot_register_select);
             this.groupBox1.Controls.Add(this.txt_proveedor_name);
             this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.bot_register_select);
             this.groupBox1.Controls.Add(this.bot_search_proveedor);
             this.groupBox1.Controls.Add(this.txt_id_proveedor);
-            this.groupBox1.Location = new System.Drawing.Point(9, 349);
+            this.groupBox1.Location = new System.Drawing.Point(9, 332);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(256, 137);
+            this.groupBox1.Size = new System.Drawing.Size(256, 163);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del Proveedor :";
-            // 
-            // bot_register_all
-            // 
-            this.bot_register_all.Location = new System.Drawing.Point(5, 113);
-            this.bot_register_all.Name = "bot_register_all";
-            this.bot_register_all.Size = new System.Drawing.Size(137, 23);
-            this.bot_register_all.TabIndex = 5;
-            this.bot_register_all.Text = "Todos los registros";
-            this.bot_register_all.UseVisualStyleBackColor = true;
-            this.bot_register_all.Click += new System.EventHandler(this.Bot_register_all_Click);
-            // 
-            // bot_register_select
-            // 
-            this.bot_register_select.Location = new System.Drawing.Point(5, 84);
-            this.bot_register_select.Name = "bot_register_select";
-            this.bot_register_select.Size = new System.Drawing.Size(137, 23);
-            this.bot_register_select.TabIndex = 4;
-            this.bot_register_select.Text = "Resgistro Seleccionado";
-            this.bot_register_select.UseVisualStyleBackColor = true;
-            this.bot_register_select.Click += new System.EventHandler(this.Bot_register_select_Click);
             // 
             // txt_proveedor_name
             // 
@@ -165,27 +135,81 @@
             // bot_validar
             // 
             this.bot_validar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bot_validar.Location = new System.Drawing.Point(456, 317);
+            this.bot_validar.Image = global::RitramaAPP.Properties.Resources.FILTRO;
+            this.bot_validar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bot_validar.Location = new System.Drawing.Point(436, 308);
             this.bot_validar.Margin = new System.Windows.Forms.Padding(2);
             this.bot_validar.Name = "bot_validar";
-            this.bot_validar.Size = new System.Drawing.Size(135, 54);
+            this.bot_validar.Size = new System.Drawing.Size(153, 54);
             this.bot_validar.TabIndex = 4;
             this.bot_validar.Text = "Validar Data";
+            this.bot_validar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.bot_validar.UseVisualStyleBackColor = true;
             this.bot_validar.Click += new System.EventHandler(this.Bot_validar_Click);
             // 
-            // frmSincroRecepciones
+            // bot_register_all
+            // 
+            this.bot_register_all.Image = global::RitramaAPP.Properties.Resources.grid;
+            this.bot_register_all.Location = new System.Drawing.Point(6, 120);
+            this.bot_register_all.Name = "bot_register_all";
+            this.bot_register_all.Size = new System.Drawing.Size(177, 37);
+            this.bot_register_all.TabIndex = 5;
+            this.bot_register_all.Text = "Todos los registros";
+            this.bot_register_all.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.bot_register_all.UseVisualStyleBackColor = true;
+            this.bot_register_all.Click += new System.EventHandler(this.Bot_register_all_Click);
+            // 
+            // bot_register_select
+            // 
+            this.bot_register_select.Image = global::RitramaAPP.Properties.Resources.rowselect;
+            this.bot_register_select.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bot_register_select.Location = new System.Drawing.Point(6, 83);
+            this.bot_register_select.Name = "bot_register_select";
+            this.bot_register_select.Size = new System.Drawing.Size(177, 37);
+            this.bot_register_select.TabIndex = 4;
+            this.bot_register_select.Text = "Resgistro Seleccionado";
+            this.bot_register_select.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.bot_register_select.UseVisualStyleBackColor = true;
+            this.bot_register_select.Click += new System.EventHandler(this.Bot_register_select_Click);
+            // 
+            // bot_tranferir_data
+            // 
+            this.bot_tranferir_data.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bot_tranferir_data.Image = global::RitramaAPP.Properties.Resources.Upload;
+            this.bot_tranferir_data.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bot_tranferir_data.Location = new System.Drawing.Point(436, 366);
+            this.bot_tranferir_data.Margin = new System.Windows.Forms.Padding(2);
+            this.bot_tranferir_data.Name = "bot_tranferir_data";
+            this.bot_tranferir_data.Size = new System.Drawing.Size(153, 54);
+            this.bot_tranferir_data.TabIndex = 2;
+            this.bot_tranferir_data.Text = "Transferir Data";
+            this.bot_tranferir_data.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.bot_tranferir_data.UseVisualStyleBackColor = true;
+            // 
+            // chk_isvalid
+            // 
+            this.chk_isvalid.AutoSize = true;
+            this.chk_isvalid.Enabled = false;
+            this.chk_isvalid.Location = new System.Drawing.Point(308, 332);
+            this.chk_isvalid.Name = "chk_isvalid";
+            this.chk_isvalid.Size = new System.Drawing.Size(103, 17);
+            this.chk_isvalid.TabIndex = 5;
+            this.chk_isvalid.Text = "Datos Validados";
+            this.chk_isvalid.UseVisualStyleBackColor = true;
+            // 
+            // FrmSincroRecepciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 498);
+            this.Controls.Add(this.chk_isvalid);
             this.Controls.Add(this.bot_validar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.bot_tranferir_data);
             this.Controls.Add(this.REGISTROS_TRANSFERIDOS);
             this.Controls.Add(this.grid_item);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "frmSincroRecepciones";
+            this.Name = "FrmSincroRecepciones";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sincronizacion de data desde la aplicacion movil";
             this.Load += new System.EventHandler(this.FrmSincroRecepciones_Load);
@@ -210,5 +234,6 @@
         private System.Windows.Forms.Button bot_search_proveedor;
         private System.Windows.Forms.TextBox txt_id_proveedor;
         private System.Windows.Forms.Button bot_validar;
+        private System.Windows.Forms.CheckBox chk_isvalid;
     }
 }

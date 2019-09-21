@@ -72,33 +72,15 @@ namespace RitramaAPP
         private void TransferirDataMovil()
         {
             RecepcionManager manager = new RecepcionManager();
-            List<ClassRecepcion> lista = new List<ClassRecepcion>();
-            lista = manager.DownloadDataMateriaPrimaTxtMovil();
-           
-       
-
-
-
-            //foreach (ClassRecepcion item in lista)
-            //{
-            //    DataRow dr = itemsincro.NewRow();
-            //    dr["OrderPurchase"] = item.Orden;
-            //    //dr["fecha_reg"] = item.fecha_reg;
-            //    //dr["hora_reg"] = item.Hora_reg;
-            //    dr["Part_Number"] = item.Part_Number;
-            //    dr["Width"] = item.Width;
-            //    dr["Lenght"] = item.Lenght;
-            //    //dr["Proveedor_Id"] = item.Supply_Id;
-            //    dr["Roll_Id"] = item.Roll_ID;
-            //    //dr["Ubicacion"] = item.Ubicacion;
-            //    //dr["Splice"] = item.Splice;
-            //    //dr["Core"] = item.Core;
-            //    itemsincro.Rows.Add(dr);
-            //}
-            FrmSincroRecepciones sincro = new FrmSincroRecepciones();
-            sincro.Lista = lista;
-            sincro.Dtsupply = ds.Tables["dtprovider"];
-            sincro.ShowDialog();
+            List<ClassRecepcion> lista = manager.DownloadDataMateriaPrimaTxtMovil();
+            using (FrmSincroRecepciones sincro = new FrmSincroRecepciones
+            {
+                Lista = lista,
+                Dtsupply = ds.Tables["dtprovider"]
+            })
+            {
+                sincro.ShowDialog();
+            }
         }
         private void Bot_siguiente_Click(object sender, EventArgs e)
         {
@@ -549,13 +531,16 @@ namespace RitramaAPP
 
         private void Bot_buscar_Click(object sender, EventArgs e)
         {
-            SeleccionMateriaPrima frmbuscarOrden = new SeleccionMateriaPrima
+            using (SeleccionMateriaPrima frmbuscarOrden = new SeleccionMateriaPrima
             {
                 dtrecepcion = ds.Tables["dtrecepcion"]
-            };
-            frmbuscarOrden.ShowDialog();
-            int itemFound = bs.Find("OrderPurchase", frmbuscarOrden.GetOrderbyID);
-            bs.Position = itemFound;
+            })
+            {
+                frmbuscarOrden.ShowDialog();
+                int itemFound = bs.Find("OrderPurchase", frmbuscarOrden.GetOrderbyID);
+                bs.Position = itemFound;
+            }
+           
         }
 
         private void Bot_modificar_Click(object sender, EventArgs e)
@@ -568,6 +553,12 @@ namespace RitramaAPP
         private void Panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void FrmMateriaPrima_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            bs.Dispose();
+            ds.Dispose();
         }
     }
 }

@@ -15,6 +15,8 @@ namespace RitramaAPP.Clases
         readonly DataTable dtsupply = new DataTable();
         readonly SqlDataAdapter dasupply = new SqlDataAdapter();
 
+        public DataTable Dtsupply => dtsupply;
+
         public Boolean CommandSqlGeneric(string db, string query, List<SqlParameter> spc)
         {
             // Ejecuta comando sql query y no devuleve ni valor ni datos.
@@ -46,34 +48,6 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-
-        public Boolean VerificarExisteOrden(string orden)
-        {
-            int result;
-            micomm.Conectar(R.SQL.DATABASE.NAME);
-            SqlCommand comando = new SqlCommand
-            {
-                CommandType = CommandType.Text,
-                CommandText = R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_VERIFY_ORDEN_REPEAT,
-                Connection = micomm.cnn
-            };
-            SqlParameter p1 = new SqlParameter("@p1", orden);
-            comando.Parameters.Add(p1);
-            result = Convert.ToInt16(comando.ExecuteScalar());
-            micomm.Desconectar();
-            comando.Dispose();
-            if (result == 1)
-            {
-                // La orden de Recepcion ya existe en la base de datos
-                return true;
-            }
-            else
-            {
-                // no existe.
-                return false;
-            }
-        }
-
         public Boolean ProveedorExiste(string codigo)
         {
             int result;
@@ -81,7 +55,7 @@ namespace RitramaAPP.Clases
             SqlCommand comando = new SqlCommand
             {
                 CommandType = CommandType.Text,
-                CommandText = R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_COUNT_PROVEEDORES,
+                CommandText = R.SQL.QUERY_SQL.PROVIDERS.SQL_QUERY_COUNT_PROVEEDORES,
                 Connection = micomm.cnn
             };
             SqlParameter p1 = new SqlParameter("@p1", codigo);
@@ -107,7 +81,7 @@ namespace RitramaAPP.Clases
                 {
                     Connection = micomm.cnn,
                     CommandType = CommandType.Text,
-                    CommandText = R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_SELECT_PROVEEDORES
+                    CommandText = R.SQL.QUERY_SQL.PROVIDERS.SQL_QUERY_SELECT_PROVEEDORES
                 };
                 comando.ExecuteNonQuery();
                 dasupply.SelectCommand = comando;
@@ -127,13 +101,13 @@ namespace RitramaAPP.Clases
             
             //llamo al comando sql generico.
             CommandSqlGeneric(R.SQL.DATABASE.NAME,
-                R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_INSERT_PROVEEDORES, SetParameters(datos));
+                R.SQL.QUERY_SQL.PROVIDERS.SQL_QUERY_INSERT_PROVEEDORES, SetParameters(datos));
         }
 
         public void Update(ClassSupply datos)
         {
             CommandSqlGeneric(R.SQL.DATABASE.NAME,
-                R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_UPDATE_PROVEEDORES,SetParameters(datos));
+                R.SQL.QUERY_SQL.PROVIDERS.SQL_QUERY_UPDATE_PROVEEDORES,SetParameters(datos));
         }
         public List<SqlParameter> SetParameters(ClassSupply datos)
         {
@@ -150,6 +124,5 @@ namespace RitramaAPP.Clases
             };
             return sp;
         }
-
     }
 }

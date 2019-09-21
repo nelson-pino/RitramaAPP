@@ -238,6 +238,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App_data\tickets_oc.xlsx" />
     <None Include="packages.config" />
@@ -259,6 +260,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reports\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\FILTRO.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\Upload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\rowselect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\rowallselect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\grid.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
