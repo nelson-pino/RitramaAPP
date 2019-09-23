@@ -165,7 +165,7 @@
             this.bot_validar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bot_validar.Image = global::RitramaAPP.Properties.Resources.FILTRO;
             this.bot_validar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bot_validar.Location = new System.Drawing.Point(436, 308);
+            this.bot_validar.Location = new System.Drawing.Point(438, 308);
             this.bot_validar.Margin = new System.Windows.Forms.Padding(2);
             this.bot_validar.Name = "bot_validar";
             this.bot_validar.Size = new System.Drawing.Size(153, 54);
@@ -177,6 +177,7 @@
             // 
             // bot_tranferir_data
             // 
+            this.bot_tranferir_data.Enabled = false;
             this.bot_tranferir_data.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bot_tranferir_data.Image = global::RitramaAPP.Properties.Resources.Upload;
             this.bot_tranferir_data.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;

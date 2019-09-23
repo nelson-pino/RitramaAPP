@@ -34,6 +34,7 @@ namespace RitramaAPP.form
             CREATE_COLUMN_TEXTBOX_GRID("orden", 60, "Orden", "orden");
             CREATE_COLUMN_TEXTBOX_GRID("id_product", 75, "Codigo", "part_number");
             CREATE_COLUMN_TEXTBOX_GRID("product_name", 200, "Nombre del producto", "productname");
+            CREATE_COLUMN_TEXTBOX_GRID("tipo", 60, "tipo", "tipo");
             CREATE_COLUMN_TEXTBOX_GRID("width", 100, "Width", "width");
             CREATE_COLUMN_TEXTBOX_GRID("lenght", 100, "Lenght", "lenght");
             CREATE_COLUMN_TEXTBOX_GRID("rollid", 120, "Roll Id.", "Roll_ID");
@@ -89,6 +90,7 @@ namespace RitramaAPP.form
         private void Bot_validar_Click(object sender, EventArgs e)
         {
             VALID_DATA();
+            bot_tranferir_data.Enabled = true;
         }   
 
         private void Grid_item_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -207,6 +209,7 @@ namespace RitramaAPP.form
 
         private void Bot_tranferir_data_Click(object sender, EventArgs e)
         {
+            Boolean sincrook = false;
             //SAVE DATA RECEPCIONES
             foreach (DataGridViewRow row in grid_item.Rows)
             {
@@ -239,9 +242,14 @@ namespace RitramaAPP.form
                     data.Palet_cant = 0;
                     data.Palet_paginas = 0;
                     recepmanager.Add(data,false);
+                    sincrook = true;
                 }
             }
-            MessageBox.Show("Se guardaron los datos correctamente.");
+            if (sincrook)
+            {
+                MessageBox.Show("Se guardaron los datos correctamente.");
+            }
+            
             //borra el archivo
             try
             {
@@ -255,6 +263,7 @@ namespace RitramaAPP.form
                 MessageBox.Show("error al tratar de eliminar el txt de recepciones materia prima" + ex);
                 
             }
+
             Lista.Clear();
             grid_item.DataSource = "";
         }

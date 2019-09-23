@@ -153,6 +153,7 @@ namespace RitramaAPP.Clases
                                     Orden = strArray[0],
                                     Part_Number = strArray[1],
                                     ProductName = SearchProductName(strArray[1]),
+                                    Tipo = SearchTipoProduct(strArray[1]),
                                     Width =  Convert.ToDecimal(strArray[2]),
                                     Lenght = Convert.ToDecimal(strArray[3]),
                                     Roll_ID = (strArray[4])
@@ -178,6 +179,40 @@ namespace RitramaAPP.Clases
                
             }
             return lista;
+        }
+        public string SearchTipoProduct(string product_id)
+        {
+
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            micomm.Conectar(R.SQL.DATABASE.NAME);
+            SqlCommand comando = new SqlCommand
+            {
+                CommandType = CommandType.Text,
+                CommandText = R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_SELECT_TYPE_PRODUCT,
+                Connection = micomm.cnn
+            };
+            SqlParameter p1 = new SqlParameter("@p1", product_id);
+            comando.Parameters.Add(p1);
+            da.SelectCommand = comando;
+            comando.ExecuteScalar();
+            da.Fill(dt);
+            micomm.Desconectar();
+            comando.Dispose();
+            da.Dispose();
+            if (Convert.ToBoolean(dt.Rows[0][0]))
+            {
+                return "master roll";
+            }
+            if (Convert.ToBoolean(dt.Rows[0][1]))
+            {
+                return "resma";
+            }
+            if (Convert.ToBoolean(dt.Rows[0][2]))
+            {
+                return "graphics";
+            }
+            return "no catalogado";
         }
         public string SearchProductName(string product_id)
         {
@@ -219,7 +254,7 @@ namespace RitramaAPP.Clases
             {
                 return false;
             }
-        }
+        } 
         public Boolean VericarMasterollMetros(string codigo_prv)
         {
             Boolean providerMeters;

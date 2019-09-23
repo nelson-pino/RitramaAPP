@@ -32,5 +32,6 @@ namespace RitramaAPP
         public string Palet_number { get; set; }
         public int Palet_cant { get; set; }
         public int Palet_paginas { get; set; }
+        public string  Tipo { get; set; }
     }
 }
