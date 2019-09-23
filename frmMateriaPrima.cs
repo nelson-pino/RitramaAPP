@@ -230,7 +230,7 @@ namespace RitramaAPP
                     return;
                 }
             }
-            recepcionManager.Add(recepcion);
+            recepcionManager.Add(recepcion,true);
             OpcionesMenu(0);
             OpcionesForms(1);
             ContadorRegistros();
@@ -252,7 +252,7 @@ namespace RitramaAPP
                 Splice = Convert.ToInt32(txt_splice.Text),
                 Core = Convert.ToDecimal(txt_core.Text)
             };
-            manager.Update(recepcion);
+            manager.Update(recepcion,false);
             OpcionesMenu(0);
             OpcionesForms(1);
             EditMode = 0;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using RitramaAPP.Clases;
+using System.IO;
 
 using System.Windows.Forms;
 using System.Drawing;
@@ -211,12 +212,15 @@ namespace RitramaAPP.form
             {
                 if (Convert.ToBoolean(row.Cells["total_ok"].Value))
                 {
-                    ClassRecepcion data = new ClassRecepcion();
-                    data.Orden = Convert.ToString(row.Cells["orden"].Value);
-                    data.Fecha_reg = DateTime.Today;
-                    data.Hora_reg = DateTime.Now.ToString();
-                    data.Part_Number = Convert.ToString(row.Cells["id_product"].Value);
-                    data.ProductName = Convert.ToString(row.Cells["product_name"].Value); ;
+                    ClassRecepcion data = new ClassRecepcion
+                    {
+                        Orden = Convert.ToString(row.Cells["orden"].Value),
+                        Fecha_reg = DateTime.Today,
+                        Hora_reg = DateTime.Now.ToString(),
+                        Part_Number = Convert.ToString(row.Cells["id_product"].Value),
+                        ProductName = Convert.ToString(row.Cells["product_name"].Value)
+                    };
+                    ;
                     data.Supply_Id = Convert.ToString(row.Cells["proveedor_id"].Value); ;
                     data.SupplyName = Convert.ToString(row.Cells["proveedor_name"].Value); ;
                     data.Width = Convert.ToDecimal(row.Cells["width"].Value); ;
@@ -234,10 +238,25 @@ namespace RitramaAPP.form
                     data.Palet_number = "";
                     data.Palet_cant = 0;
                     data.Palet_paginas = 0;
-                    recepmanager.Add(data);
+                    recepmanager.Add(data,false);
                 }
             }
             MessageBox.Show("Se guardaron los datos correctamente.");
+            //borra el archivo
+            try
+            {
+                if (File.Exists(R.PATH_FILES.FILE_TXT_MATERIA_PRIMA))
+                {
+                    File.Delete(R.PATH_FILES.FILE_TXT_MATERIA_PRIMA);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("error al tratar de eliminar el txt de recepciones materia prima" + ex);
+                
+            }
+            Lista.Clear();
+            grid_item.DataSource = "";
         }
     }
 }

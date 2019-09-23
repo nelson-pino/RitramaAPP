@@ -33,7 +33,7 @@ namespace RitramaAPP.Clases
             RelacionesDS();
         }
       
-        public Boolean CommandSqlGeneric(string db, string query, List<SqlParameter> spc,string messageok,string messagefail)
+        public Boolean CommandSqlGeneric(string db, string query, List<SqlParameter> spc,string messageok,string messagefail,Boolean msg_onoff)
         {
             // Ejecuta comando sql query y no devuleve ni valor ni datos.
             try
@@ -55,7 +55,11 @@ namespace RitramaAPP.Clases
                 comando.ExecuteNonQuery();
                 comando.Dispose();
                 micomm.Desconectar();
-                MessageBox.Show(messageok);
+                if (msg_onoff)
+                {
+                    MessageBox.Show(messageok);
+                }
+                
                 return true;
             }
             catch (Exception ex)
@@ -88,17 +92,17 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-        public void Add(ClassRecepcion datos)
+        public void Add(ClassRecepcion datos,Boolean message)
         {
             CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_INSERT_DOCS_RECEPCIONES,
                 SetParametersAdd(datos),R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_INSERT_RECEPCIONES_OK,
-                R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_INSERT_RECEPCIONES_FAIL);
+                R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_INSERT_RECEPCIONES_FAIL,message);
         }
-        public void Update(ClassRecepcion datos)
+        public void Update(ClassRecepcion datos,bool msg_onoff)
         {
             CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_UPDATE_ORDEN_RECEPCION,
             SetParametersUpdate(datos), R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_UPDATE_RECEPCIONES_OK,
-            R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_UPDATE_RECEPCIONES_FAIL);
+            R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_UPDATE_RECEPCIONES_FAIL,msg_onoff);
         }
         public void LoadRecepciones()
         {
@@ -161,18 +165,17 @@ namespace RitramaAPP.Clases
                             }
                         }
                     }
-
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al crear el archivo txt en la pc...Error Code:" + ex);
+                    MessageBox.Show("error al tratar de crear el txt de materia prima" + ex);
                     lista = null;
                     return lista;
                 }
             }
             else
             {
-                MessageBox.Show("el archivo txt no existe...");
+               
             }
             return lista;
         }
