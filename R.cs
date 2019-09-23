@@ -9,7 +9,7 @@ namespace RitramaAPP
     public class R
     {
         public class SQL
-        {
+        { 
             public class DATABASE
             {
                 public static string NAME = "ritrama";    
@@ -24,9 +24,13 @@ namespace RitramaAPP
             {
                 public class PRODUCTS
                 {
+                    public static string SQL_QUERY_SELECT_PRODUCT_ALL = "SELECT Product_ID,Product_Name,Product_Descrip,Product_Ref,Codebar,Category_ID,MasterRolls,Resmas,anulado,precio,graphics FROM producto";
                     public static string SQL_QUERY_SELECT_PRODUCTS = "SELECT Product_ID, Product_Name FROM producto";
                     public static string SQL_QUERY_SELECT_TYPE_PRODUCT = "SELECT MasterRolls,Resmas,Graphics FROM producto WHERE product_id=@p1";
                     public static string SQL_QUERY_SELECT_PRODUCT_NAME = "SELECT  Product_Name FROM producto WHERE product_id=@p1";
+                    public static string SQL_QUERY_INSERT_PRODUCT = "INSERT INTO producto (Product_ID,Product_Name,Product_Descrip,Product_Ref,Codebar,Category_ID,MasterRolls,Resmas,Graphics,anulado,precio) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11)";
+                    public static string SQL_QUERY_UPDATE_PRODUCTS = "UPDATE producto SET Product_Name=@p2,Product_Descrip=@p3,Product_Ref=@p4,Codebar=@p5,Category_ID=@p6,MasterRolls=@p7,Resmas=@p8,Graphics=@p9,anulado=@p10,precio=@p11 WHERE Product_ID=@p1";
+                    public static string SQL_QUERY_COUNT_PRODUCTS = "SELECT count(*) FROM producto WHERE product_id=@p1";
                 }
                 public class CUSTOMERS
                 {
@@ -71,7 +75,8 @@ namespace RitramaAPP
             public class MODULO_PRODUCTOS
             {
                 public static string MESSAGE_SELECT_LOADPRODUCTOS_FAIL = "error al cargar la tabla de productos...error code:";
-
+                public static string MESSAGE_ADD_PRODUCTS_ERROR = "Error al crear productos...Error Code:";
+                public static string MESSAGE_UPDATE_PRODUCTS_ERROR = "Error al modificar producto...Error Code:";
             }
             public class MODULO_PROVEEDORES
             {
