@@ -356,8 +356,8 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p17", SqlDbType = SqlDbType.NVarChar, Value = datos.Embarque},
                 new SqlParameter() {ParameterName = "@p18", SqlDbType = SqlDbType.NVarChar, Value = datos.Palet_number},
                 new SqlParameter() {ParameterName = "@p19", SqlDbType = SqlDbType.Int, Value = datos.Palet_cant},
-                new SqlParameter() {ParameterName = "@p20", SqlDbType = SqlDbType.Int, Value = datos.Palet_paginas}
-
+                new SqlParameter() {ParameterName = "@p20", SqlDbType = SqlDbType.Int, Value = datos.Palet_paginas},
+                new SqlParameter() {ParameterName = "@p21", SqlDbType = SqlDbType.Int, Value = datos.Num_sincro}
             };
             return sp;
         }

@@ -21,6 +21,8 @@ namespace RitramaAPP.form
         int fila_actual = 0;
         readonly ProductsManager productsmanager = new ProductsManager();
         readonly RecepcionManager recepmanager = new RecepcionManager();
+        readonly ConfigManager configmanager = new ConfigManager();
+
         private void FrmSincroRecepciones_Load(object sender, EventArgs e)
         {
             SetStyleGrid();
@@ -210,6 +212,7 @@ namespace RitramaAPP.form
         private void Bot_tranferir_data_Click(object sender, EventArgs e)
         {
             Boolean sincrook = false;
+            int numsincro = Convert.ToInt32(configmanager.GetParameterControl("LSR")) + 1;
             //SAVE DATA RECEPCIONES
             foreach (DataGridViewRow row in grid_item.Rows)
             {
@@ -218,7 +221,7 @@ namespace RitramaAPP.form
                     ClassRecepcion data = new ClassRecepcion
                     {
                         Orden = Convert.ToString(row.Cells["orden"].Value),
-                        Fecha_reg = DateTime.Today,
+                        Fecha_reg = DateTime.Now,
                         Hora_reg = DateTime.Now.ToString(),
                         Part_Number = Convert.ToString(row.Cells["id_product"].Value),
                         ProductName = Convert.ToString(row.Cells["product_name"].Value)
@@ -241,10 +244,12 @@ namespace RitramaAPP.form
                     data.Palet_number = "";
                     data.Palet_cant = 0;
                     data.Palet_paginas = 0;
+                    data.Num_sincro = numsincro;
                     recepmanager.Add(data,false);
                     sincrook = true;
                 }
             }
+            configmanager.SetParametersControl(numsincro.ToString(), "LSR");
             if (sincrook)
             {
                 MessageBox.Show("Se guardaron los datos correctamente.");
