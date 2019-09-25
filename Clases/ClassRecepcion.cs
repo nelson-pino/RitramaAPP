@@ -14,8 +14,8 @@ namespace RitramaAPP
         public string Hora_reg { get; set; }
         public string SupplyName { get; set; }
         public string Orden { get; set; }
-        public decimal Width { get; set; }
-        public decimal Lenght { get; set; }
+        public double Width { get; set; }
+        public double Lenght { get; set; }
         public int Splice { get; set; }
         public decimal Core { get; set; }
         public string Roll_ID { get; set; }
@@ -34,5 +34,6 @@ namespace RitramaAPP
         public int Palet_paginas { get; set; }
         public string  Tipo { get; set; }
         public int Num_sincro { get; set; }
+        public bool Registro_movil { get; set; }
     }
 }

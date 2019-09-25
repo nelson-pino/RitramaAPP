@@ -97,7 +97,6 @@
             this.txt_lote = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.chk_master_mts = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.toolsbar.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -552,23 +551,23 @@
             this.txt_fecha_reg.Margin = new System.Windows.Forms.Padding(2);
             this.txt_fecha_reg.Name = "txt_fecha_reg";
             this.txt_fecha_reg.ReadOnly = true;
-            this.txt_fecha_reg.Size = new System.Drawing.Size(104, 20);
+            this.txt_fecha_reg.Size = new System.Drawing.Size(195, 20);
             this.txt_fecha_reg.TabIndex = 40;
             // 
             // txt_hora_reg
             // 
-            this.txt_hora_reg.Location = new System.Drawing.Point(219, 45);
+            this.txt_hora_reg.Location = new System.Drawing.Point(310, 45);
             this.txt_hora_reg.Margin = new System.Windows.Forms.Padding(2);
             this.txt_hora_reg.Name = "txt_hora_reg";
             this.txt_hora_reg.ReadOnly = true;
-            this.txt_hora_reg.Size = new System.Drawing.Size(84, 20);
+            this.txt_hora_reg.Size = new System.Drawing.Size(170, 20);
             this.txt_hora_reg.TabIndex = 42;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(217, 28);
+            this.label16.Location = new System.Drawing.Point(306, 25);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(42, 13);
@@ -825,7 +824,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(326, 76);
+            this.groupBox4.Size = new System.Drawing.Size(532, 76);
             this.groupBox4.TabIndex = 59;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Datos de Sincronizacion:";
@@ -842,24 +841,11 @@
             this.chk_master_mts.Text = "Master Roll en Metros";
             this.chk_master_mts.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(350, 547);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(103, 17);
-            this.checkBox1.TabIndex = 61;
-            this.checkBox1.Text = "Registro Manual";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // FrmMateriaPrima
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(832, 609);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.chk_master_mts);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.bot_convert);
@@ -992,7 +978,6 @@
         private System.Windows.Forms.TextBox txt_lote;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.CheckBox chk_master_mts;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.RadioButton rad_resmas;
     }
 }

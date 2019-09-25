@@ -229,8 +229,8 @@ namespace RitramaAPP.form
                     ;
                     data.Supply_Id = Convert.ToString(row.Cells["proveedor_id"].Value); ;
                     data.SupplyName = Convert.ToString(row.Cells["proveedor_name"].Value); ;
-                    data.Width = Convert.ToDecimal(row.Cells["width"].Value); ;
-                    data.Lenght = Convert.ToDecimal(row.Cells["lenght"].Value);
+                    data.Width = Convert.ToDouble(row.Cells["width"].Value); ;
+                    data.Lenght = Convert.ToDouble(row.Cells["lenght"].Value);
                     data.Roll_ID = Convert.ToString(row.Cells["rollid"].Value);
                     data.Ubicacion = "";
                     data.Splice = 0;
@@ -245,6 +245,7 @@ namespace RitramaAPP.form
                     data.Palet_cant = 0;
                     data.Palet_paginas = 0;
                     data.Num_sincro = numsincro;
+                    data.Registro_movil = true;
                     recepmanager.Add(data,false);
                     sincrook = true;
                 }

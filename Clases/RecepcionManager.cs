@@ -121,7 +121,7 @@ namespace RitramaAPP.Clases
         }
         public List<ClassRecepcion> DownloadDataMateriaPrimaTxtMovil()
         {
-            CultureInfo cultures = new CultureInfo("en-US");
+            
             string path = R.PATH_FILES.FILE_TXT_MATERIA_PRIMA;
             List<ClassRecepcion> lista = new List<ClassRecepcion>();
             if (File.Exists(path))
@@ -144,18 +144,16 @@ namespace RitramaAPP.Clases
                                 int lenLenght = strLenght.Length;
                                 strWidth = strWidth.Substring(1, lenWidth - 1);
                                 strLenght = strLenght.Substring(1, lenLenght - 1);
-                                //decimal WidthValue = Math.Round(Convert.ToDecimal(strWidth, cultures),
-                                //2, MidpointRounding.AwayFromZero);
-                                decimal LenghtValue = Math.Round(Convert.ToDecimal(strLenght, cultures),
-                                2, MidpointRounding.AwayFromZero);
+                                double WidthValue = double.Parse(strWidth, CultureInfo.InvariantCulture);
+                                double LenghtValue = double.Parse(strLenght, CultureInfo.InvariantCulture);
                                 ClassRecepcion recepcion = new ClassRecepcion
                                 {
                                     Orden = strArray[0],
                                     Part_Number = strArray[1],
                                     ProductName = SearchProductName(strArray[1]),
                                     Tipo = SearchTipoProduct(strArray[1]),
-                                    Width =  Convert.ToDecimal(strArray[2]),
-                                    Lenght = Convert.ToDecimal(strArray[3]),
+                                    Width =  WidthValue,
+                                    Lenght = LenghtValue,
                                     Roll_ID = (strArray[4])
                                 };
                                 lista.Add(recepcion);
@@ -357,7 +355,8 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p18", SqlDbType = SqlDbType.NVarChar, Value = datos.Palet_number},
                 new SqlParameter() {ParameterName = "@p19", SqlDbType = SqlDbType.Int, Value = datos.Palet_cant},
                 new SqlParameter() {ParameterName = "@p20", SqlDbType = SqlDbType.Int, Value = datos.Palet_paginas},
-                new SqlParameter() {ParameterName = "@p21", SqlDbType = SqlDbType.Int, Value = datos.Num_sincro}
+                new SqlParameter() {ParameterName = "@p21", SqlDbType = SqlDbType.Int, Value = datos.Num_sincro},
+                new SqlParameter() {ParameterName = "@p22", SqlDbType = SqlDbType.Bit, Value = datos.Registro_movil}
             };
             return sp;
         }

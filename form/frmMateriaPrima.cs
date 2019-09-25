@@ -30,6 +30,7 @@ namespace RitramaAPP
             ds = Manager.ds;
             bs.DataSource = ds;
             bs.DataMember = "dtrecepcion";
+            bs.Sort = "fecha_reg desc";
             txt_orden.DataBindings.Add("text",bs, "OrderPurchase");
             txt_part_number.DataBindings.Add("text",bs, "Part_Number");
             txt_width.DataBindings.Add("text", bs, "Width");
@@ -51,6 +52,7 @@ namespace RitramaAPP
             txt_numero_palet.DataBindings.Add("text", bs, "palet_num");
             txt_cant_palet.DataBindings.Add("text", bs, "palet_cant");
             txt_paginas.DataBindings.Add("text",bs,"palet_pag");
+            txt_lote.DataBindings.Add("text", bs, "num_sincro");
             CHK_ANULADO.DataBindings.Add("checked",bs,"anulado");
             ContadorRegistros();
         }
@@ -67,7 +69,11 @@ namespace RitramaAPP
                 case DialogResult.No:
                     break;
             }
+            //actualizar la pantalla con los cambios de la sincronizacion.
+            manager.LoadRecepciones();
+            bs.Position = 0;
             ContadorRegistros();
+            
         }
         private void TransferirDataMovil()
         {
@@ -84,22 +90,22 @@ namespace RitramaAPP
         }
         private void Bot_siguiente_Click(object sender, EventArgs e)
         {
-            bs.Position += 1;
+            bs.Position -= 1;
             ContadorRegistros();
         }
         private void Bot_anterior_Click(object sender, EventArgs e)
         {
-            bs.Position -= 1;
+            bs.Position += 1;
             ContadorRegistros();
         }
         private void Bot_primero_Click(object sender, EventArgs e)
         {
-            bs.Position = 0;
+            bs.Position = bs.Count - 1;
             ContadorRegistros();
         }
         private void Bot_ultimo_Click(object sender, EventArgs e)
         {
-            bs.Position = bs.Count - 1;
+            bs.Position = 0;
             ContadorRegistros();
         }
         private void ContadorRegistros()
@@ -161,8 +167,8 @@ namespace RitramaAPP
             recepcion.ProductName = txt_product_name.Text;
             recepcion.Supply_Id = txt_id_supply.Text;
             recepcion.SupplyName = txt_supply_name.Text;
-            recepcion.Width = Convert.ToDecimal(txt_width.Text);
-            recepcion.Lenght = Convert.ToDecimal(txt_lenght.Text);
+            recepcion.Width = Convert.ToDouble(txt_width.Text);
+            recepcion.Lenght = Convert.ToDouble(txt_lenght.Text);
             recepcion.Roll_ID = txt_roll_id.Text;
             recepcion.Ubicacion = txt_ubic.Text;
             recepcion.Splice = Convert.ToInt16(txt_splice.Text);
@@ -247,8 +253,8 @@ namespace RitramaAPP
                 Ubicacion = txt_ubic.Text,
                 Anulado = CHK_ANULADO.Checked,
                 Supply_Id = txt_id_supply.Text,
-                Width = Convert.ToDecimal(txt_width.Text),
-                Lenght = Convert.ToDecimal(txt_lenght.Text),
+                Width = Convert.ToDouble(txt_width.Text),
+                Lenght = Convert.ToDouble(txt_lenght.Text),
                 Splice = Convert.ToInt32(txt_splice.Text),
                 Core = Convert.ToDecimal(txt_core.Text)
             };
