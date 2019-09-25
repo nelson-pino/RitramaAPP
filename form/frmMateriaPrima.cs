@@ -73,7 +73,6 @@ namespace RitramaAPP
             manager.LoadRecepciones();
             bs.Position = 0;
             ContadorRegistros();
-            
         }
         private void TransferirDataMovil()
         {

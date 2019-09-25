@@ -198,19 +198,27 @@ namespace RitramaAPP.Clases
             micomm.Desconectar();
             comando.Dispose();
             da.Dispose();
-            if (Convert.ToBoolean(dt.Rows[0][0]))
+            if(dt.Rows.Count > 0) 
             {
-                return "master roll";
+                if (Convert.ToBoolean(dt.Rows[0][0]))
+                {
+                    return "master roll";
+                }
+                if (Convert.ToBoolean(dt.Rows[0][1]))
+                {
+                    return "resma";
+                }
+                if (Convert.ToBoolean(dt.Rows[0][2]))
+                {
+                    return "graphics";
+                }
+                return "no catalogado";
             }
-            if (Convert.ToBoolean(dt.Rows[0][1]))
+            else
             {
-                return "resma";
+                return "no categoria";
             }
-            if (Convert.ToBoolean(dt.Rows[0][2]))
-            {
-                return "graphics";
-            }
-            return "no catalogado";
+
         }
         public string SearchProductName(string product_id)
         {
