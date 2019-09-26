@@ -31,10 +31,11 @@ namespace RitramaAPP
                     public static string SQL_QUERY_INSERT_PRODUCT = "INSERT INTO producto (Product_ID,Product_Name,Product_Descrip,Product_Ref,Codebar,Category_ID,MasterRolls,Resmas,Graphics,anulado,precio) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11)";
                     public static string SQL_QUERY_UPDATE_PRODUCTS = "UPDATE producto SET Product_Name=@p2,Product_Descrip=@p3,Product_Ref=@p4,Codebar=@p5,Category_ID=@p6,MasterRolls=@p7,Resmas=@p8,Graphics=@p9,anulado=@p10,precio=@p11 WHERE Product_ID=@p1";
                     public static string SQL_QUERY_COUNT_PRODUCTS = "SELECT count(*) FROM producto WHERE product_id=@p1";
-                    
                 }
                 public class CUSTOMERS
                 {
+                    public static string  SQL_SELECT_CUSTOMERS = "SELECT Customer_ID,Customer_Name,Customer_Category," +
+                        "Customer_Dir,Customer_Email,Anulado  FROM customer";
                 }
 
                 public class PROVIDERS
@@ -65,19 +66,30 @@ namespace RitramaAPP
                     public static string SQL_QUERY_VERIFY_ORDEN_REPEAT = "SELECT count(*) FROM OrdenRecepcion WHERE " +
                         "OrderPurchase=@p1";
                 }
-                public class HOJACOSTO
+                public class PRODUCCION
                 {
+                    public static string SQL_SELECT_ORDEN_CORTE = "SELECT numero,fecha,pedido,customer_id,roll_id,total_rollos,anulada,status FROM orden_corte";
+                    public static string SQL_SELECT_DETALLE_OC = "SELECT reng_num,numero,product_id,cantidad,unidad,width,large,msi FROM  detalle_oc";
+                    public static string SQL_UPDATE_ROLLS_DETAILS = "SELECT product_id,roll_number,unique_code,splice,width,large,product_name,roll_id,msi," +
+                        "code_perso FROM rolls_details WHERE numero=@p1 and product_id=@p2";
+                    public static string SQL_QUERY_INSERT_MASTER_OC = "INSERT orden_corte (numero,fecha,pedido,customer_id,roll_id,total_rollos,anulada," +
+                        "status) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8) ";
+                    public static string SQL_QUERY_INSERT_DETAILS_OC = "INSERT detalle_oc (reng_num,numero,product_id,cantidad,unidad,width,large,msi) " +
+                        "VALUES (@r1,@r2,@r3,@r4,@r5,@r6,@r7,@r8)";
+                    public static string SQL_QUERY_SELECT_ROLLID = "SELECT a.roll_id,part_number,b.product_name FROM OrdenRecepcion a LEFT JOIN producto b ON a.part_number = b.product_id";
+                    public static string SQL_QUERY_INSERT_ROLLID = "INSERT INTO roll_id (numero,roll_id) VALUES (@P1,@p2)";
+                    public static string SQL_QUERY_INSERT_ROLLS_DETAILS = "INSERT rolls_details (fecha,numero,roll_number,product_id," +
+                        "product_name,roll_id,width,large,msi,splice,code_perso,unique_code) VALUES (@r1,@r2,@r3,@r4,@r5,@r6,@r7,@r8,@r9,@r10,@r11,@r12)";
+                    public static string SQL_QUERY_DELETE_ROLLID = "DELETE roll_id WHERE (numero=@p1 AND roll_id=@p2)";
+                    public static string SQL_QUERY_UPDATE_ROLLID = "UPDATE rolls_details SET roll_id=@p3 WHERE (numero=@p1 AND product_id=@p2)";
 
                 }
-
                 public class DESPACHOS
                 {
                 }
                 public class PEDIDOS
                 {
                 }
-
-
             }
         }
         public class MESSAGES_TEXT_SYSTEM_MODULES
@@ -101,6 +113,14 @@ namespace RitramaAPP
                 public static string MESSAGE_UPDATE_RECEPCIONES_FAIL = "Error al tratar de actualizar los datos de la orden de recepcion";
                 public static string MESSAGE_SELECT_LOADRECEPCIONES_FAIL = "Error al tratar de traer los datos de las recepciones de materia prima.";
 
+            }
+            public class CUSTOMERS 
+            {
+                public static string MESSAGE_SELECT_LOAD_CUSTOMERS_FAIL = "Error al tratar de cargas los clientes al sistema ERROR: ";
+            }
+            public class PRODUCCION 
+            {
+                public static string MESSAGE_LOAD_ROLLID_ERROR_FAIL = "Error al cargar la lista de los roll id. error code:";
             }
         }
         public class PATH_FILES

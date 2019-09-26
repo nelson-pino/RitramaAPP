@@ -78,6 +78,12 @@
     <Compile Include="form\FrmBuscarOrdenes.Designer.cs">
       <DependentUpon>FrmBuscarOrdenes.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\frmBuscarRollid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\frmBuscarRollid.Designer.cs">
+      <DependentUpon>frmBuscarRollid.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\FrmDespacho.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,6 +187,9 @@
     <Compile Include="R.cs" />
     <EmbeddedResource Include="form\FrmBuscarOrdenes.resx">
       <DependentUpon>FrmBuscarOrdenes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\frmBuscarRollid.resx">
+      <DependentUpon>frmBuscarRollid.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\FrmDespacho.resx">
       <DependentUpon>FrmDespacho.cs</DependentUpon>
