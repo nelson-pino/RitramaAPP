@@ -32,10 +32,9 @@ namespace RitramaAPP.Clases
 
         public OrdenCorteManager()
         {
-            CargarCustomers();
             CargarProducts();
-            CargarOrdenes();
             CargarRollsId();
+            CargarOrdenes();
             RelacionesDS();
         }
         public Boolean CommandSqlGenericUpdateDs(string db, string query, SqlDataAdapter da, string dt, string messagefail)
@@ -61,11 +60,6 @@ namespace RitramaAPP.Clases
                 MessageBox.Show(messagefail + ex);
                 return false;
             }
-        }
-        public void CargarCustomers() 
-        {
-            CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME,R.SQL.QUERY_SQL.CUSTOMERS.SQL_SELECT_CUSTOMERS, 
-                dacustomer,"dtcustomer",R.MESSAGES_TEXT_SYSTEM_MODULES.CUSTOMERS.MESSAGE_SELECT_LOAD_CUSTOMERS_FAIL);
         }
         public void CargarProducts() 
         {
@@ -368,16 +362,16 @@ namespace RitramaAPP.Clases
                         // aqui va todos los datos del encabezado de la orden de corte.
                         SqlParameter p1 = new SqlParameter("@p1", orden.Numero);
                         SqlParameter p2 = new SqlParameter("@p2", orden.Fecha);
-                        SqlParameter p3 = new SqlParameter("@p3", orden.Pedido);
-                        SqlParameter p4 = new SqlParameter("@p4", orden.Customer_id);
+                        //SqlParameter p3 = new SqlParameter("@p3", orden.Pedido);
+                        //SqlParameter p4 = new SqlParameter("@p4", orden.Customer_id);
                         SqlParameter p5 = new SqlParameter("@p5", orden.Roll_id);
                         SqlParameter p6 = new SqlParameter("@p6", orden.Total_rolls);
-                        SqlParameter p7 = new SqlParameter("@p7", orden.anulada);
-                        SqlParameter p8 = new SqlParameter("@p8", orden.status);
+                        SqlParameter p7 = new SqlParameter("@p7", orden.Anulada);
+                        SqlParameter p8 = new SqlParameter("@p8", orden.Status);
                         comando.Parameters.Add(p1);
                         comando.Parameters.Add(p2);
-                        comando.Parameters.Add(p3);
-                        comando.Parameters.Add(p4);
+                        //comando.Parameters.Add(p3);
+                        //comando.Parameters.Add(p4);
                         comando.Parameters.Add(p5);
                         comando.Parameters.Add(p6);
                         comando.Parameters.Add(p7);
@@ -538,13 +532,6 @@ namespace RitramaAPP.Clases
                 DataColumn ChildCol1 = ds.Tables["dtrenglones"].Columns["numero"];
                 DataRelation orden_detal = new DataRelation("FK_ORDENES_DETALLE", ParentCol1, ChildCol1);
                 ds.Relations.Add(orden_detal);
-                //Relacion Factura-Cliente.
-                DataColumn ParentCol2 = ds.Tables["dtcustomer"].Columns["Customer_ID"];
-                DataColumn ChildCol2 = ds.Tables["dtordenes"].Columns["customer_id"];
-                DataRelation ordenes_cliente = new DataRelation("FK_ORDENES_CLIENTE", ParentCol2, ChildCol2);
-                ds.Relations.Add(ordenes_cliente);
-                ds.Tables["dtordenes"].Columns.Add("customer_name",
-                Type.GetType("System.String"), "parent(FK_ORDENES_CLIENTE).customer_name");
                 //Relacion detalle-productos.
                 DataColumn ParentCol3 = ds.Tables["dtproducts"].Columns["product_id"];
                 DataColumn ChildCol3 = ds.Tables["dtrenglones"].Columns["product_id"];

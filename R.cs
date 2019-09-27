@@ -76,7 +76,7 @@ namespace RitramaAPP
                         "status) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8) ";
                     public static string SQL_QUERY_INSERT_DETAILS_OC = "INSERT detalle_oc (reng_num,numero,product_id,cantidad,unidad,width,large,msi) " +
                         "VALUES (@r1,@r2,@r3,@r4,@r5,@r6,@r7,@r8)";
-                    public static string SQL_QUERY_SELECT_ROLLID = "SELECT a.roll_id,part_number,b.product_name FROM OrdenRecepcion a LEFT JOIN producto b ON a.part_number = b.product_id";
+                    public static string SQL_QUERY_SELECT_ROLLID = "SELECT a.roll_id,a.part_number,b.product_name,a.width,a.lenght FROM OrdenRecepcion a LEFT JOIN producto b ON a.part_number = b.product_id";
                     public static string SQL_QUERY_INSERT_ROLLID = "INSERT INTO roll_id (numero,roll_id) VALUES (@P1,@p2)";
                     public static string SQL_QUERY_INSERT_ROLLS_DETAILS = "INSERT rolls_details (fecha,numero,roll_number,product_id," +
                         "product_name,roll_id,width,large,msi,splice,code_perso,unique_code) VALUES (@r1,@r2,@r3,@r4,@r5,@r6,@r7,@r8,@r9,@r10,@r11,@r12)";

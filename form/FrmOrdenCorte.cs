@@ -31,22 +31,19 @@ namespace RitramaAPP
         //private readonly DataRowView ChildRows;
         //DataGridViewComboBoxColumn ComboUnidad = new DataGridViewComboBoxColumn();
         //int renglon,ConsecOrden;
-        //readonly double factor = 0.012;
+        readonly double factor = 0.012;
         readonly Orden orden = new Orden();
         public System.Data.DataTable Dtproducts { get => dtproducts; set => dtproducts = value; }
         
    
         private void FrmOrdenCorte_Load(object sender, EventArgs e)
         {
-            
             AplicarEstilosGridRollos();
             ds = managerorden.ds;
             bs.DataSource = ds;
             bs.DataMember = "dtordenes";
             txt_numero_oc.DataBindings.Add("text",bs,"numero");
             txt_fecha_orden.DataBindings.Add("text", bs, "fecha");
-            grid_rollos.DataSource = ds.Tables["dtrollid"];
-
         }
         private void BOT_NUEVO_Click(object sender, EventArgs e)
         {
@@ -191,71 +188,30 @@ namespace RitramaAPP
 private void AplicarEstilosGridRollos()
         {
             grid_rollos.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("roll", 45, "rolls #", "roll_number");
-            AGREGAR_COLUMN_GRID("product_id", 65, "Prod. Id", "product_id");
+            AGREGAR_COLUMN_GRID("roll", 25, "#", "roll_number");
+            AGREGAR_COLUMN_GRID("product_id", 50, "Prod. Id", "product_id");
             AGREGAR_COLUMN_GRID("product_name", 190, "Descripcion Producto", "product_name");
-
-
-            
-            DataGridViewTextBoxColumn col4 = new DataGridViewTextBoxColumn
-            {
-                Name = "Unique_Code",
-                Width = 70,
-                HeaderText = "Unique Code",
-                DataPropertyName = "unique_code"
-            };
-            grid_rollos.Columns.Add(col4);
-            DataGridViewTextBoxColumn col5 = new DataGridViewTextBoxColumn
-            {
-                Name = "ancho",
-                Width = 52,
-                HeaderText = "Ancho",
-                DataPropertyName = "width"
-            };
-            grid_rollos.Columns.Add(col5);
-            DataGridViewTextBoxColumn col6 = new DataGridViewTextBoxColumn
-            {
-                Name = "largo",
-                Width = 52,
-                HeaderText = "largo",
-                DataPropertyName = "large"
-            };
-            grid_rollos.Columns.Add(col6);
-            DataGridViewTextBoxColumn col61 = new DataGridViewTextBoxColumn
-            {
-                Name = "msi",
-                Width = 55,
-                HeaderText = "Msi",
-                DataPropertyName = "msi"
-            };
-            grid_rollos.Columns.Add(col61);
-            DataGridViewTextBoxColumn col7 = new DataGridViewTextBoxColumn
-            {
-                Name = "splice",
-                Width = 53,
-                HeaderText = "Splice",
-                DataPropertyName = "splice"
-            };
-            grid_rollos.Columns.Add(col7);
-            DataGridViewTextBoxColumn col8 = new DataGridViewTextBoxColumn
-            {
-                Name = "roll_id",
-                Width = 115,
-                HeaderText = "Roll Id.",
-                DataPropertyName = "roll_id"
-            };
-            grid_rollos.Columns.Add(col8);
-            DataGridViewTextBoxColumn col9 = new DataGridViewTextBoxColumn
-            {
-                Name = "code_personalize",
-                Width = 150,
-                HeaderText = "Code Person.",
-                DataPropertyName = "code_perso"
-            };
-            grid_rollos.Columns.Add(col9);
+            AGREGAR_COLUMN_GRID("Unique_Code", 65, "Unique Code", "Code_Unique");
+            AGREGAR_COLUMN_GRID("ancho", 52, "Ancho", "width");
+            AGREGAR_COLUMN_GRID("largo", 52, "largo", "large");
+            AGREGAR_COLUMN_GRID("msi", 40, "Msi", "msi");
+            AGREGAR_COLUMN_GRID("splice", 40, "Splice", "splice");
+            AGREGAR_COLUMN_GRID("roll_id", 70, "Roll Id.", "Roll_id");
+            AGREGAR_COLUMN_GRID("code_personalize", 100, "Code Person.", "Code_Person");
+            DataGridViewComboBoxColumn col = new DataGridViewComboBoxColumn();
+            col.Name = "status";
+            col.HeaderText="status";
+            col.DataPropertyName = "status";
+            col.Width = 100;
+            col.Items.Add("Ok");
+            col.Items.Add("Detalle");
+            col.Items.Add("Rechazado");
+            col.FlatStyle = FlatStyle.Popup;
+            grid_rollos.Columns.Add(col);
         }
         private void Grid_items_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+
             if (e.ColumnIndex == 6)
             {
                 //double msi = (Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["width"].Value) *
@@ -339,8 +295,8 @@ private void AplicarEstilosGridRollos()
             //orden.Customer_id = txt_customer_id.Text;
             //orden.Customer_Name = txt_customer_name.Text;
             //orden.Roll_id = txt_roll_id.Text;
-            orden.status = 0;
-            orden.anulada = false;
+            orden.Status = 0;
+            orden.Anulada = false;
             //orden.Total_rolls = Convert.ToInt32(txt_total_roll.Text);
             //llenar el detalle de la Orden de Corte.
             orden.items = new List<Orden_Items>();
@@ -390,7 +346,7 @@ private void AplicarEstilosGridRollos()
             //txt_notas.Enabled = false;
             bs.Position -= 1;
             bs.Position += 1;
-            GenerarDetalleRollos();
+            //GenerarDetalleRollos();
         }
 
         private void ToolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -433,44 +389,40 @@ private void AplicarEstilosGridRollos()
                 //txt_numero_oc.Text, grid_rollos.Rows[0].Cells["product_id"].Value.ToString(),item);
         }
 
-        private void GenerarDetalleRollos()
+        private List<Roll_Details> GENERAR_DETALLE_ROLLOS_CORTADOS()
         {
             List<Roll_Details> rollos = new List<Roll_Details>();
             int code_unique = Convert.ToInt32(configmanager.GetParameterControl("UC"));
-            //for (int i = 0; i < grid_items.Rows.Count; i++)
-            //{
-            //    int filas = orden.items[i].Cantidad;
-
-            //    for (int j = 0; j < filas; j++)
-            //    {
-            //        Roll_Details item = new Roll_Details
-            //        {
-            //            Roll_number = (j + 1).ToString(),
-            //            Fecha = Convert.ToDateTime(txt_fecha_orden.Text),
-            //            Numero_Orden = txt_numero_oc.Text,
-            //            Product_id = grid_items.Rows[i].Cells["product_id"].Value.ToString(),
-            //            Product_name = grid_items.Rows[i].Cells["product_name"].Value.ToString(),
-            //            //item.Roll_id = txt_roll_id.Text;
-            //            Width = Convert.ToDecimal(grid_items.Rows[i].Cells["width"].Value.ToString()),
-            //            Large = Convert.ToDecimal(grid_items.Rows[i].Cells["large"].Value.ToString()),
-            //            Msi = Convert.ToDecimal(grid_items.Rows[i].Cells["msi"].Value.ToString()),
-            //            Splice = 0,
-            //            Code_Person = "XC80RP3000WG",
-            //            Code_Unique = "RC" + code_unique
-            //        };
-            //        rollos.Add(item);
-            //        code_unique += 1;
-            //    }
-            //}
+            int filas = Convert.ToInt32(txt_cant_cortado.Text);
+            for (int j = 0; j < filas; j++)
+            {
+                Roll_Details item = new Roll_Details
+                {
+                    Roll_number = (j + 1).ToString(),
+                    Fecha = Convert.ToDateTime(txt_fecha_orden.Text),
+                    Numero_Orden = txt_numero_oc.Text,
+                    Product_id = txt_product_id.Text.ToString(),
+                    Product_name = txt_product_name.Text,
+                    Roll_id = txt_rollid_1.Text,
+                    Width = Convert.ToDecimal(txt_width1_rollid.Text),
+                    Large = Convert.ToDecimal(txt_lenght1_rollid.Text),
+                    Msi = Convert.ToDecimal(txt_msi_cortado.Text),
+                    Splice = 0,
+                    Code_Person = "XC80RP3000WG",
+                    Code_Unique = "RC" + code_unique
+                };
+                rollos.Add(item);
+                code_unique += 1;
+            }
             configmanager.SetParametersControl(code_unique.ToString(),"UC");
-            managerorden.SaveDataDetailsRolls(rollos);
+            return rollos;
+            //managerorden.SaveDataDetailsRolls(rollos);
         }
 
         private void BOT_EXCEL_EXPORT_Click(object sender, EventArgs e)
         {
             ExportDatatoExcel();
         }
-
         private void BOT_BUSCAR_Click(object sender, EventArgs e)
         {
             using (FrmBuscarOrdenes fBuscarOrden = new FrmBuscarOrdenes
@@ -543,14 +495,53 @@ private void AplicarEstilosGridRollos()
             }
             
         }
-
         private void Bot_buscar_rollid1_Click(object sender, EventArgs e)
         {
             using (FrmBuscarRollid rollid = new FrmBuscarRollid())
             {
                 rollid.Dtrollid = ds.Tables["dtrollid"]; 
                 rollid.ShowDialog();
+                txt_rollid_1.Text = rollid.GetrollId;
+                txt_width1_rollid.Text = rollid.GetValueWidth;
+                txt_lenght1_rollid.Text = rollid.GetvalueLenght;
+                txt_product_id.Text = rollid.Getproduct_id;
+                txt_product_name.Text = rollid.GetProduct_name;
             }
+        }
+        private void Bot_buscar_rollid2_Click(object sender, EventArgs e)
+        {
+            using (FrmBuscarRollid rollid = new FrmBuscarRollid())
+            {
+                rollid.Dtrollid = ds.Tables["dtrollid"];
+                rollid.ShowDialog();
+                txt_rollid_2.Text = rollid.GetrollId;
+                txt_width2_rollid.Text = rollid.GetValueWidth;
+                txt_lenght2_rollid.Text = rollid.GetvalueLenght;
+            }
+        }
+        private void Txt_lenght_cortado_TextChanged(object sender, EventArgs e)
+        {
+            CALCULAR_MSI();
+        }
+        private void CALCULAR_MSI() 
+        {
+            if(txt_lenght_cortado.Text != string.Empty) 
+            {
+                double msi = ((Convert.ToDouble(txt_width_cortado.Text)
+                        * Convert.ToDouble(txt_lenght_cortado.Text)) * factor);
+                txt_msi_cortado.Text = msi.ToString();
+            }
+
+        }
+        private void Txt_width_cortado_TextChanged(object sender, EventArgs e)
+        {
+            CALCULAR_MSI();
+        }
+
+        private void bot_generar_rollos_cortados_Click(object sender, EventArgs e)
+        {
+            grid_rollos.DataSource = GENERAR_DETALLE_ROLLOS_CORTADOS();
+            bot_generar_rollos_cortados.Enabled = false;
         }
     }
 }

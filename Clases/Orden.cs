@@ -10,14 +10,11 @@ namespace RitramaAPP
     {
         public string Numero { get; set; }
         public DateTime Fecha { get; set; }
-        public string Pedido { get; set; }
         public int Total_rolls { get; set; }
-        public string Customer_id { get; set; }
-        public string Customer_Name { get; set; }
         public string Roll_id { get; set; }
 
         public List<Orden_Items> items;
-        public Boolean anulada { get; set; }
-        public int status { get; set; }
+        public Boolean Anulada { get; set; }
+        public int Status { get; set; }
     }
 }

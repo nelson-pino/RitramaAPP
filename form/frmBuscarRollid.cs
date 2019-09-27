@@ -18,6 +18,11 @@ namespace RitramaAPP.form
         }
         public DataTable Dtrollid { get; set; }
         DataView dv = new DataView();
+        public string GetrollId { get; set; }
+        public string Getproduct_id { get; set; }
+        public string GetProduct_name { get; set; }
+        public string GetValueWidth { get; set; }
+        public string GetvalueLenght  { get; set; }
         private void FrmBuscarRollid_Load(object sender, EventArgs e)
         {
             dv = Dtrollid.DefaultView;
@@ -28,9 +33,11 @@ namespace RitramaAPP.form
         }
         private void AplicarEstilosGrid() 
         {
-            AGREGAR_COLUMN_GRID("rollid",80,"Roll Id", "Roll_Id");
-            AGREGAR_COLUMN_GRID("product_id", 80, "Product Id", "part_number");
-            AGREGAR_COLUMN_GRID("product_name", 270, "Nombre del Producto", "product_name");
+            AGREGAR_COLUMN_GRID("rollid",62,"Roll Id", "Roll_Id");
+            AGREGAR_COLUMN_GRID("product_id", 55, "Product Id", "part_number");
+            AGREGAR_COLUMN_GRID("product_name", 250, "Nombre del Producto", "product_name");
+            AGREGAR_COLUMN_GRID("width", 50, "Width", "width");
+            AGREGAR_COLUMN_GRID("lenght", 50, "Lenght", "lenght");
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd)
         {
@@ -55,6 +62,20 @@ namespace RitramaAPP.form
                 dv.RowFilter = "Product_Name LIKE '%" + this.TXT_BUSCAR.Text + "%'";
             }
             CONTADOR_REGISTRO.Text = Convert.ToString(dv.Count) + " registros encontrados.";
+        }
+
+        private void Grid_Items_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+            GetrollId = Grid_Items.Rows[e.RowIndex].Cells[0].Value.ToString();
+            Getproduct_id = Grid_Items.Rows[e.RowIndex].Cells[1].Value.ToString();
+            GetProduct_name = Grid_Items.Rows[e.RowIndex].Cells[2].Value.ToString();
+            GetValueWidth = Grid_Items.Rows[e.RowIndex].Cells[3].Value.ToString();
+            GetvalueLenght = Grid_Items.Rows[e.RowIndex].Cells[4].Value.ToString();
+            this.Close();
         }
     }
 }

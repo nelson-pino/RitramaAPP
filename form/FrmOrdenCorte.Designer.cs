@@ -80,8 +80,10 @@
             this.txt_lenght_cortado = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txt_msi_cortado = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.bot_generar_rollos_cortados = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.chk_process = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_rollos)).BeginInit();
@@ -136,7 +138,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(799, 65);
+            this.panel1.Size = new System.Drawing.Size(862, 65);
             this.panel1.TabIndex = 35;
             // 
             // contador
@@ -165,7 +167,7 @@
             this.BOT_EXCEL_EXPORT});
             this.toolStrip1.Location = new System.Drawing.Point(0, 65);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(799, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(862, 27);
             this.toolStrip1.TabIndex = 45;
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolStrip1_ItemClicked);
@@ -297,9 +299,9 @@
             this.grid_rollos.Margin = new System.Windows.Forms.Padding(2);
             this.grid_rollos.Name = "grid_rollos";
             this.grid_rollos.ReadOnly = true;
-            this.grid_rollos.RowHeadersWidth = 30;
+            this.grid_rollos.RowHeadersWidth = 25;
             this.grid_rollos.RowTemplate.Height = 24;
-            this.grid_rollos.Size = new System.Drawing.Size(587, 246);
+            this.grid_rollos.Size = new System.Drawing.Size(842, 246);
             this.grid_rollos.TabIndex = 17;
             // 
             // BOT_ROLLID_ADD
@@ -329,7 +331,7 @@
             // BOT_UPDATE_ROLLID
             // 
             this.BOT_UPDATE_ROLLID.Image = ((System.Drawing.Image)(resources.GetObject("BOT_UPDATE_ROLLID.Image")));
-            this.BOT_UPDATE_ROLLID.Location = new System.Drawing.Point(603, 346);
+            this.BOT_UPDATE_ROLLID.Location = new System.Drawing.Point(603, 241);
             this.BOT_UPDATE_ROLLID.Margin = new System.Windows.Forms.Padding(2);
             this.BOT_UPDATE_ROLLID.Name = "BOT_UPDATE_ROLLID";
             this.BOT_UPDATE_ROLLID.Size = new System.Drawing.Size(26, 21);
@@ -489,6 +491,7 @@
             this.bot_buscar_rollid2.TabIndex = 73;
             this.bot_buscar_rollid2.Text = "...";
             this.bot_buscar_rollid2.UseVisualStyleBackColor = true;
+            this.bot_buscar_rollid2.Click += new System.EventHandler(this.Bot_buscar_rollid2_Click);
             // 
             // label11
             // 
@@ -521,11 +524,11 @@
             // 
             // txt_product_name
             // 
-            this.txt_product_name.Location = new System.Drawing.Point(149, 260);
+            this.txt_product_name.Location = new System.Drawing.Point(192, 260);
             this.txt_product_name.Margin = new System.Windows.Forms.Padding(2);
             this.txt_product_name.Name = "txt_product_name";
             this.txt_product_name.ReadOnly = true;
-            this.txt_product_name.Size = new System.Drawing.Size(395, 20);
+            this.txt_product_name.Size = new System.Drawing.Size(352, 20);
             this.txt_product_name.TabIndex = 11;
             // 
             // label6
@@ -565,6 +568,7 @@
             this.txt_width_cortado.ReadOnly = true;
             this.txt_width_cortado.Size = new System.Drawing.Size(128, 20);
             this.txt_width_cortado.TabIndex = 13;
+            this.txt_width_cortado.TextChanged += new System.EventHandler(this.Txt_width_cortado_TextChanged);
             // 
             // label14
             // 
@@ -584,6 +588,7 @@
             this.txt_lenght_cortado.ReadOnly = true;
             this.txt_lenght_cortado.Size = new System.Drawing.Size(128, 20);
             this.txt_lenght_cortado.TabIndex = 14;
+            this.txt_lenght_cortado.TextChanged += new System.EventHandler(this.Txt_lenght_cortado_TextChanged);
             // 
             // label16
             // 
@@ -604,14 +609,15 @@
             this.txt_msi_cortado.Size = new System.Drawing.Size(128, 20);
             this.txt_msi_cortado.TabIndex = 15;
             // 
-            // button1
+            // bot_generar_rollos_cortados
             // 
-            this.button1.Location = new System.Drawing.Point(416, 168);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(135, 66);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Generar Rollos";
-            this.button1.UseVisualStyleBackColor = true;
+            this.bot_generar_rollos_cortados.Location = new System.Drawing.Point(416, 168);
+            this.bot_generar_rollos_cortados.Name = "bot_generar_rollos_cortados";
+            this.bot_generar_rollos_cortados.Size = new System.Drawing.Size(135, 66);
+            this.bot_generar_rollos_cortados.TabIndex = 9;
+            this.bot_generar_rollos_cortados.Text = "Generar Rollos";
+            this.bot_generar_rollos_cortados.UseVisualStyleBackColor = true;
+            this.bot_generar_rollos_cortados.Click += new System.EventHandler(this.bot_generar_rollos_cortados_Click);
             // 
             // checkBox1
             // 
@@ -624,14 +630,36 @@
             this.checkBox1.Text = "Documento Anulado";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(152, 258);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(35, 23);
+            this.button2.TabIndex = 86;
+            this.button2.Text = "...";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // chk_process
+            // 
+            this.chk_process.AutoSize = true;
+            this.chk_process.Enabled = false;
+            this.chk_process.Location = new System.Drawing.Point(654, 142);
+            this.chk_process.Name = "chk_process";
+            this.chk_process.Size = new System.Drawing.Size(77, 17);
+            this.chk_process.TabIndex = 88;
+            this.chk_process.Text = "Procesado";
+            this.chk_process.UseVisualStyleBackColor = true;
+            // 
             // FrmOrdenCorte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(799, 673);
+            this.ClientSize = new System.Drawing.Size(862, 673);
+            this.Controls.Add(this.chk_process);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.bot_generar_rollos_cortados);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.txt_msi_cortado);
             this.Controls.Add(this.label14);
@@ -740,7 +768,9 @@
         private System.Windows.Forms.TextBox txt_lenght_cortado;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txt_msi_cortado;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button bot_generar_rollos_cortados;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox chk_process;
     }
 }

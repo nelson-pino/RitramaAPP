@@ -42,7 +42,7 @@
             // 
             this.TXT_BUSCAR.Location = new System.Drawing.Point(12, 28);
             this.TXT_BUSCAR.Name = "TXT_BUSCAR";
-            this.TXT_BUSCAR.Size = new System.Drawing.Size(480, 20);
+            this.TXT_BUSCAR.Size = new System.Drawing.Size(515, 20);
             this.TXT_BUSCAR.TabIndex = 0;
             this.TXT_BUSCAR.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -57,9 +57,10 @@
             this.Grid_Items.MultiSelect = false;
             this.Grid_Items.Name = "Grid_Items";
             this.Grid_Items.ReadOnly = true;
-            this.Grid_Items.RowHeadersWidth = 30;
-            this.Grid_Items.Size = new System.Drawing.Size(480, 283);
+            this.Grid_Items.RowHeadersWidth = 28;
+            this.Grid_Items.Size = new System.Drawing.Size(515, 283);
             this.Grid_Items.TabIndex = 1;
+            this.Grid_Items.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Grid_Items_CellMouseDoubleClick);
             // 
             // CONTADOR_REGISTRO
             // 
@@ -87,7 +88,7 @@
             // 
             this.groupBox1.Controls.Add(this.RAD_NOMBRE_PRODUCTO);
             this.groupBox1.Controls.Add(this.RAD_ROLLID);
-            this.groupBox1.Location = new System.Drawing.Point(292, 343);
+            this.groupBox1.Location = new System.Drawing.Point(327, 343);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(200, 100);
             this.groupBox1.TabIndex = 4;
@@ -108,7 +109,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 453);
+            this.ClientSize = new System.Drawing.Size(539, 453);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.CONTADOR_REGISTRO);
             this.Controls.Add(this.Grid_Items);
