@@ -298,10 +298,9 @@
             this.grid_rollos.Location = new System.Drawing.Point(9, 346);
             this.grid_rollos.Margin = new System.Windows.Forms.Padding(2);
             this.grid_rollos.Name = "grid_rollos";
-            this.grid_rollos.ReadOnly = true;
             this.grid_rollos.RowHeadersWidth = 25;
             this.grid_rollos.RowTemplate.Height = 24;
-            this.grid_rollos.Size = new System.Drawing.Size(842, 246);
+            this.grid_rollos.Size = new System.Drawing.Size(814, 246);
             this.grid_rollos.TabIndex = 17;
             // 
             // BOT_ROLLID_ADD
@@ -611,13 +610,13 @@
             // 
             // bot_generar_rollos_cortados
             // 
-            this.bot_generar_rollos_cortados.Location = new System.Drawing.Point(416, 168);
+            this.bot_generar_rollos_cortados.Location = new System.Drawing.Point(419, 165);
             this.bot_generar_rollos_cortados.Name = "bot_generar_rollos_cortados";
             this.bot_generar_rollos_cortados.Size = new System.Drawing.Size(135, 66);
             this.bot_generar_rollos_cortados.TabIndex = 9;
             this.bot_generar_rollos_cortados.Text = "Generar Rollos";
             this.bot_generar_rollos_cortados.UseVisualStyleBackColor = true;
-            this.bot_generar_rollos_cortados.Click += new System.EventHandler(this.bot_generar_rollos_cortados_Click);
+            this.bot_generar_rollos_cortados.Click += new System.EventHandler(this.Bot_generar_rollos_cortados_Click);
             // 
             // checkBox1
             // 

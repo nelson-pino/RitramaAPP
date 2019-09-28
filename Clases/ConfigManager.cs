@@ -18,7 +18,7 @@ namespace RitramaAPP.Clases
         readonly string sql2 = "UPDATE control SET par1=@p1 WHERE filter=@p2";
         public string GetParameterControl(string filter)
         {
-            string cant_value = "";
+            string cant_value;
             Micomm.Conectar(db);
             SqlCommand comando = new SqlCommand
             {

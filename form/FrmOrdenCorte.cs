@@ -25,16 +25,13 @@ namespace RitramaAPP
         readonly BindingSource bs = new BindingSource();
         //readonly BindingSource bsdetalle = new BindingSource();
         readonly System.Data.DataTable dtrolls = new System.Data.DataTable();
-        System.Data.DataTable dtproducts = new System.Data.DataTable();
+        readonly System.Data.DataTable dtproducts = new System.Data.DataTable();
         DataSet ds = new DataSet();
         private DataRowView ParentRow;
         //private readonly DataRowView ChildRows;
         //DataGridViewComboBoxColumn ComboUnidad = new DataGridViewComboBoxColumn();
         //int renglon,ConsecOrden;
         readonly double factor = 0.012;
-        readonly Orden orden = new Orden();
-        public System.Data.DataTable Dtproducts { get => dtproducts; set => dtproducts = value; }
-        
    
         private void FrmOrdenCorte_Load(object sender, EventArgs e)
         {
@@ -44,6 +41,13 @@ namespace RitramaAPP
             bs.DataMember = "dtordenes";
             txt_numero_oc.DataBindings.Add("text",bs,"numero");
             txt_fecha_orden.DataBindings.Add("text", bs, "fecha");
+            txt_fecha_producc.DataBindings.Add("text", bs, "fecha_produccion");
+            txt_rollid_1.DataBindings.Add("text", bs, "rollid_1");
+            txt_width1_rollid.DataBindings.Add("text",bs,"width_1");
+            txt_lenght1_rollid.DataBindings.Add("text",bs,"lenght_1");
+            txt_rollid_2.DataBindings.Add("text", bs, "rollid_2");
+            txt_width2_rollid.DataBindings.Add("text", bs, "width_2");
+            txt_lenght2_rollid.DataBindings.Add("text", bs, "lenght_2");
         }
         private void BOT_NUEVO_Click(object sender, EventArgs e)
         {
@@ -61,12 +65,16 @@ namespace RitramaAPP
             //Agregar encabezado de la Factura.
             ParentRow = (DataRowView)bs.AddNew();
             ParentRow.BeginEdit();
+            ParentRow["rollid_1"] = string.Empty;
+            ParentRow["width_1"] = 0;
+            ParentRow["lenght_1"] = 0;
+            ParentRow["rollid_2"] = string.Empty;
+            ParentRow["width_2"] = 0;
+            ParentRow["lenght_2"] = 0;
             ParentRow["numero"] = string.Empty;
             ParentRow["anulada"] = false;
-            ParentRow["status"] = 0;
-            ParentRow["total_rollos"] = 0;
             ParentRow.EndEdit();
-            AgregarRenglon();
+            //AgregarRenglon();
             txt_numero_oc.Focus();
 
         }
@@ -188,7 +196,7 @@ namespace RitramaAPP
 private void AplicarEstilosGridRollos()
         {
             grid_rollos.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("roll", 25, "#", "roll_number");
+            AGREGAR_COLUMN_GRID("roll", 30, "#", "roll_number");
             AGREGAR_COLUMN_GRID("product_id", 50, "Prod. Id", "product_id");
             AGREGAR_COLUMN_GRID("product_name", 190, "Descripcion Producto", "product_name");
             AGREGAR_COLUMN_GRID("Unique_Code", 65, "Unique Code", "Code_Unique");
@@ -199,13 +207,13 @@ private void AplicarEstilosGridRollos()
             AGREGAR_COLUMN_GRID("roll_id", 70, "Roll Id.", "Roll_id");
             AGREGAR_COLUMN_GRID("code_personalize", 100, "Code Person.", "Code_Person");
             DataGridViewComboBoxColumn col = new DataGridViewComboBoxColumn();
-            col.Name = "status";
-            col.HeaderText="status";
-            col.DataPropertyName = "status";
-            col.Width = 100;
             col.Items.Add("Ok");
             col.Items.Add("Detalle");
             col.Items.Add("Rechazado");
+            col.Name = "status";
+            col.HeaderText="status";
+            col.DataPropertyName = "status";
+            col.Width = 80;
             col.FlatStyle = FlatStyle.Popup;
             grid_rollos.Columns.Add(col);
         }
@@ -249,7 +257,7 @@ private void AplicarEstilosGridRollos()
             {
                 using (SeleccionProductos FormBuscarArticulos = new SeleccionProductos
                 {
-                    dtproducto = Dtproducts
+                    //dtproducto = Dtproducts
                 })
                 {
                     FormBuscarArticulos.ShowDialog();
@@ -278,28 +286,56 @@ private void AplicarEstilosGridRollos()
         private void BOT_SAVE_Click(object sender, EventArgs e)
         {
             //validar el formulario
-            //if (txt_customer_id.Text.Length == 0)
-            //{
-            //    MessageBox.Show("Introduzca el codigo del Cliente.?");
-            //    return;
-            //}
-            //validar los renglones.
-            //if (!ValidarRenglon())
-            //{
-            //    return;
-            //};
-            //llenar el encabezado de la factura
-            orden.Numero = (txt_numero_oc.Text);
-            orden.Fecha = Convert.ToDateTime(txt_fecha_orden.Text);
-            //orden.Pedido = txt_numero_pedido.Text;
-            //orden.Customer_id = txt_customer_id.Text;
-            //orden.Customer_Name = txt_customer_name.Text;
+
+
+            //llenar el encabezado de la orden de produccion
+            Orden orden = new Orden
+            {
+                Numero = (txt_numero_oc.Text),
+                Fecha = Convert.ToDateTime(txt_fecha_orden.Text),
+                Fecha_produccion = Convert.ToDateTime(txt_fecha_producc.Text),
+                Product_id = txt_product_id.Text,
+                Rollid_1 = txt_rollid_1.Text.ToString(),
+                Width_1 = Convert.ToDecimal(txt_width1_rollid.Text),
+                Lenght_1 = Convert.ToDecimal(txt_lenght1_rollid.Text),
+                Rollid_2 = txt_rollid_2.Text,
+                Width_2 = Convert.ToDecimal(txt_width2_rollid.Text),
+                Lenght_2 = Convert.ToDecimal(txt_lenght2_rollid.Text),
+                Cant_cortados = Convert.ToInt32(txt_cant_cortado.Text),
+                Widht_cortados = Convert.ToDecimal(txt_width_cortado.Text),
+                Lenght_cortados = Convert.ToDecimal(txt_lenght_cortado.Text),
+                msi_cortados = Convert.ToDecimal(txt_msi_cortado.Text),
+                Anulada = false,
+                Procesado = false
+            };
+            orden.rollos = new List<Roll_Details>();
+            for (int fila = 0; fila<= grid_rollos.Rows.Count-1; fila++ ) 
+            {
+                Roll_Details rollo_cortado = new Roll_Details
+                {
+                    Roll_number = grid_rollos.Rows[fila].Cells[0].Value.ToString(),
+                    Product_id = grid_rollos.Rows[fila].Cells[1].Value.ToString(),
+                    Product_name = grid_rollos.Rows[fila].Cells[2].Value.ToString(),
+                    Code_Unique = grid_rollos.Rows[fila].Cells[3].Value.ToString(),
+                    Width = Convert.ToDecimal(grid_rollos.Rows[fila].Cells[4].Value),
+                    Large = Convert.ToDecimal(grid_rollos.Rows[fila].Cells[5].Value),
+                    Msi = Convert.ToDecimal(grid_rollos.Rows[fila].Cells[6].Value),
+                    Splice = Convert.ToInt32(grid_rollos.Rows[fila].Cells[7].Value),
+                    Roll_id = grid_rollos.Rows[fila].Cells[8].Value.ToString(),
+                    Code_Person = grid_rollos.Rows[fila].Cells[8].Value.ToString(),
+                    status = grid_rollos.Rows[fila].Cells[9].Value.ToString(),
+                };
+                orden.rollos.Add(rollo_cortado);
+            }
+            managerorden.Add(orden,false);
+
+
+
+
             //orden.Roll_id = txt_roll_id.Text;
-            orden.Status = 0;
-            orden.Anulada = false;
             //orden.Total_rolls = Convert.ToInt32(txt_total_roll.Text);
             //llenar el detalle de la Orden de Corte.
-            orden.items = new List<Orden_Items>();
+            //orden.items = new List<Orden_Items>();
             //for (int i = 0; i <= grid_items.Rows.Count - 1; i++)
             //{
             //Orden_Items item = new Orden_Items
@@ -316,7 +352,7 @@ private void AplicarEstilosGridRollos()
             //item.Msi = Convert.ToDecimal(grid_items.Rows[i].Cells["msi"].Value.ToString());
             //orden.items.Add(item);
             //}
-            managerorden.ToSave(orden);
+            //managerorden.ToSave(orden);
             //ConsecOrden += 1;
             //config.SetParametersControl(ConsecOrden.ToString(),"COC");
             // Acomodar la barra de herramientas.
@@ -404,12 +440,13 @@ private void AplicarEstilosGridRollos()
                     Product_id = txt_product_id.Text.ToString(),
                     Product_name = txt_product_name.Text,
                     Roll_id = txt_rollid_1.Text,
-                    Width = Convert.ToDecimal(txt_width1_rollid.Text),
-                    Large = Convert.ToDecimal(txt_lenght1_rollid.Text),
+                    Width = Convert.ToDecimal(txt_width_cortado.Text),
+                    Large = Convert.ToDecimal(txt_lenght_cortado.Text),
                     Msi = Convert.ToDecimal(txt_msi_cortado.Text),
                     Splice = 0,
                     Code_Person = "XC80RP3000WG",
-                    Code_Unique = "RC" + code_unique
+                    Code_Unique = "RC" + code_unique,
+                    status ="Ok"
                 };
                 rollos.Add(item);
                 code_unique += 1;
@@ -531,14 +568,13 @@ private void AplicarEstilosGridRollos()
                         * Convert.ToDouble(txt_lenght_cortado.Text)) * factor);
                 txt_msi_cortado.Text = msi.ToString();
             }
-
         }
         private void Txt_width_cortado_TextChanged(object sender, EventArgs e)
         {
             CALCULAR_MSI();
         }
 
-        private void bot_generar_rollos_cortados_Click(object sender, EventArgs e)
+        private void Bot_generar_rollos_cortados_Click(object sender, EventArgs e)
         {
             grid_rollos.DataSource = GENERAR_DETALLE_ROLLOS_CORTADOS();
             bot_generar_rollos_cortados.Enabled = false;

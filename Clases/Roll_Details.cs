@@ -20,5 +20,6 @@ namespace RitramaAPP.Clases
         public int Splice { get; set; }
         public string Code_Person { get; set; }
         public string Code_Unique { get; set; }
+        public string status { get; set; }
     }
 }

@@ -30,7 +30,6 @@ namespace RitramaAPP
             ds = Manager.ds;
             bs.DataSource = ds;
             bs.DataMember = "dtrecepcion";
-            bs.Sort = "fecha_reg desc";
             txt_orden.DataBindings.Add("text",bs, "OrderPurchase");
             txt_part_number.DataBindings.Add("text",bs, "Part_Number");
             txt_width.DataBindings.Add("text", bs, "Width");
@@ -89,22 +88,22 @@ namespace RitramaAPP
         }
         private void Bot_siguiente_Click(object sender, EventArgs e)
         {
-            bs.Position -= 1;
+            bs.Position += 1;
             ContadorRegistros();
         }
         private void Bot_anterior_Click(object sender, EventArgs e)
         {
-            bs.Position += 1;
+            bs.Position -= 1;
             ContadorRegistros();
         }
         private void Bot_primero_Click(object sender, EventArgs e)
         {
-            bs.Position = bs.Count - 1;
+            bs.Position = 0;
             ContadorRegistros();
         }
         private void Bot_ultimo_Click(object sender, EventArgs e)
         {
-            bs.Position = 0;
+            bs.Position = bs.Count - 1;
             ContadorRegistros();
         }
         private void ContadorRegistros()
