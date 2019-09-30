@@ -79,7 +79,7 @@ namespace RitramaAPP
                         "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14,@p15,@p16) ";
                     public static string SQL_QUERY_INSERT_DETAILS_OC = "INSERT rolls_details (numero,product_id,product_name,roll_number,unique_code,splice,width,large,msi,roll_id,code_person,status) " +
                         "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12)";
-                    public static string SQL_QUERY_SELECT_ROLLID = "SELECT a.numero,a.roll_id,a.part_number,b.product_name,a.width,a.lenght FROM OrdenRecepcion a LEFT JOIN producto b ON a.part_number = b.product_id";
+                    public static string SQL_QUERY_SELECT_ROLLID = "SELECT a.roll_id,a.part_number,b.product_name,a.width,a.lenght FROM OrdenRecepcion a LEFT JOIN producto b ON a.part_number = b.product_id";
                     public static string SQL_QUERY_SELECT_ROLLOS_CORTADOS = "SELECT numero,product_id,product_name,roll_number,unique_code,splice,width,large,msi,roll_id,code_person,status FROM rolls_details";
 
 
@@ -129,6 +129,8 @@ namespace RitramaAPP
                 public static string MESSAGE_LOAD_ROLLOS_CORTADOS_ERROR_FAIL = "Error al cargar la lista de los rollos cortados. error code:";
                 public static string MESSAGE_ADD_ORDEN_ERROR_FAIL_HEADER = "Error al tratar de grabar el encabezado de la orden de produccion";
                 public static string MESSAGE_ADD_ORDEN_ERROR_FAIL_DETAILS = "Error al tratar de grabar el detalle de la orden de produccion";
+                public static string MESSAGE_LOAD_ROLLID_ERROR_FAIL = "Error al cargar los roll id de la materia prima";
+
             }
         }
         public class PATH_FILES

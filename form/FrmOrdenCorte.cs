@@ -30,7 +30,6 @@ namespace RitramaAPP
         readonly System.Data.DataTable dtproducts = new System.Data.DataTable();
         DataSet ds = new DataSet();
         private DataRowView ParentRow;
-        //private readonly DataRowView ChildRows;
         //DataGridViewComboBoxColumn ComboUnidad = new DataGridViewComboBoxColumn();
         //int renglon,ConsecOrden;
         readonly double factor = 0.012;
@@ -73,19 +72,8 @@ namespace RitramaAPP
             //grid_items.ReadOnly = false;
             //busco el proximo numero de consecutivo de la orden.
             //ConsecOrden = Convert.ToInt32(config.GetParameterControl("COC"));
-            //Agregar encabezado de la Factura.
             ParentRow = (DataRowView)bs.AddNew();
             ParentRow.BeginEdit();
-            ParentRow["rollid_1"] = string.Empty;
-            ParentRow["width_1"] = 0;
-            ParentRow["lenght_1"] = 0;
-            ParentRow["rollid_2"] = string.Empty;
-            ParentRow["width_2"] = 0;
-            ParentRow["lenght_2"] = 0;
-            ParentRow["numero"] = string.Empty;
-            ParentRow["anulada"] = false;
-            ParentRow.EndEdit();
-            //AgregarRenglon();
             txt_numero_oc.Focus();
 
         }
@@ -124,6 +112,14 @@ namespace RitramaAPP
                     BOT_EXCEL_EXPORT.Enabled = false;
                     break;
                 case 1:
+                    //modo agregar despues de grabar.
+                    bot_primero.Enabled = true;
+                    bot_siguiente.Enabled = true;
+                    bot_anterior.Enabled = true;
+                    bot_ultimo.Enabled = true;
+                    BOT_NUEVO.Enabled = true;
+                    BOT_BUSCAR.Enabled = true;
+                    BOT_EXCEL_EXPORT.Enabled = true;
                     break;
             }
         }
@@ -296,7 +292,6 @@ private void AplicarEstilosGridRollos()
         {
             //validar el formulario
 
-
             //llenar el encabezado de la orden de produccion
             Orden orden = new Orden
             {
@@ -326,42 +321,27 @@ private void AplicarEstilosGridRollos()
                     Roll_number = grid_rollos.Rows[fila].Cells[0].Value.ToString(),
                     Product_id = grid_rollos.Rows[fila].Cells[1].Value.ToString(),
                     Product_name = grid_rollos.Rows[fila].Cells[2].Value.ToString(),
-                    Code_Unique = grid_rollos.Rows[fila].Cells[3].Value.ToString(),
+                    Unique_code = grid_rollos.Rows[fila].Cells[3].Value.ToString(),
                     Width = Convert.ToDecimal(grid_rollos.Rows[fila].Cells[4].Value),
                     Large = Convert.ToDecimal(grid_rollos.Rows[fila].Cells[5].Value),
                     Msi = Convert.ToDecimal(grid_rollos.Rows[fila].Cells[6].Value),
                     Splice = Convert.ToInt32(grid_rollos.Rows[fila].Cells[7].Value),
                     Roll_id = grid_rollos.Rows[fila].Cells[8].Value.ToString(),
                     Code_Person = grid_rollos.Rows[fila].Cells[9].Value.ToString(),
-                    status = grid_rollos.Rows[fila].Cells[10].Value.ToString(),
+                    Status = grid_rollos.Rows[fila].Cells[10].Value.ToString(),
                 };
                 orden.rollos.Add(rollo_cortado);
             }
             managerorden.Add(orden,false);
+            OptionsMenu(1);
 
 
 
 
-            //orden.Roll_id = txt_roll_id.Text;
-            //orden.Total_rolls = Convert.ToInt32(txt_total_roll.Text);
-            //llenar el detalle de la Orden de Corte.
-            //orden.items = new List<Orden_Items>();
-            //for (int i = 0; i <= grid_items.Rows.Count - 1; i++)
-            //{
-            //Orden_Items item = new Orden_Items
-            //{
-            //    renglon = (i + 1).ToString(),
-            //    numero = ConsecOrden.ToString(),
-            //    //Product_id = grid_items.Rows[i].Cells["product_id"].Value.ToString(),
-            //    //Product_name = grid_items.Rows[i].Cells["product_name"].Value.ToString()
-            //};
-            //item.Cantidad = Convert.ToInt32(grid_items.Rows[i].Cells["cant"].Value.ToString());
-            //item.Unidad = grid_items.Rows[i].Cells["ComboUnidad"].Value.ToString();
-            //item.Width = Convert.ToDecimal(grid_items.Rows[i].Cells["Width"].Value.ToString());
-            //item.Large = Convert.ToDecimal(grid_items.Rows[i].Cells["large"].Value.ToString());
-            //item.Msi = Convert.ToDecimal(grid_items.Rows[i].Cells["msi"].Value.ToString());
-            //orden.items.Add(item);
-            //}
+            
+            
+            
+            
             //managerorden.ToSave(orden);
             //ConsecOrden += 1;
             //config.SetParametersControl(ConsecOrden.ToString(),"COC");
@@ -390,9 +370,9 @@ private void AplicarEstilosGridRollos()
             //ra_cheque.Enabled = false;
             //grid_productos.Enabled = false;
             //txt_notas.Enabled = false;
-            bs.Position -= 1;
-            bs.Position += 1;
-            //GenerarDetalleRollos();
+            //bs.Position -= 1;
+            //bs.Position += 1;
+            ////GenerarDetalleRollos();
         }
 
         private void ToolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -449,21 +429,20 @@ private void AplicarEstilosGridRollos()
                     Numero_Orden = txt_numero_oc.Text,
                     Product_id = txt_product_id.Text.ToString(),
                     Product_name = txt_product_name.Text,
+                    Unique_code = "RC" + code_unique,
                     Roll_id = txt_rollid_1.Text,
                     Width = Convert.ToDecimal(txt_width_cortado.Text),
                     Large = Convert.ToDecimal(txt_lenght_cortado.Text),
                     Msi = Convert.ToDecimal(txt_msi_cortado.Text),
                     Splice = 0,
                     Code_Person = "XC80RP3000WG",
-                    Code_Unique = "RC" + code_unique,
-                    status ="Ok"
+                    Status ="Ok"
                 };
                 rollos.Add(item);
                 code_unique += 1;
             }
             configmanager.SetParametersControl(code_unique.ToString(),"UC");
             return rollos;
-            //managerorden.SaveDataDetailsRolls(rollos);
         }
 
         private void BOT_EXCEL_EXPORT_Click(object sender, EventArgs e)
@@ -586,7 +565,46 @@ private void AplicarEstilosGridRollos()
 
         private void Bot_generar_rollos_cortados_Click(object sender, EventArgs e)
         {
-            grid_rollos.DataSource = GENERAR_DETALLE_ROLLOS_CORTADOS();
+            List<Roll_Details> lista = GENERAR_DETALLE_ROLLOS_CORTADOS();
+            //Agregar encabezado a la orden.
+            ParentRow["numero"] = txt_numero_oc.Text;
+            ParentRow["fecha"] = txt_fecha_orden.Text;
+            ParentRow["fecha_produccion"] = txt_fecha_producc.Text;
+            ParentRow["rollid_1"] = txt_rollid_1.Text;
+            ParentRow["width_1"] = txt_width1_rollid.Text;
+            ParentRow["lenght_1"] = txt_lenght1_rollid.Text;
+            ParentRow["rollid_2"] = txt_rollid_2.Text;
+            ParentRow["width_2"] = txt_width2_rollid.Text;
+            ParentRow["lenght_2"] = txt_lenght2_rollid.Text;
+            ParentRow["product_id"] = txt_product_id.Text;
+            ParentRow["product_name"] = txt_product_name.Text;
+            ParentRow["cant_cortado"] = txt_cant_cortado.Text;
+            ParentRow["width_cortado"] = txt_width_cortado.Text;
+            ParentRow["lenght_cortado"] = txt_lenght_cortado.Text;
+            ParentRow["anulada"] = false;
+            ParentRow["procesado"] = false;
+            ParentRow.EndEdit();
+            DataRowView ChildRows; 
+            foreach (Roll_Details item in lista) 
+            {
+                ChildRows = (DataRowView)bsdetalle.AddNew();
+                ChildRows.BeginEdit();
+                ChildRows["numero"] = item.Numero_Orden;
+                ChildRows["roll_number"] = item.Roll_number;
+                ChildRows["product_id"] = item.Product_id;
+                ChildRows["product_name"] = item.Product_name;
+                ChildRows["unique_code"] = item.Unique_code;
+                ChildRows["width"] = item.Width;
+                ChildRows["large"] = item.Large;
+                ChildRows["Msi"] = item.Msi;
+                ChildRows["Splice"] = item.Splice;
+                ChildRows["Roll_id"] = item.Roll_id;
+                ChildRows["Code_Person"] = item.Code_Person;
+                ChildRows["Status"] = item.Status;
+                ChildRows.Row.SetParentRow(ParentRow.Row);
+                ChildRows.EndEdit();
+            }
+            bs.Position = bs.Count - 1;
             bot_generar_rollos_cortados.Enabled = false;
         }
     }

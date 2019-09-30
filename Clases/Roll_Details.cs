@@ -19,7 +19,7 @@ namespace RitramaAPP.Clases
         public decimal Msi { get; set; }
         public int Splice { get; set; }
         public string Code_Person { get; set; }
-        public string Code_Unique { get; set; }
-        public string status { get; set; }
+        public string Unique_code { get; set; }
+        public string Status { get; set; }
     }
 }

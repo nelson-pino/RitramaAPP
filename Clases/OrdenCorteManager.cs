@@ -17,6 +17,8 @@ namespace RitramaAPP.Clases
         readonly SqlDataAdapter daordenes = new SqlDataAdapter();
         readonly SqlDataAdapter darenglones = new SqlDataAdapter();
         readonly SqlDataAdapter daproducts = new SqlDataAdapter();
+        readonly SqlDataAdapter darollid = new SqlDataAdapter();
+
         readonly DataTable dtordenes = new DataTable();
         readonly DataTable dtrenglones = new DataTable();
         readonly DataTable dtproducts = new DataTable();
@@ -33,7 +35,7 @@ namespace RitramaAPP.Clases
         {
             CargarProducts();
             CargarOrdenes();
-            //CargarRollsId();
+            CargarRollsId();
             RelacionesDS();
         }
         public Boolean CommandSqlGeneric(string db, string query, List<SqlParameter> spc, Boolean msg, string messagerror)
@@ -116,7 +118,9 @@ namespace RitramaAPP.Clases
         }
         public void CargarRollsId() 
         {
-            
+            CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME,
+            R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_SELECT_ROLLID, darollid, "dtrollid",
+            R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_LOAD_ROLLID_ERROR_FAIL);
         }
         public void Add(Orden datos,Boolean ismessage) 
         {
@@ -496,7 +500,7 @@ namespace RitramaAPP.Clases
                             r9.Value = item.Msi;
                             r10.Value = item.Splice;
                             r11.Value = item.Code_Person;
-                            r12.Value = item.Code_Unique;
+                            r12.Value = item.Unique_code;
                             comando.ExecuteNonQuery();
                         }
                     }
@@ -617,14 +621,14 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.NVarChar, Value = datos.Product_id},
                 new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.NVarChar, Value = datos.Product_name},
                 new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.NVarChar, Value = datos.Roll_number},
-                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.NVarChar, Value = datos.Code_Unique},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.NVarChar, Value = datos.Unique_code},
                 new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.Int, Value = datos.Splice},
                 new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.Decimal, Value = datos.Width},
                 new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.Decimal, Value = datos.Large},
                 new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Decimal, Value = datos.Msi},
                 new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.NVarChar, Value = datos.Roll_id},
                 new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.NVarChar, Value = datos.Code_Person},
-                new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.NVarChar, Value = datos.status},
+                new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.NVarChar, Value = datos.Status},
             };
             return sp;
         }
