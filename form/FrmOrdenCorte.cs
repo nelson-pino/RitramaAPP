@@ -23,6 +23,8 @@ namespace RitramaAPP
         readonly OrdenCorteManager managerorden = new OrdenCorteManager();
         readonly ConfigManager configmanager = new ConfigManager();
         readonly BindingSource bs = new BindingSource();
+        readonly BindingSource bsdetalle = new BindingSource();
+
         //readonly BindingSource bsdetalle = new BindingSource();
         readonly System.Data.DataTable dtrolls = new System.Data.DataTable();
         readonly System.Data.DataTable dtproducts = new System.Data.DataTable();
@@ -48,6 +50,15 @@ namespace RitramaAPP
             txt_rollid_2.DataBindings.Add("text", bs, "rollid_2");
             txt_width2_rollid.DataBindings.Add("text", bs, "width_2");
             txt_lenght2_rollid.DataBindings.Add("text", bs, "lenght_2");
+            txt_product_id.DataBindings.Add("text", bs, "product_id");
+            txt_product_name.DataBindings.Add("text", bs, "product_name");
+            txt_cant_cortado.DataBindings.Add("text", bs, "cant_cortado");
+            txt_width_cortado.DataBindings.Add("text",bs,"width_cortado");
+            txt_lenght_cortado.DataBindings.Add("text",bs,"lenght_cortado");
+            //binding del detalle
+            bsdetalle.DataSource = bs;
+            bsdetalle.DataMember = "FK_ORDEN_DETAILS";
+            grid_rollos.DataSource = bsdetalle;
         }
         private void BOT_NUEVO_Click(object sender, EventArgs e)
         {
@@ -141,14 +152,12 @@ namespace RitramaAPP
         {
             bs.Position += 1;
             ContadorRegistros();
-            grid_rollos.DataSource = "";
         }
 
         private void Bot_anterior_Click(object sender, EventArgs e)
         {
             bs.Position -= 1;
             ContadorRegistros();
-            grid_rollos.DataSource = "";
         }
 
         private void Bot_primero_Click(object sender, EventArgs e)
@@ -199,13 +208,13 @@ private void AplicarEstilosGridRollos()
             AGREGAR_COLUMN_GRID("roll", 30, "#", "roll_number");
             AGREGAR_COLUMN_GRID("product_id", 50, "Prod. Id", "product_id");
             AGREGAR_COLUMN_GRID("product_name", 190, "Descripcion Producto", "product_name");
-            AGREGAR_COLUMN_GRID("Unique_Code", 65, "Unique Code", "Code_Unique");
+            AGREGAR_COLUMN_GRID("Unique_Code", 65, "Unique Code", "unique_code");
             AGREGAR_COLUMN_GRID("ancho", 52, "Ancho", "width");
             AGREGAR_COLUMN_GRID("largo", 52, "largo", "large");
             AGREGAR_COLUMN_GRID("msi", 40, "Msi", "msi");
             AGREGAR_COLUMN_GRID("splice", 40, "Splice", "splice");
             AGREGAR_COLUMN_GRID("roll_id", 70, "Roll Id.", "Roll_id");
-            AGREGAR_COLUMN_GRID("code_personalize", 100, "Code Person.", "Code_Person");
+            AGREGAR_COLUMN_GRID("code_personalize", 100, "Code Person.", "code_person");
             DataGridViewComboBoxColumn col = new DataGridViewComboBoxColumn();
             col.Items.Add("Ok");
             col.Items.Add("Detalle");
@@ -313,6 +322,7 @@ private void AplicarEstilosGridRollos()
             {
                 Roll_Details rollo_cortado = new Roll_Details
                 {
+                    Numero_Orden = txt_numero_oc.Text,
                     Roll_number = grid_rollos.Rows[fila].Cells[0].Value.ToString(),
                     Product_id = grid_rollos.Rows[fila].Cells[1].Value.ToString(),
                     Product_name = grid_rollos.Rows[fila].Cells[2].Value.ToString(),
@@ -322,8 +332,8 @@ private void AplicarEstilosGridRollos()
                     Msi = Convert.ToDecimal(grid_rollos.Rows[fila].Cells[6].Value),
                     Splice = Convert.ToInt32(grid_rollos.Rows[fila].Cells[7].Value),
                     Roll_id = grid_rollos.Rows[fila].Cells[8].Value.ToString(),
-                    Code_Person = grid_rollos.Rows[fila].Cells[8].Value.ToString(),
-                    status = grid_rollos.Rows[fila].Cells[9].Value.ToString(),
+                    Code_Person = grid_rollos.Rows[fila].Cells[9].Value.ToString(),
+                    status = grid_rollos.Rows[fila].Cells[10].Value.ToString(),
                 };
                 orden.rollos.Add(rollo_cortado);
             }
