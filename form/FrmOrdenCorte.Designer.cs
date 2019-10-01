@@ -45,13 +45,8 @@
             this.BOT_SAVE = new System.Windows.Forms.ToolStripButton();
             this.BOT_BUSCAR = new System.Windows.Forms.ToolStripButton();
             this.BOT_EXCEL_EXPORT = new System.Windows.Forms.ToolStripButton();
-            this.bot_add_items = new System.Windows.Forms.Button();
-            this.bot_delete_items = new System.Windows.Forms.Button();
             this.txt_fecha_orden = new System.Windows.Forms.DateTimePicker();
             this.grid_rollos = new System.Windows.Forms.DataGridView();
-            this.BOT_ROLLID_ADD = new System.Windows.Forms.Button();
-            this.bot_delete_roll_id = new System.Windows.Forms.Button();
-            this.BOT_UPDATE_ROLLID = new System.Windows.Forms.Button();
             this.txt_fecha_producc = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -82,8 +77,8 @@
             this.txt_msi_cortado = new System.Windows.Forms.TextBox();
             this.bot_generar_rollos_cortados = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.chk_process = new System.Windows.Forms.CheckBox();
+            this.bot_modificar = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_rollos)).BeginInit();
@@ -163,6 +158,7 @@
             this.BOT_NUEVO,
             this.BOT_CANCELAR,
             this.BOT_SAVE,
+            this.bot_modificar,
             this.BOT_BUSCAR,
             this.BOT_EXCEL_EXPORT});
             this.toolStrip1.Location = new System.Drawing.Point(0, 65);
@@ -170,7 +166,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(862, 27);
             this.toolStrip1.TabIndex = 45;
             this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolStrip1_ItemClicked);
             // 
             // bot_primero
             // 
@@ -223,14 +218,17 @@
             // 
             // BOT_CANCELAR
             // 
+            this.BOT_CANCELAR.Enabled = false;
             this.BOT_CANCELAR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_CANCELAR.Image")));
             this.BOT_CANCELAR.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.BOT_CANCELAR.Name = "BOT_CANCELAR";
             this.BOT_CANCELAR.Size = new System.Drawing.Size(77, 24);
             this.BOT_CANCELAR.Text = "Cancelar";
+            this.BOT_CANCELAR.Click += new System.EventHandler(this.BOT_CANCELAR_Click);
             // 
             // BOT_SAVE
             // 
+            this.BOT_SAVE.Enabled = false;
             this.BOT_SAVE.Image = ((System.Drawing.Image)(resources.GetObject("BOT_SAVE.Image")));
             this.BOT_SAVE.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.BOT_SAVE.Name = "BOT_SAVE";
@@ -256,29 +254,6 @@
             this.BOT_EXCEL_EXPORT.Text = "Excel";
             this.BOT_EXCEL_EXPORT.Click += new System.EventHandler(this.BOT_EXCEL_EXPORT_Click);
             // 
-            // bot_add_items
-            // 
-            this.bot_add_items.Image = ((System.Drawing.Image)(resources.GetObject("bot_add_items.Image")));
-            this.bot_add_items.Location = new System.Drawing.Point(601, 192);
-            this.bot_add_items.Margin = new System.Windows.Forms.Padding(2);
-            this.bot_add_items.Name = "bot_add_items";
-            this.bot_add_items.Size = new System.Drawing.Size(28, 19);
-            this.bot_add_items.TabIndex = 49;
-            this.bot_add_items.UseVisualStyleBackColor = true;
-            this.bot_add_items.Visible = false;
-            this.bot_add_items.Click += new System.EventHandler(this.Bot_add_items_Click);
-            // 
-            // bot_delete_items
-            // 
-            this.bot_delete_items.Image = ((System.Drawing.Image)(resources.GetObject("bot_delete_items.Image")));
-            this.bot_delete_items.Location = new System.Drawing.Point(601, 215);
-            this.bot_delete_items.Margin = new System.Windows.Forms.Padding(2);
-            this.bot_delete_items.Name = "bot_delete_items";
-            this.bot_delete_items.Size = new System.Drawing.Size(28, 19);
-            this.bot_delete_items.TabIndex = 50;
-            this.bot_delete_items.UseVisualStyleBackColor = true;
-            this.bot_delete_items.Visible = false;
-            // 
             // txt_fecha_orden
             // 
             this.txt_fecha_orden.Enabled = false;
@@ -302,42 +277,6 @@
             this.grid_rollos.RowTemplate.Height = 24;
             this.grid_rollos.Size = new System.Drawing.Size(814, 246);
             this.grid_rollos.TabIndex = 17;
-            // 
-            // BOT_ROLLID_ADD
-            // 
-            this.BOT_ROLLID_ADD.Image = ((System.Drawing.Image)(resources.GetObject("BOT_ROLLID_ADD.Image")));
-            this.BOT_ROLLID_ADD.Location = new System.Drawing.Point(601, 119);
-            this.BOT_ROLLID_ADD.Margin = new System.Windows.Forms.Padding(2);
-            this.BOT_ROLLID_ADD.Name = "BOT_ROLLID_ADD";
-            this.BOT_ROLLID_ADD.Size = new System.Drawing.Size(26, 21);
-            this.BOT_ROLLID_ADD.TabIndex = 55;
-            this.BOT_ROLLID_ADD.UseVisualStyleBackColor = true;
-            this.BOT_ROLLID_ADD.Visible = false;
-            this.BOT_ROLLID_ADD.Click += new System.EventHandler(this.BOT_ROLLID_ADD_Click);
-            // 
-            // bot_delete_roll_id
-            // 
-            this.bot_delete_roll_id.Image = ((System.Drawing.Image)(resources.GetObject("bot_delete_roll_id.Image")));
-            this.bot_delete_roll_id.Location = new System.Drawing.Point(601, 142);
-            this.bot_delete_roll_id.Margin = new System.Windows.Forms.Padding(2);
-            this.bot_delete_roll_id.Name = "bot_delete_roll_id";
-            this.bot_delete_roll_id.Size = new System.Drawing.Size(26, 21);
-            this.bot_delete_roll_id.TabIndex = 56;
-            this.bot_delete_roll_id.UseVisualStyleBackColor = true;
-            this.bot_delete_roll_id.Visible = false;
-            this.bot_delete_roll_id.Click += new System.EventHandler(this.Bot_delete_roll_id_Click);
-            // 
-            // BOT_UPDATE_ROLLID
-            // 
-            this.BOT_UPDATE_ROLLID.Image = ((System.Drawing.Image)(resources.GetObject("BOT_UPDATE_ROLLID.Image")));
-            this.BOT_UPDATE_ROLLID.Location = new System.Drawing.Point(603, 241);
-            this.BOT_UPDATE_ROLLID.Margin = new System.Windows.Forms.Padding(2);
-            this.BOT_UPDATE_ROLLID.Name = "BOT_UPDATE_ROLLID";
-            this.BOT_UPDATE_ROLLID.Size = new System.Drawing.Size(26, 21);
-            this.BOT_UPDATE_ROLLID.TabIndex = 57;
-            this.BOT_UPDATE_ROLLID.UseVisualStyleBackColor = true;
-            this.BOT_UPDATE_ROLLID.Visible = false;
-            this.BOT_UPDATE_ROLLID.Click += new System.EventHandler(this.BOT_UPDATE_ROLLID_Click);
             // 
             // txt_fecha_producc
             // 
@@ -474,6 +413,7 @@
             // 
             // bot_buscar_rollid1
             // 
+            this.bot_buscar_rollid1.Enabled = false;
             this.bot_buscar_rollid1.Location = new System.Drawing.Point(149, 165);
             this.bot_buscar_rollid1.Name = "bot_buscar_rollid1";
             this.bot_buscar_rollid1.Size = new System.Drawing.Size(35, 23);
@@ -484,6 +424,7 @@
             // 
             // bot_buscar_rollid2
             // 
+            this.bot_buscar_rollid2.Enabled = false;
             this.bot_buscar_rollid2.Location = new System.Drawing.Point(149, 211);
             this.bot_buscar_rollid2.Name = "bot_buscar_rollid2";
             this.bot_buscar_rollid2.Size = new System.Drawing.Size(35, 23);
@@ -610,6 +551,7 @@
             // 
             // bot_generar_rollos_cortados
             // 
+            this.bot_generar_rollos_cortados.Enabled = false;
             this.bot_generar_rollos_cortados.Location = new System.Drawing.Point(419, 165);
             this.bot_generar_rollos_cortados.Name = "bot_generar_rollos_cortados";
             this.bot_generar_rollos_cortados.Size = new System.Drawing.Size(135, 66);
@@ -629,15 +571,6 @@
             this.checkBox1.Text = "Documento Anulado";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(152, 258);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(35, 23);
-            this.button2.TabIndex = 86;
-            this.button2.Text = "...";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // chk_process
             // 
             this.chk_process.AutoSize = true;
@@ -649,6 +582,16 @@
             this.chk_process.Text = "Procesado";
             this.chk_process.UseVisualStyleBackColor = true;
             // 
+            // bot_modificar
+            // 
+            this.bot_modificar.AutoSize = false;
+            this.bot_modificar.Image = ((System.Drawing.Image)(resources.GetObject("bot_modificar.Image")));
+            this.bot_modificar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bot_modificar.Name = "bot_modificar";
+            this.bot_modificar.Size = new System.Drawing.Size(80, 24);
+            this.bot_modificar.Text = "Modif";
+            this.bot_modificar.Click += new System.EventHandler(this.Bot_modificar_Click);
+            // 
             // FrmOrdenCorte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -656,7 +599,6 @@
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(862, 673);
             this.Controls.Add(this.chk_process);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.bot_generar_rollos_cortados);
             this.Controls.Add(this.label16);
@@ -687,13 +629,8 @@
             this.Controls.Add(this.txt_rollid_1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txt_fecha_producc);
-            this.Controls.Add(this.BOT_UPDATE_ROLLID);
-            this.Controls.Add(this.bot_delete_roll_id);
-            this.Controls.Add(this.BOT_ROLLID_ADD);
             this.Controls.Add(this.grid_rollos);
             this.Controls.Add(this.txt_fecha_orden);
-            this.Controls.Add(this.bot_delete_items);
-            this.Controls.Add(this.bot_add_items);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label2);
@@ -730,15 +667,10 @@
         private System.Windows.Forms.ToolStripButton BOT_NUEVO;
         private System.Windows.Forms.ToolStripButton BOT_CANCELAR;
         private System.Windows.Forms.ToolStripButton BOT_SAVE;
-        private System.Windows.Forms.Button bot_add_items;
-        private System.Windows.Forms.Button bot_delete_items;
         private System.Windows.Forms.DateTimePicker txt_fecha_orden;
         private System.Windows.Forms.DataGridView grid_rollos;
         private System.Windows.Forms.Label contador;
         private System.Windows.Forms.ToolStripButton BOT_BUSCAR;
-        private System.Windows.Forms.Button BOT_ROLLID_ADD;
-        private System.Windows.Forms.Button bot_delete_roll_id;
-        private System.Windows.Forms.Button BOT_UPDATE_ROLLID;
         private System.Windows.Forms.DateTimePicker txt_fecha_producc;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -769,7 +701,7 @@
         private System.Windows.Forms.TextBox txt_msi_cortado;
         private System.Windows.Forms.Button bot_generar_rollos_cortados;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.CheckBox chk_process;
+        private System.Windows.Forms.ToolStripButton bot_modificar;
     }
 }

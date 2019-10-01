@@ -24,15 +24,11 @@ namespace RitramaAPP
         readonly ConfigManager configmanager = new ConfigManager();
         readonly BindingSource bs = new BindingSource();
         readonly BindingSource bsdetalle = new BindingSource();
-
-        //readonly BindingSource bsdetalle = new BindingSource();
-        readonly System.Data.DataTable dtrolls = new System.Data.DataTable();
         readonly System.Data.DataTable dtproducts = new System.Data.DataTable();
         DataSet ds = new DataSet();
         private DataRowView ParentRow;
-        //DataGridViewComboBoxColumn ComboUnidad = new DataGridViewComboBoxColumn();
-        //int renglon,ConsecOrden;
         readonly double factor = 0.012;
+        int EditMode = 0;
    
         private void FrmOrdenCorte_Load(object sender, EventArgs e)
         {
@@ -61,21 +57,22 @@ namespace RitramaAPP
         }
         private void BOT_NUEVO_Click(object sender, EventArgs e)
         {
-            OptionsMenu(0);
-            OptionsForm(0);
-            //Buscar los productos para el buscador
-            //ProductsManager pm = new ProductsManager();
-            //Dtproducts = pm.GetTableProductsOnly();
-            //Preparo el formulario abriendo los textbox.
-            //txt_customer_id.ReadOnly = false;
-            //txt_roll_id.ReadOnly = false;
-            //grid_items.ReadOnly = false;
-            //busco el proximo numero de consecutivo de la orden.
-            //ConsecOrden = Convert.ToInt32(config.GetParameterControl("COC"));
             ParentRow = (DataRowView)bs.AddNew();
             ParentRow.BeginEdit();
+            ParentRow["numero"] = "0";
+            ParentRow["width_1"] = "0";
+            ParentRow["lenght_1"] = "0";
+            ParentRow["width_2"] = "0";
+            ParentRow["lenght_2"] = "0";
+            ParentRow["cant_cortado"] = "0";
+            ParentRow["width_cortado"] = "0";
+            ParentRow["lenght_cortado"] = "0";
+            ParentRow.EndEdit();
             txt_numero_oc.Focus();
-
+            ContadorRegistros();
+            OptionsMenu(0);
+            OptionsForm(0);
+            EditMode = 1;
         }
         private void OptionsForm(int state) 
         {
@@ -92,8 +89,24 @@ namespace RitramaAPP
                     txt_width_cortado.ReadOnly = false;
                     txt_rollid_1.ReadOnly = false;
                     txt_rollid_2.ReadOnly = false;
+                    bot_buscar_rollid1.Enabled = true;
+                    bot_buscar_rollid2.Enabled = true;
+                    bot_generar_rollos_cortados.Enabled = true;
                     break;
                 case 1:
+                    // modo cerra forms despues de agregar orden colocar en lectura.
+                    txt_numero_oc.ReadOnly = true;
+                    txt_fecha_orden.Enabled = false;
+                    txt_fecha_producc.Enabled = false;
+                    txt_lenght_cortado.ReadOnly = true;
+                    txt_cant_cortado.ReadOnly = true;
+                    txt_msi_cortado.ReadOnly = true;
+                    txt_width_cortado.ReadOnly = true;
+                    txt_rollid_1.ReadOnly = true;
+                    txt_rollid_2.ReadOnly = true;
+                    bot_buscar_rollid1.Enabled = false;
+                    bot_buscar_rollid2.Enabled = false;
+                    bot_generar_rollos_cortados.Enabled = false;
                     break;
             }
         }
@@ -110,6 +123,8 @@ namespace RitramaAPP
                     BOT_NUEVO.Enabled = false;
                     BOT_BUSCAR.Enabled = false;
                     BOT_EXCEL_EXPORT.Enabled = false;
+                    BOT_CANCELAR.Enabled = true;
+                    BOT_SAVE.Enabled = true;
                     break;
                 case 1:
                     //modo agregar despues de grabar.
@@ -118,31 +133,16 @@ namespace RitramaAPP
                     bot_anterior.Enabled = true;
                     bot_ultimo.Enabled = true;
                     BOT_NUEVO.Enabled = true;
+                    BOT_CANCELAR.Enabled = false;
                     BOT_BUSCAR.Enabled = true;
                     BOT_EXCEL_EXPORT.Enabled = true;
+                    BOT_SAVE.Enabled = false;
                     break;
             }
         }
-
-
         private void ContadorRegistros()
         {
             contador.Text = "Documento :" + (bs.Position + 1).ToString() +"/"+ bs.Count.ToString();
-            //DataRow parent = ds.Tables["dtordenes"].Rows[bs.Position];
-            //Mostrar los roll id relacionados con la orden en la navegacion.
-            //list_roll_id.Items.Clear();
-            //foreach (DataRow item in parent.GetChildRows("FK_ORDEN_ROLL_ID"))
-            //{
-              //  list_roll_id.Items.Add(item["roll_id"]);
-            //}
-        }
-        private void Grid_items_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-
-            //string product_id =  grid_items.Rows[e.RowIndex].Cells[0].Value.ToString();
-            //string orden = txt_numero_oc.Text.Trim();
-            //grid_rollos.DataSource = manager_orden.GetRollDetails(orden, product_id);
         }
         private void Bot_siguiente_Click(object sender, EventArgs e)
         {
@@ -160,32 +160,12 @@ namespace RitramaAPP
         {
             bs.Position = 0;
             ContadorRegistros();
-            grid_rollos.DataSource = "";
         }
 
         private void Bot_ultimo_Click(object sender, EventArgs e)
         {
             bs.Position = bs.Count - 1;
             ContadorRegistros();
-            grid_rollos.DataSource = "";
-        }
-
-      
-        private void AgregarRenglon()
-        {
-            ////Agregar detalle de la factura.
-            //renglon += 1;
-            ////ChildRows = (DataRowView)Bsdetalle.AddNew();
-            //ChildRows.BeginEdit();
-            //ChildRows["numero"] = "4094";
-            //ChildRows["reng_num"] = renglon;
-            //ChildRows["cantidad"] = 0;
-            //ChildRows["width"] = 0;
-            //ChildRows["large"] = 0;
-            //ChildRows.Row.SetParentRow(ParentRow.Row);
-            //ChildRows.EndEdit();
-            //bs.Position = bs.Count - 1;
-            //ContadorRegistros();
         }
         private void AGREGAR_COLUMN_GRID(string name,int size,string title,string field_bd) 
         {
@@ -198,7 +178,7 @@ namespace RitramaAPP
             };
             grid_rollos.Columns.Add(col);
         }
-private void AplicarEstilosGridRollos()
+        private void AplicarEstilosGridRollos()
         {
             grid_rollos.AutoGenerateColumns = false;
             AGREGAR_COLUMN_GRID("roll", 30, "#", "roll_number");
@@ -222,26 +202,6 @@ private void AplicarEstilosGridRollos()
             col.FlatStyle = FlatStyle.Popup;
             grid_rollos.Columns.Add(col);
         }
-        private void Grid_items_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-
-            if (e.ColumnIndex == 6)
-            {
-                //double msi = (Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["width"].Value) *
-                //Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["large"].Value) * factor);
-                //grid_items.Rows[e.RowIndex].Cells["msi"].Value = msi;
-            }
-
-            //txt_total_roll.Text = CalcularTotalRollos();
-
-
-        }
-
-        private void Bot_add_items_Click(object sender, EventArgs e)
-        {
-            AgregarRenglon();
-        }
-
         private void Button1_Click(object sender, EventArgs e)
         {
             CustomerManager custom = new CustomerManager();
@@ -252,43 +212,24 @@ private void AplicarEstilosGridRollos()
             {
                 miformc.ShowDialog();
             }
-            //txt_customer_id.Text = miformc.GetCustomerId;
-            //txt_customer_name.Text = miformc.GetCustomerName;
         }
-
-        private void Grid_items_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 1)
-            {
-                using (SeleccionProductos FormBuscarArticulos = new SeleccionProductos
-                {
-                    //dtproducto = Dtproducts
-                })
-                {
-                    FormBuscarArticulos.ShowDialog();
-                }
-                //grid_items.Rows[e.RowIndex].Cells["product_id"].Value = FormBuscarArticulos.GetProductId;
-            }
-        }
-        private string CalcularTotalRollos()
-        {
-            int rollos = 0;
-            //for (int i = 0; i <= grid_items.Rows.Count - 1; i++)
-            //{
-            //    rollos += Convert.ToInt32(grid_items.Rows[i].Cells["cant"].Value);
-            //}
-            return rollos.ToString();
-        }
-
-        private void Grid_items_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                SendKeys.Send("{TAB}");
-            }
-        }
-
         private void BOT_SAVE_Click(object sender, EventArgs e)
+        {
+            switch (EditMode) 
+            {
+                case 1:
+                    ToSaveAdd();
+                    break;
+                case 2:
+                    ToSaveUpdate();
+                    break;
+            }
+        }
+        private void ToSaveUpdate() 
+        {
+            EditMode = 0;
+        }
+        private void ToSaveAdd()
         {
             //validar el formulario
 
@@ -313,7 +254,7 @@ private void AplicarEstilosGridRollos()
                 Procesado = false
             };
             orden.rollos = new List<Roll_Details>();
-            for (int fila = 0; fila<= grid_rollos.Rows.Count-1; fila++ ) 
+            for (int fila = 0; fila <= grid_rollos.Rows.Count - 1; fila++)
             {
                 Roll_Details rollo_cortado = new Roll_Details
                 {
@@ -332,89 +273,11 @@ private void AplicarEstilosGridRollos()
                 };
                 orden.rollos.Add(rollo_cortado);
             }
-            managerorden.Add(orden,false);
+            managerorden.Add(orden, false);
             OptionsMenu(1);
-
-
-
-
-            
-            
-            
-            
-            //managerorden.ToSave(orden);
-            //ConsecOrden += 1;
-            //config.SetParametersControl(ConsecOrden.ToString(),"COC");
-            // Acomodar la barra de herramientas.
-            //bot_nuevo.Enabled = true;
-            //bot_cancelar.Enabled = false;
-            //bot_guardar.Enabled = false;
-            //bot_buscar.Enabled = true;
-            //bot_anterior.Enabled = true;
-            //bot_ultimo.Enabled = true;
-            //bot_proximo.Enabled = true;
-            //bot_primero.Enabled = true;
-            //bot_imprimir_factura.Enabled = true;
-            //bot_anular.Enabled = true;
-            //txt_buscar.Enabled = true;
-            //txt_contador.Enabled = true;
-            //bot_renglon_new.Enabled = false;
-            //bot_renglon_delete.Enabled = false;
-            ////Acomodar el formulario.
-            //txt_fecha_fact.Enabled = false;
-            //txt_codcliente.Enabled = false;
-            //txt_codvendor.Enabled = false;
-            //ra_facturas_contado.Enabled = false;
-            //ra_facturas_credito.Enabled = false;
-            //ra_electronic.Enabled = false;
-            //ra_cheque.Enabled = false;
-            //grid_productos.Enabled = false;
-            //txt_notas.Enabled = false;
-            //bs.Position -= 1;
-            //bs.Position += 1;
-            ////GenerarDetalleRollos();
+            OptionsForm(1);
+            EditMode = 0;
         }
-
-        private void ToolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void BOT_ROLLID_ADD_Click(object sender, EventArgs e)
-        {
-            //if (txt_roll_id.Text.Length == 0) return; 
-            //list_roll_id.Items.Add(txt_roll_id.Text);
-            //manager_orden.AddNumberRollIdtoTable(txt_numero_oc.Text.Trim(),txt_roll_id.Text.Trim());
-            DataRow dr = ds.Tables["dtrollid"].NewRow();
-            dr["numero"] = txt_numero_oc.Text.Trim();
-            //dr["roll_id"] = txt_roll_id.Text.Trim();
-            ds.Tables["dtrollid"].Rows.Add(dr);
-            ds.Tables["dtrollid"].AcceptChanges();
-            //txt_roll_id.Text=string.Empty;
-        }
-
-        private void Bot_delete_roll_id_Click(object sender, EventArgs e)
-        {
-            //if (list_roll_id.SelectedIndex == -1) return;
-            //string item = list_roll_id.Items[list_roll_id.SelectedIndex].ToString();
-            //ist_roll_id.Items.RemoveAt(list_roll_id.SelectedIndex);
-            //manager_orden.DeleteNumberRollIdtoTable(txt_numero_oc.Text,item);
-        }
-
-        private void BOT_UPDATE_ROLLID_Click(object sender, EventArgs e)
-        {
-            //if (list_roll_id.SelectedIndex == -1) return;
-            if (grid_rollos.Rows.Count == 0) return;
-
-            //string item = list_roll_id.Items[list_roll_id.SelectedIndex].ToString();
-            for (int i = 0; i < grid_rollos.Rows.Count; i++)
-            {
-                //grid_rollos.Rows[i].Cells["roll_id"].Value = item;
-            }
-            //manager_orden.UpdateDetailRollsNumberRollid(
-                //txt_numero_oc.Text, grid_rollos.Rows[0].Cells["product_id"].Value.ToString(),item);
-        }
-
         private List<Roll_Details> GENERAR_DETALLE_ROLLOS_CORTADOS()
         {
             List<Roll_Details> rollos = new List<Roll_Details>();
@@ -551,11 +414,14 @@ private void AplicarEstilosGridRollos()
         }
         private void CALCULAR_MSI() 
         {
-            if(txt_lenght_cortado.Text != string.Empty) 
+            if (EditMode != 0) 
             {
-                double msi = ((Convert.ToDouble(txt_width_cortado.Text)
-                        * Convert.ToDouble(txt_lenght_cortado.Text)) * factor);
-                txt_msi_cortado.Text = msi.ToString();
+                if (txt_lenght_cortado.Text != string.Empty)
+                {
+                    double msi = ((Convert.ToDouble(txt_width_cortado.Text)
+                            * Convert.ToDouble(txt_lenght_cortado.Text)) * factor);
+                    txt_msi_cortado.Text = msi.ToString();
+                }
             }
         }
         private void Txt_width_cortado_TextChanged(object sender, EventArgs e)
@@ -567,6 +433,7 @@ private void AplicarEstilosGridRollos()
         {
             List<Roll_Details> lista = GENERAR_DETALLE_ROLLOS_CORTADOS();
             //Agregar encabezado a la orden.
+            ParentRow.BeginEdit();
             ParentRow["numero"] = txt_numero_oc.Text;
             ParentRow["fecha"] = txt_fecha_orden.Text;
             ParentRow["fecha_produccion"] = txt_fecha_producc.Text;
@@ -577,7 +444,7 @@ private void AplicarEstilosGridRollos()
             ParentRow["width_2"] = txt_width2_rollid.Text;
             ParentRow["lenght_2"] = txt_lenght2_rollid.Text;
             ParentRow["product_id"] = txt_product_id.Text;
-            ParentRow["product_name"] = txt_product_name.Text;
+            //ParentRow["product_name"] = txt_product_name.Text;
             ParentRow["cant_cortado"] = txt_cant_cortado.Text;
             ParentRow["width_cortado"] = txt_width_cortado.Text;
             ParentRow["lenght_cortado"] = txt_lenght_cortado.Text;
@@ -606,6 +473,33 @@ private void AplicarEstilosGridRollos()
             }
             bs.Position = bs.Count - 1;
             bot_generar_rollos_cortados.Enabled = false;
+        }
+        private void Bot_modificar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BOT_CANCELAR_Click(object sender, EventArgs e)
+        {
+            if (EditMode == 1)
+            {
+                DataRowView rowcurrent;
+                rowcurrent = (DataRowView)bs.Current;
+                rowcurrent.Row.Delete();
+                bs.EndEdit();
+                ContadorRegistros();
+                bs.Position = bs.Count - 1; 
+                //activo la funciones del menu
+                OptionsMenu(1);
+                OptionsForm(1);
+                EditMode = 0;
+            }
+            if (EditMode == 2)
+            {
+                OptionsMenu(1);
+                OptionsForm(1);
+                EditMode = 0;
+            }
         }
     }
 }
