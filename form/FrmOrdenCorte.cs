@@ -29,6 +29,8 @@ namespace RitramaAPP
         private DataRowView ParentRow;
         readonly double factor = 0.012;
         int EditMode = 0;
+        string modproduct_id,modcan_cortado,modwidth,modlenght,modmsi;
+        Boolean ischanged_rollos = false;
    
         private void FrmOrdenCorte_Load(object sender, EventArgs e)
         {
@@ -50,6 +52,7 @@ namespace RitramaAPP
             txt_cant_cortado.DataBindings.Add("text", bs, "cant_cortado");
             txt_width_cortado.DataBindings.Add("text",bs,"width_cortado");
             txt_lenght_cortado.DataBindings.Add("text",bs,"lenght_cortado");
+            txt_msi_cortado.DataBindings.Add("text", bs, "msi_cortado");
             //binding del detalle
             bsdetalle.DataSource = bs;
             bsdetalle.DataMember = "FK_ORDEN_DETAILS";
@@ -104,9 +107,29 @@ namespace RitramaAPP
                     txt_width_cortado.ReadOnly = true;
                     txt_rollid_1.ReadOnly = true;
                     txt_rollid_2.ReadOnly = true;
+                    txt_width1_rollid.ReadOnly = true;
+                    txt_width2_rollid.ReadOnly = true;
+                    txt_lenght1_rollid.ReadOnly = true;
+                    txt_lenght2_rollid.ReadOnly = true;
                     bot_buscar_rollid1.Enabled = false;
                     bot_buscar_rollid2.Enabled = false;
                     bot_generar_rollos_cortados.Enabled = false;
+                    break;
+                case 2:
+                    txt_fecha_orden.Enabled = true;
+                    txt_fecha_producc.Enabled = true;
+                    txt_rollid_1.ReadOnly = false;
+                    txt_width1_rollid.ReadOnly = false;
+                    txt_lenght1_rollid.ReadOnly = false;
+                    txt_rollid_2.ReadOnly = false;
+                    txt_width2_rollid.ReadOnly = false;
+                    txt_lenght2_rollid.ReadOnly = false;
+                    txt_cant_cortado.ReadOnly = false;
+                    txt_width_cortado.ReadOnly = false;
+                    txt_lenght_cortado.ReadOnly = false;
+                    bot_buscar_rollid1.Enabled = true;
+                    bot_buscar_rollid2.Enabled = true;
+                    bot_generar_rollos_cortados.Enabled = true;
                     break;
             }
         }
@@ -125,6 +148,7 @@ namespace RitramaAPP
                     BOT_EXCEL_EXPORT.Enabled = false;
                     BOT_CANCELAR.Enabled = true;
                     BOT_SAVE.Enabled = true;
+                    bot_modificar.Enabled = false;
                     break;
                 case 1:
                     //modo agregar despues de grabar.
@@ -137,6 +161,8 @@ namespace RitramaAPP
                     BOT_BUSCAR.Enabled = true;
                     BOT_EXCEL_EXPORT.Enabled = true;
                     BOT_SAVE.Enabled = false;
+                    bot_modificar.Enabled = true;
+
                     break;
             }
         }
@@ -225,15 +251,35 @@ namespace RitramaAPP
                     break;
             }
         }
-        private void ToSaveUpdate() 
-        {
-            EditMode = 0;
-        }
         private void ToSaveAdd()
         {
             //validar el formulario
 
             //llenar el encabezado de la orden de produccion
+            managerorden.Add(CrearObjectOrden(), false);
+            OptionsMenu(1);
+            OptionsForm(1);
+            EditMode = 0;
+        }
+        private void ToSaveUpdate() 
+        {
+            if (ischanged_rollos)
+            {
+                managerorden.DeleteRollDetailsOrden(txt_numero_oc.Text);
+                managerorden.Update_INSERT(CrearObjectOrden(), false);
+            }
+            else 
+            {
+                managerorden.Update_Only(CrearObjectOrden(), false);
+            }
+            
+            EditMode = 0;
+            ischanged_rollos = false;
+            OptionsMenu(1);
+            OptionsForm(1);
+        }
+        private Orden CrearObjectOrden() 
+        {
             Orden orden = new Orden
             {
                 Numero = (txt_numero_oc.Text),
@@ -273,11 +319,9 @@ namespace RitramaAPP
                 };
                 orden.rollos.Add(rollo_cortado);
             }
-            managerorden.Add(orden, false);
-            OptionsMenu(1);
-            OptionsForm(1);
-            EditMode = 0;
+            return orden;
         }
+     
         private List<Roll_Details> GENERAR_DETALLE_ROLLOS_CORTADOS()
         {
             List<Roll_Details> rollos = new List<Roll_Details>();
@@ -431,6 +475,32 @@ namespace RitramaAPP
 
         private void Bot_generar_rollos_cortados_Click(object sender, EventArgs e)
         {
+            if(EditMode == 2 || grid_rollos.Rows.Count > 0) 
+            {
+                try
+                {
+                        
+                    if(modcan_cortado == txt_cant_cortado.Text && 
+                        modproduct_id == txt_product_id.Text && 
+                        modwidth == txt_width_cortado.Text)
+                    {
+                        MessageBox.Show("no ha cambiado los datos de la orden");
+                        return;
+                    }
+
+                    //borrar los todos registros
+                    List<DataRow> toDelete = new List<DataRow>();
+                    foreach (DataGridViewRow row in grid_rollos.Rows)
+                    {
+                        toDelete.Add(((DataRowView)row.DataBoundItem).Row);
+                    }
+                    toDelete.ForEach(row => row.Delete());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            } 
             List<Roll_Details> lista = GENERAR_DETALLE_ROLLOS_CORTADOS();
             //Agregar encabezado a la orden.
             ParentRow.BeginEdit();
@@ -471,12 +541,25 @@ namespace RitramaAPP
                 ChildRows.Row.SetParentRow(ParentRow.Row);
                 ChildRows.EndEdit();
             }
-            bs.Position = bs.Count - 1;
-            bot_generar_rollos_cortados.Enabled = false;
+            bs.EndEdit();
+            if (EditMode == 1) 
+            {
+                bs.Position = bs.Count - 1;
+                bot_generar_rollos_cortados.Enabled = false;
+            }
+            ischanged_rollos = true;
         }
         private void Bot_modificar_Click(object sender, EventArgs e)
         {
-
+            EditMode = 2;
+            modproduct_id = txt_product_id.Text;
+            modcan_cortado = txt_cant_cortado.Text;
+            modwidth = txt_width_cortado.Text;
+            modlenght = txt_lenght_cortado.Text;
+            modmsi = txt_msi_cortado.Text;
+            ParentRow = (DataRowView)bs.Current;
+            OptionsMenu(0);
+            OptionsForm(2);
         }
 
         private void BOT_CANCELAR_Click(object sender, EventArgs e)

@@ -12,24 +12,17 @@ namespace RitramaAPP.Clases
     public class OrdenCorteManager
     {
         readonly Conexion Micomm = new Conexion();
-        public DataSet ds = new DataSet();
-        
+        public DataSet ds = new DataSet();        
         readonly SqlDataAdapter daordenes = new SqlDataAdapter();
         readonly SqlDataAdapter darenglones = new SqlDataAdapter();
         readonly SqlDataAdapter daproducts = new SqlDataAdapter();
         readonly SqlDataAdapter darollid = new SqlDataAdapter();
-
         readonly DataTable dtordenes = new DataTable();
         readonly DataTable dtrenglones = new DataTable();
         readonly DataTable dtproducts = new DataTable();
         public DataTable Dtrenglones => dtrenglones;
         public DataTable Dtproducts => dtproducts;
         public DataTable Dtordenes => dtordenes;
-
-        //readonly SqlDataAdapter darollid = new SqlDataAdapter();
-        //readonly DataTable dtrolls = new DataTable();
-        //readonly DataTable dtrollid = new DataTable();
-
 
         public OrdenCorteManager()
         {
@@ -57,6 +50,35 @@ namespace RitramaAPP.Clases
                         comando.Parameters.Add(item);
                     }
                 }
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+                Micomm.Desconectar();
+                if (msg)
+                {
+                    MessageBox.Show("proceso realizado con exito...");
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(messagerror + ex);
+                return false;
+            }
+        }
+        public Boolean CommandSqlGenericOneParameter(string db, string query, string par, Boolean msg, string messagerror)
+        {
+            // Ejecuta comando sql query y no devuleve ni valor ni datos.
+            try
+            {
+                Micomm.Conectar(db);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = Micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = query
+                };
+                SqlParameter p1 = new SqlParameter("@p1", par);
+                comando.Parameters.Add(@p1);
                 comando.ExecuteNonQuery();
                 comando.Dispose();
                 Micomm.Desconectar();
@@ -110,7 +132,6 @@ namespace RitramaAPP.Clases
             return true;
             
         }
-
         public void CargarProducts() 
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_SELECT_PRODUCT_ALL,
@@ -136,280 +157,38 @@ namespace RitramaAPP.Clases
                 R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_ADD_ORDEN_ERROR_FAIL_DETAILS);
             }
         }
-        public Boolean AddX(Orden orden)
+        public void Update_INSERT(Orden datos,Boolean ismessage) 
         {
-            SqlTransaction transac = null;
-            try
+            //ACTUALIZAR HEADER DE ORDEN DE PRODUCCION.
+            CommandSqlGeneric(R.SQL.DATABASE.NAME,
+            R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_UPDATE_ORDEN_PRODUCCION, SetParametersUpdateHeaderOrden(datos),
+            ismessage, R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_UPDATE__ERROR_HEADER);
+            //INSERTA NUEVO RENGLONES EN CAMBIO Q CAMBIE LA DATA DE LA ORDEN ITEMS-DETAILS DE ORDEN DE PRODUCCION A LA BASE DE DATOS.
+            foreach (Roll_Details item in datos.rollos)
             {
-                using (Micomm.cnn)
-                {
-                    //sql del encabezado de la orden de corte.
-                    Micomm.Conectar(R.SQL.DATABASE.NAME);
-                    transac = Micomm.cnn.BeginTransaction();
-                    using (SqlCommand comando = new SqlCommand
-                    {
-                        Transaction = transac,
-                        CommandType = CommandType.Text,
-                        CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_INSERT_MASTER_OC,
-                        Connection = Micomm.cnn
-                    })
-                    {
-                        // aqui va todos los datos del encabezado de la orden de corte.
-                        SqlParameter p1 = new SqlParameter("@p1", orden.Numero);
-                        SqlParameter p2 = new SqlParameter("@p2", orden.Fecha);
-                        //SqlParameter p3 = new SqlParameter("@p3", orden.Pedido);
-                        //SqlParameter p4 = new SqlParameter("@p4", orden.Customer_id);
-                        //SqlParameter p5 = new SqlParameter("@p5", orden.Roll_id);
-                        //SqlParameter p6 = new SqlParameter("@p6", orden.Total_rolls);
-                        SqlParameter p7 = new SqlParameter("@p7", orden.Anulada);
-                        SqlParameter p8 = new SqlParameter("@p8", orden.Status);
-                        comando.Parameters.Add(p1);
-                        comando.Parameters.Add(p2);
-                        //comando.Parameters.Add(p3);
-                        //comando.Parameters.Add(p4);
-                        //comando.Parameters.Add(p5);
-                        //comando.Parameters.Add(p6);
-                        comando.Parameters.Add(p7);
-                        comando.Parameters.Add(p8);
-                        comando.ExecuteNonQuery();
-                    }
-                    //sql del detalle de factura.
-                    using (SqlCommand comando1 = new SqlCommand
-                    {
-                        Transaction = transac,
-                        CommandType = CommandType.Text,
-                        CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_INSERT_DETAILS_OC,
-                        Connection = Micomm.cnn
-                    })
-                    {
-                        SqlParameter r1 = new SqlParameter
-                        {
-                            ParameterName = "@r1"
-                        };
-                        SqlParameter r2 = new SqlParameter
-                        {
-                            ParameterName = "@r2"
-                        };
-                        SqlParameter r3 = new SqlParameter
-                        {
-                            ParameterName = "@r3"
-                        };
-                        SqlParameter r4 = new SqlParameter
-                        {
-                            ParameterName = "@r4"
-                        };
-                        SqlParameter r5 = new SqlParameter
-                        {
-                            ParameterName = "@r5"
-                        };
-                        SqlParameter r6 = new SqlParameter
-                        {
-                            ParameterName = "@r6"
-                        };
-                        SqlParameter r7 = new SqlParameter
-                        {
-                            ParameterName = "@r7"
-                        };
-                        SqlParameter r8 = new SqlParameter
-                        {
-                            ParameterName = "@r8"
-                        };
-                        comando1.Parameters.Add(r1);
-                        comando1.Parameters.Add(r2);
-                        comando1.Parameters.Add(r3);
-                        comando1.Parameters.Add(r4);
-                        comando1.Parameters.Add(r5);
-                        comando1.Parameters.Add(r6);
-                        comando1.Parameters.Add(r7);
-                        comando1.Parameters.Add(r8);
-                        //foreach (Orden_Items item in orden.items)
-                        //{
-                        //    r1.Value = item.renglon;
-                        //    r2.Value = item.numero;
-                        //    r3.Value = item.Product_id;
-                        //    r4.Value = item.Cantidad;
-                        //    r5.Value = item.Unidad;
-                        //    r6.Value = item.Width;
-                        //    r7.Value = item.Large;
-                        //    r8.Value = item.Msi;
-                        //    comando1.ExecuteNonQuery();
-                        //}
-                    }
-                    //Ejecucion del Commit
-                    transac.Commit();
-                    return true;
-                }
+               CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_INSERT_DETAILS_OC,
+               SetParametersAddOrdenDetails(item), ismessage,
+               R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_ADD_ORDEN_ERROR_FAIL_DETAILS);
             }
-            catch (SqlException ex)
+        }  
+        public void Update_Only(Orden datos, Boolean ismessage) 
+        {
+            //ACTUALIZAR HEADER DE ORDEN DE PRODUCCION.
+            CommandSqlGeneric(R.SQL.DATABASE.NAME,
+            R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_UPDATE_ORDEN_PRODUCCION, SetParametersUpdateHeaderOrden(datos),
+            ismessage, R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_UPDATE__ERROR_HEADER);
+            
+            //INSERTA NUEVO RENGLONES EN CAMBIO Q CAMBIE LA DATA DE LA ORDEN ITEMS-DETAILS DE ORDEN DE PRODUCCION A LA BASE DE DATOS.
+            foreach (Roll_Details item in datos.rollos)
             {
-                transac.Rollback();
-                MessageBox.Show("Error al grabar la orden de corte...error->code: " + ex);
-                return false;
+                CommandSqlGeneric(R.SQL.DATABASE.NAME, R. SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_UPDATE_ROLLSDETAILS_RENGLON,
+                SetParametersUpdateOrdenDetails(item), ismessage,
+                R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_UPDATE_ERROR_ORDER_ROLLSDETAIL);
             }
         }
 
-        //public Boolean CargarRollIdTableX()
-        //{
-        //    try
-        //    {
-        //        Micomm.Conectar(R.SQL.DATABASE.NAME);
-        //        SqlCommand comando = new SqlCommand
-        //        {
-        //            Connection = Micomm.cnn,
-        //            CommandType = CommandType.Text,
-        //            CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_SELECT_ROLLID
 
-        //        };
-        //        comando.ExecuteNonQuery();
-        //        darollid.SelectCommand = comando;
-        //        darollid.Fill(ds, "dtrollid");
-        //        comando.Dispose();
-        //        Micomm.Desconectar();
-        //        return true;
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        MessageBox.Show("" + ex);
-        //        return false;
-        //    }
-        //}
-        //public Boolean CargarCustomersX()
-        //{
-        //    try
-        //    {
-        //        Micomm.Conectar(R.SQL.DATABASE.NAME);
-        //        SqlCommand comando = new SqlCommand
-        //        {
-        //            Connection = Micomm.cnn,
-        //            CommandType = CommandType.Text,
-        //            CommandText = R.SQL.QUERY_SQL.CUSTOMERS.SQL_SELECT_CUSTOMERS
 
-        //        };
-        //        comando.ExecuteNonQuery();
-        //        dacustomer.SelectCommand = comando;
-        //        dacustomer.Fill(ds, "dtcustomer");
-        //        comando.Dispose();
-        //        Micomm.Desconectar();
-        //        return true;
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        MessageBox.Show("" + ex);
-        //        return false;
-        //    }
-        //}
-        //public Boolean CargarProductsX()
-        //{
-        //    try
-        //    {
-        //        Micomm.Conectar(R.SQL.DATABASE.NAME);
-        //        SqlCommand comando = new SqlCommand
-        //        {
-        //            Connection = Micomm.cnn,
-        //            CommandType = CommandType.Text,
-        //            CommandText = R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_SELECT_PRODUCT_ALL
-        //        };
-        //        comando.ExecuteNonQuery();
-        //        daproducts.SelectCommand = comando;
-        //        daproducts.Fill(ds, "dtproducts");
-        //        comando.Dispose();
-        //        Micomm.Desconectar();
-        //        return true;
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        MessageBox.Show("Error al cargar la lista de productos para armar la orden de corte. error code:" + ex);
-        //        return false;
-        //    }
-        //}
-        //public Boolean UpdateDetailRollsNumberRollid(string numero,string product_id,string roll_id)
-        //{
-        //    try
-        //    {
-        //        Micomm.Conectar(R.SQL.DATABASE.NAME);
-        //        SqlCommand comando = new SqlCommand
-        //        {
-        //            Connection = Micomm.cnn,
-        //            CommandType = CommandType.Text,
-        //            CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_UPDATE_ROLLID
-
-        //        };
-        //        dacustomer.SelectCommand = comando;
-        //        SqlParameter p1 = new SqlParameter("@p1", numero);
-        //        SqlParameter p2 = new SqlParameter("@p2", product_id);
-        //        SqlParameter p3 = new SqlParameter("@p3", roll_id);
-        //        comando.Parameters.Add(@p1);
-        //        comando.Parameters.Add(@p2);
-        //        comando.Parameters.Add(@p3);
-        //        comando.ExecuteNonQuery();
-        //        comando.Dispose();
-        //        Micomm.Desconectar();
-        //        MessageBox.Show("Guardado con Exito");
-        //        return true;
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        MessageBox.Show("error al grabar el numero id . error code:" + ex);
-        //        return false;
-        //    }
-        //}
-        //public bool DeleteNumberRollIdtoTable(string orden, string roll_id)
-        //{
-        //    try
-        //    {
-        //        Micomm.Conectar(R.SQL.DATABASE.NAME);
-        //        SqlCommand comando = new SqlCommand
-        //        {
-        //            Connection = Micomm.cnn,
-        //            CommandType = CommandType.Text,
-        //            CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_DELETE_ROLLID
-        //        };
-        //        dacustomer.SelectCommand = comando;
-        //        SqlParameter p1 = new SqlParameter("@p1", orden);
-        //        SqlParameter p2 = new SqlParameter("@p2", roll_id);
-        //        comando.Parameters.Add(@p1);
-        //        comando.Parameters.Add(@p2);
-        //        comando.ExecuteNonQuery();
-        //        comando.Dispose();
-        //        Micomm.Desconectar();
-        //        MessageBox.Show("Guardado con Exito");
-        //        return true;
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        MessageBox.Show("error al borrar el numero id . error code:" + ex);
-        //        return false;
-        //    }
-        //}
-        //public Boolean AddNumberRollIdtoTable(string orden,string roll_id)
-        //{
-        //    try
-        //    {
-        //        Micomm.Conectar(R.SQL.DATABASE.NAME);
-        //        SqlCommand comando = new SqlCommand
-        //        {
-        //            Connection = Micomm.cnn,
-        //            CommandType = CommandType.Text,
-        //            CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_INSERT_ROLLID
-
-        //        };
-        //        dacustomer.SelectCommand = comando;
-        //        SqlParameter p1 = new SqlParameter("@p1",orden);
-        //        SqlParameter p2 = new SqlParameter("@p2", roll_id);
-        //        comando.Parameters.Add(@p1);
-        //        comando.Parameters.Add(@p2);
-        //        comando.ExecuteNonQuery();
-        //        comando.Dispose();
-        //        Micomm.Desconectar();
-        //        MessageBox.Show("Guardado con Exito");
-        //        return true;
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        MessageBox.Show("error al grabar el numero id . error code:" + ex);
-        //        return false;
-        //    }
-        //}
         public Boolean SaveDataDetailsRolls(List<Roll_Details> rollos)
         {
             SqlTransaction transac = null;
@@ -517,39 +296,6 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-        //public DataTable GetRollDetails(string numero_orden,string product_id)
-        //{
-        //    using (DataTable dt = new DataTable())
-        //    {
-        //        try
-        //        {
-        //            Micomm.Conectar(R.SQL.DATABASE.NAME);
-        //            SqlCommand comando = new SqlCommand
-        //            {
-        //                Connection = Micomm.cnn,
-        //                CommandType = CommandType.Text,
-        //                CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_UPDATE_ROLLS_DETAILS
-
-        //            };
-        //            darolls.SelectCommand = comando;
-        //            SqlParameter p1 = new SqlParameter("@p1", numero_orden);
-        //            SqlParameter p2 = new SqlParameter("@p2", product_id);
-        //            comando.Parameters.Add(p1);
-        //            comando.Parameters.Add(p2);
-        //            comando.ExecuteNonQuery();
-        //            darolls.Fill(dt);
-        //            comando.Dispose();
-        //            Micomm.Desconectar();
-        //            return dt;
-        //        }
-        //        catch (SqlException ex)
-        //        {
-        //            MessageBox.Show("Error al cargar la lista de productos para armar la orden de corte. error code:" + ex);
-        //            return dt;
-        //        }
-        //    }
-        //}
-        
         public Boolean RelacionesDS()
         {
             try
@@ -566,22 +312,6 @@ namespace RitramaAPP.Clases
                 DataColumn ChildCol2 = ds.Tables["dtrenglones"].Columns["numero"];
                 DataRelation orden_details = new DataRelation("FK_ORDEN_DETAILS", ParentCol2, ChildCol2);
                 ds.Relations.Add(orden_details);
-
-
-
-
-                ////Relacion detalle-productos.
-                //DataColumn ParentCol3 = ds.Tables["dtproducts"].Columns["product_id"];
-                //DataColumn ChildCol3 = ds.Tables["dtrenglones"].Columns["product_id"];
-                //DataRelation deta_producto = new DataRelation("FK_DETALLE_PRODUCTO", ParentCol3, ChildCol3);
-                //ds.Relations.Add(deta_producto);
-                //ds.Tables["dtrenglones"].Columns.Add("product_name",
-                //Type.GetType("System.String"), "parent(FK_DETALLE_PRODUCTO).product_name");
-                // relaciones ordenes roll_id con key composite.
-                //DataColumn ParentCol4 = ds.Tables["dtordenes"].Columns["numero"];  
-                //DataColumn ChildCol4 = ds.Tables["dtrollid"].Columns["numero"];
-                //DataRelation ord_roll_id = new DataRelation("FK_ORDEN_ROLL_ID", ParentCol4, ChildCol4);
-                //ds.Relations.Add(ord_roll_id);
                 return true;
             }
             catch (Exception ex)
@@ -631,6 +361,45 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.NVarChar, Value = datos.Status},
             };
             return sp;
+        }
+        public List<SqlParameter> SetParametersUpdateOrdenDetails(Roll_Details datos)
+        {
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = datos.Numero_Orden},
+                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.NVarChar, Value = datos.Unique_code},
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.Int, Value = datos.Splice},
+                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.NVarChar, Value = datos.Code_Person},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.NVarChar, Value = datos.Status},
+            };
+            return sp;
+        }
+        public List<SqlParameter> SetParametersUpdateHeaderOrden(Orden datos)
+        {
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = datos.Numero},
+                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.DateTime, Value = datos.Fecha},
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.DateTime, Value = datos.Fecha_produccion},
+                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.NVarChar, Value = datos.Product_id},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.NVarChar, Value = datos.Rollid_1},
+                new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.Decimal, Value = datos.Width_1},
+                new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.Decimal, Value = datos.Lenght_1},
+                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.NVarChar, Value = datos.Rollid_2},
+                new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Decimal, Value = datos.Width_2},
+                new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.Decimal, Value = datos.Lenght_2},
+                new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Int, Value = datos.Cant_cortados},
+                new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.Decimal, Value = datos.Widht_cortados},
+                new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.Decimal, Value = datos.Lenght_cortados},
+                new SqlParameter() {ParameterName = "@p14", SqlDbType = SqlDbType.Decimal, Value = datos.msi_cortados}
+            };
+            return sp;
+        }
+        public void DeleteRollDetailsOrden(string numero) 
+        {
+            CommandSqlGenericOneParameter(R.SQL.DATABASE.NAME,R.
+                SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_DELETE_ORDEN_ROLLDETAILS,numero,false,
+                R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_DELETE_ORDER_ROLLSDETAIL);
         }
     }
 }
