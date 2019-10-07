@@ -43,6 +43,7 @@
             this.BOT_NUEVO = new System.Windows.Forms.ToolStripButton();
             this.BOT_CANCELAR = new System.Windows.Forms.ToolStripButton();
             this.BOT_SAVE = new System.Windows.Forms.ToolStripButton();
+            this.bot_modificar = new System.Windows.Forms.ToolStripButton();
             this.BOT_BUSCAR = new System.Windows.Forms.ToolStripButton();
             this.BOT_EXCEL_EXPORT = new System.Windows.Forms.ToolStripButton();
             this.txt_fecha_orden = new System.Windows.Forms.DateTimePicker();
@@ -78,7 +79,6 @@
             this.bot_generar_rollos_cortados = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.chk_process = new System.Windows.Forms.CheckBox();
-            this.bot_modificar = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_rollos)).BeginInit();
@@ -92,6 +92,7 @@
             this.txt_numero_oc.ReadOnly = true;
             this.txt_numero_oc.Size = new System.Drawing.Size(114, 20);
             this.txt_numero_oc.TabIndex = 0;
+            this.txt_numero_oc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_numero_oc_KeyPress);
             // 
             // label1
             // 
@@ -236,6 +237,16 @@
             this.BOT_SAVE.Text = "Save";
             this.BOT_SAVE.Click += new System.EventHandler(this.BOT_SAVE_Click);
             // 
+            // bot_modificar
+            // 
+            this.bot_modificar.AutoSize = false;
+            this.bot_modificar.Image = ((System.Drawing.Image)(resources.GetObject("bot_modificar.Image")));
+            this.bot_modificar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bot_modificar.Name = "bot_modificar";
+            this.bot_modificar.Size = new System.Drawing.Size(80, 24);
+            this.bot_modificar.Text = "Modif";
+            this.bot_modificar.Click += new System.EventHandler(this.Bot_modificar_Click);
+            // 
             // BOT_BUSCAR
             // 
             this.BOT_BUSCAR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_BUSCAR.Image")));
@@ -250,8 +261,8 @@
             this.BOT_EXCEL_EXPORT.Image = ((System.Drawing.Image)(resources.GetObject("BOT_EXCEL_EXPORT.Image")));
             this.BOT_EXCEL_EXPORT.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.BOT_EXCEL_EXPORT.Name = "BOT_EXCEL_EXPORT";
-            this.BOT_EXCEL_EXPORT.Size = new System.Drawing.Size(57, 24);
-            this.BOT_EXCEL_EXPORT.Text = "Excel";
+            this.BOT_EXCEL_EXPORT.Size = new System.Drawing.Size(78, 24);
+            this.BOT_EXCEL_EXPORT.Text = "Etiquetar";
             this.BOT_EXCEL_EXPORT.Click += new System.EventHandler(this.BOT_EXCEL_EXPORT_Click);
             // 
             // txt_fecha_orden
@@ -489,6 +500,8 @@
             this.txt_cant_cortado.ReadOnly = true;
             this.txt_cant_cortado.Size = new System.Drawing.Size(128, 20);
             this.txt_cant_cortado.TabIndex = 12;
+            this.txt_cant_cortado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_cant_cortado_KeyPress);
+            this.txt_cant_cortado.Validating += new System.ComponentModel.CancelEventHandler(this.Txt_cant_cortado_Validating);
             // 
             // label13
             // 
@@ -509,6 +522,7 @@
             this.txt_width_cortado.Size = new System.Drawing.Size(128, 20);
             this.txt_width_cortado.TabIndex = 13;
             this.txt_width_cortado.TextChanged += new System.EventHandler(this.Txt_width_cortado_TextChanged);
+            this.txt_width_cortado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_width_cortado_KeyPress);
             // 
             // label14
             // 
@@ -529,6 +543,7 @@
             this.txt_lenght_cortado.Size = new System.Drawing.Size(128, 20);
             this.txt_lenght_cortado.TabIndex = 14;
             this.txt_lenght_cortado.TextChanged += new System.EventHandler(this.Txt_lenght_cortado_TextChanged);
+            this.txt_lenght_cortado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_lenght_cortado_KeyPress);
             // 
             // label16
             // 
@@ -581,16 +596,6 @@
             this.chk_process.TabIndex = 88;
             this.chk_process.Text = "Procesado";
             this.chk_process.UseVisualStyleBackColor = true;
-            // 
-            // bot_modificar
-            // 
-            this.bot_modificar.AutoSize = false;
-            this.bot_modificar.Image = ((System.Drawing.Image)(resources.GetObject("bot_modificar.Image")));
-            this.bot_modificar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bot_modificar.Name = "bot_modificar";
-            this.bot_modificar.Size = new System.Drawing.Size(80, 24);
-            this.bot_modificar.Text = "Modif";
-            this.bot_modificar.Click += new System.EventHandler(this.Bot_modificar_Click);
             // 
             // FrmOrdenCorte
             // 

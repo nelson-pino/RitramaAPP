@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using RitramaAPP.Clases;
 using RitramaAPP.form;
 using System.IO;
+using System.Globalization;
 
 namespace RitramaAPP
 {
@@ -31,6 +32,7 @@ namespace RitramaAPP
         int EditMode = 0;
         string modproduct_id,modcan_cortado,modwidth,modlenght,modmsi;
         Boolean ischanged_rollos = false;
+        Orden orden;
    
         private void FrmOrdenCorte_Load(object sender, EventArgs e)
         {
@@ -88,7 +90,6 @@ namespace RitramaAPP
                     txt_fecha_producc.Enabled = true;
                     txt_lenght_cortado.ReadOnly = false;
                     txt_cant_cortado.ReadOnly = false;
-                    txt_msi_cortado.ReadOnly = false;
                     txt_width_cortado.ReadOnly = false;
                     txt_rollid_1.ReadOnly = false;
                     txt_rollid_2.ReadOnly = false;
@@ -280,7 +281,7 @@ namespace RitramaAPP
         }
         private Orden CrearObjectOrden() 
         {
-            Orden orden = new Orden
+            orden = new Orden
             {
                 Numero = (txt_numero_oc.Text),
                 Fecha = Convert.ToDateTime(txt_fecha_orden.Text),
@@ -354,7 +355,30 @@ namespace RitramaAPP
 
         private void BOT_EXCEL_EXPORT_Click(object sender, EventArgs e)
         {
-            ExportDatatoExcel();
+            string FILE = "data.txt";
+            string PATH = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data txt\";
+            string separator = ",";
+
+            using (StreamWriter sr = new StreamWriter(PATH + FILE)) 
+            {
+                foreach (DataGridViewRow row in grid_rollos.Rows) 
+                {
+                    sr.WriteLine(row.Cells[0].Value.ToString() + separator +
+                    row.Cells[1].Value.ToString().Trim() + separator +
+                    row.Cells[2].Value.ToString() + separator +
+                    row.Cells[3].Value.ToString() + separator +
+                    Convert.ToString(row.Cells[4].Value).Replace(",", ".") + separator +
+                    Convert.ToString(row.Cells[5].Value).Replace(",", ".") + separator +
+                    Convert.ToString(row.Cells[6].Value).Replace(",", ".") + separator +
+                    row.Cells[7].Value.ToString() + separator +
+                    row.Cells[8].Value.ToString() + separator +
+                    row.Cells[9].Value.ToString() + separator +
+                    row.Cells[10].Value.ToString() + separator +
+                    Convert.ToDateTime(txt_fecha_orden.Text).ToShortDateString() + separator +
+                    txt_numero_oc.Text);
+                }
+                MessageBox.Show("se genero la data de etiquetado...");
+            }
         }
         private void BOT_BUSCAR_Click(object sender, EventArgs e)
         {
@@ -458,16 +482,72 @@ namespace RitramaAPP
         }
         private void CALCULAR_MSI() 
         {
-            if (EditMode != 0) 
+            if (EditMode != 0 || txt_lenght_cortado.Text != string.Empty || 
+                txt_width_cortado.Text != string.Empty)  
             {
-                if (txt_lenght_cortado.Text != string.Empty)
+                try
                 {
                     double msi = ((Convert.ToDouble(txt_width_cortado.Text)
                             * Convert.ToDouble(txt_lenght_cortado.Text)) * factor);
                     txt_msi_cortado.Text = msi.ToString();
                 }
+                catch (Exception)
+                {
+
+
+                    txt_msi_cortado.Text = "0";
+                }
+                
+                    
             }
         }
+        private void Txt_numero_oc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
+        private void Txt_cant_cortado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
+
+        private void Txt_width_cortado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
+
+        private void Txt_lenght_cortado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
+
+        private void Txt_cant_cortado_Validating(object sender, CancelEventArgs e)
+        {
+            if (txt_cant_cortado.Text == string.Empty) 
+            {
+                e.Cancel = true;
+            }
+        }
+
         private void Txt_width_cortado_TextChanged(object sender, EventArgs e)
         {
             CALCULAR_MSI();
@@ -531,7 +611,7 @@ namespace RitramaAPP
                 ChildRows["product_id"] = item.Product_id;
                 ChildRows["product_name"] = item.Product_name;
                 ChildRows["unique_code"] = item.Unique_code;
-                ChildRows["width"] = item.Width;
+                ChildRows["width"] = double.Parse(item.Width.ToString(),CultureInfo.InvariantCulture);
                 ChildRows["large"] = item.Large;
                 ChildRows["Msi"] = item.Msi;
                 ChildRows["Splice"] = item.Splice;
