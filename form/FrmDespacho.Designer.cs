@@ -70,8 +70,13 @@
             this.BOT_ANTERIOR = new System.Windows.Forms.ToolStripButton();
             this.BOT_SIGUIENTE = new System.Windows.Forms.ToolStripButton();
             this.BOT_ULTIMO = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.bot_nuevo = new System.Windows.Forms.ToolStripButton();
+            this.BOT_CANCELAR = new System.Windows.Forms.ToolStripButton();
+            this.BOT_SAVE = new System.Windows.Forms.ToolStripButton();
+            this.bot_modificar = new System.Windows.Forms.ToolStripButton();
+            this.BOT_BUSCAR = new System.Windows.Forms.ToolStripButton();
             this.BOT_IMPRIMIR = new System.Windows.Forms.ToolStripButton();
+            this.bot_sincro = new System.Windows.Forms.ToolStripButton();
             this.label13 = new System.Windows.Forms.Label();
             this.txt_tipo_embalaje = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -96,283 +101,316 @@
             // NumeroDespachoLabel
             // 
             this.NumeroDespachoLabel.AutoSize = true;
-            this.NumeroDespachoLabel.Location = new System.Drawing.Point(29, 109);
+            this.NumeroDespachoLabel.Location = new System.Drawing.Point(22, 89);
+            this.NumeroDespachoLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.NumeroDespachoLabel.Name = "NumeroDespachoLabel";
-            this.NumeroDespachoLabel.Size = new System.Drawing.Size(130, 17);
+            this.NumeroDespachoLabel.Size = new System.Drawing.Size(99, 13);
             this.NumeroDespachoLabel.TabIndex = 0;
             this.NumeroDespachoLabel.Text = "Numero Despacho:";
             // 
             // txt_numero_despacho
             // 
-            this.txt_numero_despacho.Location = new System.Drawing.Point(32, 129);
+            this.txt_numero_despacho.Location = new System.Drawing.Point(24, 105);
+            this.txt_numero_despacho.Margin = new System.Windows.Forms.Padding(2);
             this.txt_numero_despacho.Name = "txt_numero_despacho";
             this.txt_numero_despacho.ReadOnly = true;
-            this.txt_numero_despacho.Size = new System.Drawing.Size(127, 22);
+            this.txt_numero_despacho.Size = new System.Drawing.Size(96, 20);
             this.txt_numero_despacho.TabIndex = 1;
             // 
             // txt_fecha_despacho
             // 
             this.txt_fecha_despacho.Enabled = false;
-            this.txt_fecha_despacho.Location = new System.Drawing.Point(165, 129);
+            this.txt_fecha_despacho.Location = new System.Drawing.Point(124, 105);
+            this.txt_fecha_despacho.Margin = new System.Windows.Forms.Padding(2);
             this.txt_fecha_despacho.Name = "txt_fecha_despacho";
-            this.txt_fecha_despacho.Size = new System.Drawing.Size(246, 22);
+            this.txt_fecha_despacho.Size = new System.Drawing.Size(186, 20);
             this.txt_fecha_despacho.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(165, 109);
+            this.label1.Location = new System.Drawing.Point(124, 89);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(130, 17);
+            this.label1.Size = new System.Drawing.Size(99, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Numero Despacho:";
             // 
             // txt_customer_id
             // 
-            this.txt_customer_id.Location = new System.Drawing.Point(417, 129);
+            this.txt_customer_id.Location = new System.Drawing.Point(313, 105);
+            this.txt_customer_id.Margin = new System.Windows.Forms.Padding(2);
             this.txt_customer_id.Name = "txt_customer_id";
             this.txt_customer_id.ReadOnly = true;
-            this.txt_customer_id.Size = new System.Drawing.Size(80, 22);
+            this.txt_customer_id.Size = new System.Drawing.Size(61, 20);
             this.txt_customer_id.TabIndex = 5;
             // 
             // CustomerIDLabel
             // 
             this.CustomerIDLabel.AutoSize = true;
-            this.CustomerIDLabel.Location = new System.Drawing.Point(414, 109);
+            this.CustomerIDLabel.Location = new System.Drawing.Point(310, 89);
+            this.CustomerIDLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CustomerIDLabel.Name = "CustomerIDLabel";
-            this.CustomerIDLabel.Size = new System.Drawing.Size(87, 17);
+            this.CustomerIDLabel.Size = new System.Drawing.Size(66, 13);
             this.CustomerIDLabel.TabIndex = 4;
             this.CustomerIDLabel.Text = "Customer Id:";
             // 
             // txt_customer_name
             // 
-            this.txt_customer_name.Location = new System.Drawing.Point(504, 129);
+            this.txt_customer_name.Location = new System.Drawing.Point(378, 105);
+            this.txt_customer_name.Margin = new System.Windows.Forms.Padding(2);
             this.txt_customer_name.Name = "txt_customer_name";
             this.txt_customer_name.ReadOnly = true;
-            this.txt_customer_name.Size = new System.Drawing.Size(325, 22);
+            this.txt_customer_name.Size = new System.Drawing.Size(245, 20);
             this.txt_customer_name.TabIndex = 7;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(501, 109);
+            this.label2.Location = new System.Drawing.Point(376, 89);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 17);
+            this.label2.Size = new System.Drawing.Size(85, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Customer Name:";
             // 
             // txt_customer_direc
             // 
-            this.txt_customer_direc.Location = new System.Drawing.Point(32, 185);
+            this.txt_customer_direc.Location = new System.Drawing.Point(24, 150);
+            this.txt_customer_direc.Margin = new System.Windows.Forms.Padding(2);
             this.txt_customer_direc.Name = "txt_customer_direc";
             this.txt_customer_direc.ReadOnly = true;
-            this.txt_customer_direc.Size = new System.Drawing.Size(333, 22);
+            this.txt_customer_direc.Size = new System.Drawing.Size(251, 20);
             this.txt_customer_direc.TabIndex = 9;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 165);
+            this.label3.Location = new System.Drawing.Point(22, 134);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 17);
+            this.label3.Size = new System.Drawing.Size(90, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "Direccion Cliente:";
             // 
             // txt_contact_person
             // 
-            this.txt_contact_person.Location = new System.Drawing.Point(371, 185);
+            this.txt_contact_person.Location = new System.Drawing.Point(278, 150);
+            this.txt_contact_person.Margin = new System.Windows.Forms.Padding(2);
             this.txt_contact_person.Name = "txt_contact_person";
             this.txt_contact_person.ReadOnly = true;
-            this.txt_contact_person.Size = new System.Drawing.Size(243, 22);
+            this.txt_contact_person.Size = new System.Drawing.Size(183, 20);
             this.txt_contact_person.TabIndex = 11;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(368, 165);
+            this.label4.Location = new System.Drawing.Point(276, 134);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 17);
+            this.label4.Size = new System.Drawing.Size(62, 13);
             this.label4.TabIndex = 10;
             this.label4.Text = "Entregar a :";
             // 
             // txt_numero_conduce
             // 
-            this.txt_numero_conduce.Location = new System.Drawing.Point(620, 185);
+            this.txt_numero_conduce.Location = new System.Drawing.Point(465, 150);
+            this.txt_numero_conduce.Margin = new System.Windows.Forms.Padding(2);
             this.txt_numero_conduce.Name = "txt_numero_conduce";
             this.txt_numero_conduce.ReadOnly = true;
-            this.txt_numero_conduce.Size = new System.Drawing.Size(209, 22);
+            this.txt_numero_conduce.Size = new System.Drawing.Size(158, 20);
             this.txt_numero_conduce.TabIndex = 13;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(617, 165);
+            this.label5.Location = new System.Drawing.Point(463, 134);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(126, 17);
+            this.label5.Size = new System.Drawing.Size(96, 13);
             this.label5.TabIndex = 12;
             this.label5.Text = "Numero Conduce :";
             // 
             // txt_vendor_id
             // 
-            this.txt_vendor_id.Location = new System.Drawing.Point(32, 242);
+            this.txt_vendor_id.Location = new System.Drawing.Point(24, 197);
+            this.txt_vendor_id.Margin = new System.Windows.Forms.Padding(2);
             this.txt_vendor_id.Name = "txt_vendor_id";
             this.txt_vendor_id.ReadOnly = true;
-            this.txt_vendor_id.Size = new System.Drawing.Size(102, 22);
+            this.txt_vendor_id.Size = new System.Drawing.Size(78, 20);
             this.txt_vendor_id.TabIndex = 15;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(29, 222);
+            this.label6.Location = new System.Drawing.Point(22, 180);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(89, 17);
+            this.label6.Size = new System.Drawing.Size(68, 13);
             this.label6.TabIndex = 14;
             this.label6.Text = "Vendedor Id.";
             // 
             // bot_vendor_search
             // 
-            this.bot_vendor_search.Location = new System.Drawing.Point(140, 241);
+            this.bot_vendor_search.Location = new System.Drawing.Point(105, 196);
+            this.bot_vendor_search.Margin = new System.Windows.Forms.Padding(2);
             this.bot_vendor_search.Name = "bot_vendor_search";
-            this.bot_vendor_search.Size = new System.Drawing.Size(39, 23);
+            this.bot_vendor_search.Size = new System.Drawing.Size(29, 19);
             this.bot_vendor_search.TabIndex = 16;
             this.bot_vendor_search.Text = "...";
             this.bot_vendor_search.UseVisualStyleBackColor = true;
             // 
             // txt_vendor_name
             // 
-            this.txt_vendor_name.Location = new System.Drawing.Point(185, 241);
+            this.txt_vendor_name.Location = new System.Drawing.Point(139, 196);
+            this.txt_vendor_name.Margin = new System.Windows.Forms.Padding(2);
             this.txt_vendor_name.Name = "txt_vendor_name";
             this.txt_vendor_name.ReadOnly = true;
-            this.txt_vendor_name.Size = new System.Drawing.Size(230, 22);
+            this.txt_vendor_name.Size = new System.Drawing.Size(174, 20);
             this.txt_vendor_name.TabIndex = 18;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(182, 221);
+            this.label7.Location = new System.Drawing.Point(136, 180);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(151, 17);
+            this.label7.Size = new System.Drawing.Size(113, 13);
             this.label7.TabIndex = 17;
             this.label7.Text = "Nombre del Vendedor.";
             // 
             // txt_transport_name
             // 
-            this.txt_transport_name.Location = new System.Drawing.Point(574, 240);
+            this.txt_transport_name.Location = new System.Drawing.Point(430, 195);
+            this.txt_transport_name.Margin = new System.Windows.Forms.Padding(2);
             this.txt_transport_name.Name = "txt_transport_name";
             this.txt_transport_name.ReadOnly = true;
-            this.txt_transport_name.Size = new System.Drawing.Size(255, 22);
+            this.txt_transport_name.Size = new System.Drawing.Size(192, 20);
             this.txt_transport_name.TabIndex = 20;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(571, 221);
+            this.label8.Location = new System.Drawing.Point(428, 180);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(92, 17);
+            this.label8.Size = new System.Drawing.Size(68, 13);
             this.label8.TabIndex = 19;
             this.label8.Text = "Transportista";
             // 
             // bot_transport_search
             // 
-            this.bot_transport_search.Location = new System.Drawing.Point(529, 240);
+            this.bot_transport_search.Location = new System.Drawing.Point(397, 195);
+            this.bot_transport_search.Margin = new System.Windows.Forms.Padding(2);
             this.bot_transport_search.Name = "bot_transport_search";
-            this.bot_transport_search.Size = new System.Drawing.Size(39, 23);
+            this.bot_transport_search.Size = new System.Drawing.Size(29, 19);
             this.bot_transport_search.TabIndex = 23;
             this.bot_transport_search.Text = "...";
             this.bot_transport_search.UseVisualStyleBackColor = true;
             // 
             // txt_transport_id
             // 
-            this.txt_transport_id.Location = new System.Drawing.Point(421, 241);
+            this.txt_transport_id.Location = new System.Drawing.Point(316, 196);
+            this.txt_transport_id.Margin = new System.Windows.Forms.Padding(2);
             this.txt_transport_id.Name = "txt_transport_id";
             this.txt_transport_id.ReadOnly = true;
-            this.txt_transport_id.Size = new System.Drawing.Size(102, 22);
+            this.txt_transport_id.Size = new System.Drawing.Size(78, 20);
             this.txt_transport_id.TabIndex = 22;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(418, 221);
+            this.label9.Location = new System.Drawing.Point(314, 180);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(97, 17);
+            this.label9.Size = new System.Drawing.Size(73, 13);
             this.label9.TabIndex = 21;
             this.label9.Text = "Transporte Id.";
             // 
             // bot_chofer_search
             // 
-            this.bot_chofer_search.Location = new System.Drawing.Point(140, 300);
+            this.bot_chofer_search.Location = new System.Drawing.Point(105, 244);
+            this.bot_chofer_search.Margin = new System.Windows.Forms.Padding(2);
             this.bot_chofer_search.Name = "bot_chofer_search";
-            this.bot_chofer_search.Size = new System.Drawing.Size(39, 23);
+            this.bot_chofer_search.Size = new System.Drawing.Size(29, 19);
             this.bot_chofer_search.TabIndex = 28;
             this.bot_chofer_search.Text = "...";
             this.bot_chofer_search.UseVisualStyleBackColor = true;
             // 
             // txt_chofer_id
             // 
-            this.txt_chofer_id.Location = new System.Drawing.Point(32, 301);
+            this.txt_chofer_id.Location = new System.Drawing.Point(24, 245);
+            this.txt_chofer_id.Margin = new System.Windows.Forms.Padding(2);
             this.txt_chofer_id.Name = "txt_chofer_id";
             this.txt_chofer_id.ReadOnly = true;
-            this.txt_chofer_id.Size = new System.Drawing.Size(102, 22);
+            this.txt_chofer_id.Size = new System.Drawing.Size(78, 20);
             this.txt_chofer_id.TabIndex = 27;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(29, 281);
+            this.label10.Location = new System.Drawing.Point(22, 228);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(69, 17);
+            this.label10.Size = new System.Drawing.Size(53, 13);
             this.label10.TabIndex = 26;
             this.label10.Text = "Chofer Id.";
             // 
             // txt_chofer_name
             // 
-            this.txt_chofer_name.Location = new System.Drawing.Point(185, 300);
+            this.txt_chofer_name.Location = new System.Drawing.Point(139, 244);
+            this.txt_chofer_name.Margin = new System.Windows.Forms.Padding(2);
             this.txt_chofer_name.Name = "txt_chofer_name";
             this.txt_chofer_name.ReadOnly = true;
-            this.txt_chofer_name.Size = new System.Drawing.Size(255, 22);
+            this.txt_chofer_name.Size = new System.Drawing.Size(192, 20);
             this.txt_chofer_name.TabIndex = 25;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(182, 281);
+            this.label11.Location = new System.Drawing.Point(136, 228);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(127, 17);
+            this.label11.Size = new System.Drawing.Size(95, 13);
             this.label11.TabIndex = 24;
             this.label11.Text = "Nombre del Chofer";
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(554, 299);
+            this.button4.Location = new System.Drawing.Point(416, 243);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(39, 23);
+            this.button4.Size = new System.Drawing.Size(29, 19);
             this.button4.TabIndex = 31;
             this.button4.Text = "...";
             this.button4.UseVisualStyleBackColor = true;
             // 
             // txt_placas
             // 
-            this.txt_placas.Location = new System.Drawing.Point(446, 300);
+            this.txt_placas.Location = new System.Drawing.Point(334, 244);
+            this.txt_placas.Margin = new System.Windows.Forms.Padding(2);
             this.txt_placas.Name = "txt_placas";
             this.txt_placas.ReadOnly = true;
-            this.txt_placas.Size = new System.Drawing.Size(102, 22);
+            this.txt_placas.Size = new System.Drawing.Size(78, 20);
             this.txt_placas.TabIndex = 30;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(443, 280);
+            this.label12.Location = new System.Drawing.Point(332, 228);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(54, 17);
+            this.label12.Size = new System.Drawing.Size(42, 13);
             this.label12.TabIndex = 29;
             this.label12.Text = "Placas ";
             // 
             // txt_camion
             // 
-            this.txt_camion.Location = new System.Drawing.Point(599, 301);
+            this.txt_camion.Location = new System.Drawing.Point(449, 245);
+            this.txt_camion.Margin = new System.Windows.Forms.Padding(2);
             this.txt_camion.Name = "txt_camion";
             this.txt_camion.ReadOnly = true;
-            this.txt_camion.Size = new System.Drawing.Size(230, 22);
+            this.txt_camion.Size = new System.Drawing.Size(174, 20);
             this.txt_camion.TabIndex = 32;
             // 
             // grid_items
@@ -381,11 +419,12 @@
             this.grid_items.AllowUserToDeleteRows = false;
             this.grid_items.AllowUserToResizeRows = false;
             this.grid_items.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grid_items.Location = new System.Drawing.Point(32, 328);
+            this.grid_items.Location = new System.Drawing.Point(24, 266);
+            this.grid_items.Margin = new System.Windows.Forms.Padding(2);
             this.grid_items.Name = "grid_items";
             this.grid_items.RowHeadersWidth = 28;
             this.grid_items.RowTemplate.Height = 24;
-            this.grid_items.Size = new System.Drawing.Size(954, 290);
+            this.grid_items.Size = new System.Drawing.Size(716, 236);
             this.grid_items.TabIndex = 33;
             // 
             // panel1
@@ -394,17 +433,19 @@
             this.panel1.Controls.Add(this.label20);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(998, 66);
+            this.panel1.Size = new System.Drawing.Size(827, 54);
             this.panel1.TabIndex = 34;
             // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(322, 19);
+            this.label20.Location = new System.Drawing.Point(325, 9);
+            this.label20.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(149, 29);
+            this.label20.Size = new System.Drawing.Size(120, 25);
             this.label20.TabIndex = 0;
             this.label20.Text = "Despachos";
             // 
@@ -416,11 +457,16 @@
             this.BOT_ANTERIOR,
             this.BOT_SIGUIENTE,
             this.BOT_ULTIMO,
-            this.toolStripButton1,
-            this.BOT_IMPRIMIR});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 66);
+            this.bot_nuevo,
+            this.BOT_CANCELAR,
+            this.BOT_SAVE,
+            this.bot_modificar,
+            this.BOT_BUSCAR,
+            this.BOT_IMPRIMIR,
+            this.bot_sincro});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 54);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(998, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(827, 27);
             this.toolStrip1.TabIndex = 35;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -429,7 +475,7 @@
             this.BOT_PRIMERO.Image = ((System.Drawing.Image)(resources.GetObject("BOT_PRIMERO.Image")));
             this.BOT_PRIMERO.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.BOT_PRIMERO.Name = "BOT_PRIMERO";
-            this.BOT_PRIMERO.Size = new System.Drawing.Size(85, 24);
+            this.BOT_PRIMERO.Size = new System.Drawing.Size(73, 24);
             this.BOT_PRIMERO.Text = "Primero";
             // 
             // BOT_ANTERIOR
@@ -437,7 +483,7 @@
             this.BOT_ANTERIOR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_ANTERIOR.Image")));
             this.BOT_ANTERIOR.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.BOT_ANTERIOR.Name = "BOT_ANTERIOR";
-            this.BOT_ANTERIOR.Size = new System.Drawing.Size(87, 24);
+            this.BOT_ANTERIOR.Size = new System.Drawing.Size(74, 24);
             this.BOT_ANTERIOR.Text = "Anterior";
             // 
             // BOT_SIGUIENTE
@@ -445,7 +491,7 @@
             this.BOT_SIGUIENTE.Image = ((System.Drawing.Image)(resources.GetObject("BOT_SIGUIENTE.Image")));
             this.BOT_SIGUIENTE.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.BOT_SIGUIENTE.Name = "BOT_SIGUIENTE";
-            this.BOT_SIGUIENTE.Size = new System.Drawing.Size(95, 24);
+            this.BOT_SIGUIENTE.Size = new System.Drawing.Size(80, 24);
             this.BOT_SIGUIENTE.Text = "Siguiente";
             // 
             // BOT_ULTIMO
@@ -453,172 +499,232 @@
             this.BOT_ULTIMO.Image = ((System.Drawing.Image)(resources.GetObject("BOT_ULTIMO.Image")));
             this.BOT_ULTIMO.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.BOT_ULTIMO.Name = "BOT_ULTIMO";
-            this.BOT_ULTIMO.Size = new System.Drawing.Size(78, 24);
+            this.BOT_ULTIMO.Size = new System.Drawing.Size(67, 24);
             this.BOT_ULTIMO.Text = "Ultimo";
             // 
-            // toolStripButton1
+            // bot_nuevo
             // 
-            this.toolStripButton1.Enabled = false;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(76, 24);
-            this.toolStripButton1.Text = "Nuevo";
+            this.bot_nuevo.Image = ((System.Drawing.Image)(resources.GetObject("bot_nuevo.Image")));
+            this.bot_nuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bot_nuevo.Name = "bot_nuevo";
+            this.bot_nuevo.Size = new System.Drawing.Size(66, 24);
+            this.bot_nuevo.Text = "Nuevo";
+            this.bot_nuevo.Click += new System.EventHandler(this.bot_nuevo_Click);
+            // 
+            // BOT_CANCELAR
+            // 
+            this.BOT_CANCELAR.Enabled = false;
+            this.BOT_CANCELAR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_CANCELAR.Image")));
+            this.BOT_CANCELAR.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BOT_CANCELAR.Name = "BOT_CANCELAR";
+            this.BOT_CANCELAR.Size = new System.Drawing.Size(77, 24);
+            this.BOT_CANCELAR.Text = "Cancelar";
+            // 
+            // BOT_SAVE
+            // 
+            this.BOT_SAVE.Enabled = false;
+            this.BOT_SAVE.Image = ((System.Drawing.Image)(resources.GetObject("BOT_SAVE.Image")));
+            this.BOT_SAVE.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BOT_SAVE.Name = "BOT_SAVE";
+            this.BOT_SAVE.Size = new System.Drawing.Size(55, 24);
+            this.BOT_SAVE.Text = "Save";
+            // 
+            // bot_modificar
+            // 
+            this.bot_modificar.AutoSize = false;
+            this.bot_modificar.Image = ((System.Drawing.Image)(resources.GetObject("bot_modificar.Image")));
+            this.bot_modificar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bot_modificar.Name = "bot_modificar";
+            this.bot_modificar.Size = new System.Drawing.Size(80, 24);
+            this.bot_modificar.Text = "Modif";
+            // 
+            // BOT_BUSCAR
+            // 
+            this.BOT_BUSCAR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_BUSCAR.Image")));
+            this.BOT_BUSCAR.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BOT_BUSCAR.Name = "BOT_BUSCAR";
+            this.BOT_BUSCAR.Size = new System.Drawing.Size(66, 24);
+            this.BOT_BUSCAR.Text = "Buscar";
             // 
             // BOT_IMPRIMIR
             // 
             this.BOT_IMPRIMIR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_IMPRIMIR.Image")));
             this.BOT_IMPRIMIR.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.BOT_IMPRIMIR.Name = "BOT_IMPRIMIR";
-            this.BOT_IMPRIMIR.Size = new System.Drawing.Size(90, 24);
+            this.BOT_IMPRIMIR.Size = new System.Drawing.Size(77, 24);
             this.BOT_IMPRIMIR.Text = "Imprimir";
             this.BOT_IMPRIMIR.Click += new System.EventHandler(this.BOT_IMPRIMIR_Click);
+            // 
+            // bot_sincro
+            // 
+            this.bot_sincro.AutoSize = false;
+            this.bot_sincro.Image = ((System.Drawing.Image)(resources.GetObject("bot_sincro.Image")));
+            this.bot_sincro.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bot_sincro.Name = "bot_sincro";
+            this.bot_sincro.Size = new System.Drawing.Size(80, 24);
+            this.bot_sincro.Text = "Sincro";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(596, 281);
+            this.label13.Location = new System.Drawing.Point(447, 228);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(55, 17);
+            this.label13.Size = new System.Drawing.Size(42, 13);
             this.label13.TabIndex = 36;
             this.label13.Text = "Camion";
             // 
             // txt_tipo_embalaje
             // 
-            this.txt_tipo_embalaje.Location = new System.Drawing.Point(32, 653);
+            this.txt_tipo_embalaje.Location = new System.Drawing.Point(24, 531);
+            this.txt_tipo_embalaje.Margin = new System.Windows.Forms.Padding(2);
             this.txt_tipo_embalaje.Name = "txt_tipo_embalaje";
             this.txt_tipo_embalaje.ReadOnly = true;
-            this.txt_tipo_embalaje.Size = new System.Drawing.Size(277, 22);
+            this.txt_tipo_embalaje.Size = new System.Drawing.Size(209, 20);
             this.txt_tipo_embalaje.TabIndex = 38;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(29, 633);
+            this.label14.Location = new System.Drawing.Point(22, 514);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(118, 17);
+            this.label14.Size = new System.Drawing.Size(89, 13);
             this.label14.TabIndex = 37;
             this.label14.Text = "Tipo de Embalaje";
             // 
             // txt_otrabajo
             // 
-            this.txt_otrabajo.Location = new System.Drawing.Point(32, 707);
+            this.txt_otrabajo.Location = new System.Drawing.Point(24, 574);
+            this.txt_otrabajo.Margin = new System.Windows.Forms.Padding(2);
             this.txt_otrabajo.Name = "txt_otrabajo";
             this.txt_otrabajo.ReadOnly = true;
-            this.txt_otrabajo.Size = new System.Drawing.Size(118, 22);
+            this.txt_otrabajo.Size = new System.Drawing.Size(90, 20);
             this.txt_otrabajo.TabIndex = 40;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(29, 687);
+            this.label15.Location = new System.Drawing.Point(22, 558);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(121, 17);
+            this.label15.Size = new System.Drawing.Size(90, 13);
             this.label15.TabIndex = 39;
             this.label15.Text = "Orden de Trabajo";
             // 
             // txt_ocompra
             // 
-            this.txt_ocompra.Location = new System.Drawing.Point(156, 707);
+            this.txt_ocompra.Location = new System.Drawing.Point(117, 574);
+            this.txt_ocompra.Margin = new System.Windows.Forms.Padding(2);
             this.txt_ocompra.Name = "txt_ocompra";
             this.txt_ocompra.ReadOnly = true;
-            this.txt_ocompra.Size = new System.Drawing.Size(128, 22);
+            this.txt_ocompra.Size = new System.Drawing.Size(97, 20);
             this.txt_ocompra.TabIndex = 42;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(153, 687);
+            this.label16.Location = new System.Drawing.Point(115, 558);
+            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(101, 17);
+            this.label16.Size = new System.Drawing.Size(75, 13);
             this.label16.TabIndex = 41;
             this.label16.Text = "Orden Compra";
             // 
             // txt_subtotal
             // 
-            this.txt_subtotal.Location = new System.Drawing.Point(858, 642);
+            this.txt_subtotal.Location = new System.Drawing.Point(644, 522);
+            this.txt_subtotal.Margin = new System.Windows.Forms.Padding(2);
             this.txt_subtotal.Name = "txt_subtotal";
             this.txt_subtotal.ReadOnly = true;
-            this.txt_subtotal.Size = new System.Drawing.Size(128, 22);
+            this.txt_subtotal.Size = new System.Drawing.Size(97, 20);
             this.txt_subtotal.TabIndex = 44;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(774, 642);
+            this.label17.Location = new System.Drawing.Point(580, 522);
+            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(79, 17);
+            this.label17.Size = new System.Drawing.Size(62, 13);
             this.label17.TabIndex = 43;
             this.label17.Text = "Sub-Total";
             // 
             // txt_monto_itbis
             // 
-            this.txt_monto_itbis.Location = new System.Drawing.Point(858, 670);
+            this.txt_monto_itbis.Location = new System.Drawing.Point(644, 544);
+            this.txt_monto_itbis.Margin = new System.Windows.Forms.Padding(2);
             this.txt_monto_itbis.Name = "txt_monto_itbis";
             this.txt_monto_itbis.ReadOnly = true;
-            this.txt_monto_itbis.Size = new System.Drawing.Size(128, 22);
+            this.txt_monto_itbis.Size = new System.Drawing.Size(97, 20);
             this.txt_monto_itbis.TabIndex = 46;
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(774, 673);
+            this.label18.Location = new System.Drawing.Point(580, 547);
+            this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(38, 17);
+            this.label18.Size = new System.Drawing.Size(31, 13);
             this.label18.TabIndex = 45;
             this.label18.Text = "Itbis";
             // 
             // txt_total_despacho
             // 
-            this.txt_total_despacho.Location = new System.Drawing.Point(858, 698);
+            this.txt_total_despacho.Location = new System.Drawing.Point(644, 567);
+            this.txt_total_despacho.Margin = new System.Windows.Forms.Padding(2);
             this.txt_total_despacho.Name = "txt_total_despacho";
             this.txt_total_despacho.ReadOnly = true;
-            this.txt_total_despacho.Size = new System.Drawing.Size(128, 22);
+            this.txt_total_despacho.Size = new System.Drawing.Size(97, 20);
             this.txt_total_despacho.TabIndex = 48;
             // 
             // label19
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(804, 701);
+            this.label19.Location = new System.Drawing.Point(603, 570);
+            this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(55, 17);
+            this.label19.Size = new System.Drawing.Size(44, 13);
             this.label19.TabIndex = 47;
             this.label19.Text = "Total :";
             // 
             // txt_porc_itbis
             // 
-            this.txt_porc_itbis.Location = new System.Drawing.Point(821, 670);
+            this.txt_porc_itbis.Location = new System.Drawing.Point(616, 544);
+            this.txt_porc_itbis.Margin = new System.Windows.Forms.Padding(2);
             this.txt_porc_itbis.Name = "txt_porc_itbis";
             this.txt_porc_itbis.ReadOnly = true;
-            this.txt_porc_itbis.Size = new System.Drawing.Size(31, 22);
+            this.txt_porc_itbis.Size = new System.Drawing.Size(24, 20);
             this.txt_porc_itbis.TabIndex = 49;
             // 
             // txt_ocorte
             // 
-            this.txt_ocorte.Location = new System.Drawing.Point(290, 707);
+            this.txt_ocorte.Location = new System.Drawing.Point(218, 574);
+            this.txt_ocorte.Margin = new System.Windows.Forms.Padding(2);
             this.txt_ocorte.Name = "txt_ocorte";
             this.txt_ocorte.ReadOnly = true;
-            this.txt_ocorte.Size = new System.Drawing.Size(128, 22);
+            this.txt_ocorte.Size = new System.Drawing.Size(97, 20);
             this.txt_ocorte.TabIndex = 51;
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(287, 687);
+            this.label21.Location = new System.Drawing.Point(215, 558);
+            this.label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(86, 17);
+            this.label21.Size = new System.Drawing.Size(64, 13);
             this.label21.TabIndex = 50;
             this.label21.Text = "Orden Corte";
             // 
             // FrmDespacho
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(998, 756);
+            this.ClientSize = new System.Drawing.Size(827, 614);
             this.Controls.Add(this.txt_ocorte);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.txt_porc_itbis);
@@ -672,6 +778,7 @@
             this.Controls.Add(this.txt_numero_despacho);
             this.Controls.Add(this.NumeroDespachoLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmDespacho";
             this.Text = "FrmDespacho";
             this.Load += new System.EventHandler(this.FrmDespacho_Load);
@@ -745,6 +852,11 @@
         private System.Windows.Forms.ToolStripButton BOT_ANTERIOR;
         private System.Windows.Forms.ToolStripButton BOT_SIGUIENTE;
         private System.Windows.Forms.ToolStripButton BOT_ULTIMO;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton bot_nuevo;
+        private System.Windows.Forms.ToolStripButton BOT_CANCELAR;
+        private System.Windows.Forms.ToolStripButton BOT_SAVE;
+        private System.Windows.Forms.ToolStripButton bot_modificar;
+        private System.Windows.Forms.ToolStripButton BOT_BUSCAR;
+        private System.Windows.Forms.ToolStripButton bot_sincro;
     }
 }

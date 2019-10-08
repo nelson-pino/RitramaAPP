@@ -21,18 +21,20 @@ namespace RitramaAPP.form
         {
             InitializeComponent();
         }
-        DespachosManager manager = new DespachosManager();
+        DespachosManager despachomanager = new DespachosManager();
         DataSet ds = new DataSet();
         BindingSource bs = new BindingSource();
         BindingSource bsitem = new BindingSource();
+        DataRowView ParentRow;
+        int EditMode = 0;
 
         private void FrmDespacho_Load(object sender, EventArgs e)
         {
             AplicarEstilosGrid();
-            ds = manager.ds;
-            grid_items.DataSource = ds.Tables["dtdespachos"];
+            ds = despachomanager.ds;
+            grid_items.DataSource = ds.Tables["dtdespacho"];
             bs.DataSource = ds;
-            bs.DataMember = "dtdespachos";
+            bs.DataMember = "dtdespacho";
             txt_numero_despacho.DataBindings.Add("text", bs, "numero");
             txt_fecha_despacho.DataBindings.Add("text",bs,"fecha");
             txt_customer_id.DataBindings.Add("text", bs, "customer_id");
@@ -63,104 +65,28 @@ namespace RitramaAPP.form
         private void AplicarEstilosGrid()
         {
             grid_items.AutoGenerateColumns = false;
-            DataGridViewTextBoxColumn col1 = new DataGridViewTextBoxColumn
-            {
-                Name = "product_id",
-                Width = 80,
-                HeaderText = "Product Id",
-                DataPropertyName = "product_id"
-            };
-            grid_items.Columns.Add(col1);
-            DataGridViewTextBoxColumn col2 = new DataGridViewTextBoxColumn
-            {
-                Name = "product_name",
-                Width = 200,
-                HeaderText = "Nombre del Producto",
-                DataPropertyName = "product_name"
-            };
-            grid_items.Columns.Add(col2);
-            DataGridViewTextBoxColumn col3 = new DataGridViewTextBoxColumn
-            {
-                Name = "cant",
-                Width = 60,
-                HeaderText = "Cant",
-                DataPropertyName = "cant"
-            };
-            grid_items.Columns.Add(col3);
-            DataGridViewTextBoxColumn col4 = new DataGridViewTextBoxColumn
-            {
-                Name = "unid",
-                Width = 60,
-                HeaderText = "Unidad",
-                DataPropertyName = "unid_id"
-            };
-            grid_items.Columns.Add(col4);
-            DataGridViewTextBoxColumn col5 = new DataGridViewTextBoxColumn
-            {
-                Name = "ancho",
-                Width = 60,
-                HeaderText = "Ancho (inch)",
-                DataPropertyName = "width"
-            };
-            grid_items.Columns.Add(col5);
-            DataGridViewTextBoxColumn col6 = new DataGridViewTextBoxColumn
-            {
-                Name = "largo",
-                Width = 60,
-                HeaderText = "Largo (pies)",
-                DataPropertyName = "lenght"
-            };
-            grid_items.Columns.Add(col6);
-            DataGridViewTextBoxColumn col7 = new DataGridViewTextBoxColumn
-            {
-                Name = "msi",
-                Width = 60,
-                HeaderText = "Msi.",
-                DataPropertyName = "msi"
-            };
-            grid_items.Columns.Add(col7);
-            DataGridViewTextBoxColumn col8 = new DataGridViewTextBoxColumn
-            {
-                Name = "ratio",
-                Width = 60,
-                HeaderText = "Ratio",
-                DataPropertyName = "ratio"
-            };
-            grid_items.Columns.Add(col8);
-            DataGridViewTextBoxColumn col9 = new DataGridViewTextBoxColumn
-            {
-                Name = "kilo_rollo",
-                Width = 60,
-                HeaderText = "Kilo Rollo",
-                DataPropertyName = "kilo_rollo"
-            };
-            grid_items.Columns.Add(col9);
-            DataGridViewTextBoxColumn col10 = new DataGridViewTextBoxColumn
-            {
-                Name = "kilo_total",
-                Width = 60,
-                HeaderText = "Kilo Total",
-                DataPropertyName = "kilo_total"
-            };
-            grid_items.Columns.Add(col10);
-            DataGridViewTextBoxColumn col11 = new DataGridViewTextBoxColumn
-            {
-                Name = "precio",
-                Width = 60,
-                HeaderText = "Precio",
-                DataPropertyName = "precio"
-            };
-            grid_items.Columns.Add(col11);
-            DataGridViewTextBoxColumn col12 = new DataGridViewTextBoxColumn
-            {
-                Name = "total_renglon",
-                Width = 60,
-                HeaderText = "Venta",
-                DataPropertyName = "total_renglon"
-            };
-            grid_items.Columns.Add(col12);
+            AGREGAR_COLUMN_GRID("product_id",80,"Product Id.","product_id");
+            AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name");
+            AGREGAR_COLUMN_GRID("cant", 60, "Cant.", "cant");
+            AGREGAR_COLUMN_GRID("unid", 60, "Unidad", "unid_id");
+            AGREGAR_COLUMN_GRID("ancho", 60, "Ancho (inch)", "width");
+            AGREGAR_COLUMN_GRID("msi", 60, "Msi.", "msi");
+            AGREGAR_COLUMN_GRID("ratio", 60, "Ratio", "ratio");
+            AGREGAR_COLUMN_GRID("kilo_rollo", 60, "kilo rollo", "kilo_rollo");
+            AGREGAR_COLUMN_GRID("precio", 60, "precio", "precio");
+            AGREGAR_COLUMN_GRID("total_renglon", 60, "Ventas", "total_renglon");
         }
-
+        private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd)
+        {
+            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
+            {
+                Name = name,
+                Width = size,
+                HeaderText = title,
+                DataPropertyName = field_bd
+            };
+            grid_items.Columns.Add(col);
+        }
         private void BOT_IMPRIMIR_Click(object sender, EventArgs e)
         {
             FrmReportViewCrystal frmReportView = new FrmReportViewCrystal();
@@ -174,5 +100,39 @@ namespace RitramaAPP.form
             frmReportView.Height = 700;
             frmReportView.Show();
         }
+
+        private void bot_nuevo_Click(object sender, EventArgs e)
+        {
+            ParentRow = (DataRowView)bs.AddNew();
+            ParentRow.BeginEdit();
+            ParentRow["numero"] = "0";
+            ParentRow["width_1"] = "0";
+            ParentRow["lenght_1"] = "0";
+            ParentRow["width_2"] = "0";
+            ParentRow["lenght_2"] = "0";
+            ParentRow["cant_cortado"] = "0";
+            ParentRow["width_cortado"] = "0";
+            ParentRow["lenght_cortado"] = "0";
+            ParentRow.EndEdit();
+            txt_numero_despacho.Focus();
+            ContadorRegistros();
+            OptionsMenu(0);
+            OptionsForm(0);
+            EditMode = 1;
+        }
+        private void ContadorRegistros() 
+        {
+        
+        }
+        private void OptionsMenu(int state) 
+        {
+        
+        }
+        private void OptionsForm(int state) 
+        {
+        
+        }
+
+
     }
 }

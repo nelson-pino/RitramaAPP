@@ -94,6 +94,14 @@ namespace RitramaAPP
                 }
                 public class DESPACHOS
                 {
+                    public static string SQL_SELECT_DESPACHOS_HEADER = "SELECT numero,fecha,customer_id,person_contact,conduce,vendor_id,transport_id,chofer_id,placas_id,packing,orden_trabajo,orden_corte,orden_compra,subtotal,porc_itbis,itbis,total$rd FROM despacho";
+                    public static string SQL_SELECT_DESPACHOS_DETAILS = "SELECT numero,product_id,cant,unid_id,width,lenght,msi,ratio,kilo_rollo,kilo_total,precio,total_renglon FROM item_despacho";
+                    public static string SQL_SELECT_CUSTOMERS = "SELECT Customer_ID,Customer_Name,Customer_Category,Customer_Dir,Customer_Email,Anulado  FROM customer";
+                    public static string SQL_SELECT_VENDEDORES = "SELECT vendor_id,vendor_name FROM vendedor";
+                    public static string SQL_SELECT_TRANSPORTE = "SELECT transport_id,transport_name FROM transporte";
+                    public static string SQL_SELECT_CHEFERES = "SELECT chofer_id,chofer_name FROM chofer";
+                    public static string SQL_SELECT_CAMION = "SELECT placas_id,camion_name FROM camion";
+                    public static string SQL_SELECT_PRODUCTOS = "SELECT product_id,product_name FROM producto";
                 }
                 public class PEDIDOS
                 {
@@ -137,6 +145,10 @@ namespace RitramaAPP
                 public static string MESSAGE_UPDATE_ERROR_ORDER_ROLLSDETAIL = "ERROR AL ACTUALIZAR LA DATA DE LOS ROLLOS CORTADOS...";
 
 
+            }
+            public class DESPACHOS 
+            {
+                public static string MESSAGE_SELECT_ERROR_LOAD_PRODUCTS = "Error al tratar de cargar los productos.";
             }
         }
         public class PATH_FILES
