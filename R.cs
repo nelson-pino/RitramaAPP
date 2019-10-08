@@ -149,6 +149,13 @@ namespace RitramaAPP
             public class DESPACHOS 
             {
                 public static string MESSAGE_SELECT_ERROR_LOAD_PRODUCTS = "Error al tratar de cargar los productos.";
+                public static string MESSAGE_SELECT_ERROR_LOAD_CHOFERES = "Error al tratar de cargar los choferes.";
+                public static string MESSAGE_SELECT_ERROR_LOAD_CAMIONES= "Error al tratar de cargar los camiones.";
+                public static string MESSAGE_SELECT_ERROR_LOAD_TRANSPORTE = "Error al tratar de cargar los transportes.";
+                public static string MESSAGE_SELECT_ERROR_LOAD_VENDEDOR = "Error al tratar de cargar los vendedores.";
+
+
+
             }
         }
         public class PATH_FILES

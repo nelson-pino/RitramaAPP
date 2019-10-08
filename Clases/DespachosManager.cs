@@ -32,7 +32,6 @@ namespace RitramaAPP.Clases
         DataTable dtproducto = new DataTable();
         public DataSet ds = new DataSet();
        
-        string sql1 = "SELECT numero,fecha,customer_id,person_contact,conduce,vendor_id,transport_id,chofer_id,placas_id,packing,orden_trabajo,orden_corte,orden_compra,subtotal,porc_itbis,itbis,total$rd FROM despacho";
         string sql2 = "SELECT numero,product_id,cant,unid_id,width,lenght,msi,ratio,kilo_rollo,kilo_total,precio,total_renglon FROM item_despacho";
         string sql3 = "SELECT Customer_ID,Customer_Name,Customer_Category,Customer_Dir,Customer_Email,Anulado  FROM customer";
         string sql4 = "SELECT vendor_id,vendor_name FROM vendedor";
@@ -47,7 +46,6 @@ namespace RitramaAPP.Clases
             GetDespachos();
             GetCustomers();
             GetVendedores();
-
             GetTransporte();
             Getchofer();
             GetCamion();
@@ -114,7 +112,6 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-
         public Boolean CommandSqlGeneric(string db, string query, List<SqlParameter> spc, Boolean msg, string messagerror)
         {
             // Ejecuta comando sql query y no devuleve ni valor ni datos.
@@ -178,133 +175,28 @@ namespace RitramaAPP.Clases
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME,R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_PRODUCTOS,
             daproducto,"dtproducto",R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_PRODUCTS);
         }
-
-        public Boolean GetProductoX()
+        public void Getchofer() 
         {
-            try
-            {
-                Micomm.Conectar(R.SQL.DATABASE.NAME);
-                SqlCommand comando = new SqlCommand
-                {
-                    Connection = Micomm.cnn,
-                    CommandType = CommandType.Text,
-                    CommandText = sql8
-
-                };
-                comando.ExecuteNonQuery();
-                daproducto.SelectCommand = comando;
-                daproducto.Fill(ds, "dtproducto");
-                comando.Dispose();
-                Micomm.Desconectar();
-                return true;
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("Error al cargar los productos. error code:" + ex);
-                return false;
-            }
+            CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_CHEFERES,
+            dachofer, "dtchofer", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_CHOFERES);
         }
-        public Boolean Getchofer()
+        private void GetCamion() 
         {
-            try
-            {
-                Micomm.Conectar(R.SQL.DATABASE.NAME);
-                SqlCommand comando = new SqlCommand
-                {
-                    Connection = Micomm.cnn,
-                    CommandType = CommandType.Text,
-                    CommandText = sql6
-
-                };
-                comando.ExecuteNonQuery();
-                dachofer.SelectCommand = comando;
-                dachofer.Fill(ds, "dtchofer");
-                comando.Dispose();
-                Micomm.Desconectar();
-                return true;
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("Error al cargar la lista de los chofer. error code:" + ex);
-                return false;
-            }
+            CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_CAMION,
+            dacamion, "dtcamion", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_CAMIONES);
         }
-        public Boolean GetCamion()
+        private void GetTransporte() 
         {
-            try
-            {
-                Micomm.Conectar(R.SQL.DATABASE.NAME);
-                SqlCommand comando = new SqlCommand
-                {
-                    Connection = Micomm.cnn,
-                    CommandType = CommandType.Text,
-                    CommandText = sql7
-
-                };
-                comando.ExecuteNonQuery();
-                dacamion.SelectCommand = comando;
-                dacamion.Fill(ds, "dtcamion");
-                comando.Dispose();
-                Micomm.Desconectar();
-                return true;
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("Error al cargar la lista de los camiones. error code:" + ex);
-                return false;
-            }
-
+            CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_TRANSPORTE,
+            datransporte, "dttransporte", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_TRANSPORTE);
         }
-        public Boolean GetTransporte()
+        private void GetVendedores() 
         {
-            try
-            {
-                Micomm.Conectar(R.SQL.DATABASE.NAME);
-                SqlCommand comando = new SqlCommand
-                {
-                    Connection = Micomm.cnn,
-                    CommandType = CommandType.Text,
-                    CommandText = sql5
-
-                };
-                comando.ExecuteNonQuery();
-                datransporte.SelectCommand = comando;
-                datransporte.Fill(ds, "dttransporte");
-                comando.Dispose();
-                Micomm.Desconectar();
-                return true;
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("Error al cargar la lista de los transportistas. error code:" + ex);
-                return false;
-            }
+            CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_VENDEDORES,
+            davendor, "dtvendor", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_VENDEDOR);
         }
-        public Boolean GetVendedores() 
-        {
-            try
-            {
-                Micomm.Conectar(R.SQL.DATABASE.NAME);
-                SqlCommand comando = new SqlCommand
-                {
-                    Connection = Micomm.cnn,
-                    CommandType = CommandType.Text,
-                    CommandText = sql4
 
-                };
-                comando.ExecuteNonQuery();
-                davendor.SelectCommand = comando;
-                davendor.Fill(ds, "dtvendor");
-                comando.Dispose();
-                Micomm.Desconectar();
-                return true;
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("Error al cargar la lista de los vendodores. error code:" + ex);
-                return false;
-            }
-        }
+        
         public Boolean GetCustomers()
         {
             try
@@ -339,7 +231,7 @@ namespace RitramaAPP.Clases
                 SqlCommand comando = new SqlCommand
                 {
                     CommandType = CommandType.Text,
-                    CommandText = sql1,
+                    CommandText = R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_DESPACHOS_HEADER,
                     Connection = Micomm.cnn
                 };
                 comando.ExecuteNonQuery();
@@ -349,7 +241,7 @@ namespace RitramaAPP.Clases
                 SqlCommand comando1 = new SqlCommand
                 {
                     CommandType = CommandType.Text,
-                    CommandText = sql2,
+                    CommandText = R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_DESPACHOS_DETAILS,
                     Connection = Micomm.cnn
                 };
                 comando1.ExecuteNonQuery();
