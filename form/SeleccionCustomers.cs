@@ -20,6 +20,8 @@ namespace RitramaAPP.form
         public string itemSelected { get; set; }
         public string GetCustomerId { get; set; }
         public string GetCustomerName { get; set; }
+        public string GetCustomerDirecc { get; set; }
+
 
         DataView dv = new DataView();
         private void SeleccionCustomers_Load(object sender, EventArgs e)
@@ -38,6 +40,12 @@ namespace RitramaAPP.form
             col2.HeaderText = "Customer Name";
             col2.DataPropertyName = "Customer_Name";
             grid_customers.Columns.Add(col2);
+            DataGridViewTextBoxColumn col3 = new DataGridViewTextBoxColumn();
+            col3.Name = "Customer_Dir";
+            col3.Width = 100;
+            col3.HeaderText = "Direccion";
+            col3.DataPropertyName = "Customer_Dir";
+            grid_customers.Columns.Add(col3);
             dv.RowFilter = "";
             grid_customers.DataSource = dv;
             lbl_contador_registros.Text = Convert.ToString(dv.Count) + " registros encontrados.";
@@ -60,6 +68,7 @@ namespace RitramaAPP.form
             itemSelected = grid_customers.Rows[e.RowIndex].Cells[0].Value.ToString();
             GetCustomerId = grid_customers.Rows[e.RowIndex].Cells[0].Value.ToString();
             GetCustomerName = grid_customers.Rows[e.RowIndex].Cells[1].Value.ToString();
+            GetCustomerDirecc = grid_customers.Rows[e.RowIndex].Cells[2].Value.ToString();
             this.Close();
         }
     }

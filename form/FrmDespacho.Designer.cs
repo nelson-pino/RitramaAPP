@@ -41,8 +41,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txt_contact_person = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txt_numero_conduce = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.txt_vendor_id = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.bot_vendor_search = new System.Windows.Forms.Button();
@@ -93,6 +91,7 @@
             this.txt_porc_itbis = new System.Windows.Forms.TextBox();
             this.txt_ocorte = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
+            this.bot_buscar_clientes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grid_items)).BeginInit();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -138,7 +137,7 @@
             // 
             // txt_customer_id
             // 
-            this.txt_customer_id.Location = new System.Drawing.Point(313, 105);
+            this.txt_customer_id.Location = new System.Drawing.Point(351, 105);
             this.txt_customer_id.Margin = new System.Windows.Forms.Padding(2);
             this.txt_customer_id.Name = "txt_customer_id";
             this.txt_customer_id.ReadOnly = true;
@@ -148,7 +147,7 @@
             // CustomerIDLabel
             // 
             this.CustomerIDLabel.AutoSize = true;
-            this.CustomerIDLabel.Location = new System.Drawing.Point(310, 89);
+            this.CustomerIDLabel.Location = new System.Drawing.Point(348, 89);
             this.CustomerIDLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CustomerIDLabel.Name = "CustomerIDLabel";
             this.CustomerIDLabel.Size = new System.Drawing.Size(66, 13);
@@ -157,7 +156,7 @@
             // 
             // txt_customer_name
             // 
-            this.txt_customer_name.Location = new System.Drawing.Point(378, 105);
+            this.txt_customer_name.Location = new System.Drawing.Point(416, 105);
             this.txt_customer_name.Margin = new System.Windows.Forms.Padding(2);
             this.txt_customer_name.Name = "txt_customer_name";
             this.txt_customer_name.ReadOnly = true;
@@ -167,7 +166,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(376, 89);
+            this.label2.Location = new System.Drawing.Point(414, 89);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(85, 13);
@@ -199,7 +198,7 @@
             this.txt_contact_person.Margin = new System.Windows.Forms.Padding(2);
             this.txt_contact_person.Name = "txt_contact_person";
             this.txt_contact_person.ReadOnly = true;
-            this.txt_contact_person.Size = new System.Drawing.Size(183, 20);
+            this.txt_contact_person.Size = new System.Drawing.Size(383, 20);
             this.txt_contact_person.TabIndex = 11;
             // 
             // label4
@@ -211,25 +210,6 @@
             this.label4.Size = new System.Drawing.Size(62, 13);
             this.label4.TabIndex = 10;
             this.label4.Text = "Entregar a :";
-            // 
-            // txt_numero_conduce
-            // 
-            this.txt_numero_conduce.Location = new System.Drawing.Point(465, 150);
-            this.txt_numero_conduce.Margin = new System.Windows.Forms.Padding(2);
-            this.txt_numero_conduce.Name = "txt_numero_conduce";
-            this.txt_numero_conduce.ReadOnly = true;
-            this.txt_numero_conduce.Size = new System.Drawing.Size(158, 20);
-            this.txt_numero_conduce.TabIndex = 13;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(463, 134);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(96, 13);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Numero Conduce :";
             // 
             // txt_vendor_id
             // 
@@ -259,6 +239,7 @@
             this.bot_vendor_search.TabIndex = 16;
             this.bot_vendor_search.Text = "...";
             this.bot_vendor_search.UseVisualStyleBackColor = true;
+            this.bot_vendor_search.Click += new System.EventHandler(this.bot_vendor_search_Click);
             // 
             // txt_vendor_name
             // 
@@ -719,12 +700,24 @@
             this.label21.TabIndex = 50;
             this.label21.Text = "Orden Corte";
             // 
+            // bot_buscar_clientes
+            // 
+            this.bot_buscar_clientes.Location = new System.Drawing.Point(317, 105);
+            this.bot_buscar_clientes.Margin = new System.Windows.Forms.Padding(2);
+            this.bot_buscar_clientes.Name = "bot_buscar_clientes";
+            this.bot_buscar_clientes.Size = new System.Drawing.Size(29, 19);
+            this.bot_buscar_clientes.TabIndex = 52;
+            this.bot_buscar_clientes.Text = "...";
+            this.bot_buscar_clientes.UseVisualStyleBackColor = true;
+            this.bot_buscar_clientes.Click += new System.EventHandler(this.bot_buscar_clientes_Click);
+            // 
             // FrmDespacho
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(827, 614);
+            this.Controls.Add(this.bot_buscar_clientes);
             this.Controls.Add(this.txt_ocorte);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.txt_porc_itbis);
@@ -763,8 +756,6 @@
             this.Controls.Add(this.bot_vendor_search);
             this.Controls.Add(this.txt_vendor_id);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.txt_numero_conduce);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.txt_contact_person);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txt_customer_direc);
@@ -806,8 +797,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txt_contact_person;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txt_numero_conduce;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txt_vendor_id;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button bot_vendor_search;
@@ -858,5 +847,6 @@
         private System.Windows.Forms.ToolStripButton bot_modificar;
         private System.Windows.Forms.ToolStripButton BOT_BUSCAR;
         private System.Windows.Forms.ToolStripButton bot_sincro;
+        private System.Windows.Forms.Button bot_buscar_clientes;
     }
 }

@@ -41,7 +41,6 @@ namespace RitramaAPP.form
             txt_customer_name.DataBindings.Add("text", bs, "customer_name");
             txt_customer_direc.DataBindings.Add("text", bs, "customer_dir");
             txt_contact_person.DataBindings.Add("text", bs, "person_contact");
-            txt_numero_conduce.DataBindings.Add("text",bs,"conduce");
             txt_vendor_id.DataBindings.Add("text", bs, "vendor_id");
             txt_vendor_name.DataBindings.Add("text", bs, "vendor_name");
             txt_transport_id.DataBindings.Add("text", bs, "transport_id");
@@ -105,14 +104,9 @@ namespace RitramaAPP.form
         {
             ParentRow = (DataRowView)bs.AddNew();
             ParentRow.BeginEdit();
-            ParentRow["numero"] = "0";
-            ParentRow["width_1"] = "0";
-            ParentRow["lenght_1"] = "0";
-            ParentRow["width_2"] = "0";
-            ParentRow["lenght_2"] = "0";
-            ParentRow["cant_cortado"] = "0";
-            ParentRow["width_cortado"] = "0";
-            ParentRow["lenght_cortado"] = "0";
+            ParentRow["numero"] = "1000";
+            ParentRow["fecha"] = DateTime.Today;
+
             ParentRow.EndEdit();
             txt_numero_despacho.Focus();
             ContadorRegistros();
@@ -126,13 +120,62 @@ namespace RitramaAPP.form
         }
         private void OptionsMenu(int state) 
         {
-        
+            switch (state) 
+            {
+                case 0:
+                    //modo agregar nuevo orden.
+                    BOT_PRIMERO.Enabled = false;
+                    BOT_SIGUIENTE.Enabled = false;
+                    BOT_ANTERIOR.Enabled = false;
+                    BOT_ULTIMO.Enabled = false;
+                    bot_nuevo.Enabled = false;
+                    BOT_BUSCAR.Enabled = false;
+                    BOT_CANCELAR.Enabled = true;
+                    BOT_SAVE.Enabled = true;
+                    bot_modificar.Enabled = false;
+                    BOT_IMPRIMIR.Enabled = false;
+                    break;
+                case 1:
+
+                    break;
+                case 2:
+                    break;
+            }
+
         }
         private void OptionsForm(int state) 
         {
-        
+            switch (state) 
+            {
+                case 0:
+                    txt_fecha_despacho.Enabled = true;
+                    txt_customer_id.ReadOnly = false;
+                    txt_contact_person.ReadOnly = false;
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+
+            }
+        }
+        private void bot_buscar_clientes_Click(object sender, EventArgs e)
+        {
+            SeleccionCustomers selectcustomer = new SeleccionCustomers();
+            selectcustomer.dtcustomer = ds.Tables["dtcustomer"];
+            selectcustomer.ShowDialog();
+            txt_customer_id.Text = selectcustomer.GetCustomerId;
+            txt_customer_name.Text = selectcustomer.GetCustomerName;
+            txt_customer_direc.Text = selectcustomer.GetCustomerDirecc;
         }
 
-
+        private void bot_vendor_search_Click(object sender, EventArgs e)
+        {
+            SeleccionVendedores selectvendedores = new SeleccionVendedores();
+            selectvendedores.dtvendedor = ds.Tables["dtvendor"];
+            selectvendedores.ShowDialog();
+            txt_vendor_id.Text = selectvendedores.GetVendedorId;
+            txt_vendor_name.Text = selectvendedores.GetVendedorName;
+        }
     }
 }
