@@ -177,5 +177,12 @@ namespace RitramaAPP.form
             txt_vendor_id.Text = selectvendedores.GetVendedorId;
             txt_vendor_name.Text = selectvendedores.GetVendedorName;
         }
+
+        private void bot_transport_search_Click(object sender, EventArgs e)
+        {
+            SeleccionTransporte selecttransporte = new SeleccionTransporte();
+            selecttransporte.dttransporte = ds.Tables["dttransporte"];
+            selecttransporte.ShowDialog();
+        }
     }
 }
