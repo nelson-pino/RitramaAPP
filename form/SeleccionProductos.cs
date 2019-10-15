@@ -20,6 +20,10 @@ namespace RitramaAPP.form
         public string itemSelected { get; set; }
         public string GetProductId { get; set; }
         public string GetProductName { get; set; }
+        public Boolean GetMasterRolls { get; set; }
+        public Boolean GetResma { get; set; }
+        public Boolean Getgraphics { get; set; }
+
         DataView dv = new DataView();
         private void SeleccionProductos_Load(object sender, EventArgs e)
         {
@@ -37,11 +41,28 @@ namespace RitramaAPP.form
             col2.HeaderText = "Fecha";
             col2.DataPropertyName = "Product_Name";
             grid_productos.Columns.Add(col2);
+            DataGridViewTextBoxColumn col3 = new DataGridViewTextBoxColumn();
+            col3.Name = "masterRolls";
+            col3.Width = 60;
+            col3.HeaderText = "Master";
+            col3.DataPropertyName = "masterRolls";
+            grid_productos.Columns.Add(col3);
+            DataGridViewTextBoxColumn col4 = new DataGridViewTextBoxColumn();
+            col4.Name = "resmas";
+            col4.Width = 60;
+            col4.HeaderText = "Resma";
+            col4.DataPropertyName = "Resmas";
+            grid_productos.Columns.Add(col4);
+            DataGridViewTextBoxColumn col5 = new DataGridViewTextBoxColumn();
+            col5.Name = "graphics";
+            col5.Width = 60;
+            col5.HeaderText = "Graphics";
+            col5.DataPropertyName = "graphics";
+            grid_productos.Columns.Add(col5);
             dv.RowFilter = "";
             grid_productos.DataSource = dv;
             lbl_contador_registros.Text = Convert.ToString(dv.Count) + " registros encontrados.";
         }
-
         private void Txt_buscar_TextChanged(object sender, EventArgs e)
         {
             if (rad_codigo.Checked)
@@ -64,6 +85,9 @@ namespace RitramaAPP.form
             itemSelected = grid_productos.Rows[e.RowIndex].Cells[0].Value.ToString();
             GetProductId = grid_productos.Rows[e.RowIndex].Cells[0].Value.ToString();
             GetProductName = grid_productos.Rows[e.RowIndex].Cells[1].Value.ToString();
+            GetMasterRolls = Convert.ToBoolean(grid_productos.Rows[e.RowIndex].Cells[2].Value);
+            GetResma = Convert.ToBoolean(grid_productos.Rows[e.RowIndex].Cells[3].Value);
+            Getgraphics = Convert.ToBoolean(grid_productos.Rows[e.RowIndex].Cells[4].Value);
             this.Close();
         }
     }

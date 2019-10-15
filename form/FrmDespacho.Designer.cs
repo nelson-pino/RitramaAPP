@@ -89,9 +89,9 @@
             this.txt_total_despacho = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.txt_porc_itbis = new System.Windows.Forms.TextBox();
-            this.txt_ocorte = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
             this.bot_buscar_clientes = new System.Windows.Forms.Button();
+            this.agregar_renglon = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grid_items)).BeginInit();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -410,6 +410,9 @@
             this.grid_items.RowTemplate.Height = 24;
             this.grid_items.Size = new System.Drawing.Size(716, 236);
             this.grid_items.TabIndex = 33;
+            this.grid_items.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_items_CellContentClick);
+            this.grid_items.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_items_CellEndEdit);
+            this.grid_items.KeyUp += new System.Windows.Forms.KeyEventHandler(this.grid_items_KeyUp);
             // 
             // panel1
             // 
@@ -602,7 +605,7 @@
             this.txt_ocompra.Margin = new System.Windows.Forms.Padding(2);
             this.txt_ocompra.Name = "txt_ocompra";
             this.txt_ocompra.ReadOnly = true;
-            this.txt_ocompra.Size = new System.Drawing.Size(97, 20);
+            this.txt_ocompra.Size = new System.Drawing.Size(116, 20);
             this.txt_ocompra.TabIndex = 42;
             // 
             // label16
@@ -648,7 +651,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(580, 547);
+            this.label18.Location = new System.Drawing.Point(545, 547);
             this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(31, 13);
@@ -677,31 +680,12 @@
             // 
             // txt_porc_itbis
             // 
-            this.txt_porc_itbis.Location = new System.Drawing.Point(616, 544);
+            this.txt_porc_itbis.Location = new System.Drawing.Point(583, 544);
             this.txt_porc_itbis.Margin = new System.Windows.Forms.Padding(2);
             this.txt_porc_itbis.Name = "txt_porc_itbis";
             this.txt_porc_itbis.ReadOnly = true;
-            this.txt_porc_itbis.Size = new System.Drawing.Size(24, 20);
+            this.txt_porc_itbis.Size = new System.Drawing.Size(57, 20);
             this.txt_porc_itbis.TabIndex = 49;
-            // 
-            // txt_ocorte
-            // 
-            this.txt_ocorte.Location = new System.Drawing.Point(218, 574);
-            this.txt_ocorte.Margin = new System.Windows.Forms.Padding(2);
-            this.txt_ocorte.Name = "txt_ocorte";
-            this.txt_ocorte.ReadOnly = true;
-            this.txt_ocorte.Size = new System.Drawing.Size(97, 20);
-            this.txt_ocorte.TabIndex = 51;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(215, 558);
-            this.label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(64, 13);
-            this.label21.TabIndex = 50;
-            this.label21.Text = "Orden Corte";
             // 
             // bot_buscar_clientes
             // 
@@ -714,15 +698,34 @@
             this.bot_buscar_clientes.UseVisualStyleBackColor = true;
             this.bot_buscar_clientes.Click += new System.EventHandler(this.bot_buscar_clientes_Click);
             // 
+            // agregar_renglon
+            // 
+            this.agregar_renglon.Location = new System.Drawing.Point(746, 266);
+            this.agregar_renglon.Name = "agregar_renglon";
+            this.agregar_renglon.Size = new System.Drawing.Size(75, 23);
+            this.agregar_renglon.TabIndex = 53;
+            this.agregar_renglon.Text = "Agregar";
+            this.agregar_renglon.UseVisualStyleBackColor = true;
+            this.agregar_renglon.Click += new System.EventHandler(this.agregar_renglon_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(746, 295);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 54;
+            this.button1.Text = "Eliminar";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // FrmDespacho
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(827, 614);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.agregar_renglon);
             this.Controls.Add(this.bot_buscar_clientes);
-            this.Controls.Add(this.txt_ocorte);
-            this.Controls.Add(this.label21);
             this.Controls.Add(this.txt_porc_itbis);
             this.Controls.Add(this.txt_total_despacho);
             this.Controls.Add(this.label19);
@@ -838,8 +841,6 @@
         private System.Windows.Forms.TextBox txt_total_despacho;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txt_porc_itbis;
-        private System.Windows.Forms.TextBox txt_ocorte;
-        private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ToolStripButton BOT_PRIMERO;
         private System.Windows.Forms.ToolStripButton BOT_ANTERIOR;
         private System.Windows.Forms.ToolStripButton BOT_SIGUIENTE;
@@ -851,5 +852,7 @@
         private System.Windows.Forms.ToolStripButton BOT_BUSCAR;
         private System.Windows.Forms.ToolStripButton bot_sincro;
         private System.Windows.Forms.Button bot_buscar_clientes;
+        private System.Windows.Forms.Button agregar_renglon;
+        private System.Windows.Forms.Button button1;
     }
 }

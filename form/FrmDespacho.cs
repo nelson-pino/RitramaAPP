@@ -25,14 +25,13 @@ namespace RitramaAPP.form
         DataSet ds = new DataSet();
         BindingSource bs = new BindingSource();
         BindingSource bsitem = new BindingSource();
-        DataRowView ParentRow;
+        DataRowView ParentRow, ChildRows;
         int EditMode = 0;
 
         private void FrmDespacho_Load(object sender, EventArgs e)
         {
             AplicarEstilosGrid();
             ds = despachomanager.ds;
-            grid_items.DataSource = ds.Tables["dtdespacho"];
             bs.DataSource = ds;
             bs.DataMember = "dtdespacho";
             txt_numero_despacho.DataBindings.Add("text", bs, "numero");
@@ -52,7 +51,6 @@ namespace RitramaAPP.form
             txt_tipo_embalaje.DataBindings.Add("text", bs, "packing");
             txt_ocompra.DataBindings.Add("text", bs, "orden_compra");
             txt_otrabajo.DataBindings.Add("text", bs, "orden_trabajo");
-            txt_ocorte.DataBindings.Add("text", bs, "orden_corte");
             txt_subtotal.DataBindings.Add("text", bs, "subtotal");
             txt_monto_itbis.DataBindings.Add("text", bs, "itbis");
             txt_total_despacho.DataBindings.Add("text", bs, "total$rd");
@@ -66,14 +64,21 @@ namespace RitramaAPP.form
             grid_items.AutoGenerateColumns = false;
             AGREGAR_COLUMN_GRID("product_id", 80, "Product Id.", "product_id");
             AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name");
+            AGREGAR_COLUMN_GRID("unidad", 60, "Unidad", "unid_id");
+            DataGridViewButtonColumn col3 = new DataGridViewButtonColumn
+            {
+                Name = "SeachProduct",
+                Width = 25,
+                HeaderText = "..."
+            };
+            grid_items.Columns.Add(col3);
             AGREGAR_COLUMN_GRID("cant", 60, "Cant.", "cant");
-            AGREGAR_COLUMN_GRID("unid", 60, "Unidad", "unid_id");
             AGREGAR_COLUMN_GRID("ancho", 60, "Ancho (inch)", "width");
             AGREGAR_COLUMN_GRID("msi", 60, "Msi.", "msi");
             AGREGAR_COLUMN_GRID("ratio", 60, "Ratio", "ratio");
             AGREGAR_COLUMN_GRID("kilo_rollo", 60, "kilo rollo", "kilo_rollo");
             AGREGAR_COLUMN_GRID("precio", 60, "precio", "precio");
-            AGREGAR_COLUMN_GRID("total_renglon", 60, "Ventas", "total_renglon");
+            AGREGAR_COLUMN_GRID("total_renglon", 60, "Total renglon", "total_renglon");
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd)
         {
@@ -106,7 +111,6 @@ namespace RitramaAPP.form
             ParentRow.BeginEdit();
             ParentRow["numero"] = "1000";
             ParentRow["fecha"] = DateTime.Today;
-
             ParentRow.EndEdit();
             txt_numero_despacho.Focus();
             ContadorRegistros();
@@ -151,6 +155,11 @@ namespace RitramaAPP.form
                     txt_fecha_despacho.Enabled = true;
                     txt_customer_id.ReadOnly = false;
                     txt_contact_person.ReadOnly = false;
+                    txt_ocompra.ReadOnly = false;
+                    txt_otrabajo.ReadOnly = false;
+                    txt_tipo_embalaje.ReadOnly = false;
+
+
                     break;
                 case 1:
                     break;
@@ -213,5 +222,72 @@ namespace RitramaAPP.form
             txt_placas.Text = selectcamion.GetCamionPlaca;
             txt_camion.Text = selectcamion.GetCamionModelo;
         }
+
+        private void agregar_renglon_Click(object sender, EventArgs e)
+        {
+            AgregarRenglon();
+        }
+
+        private void grid_items_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 3)
+            {
+                SeleccionProductos selectProducts = new SeleccionProductos();
+                selectProducts.dtproducto = ds.Tables["dtproducto"];
+                selectProducts.ShowDialog();
+                grid_items.Rows[e.RowIndex].Cells["product_id"].Value = selectProducts.GetProductId;
+                if (selectProducts.GetMasterRolls) 
+                {
+                    grid_items.Rows[e.RowIndex].Cells["unidad"].Value = "Master";
+                }
+                if (selectProducts.GetResma)
+                {
+                    grid_items.Rows[e.RowIndex].Cells["unidad"].Value = "Resma";
+                }
+                if (selectProducts.Getgraphics)
+                {
+                    grid_items.Rows[e.RowIndex].Cells["unidad"].Value = "Graphics";
+                }
+                
+             }
+        }
+
+        private void grid_items_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SendKeys.Send("{TAB}");
+            }
+        }
+
+        private void grid_items_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 4 || e.ColumnIndex == 9) 
+            {
+                grid_items.Rows[e.RowIndex].Cells["total_renglon"].Value =
+                    Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["cant"].Value) *
+                    Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["precio"].Value);
+            }
+        }
+
+        private void AgregarRenglon() 
+        {
+            //Agregar detalle de la factura.
+            
+            ChildRows = (DataRowView)bsitem.AddNew();
+            ChildRows.BeginEdit();
+            ChildRows["numero"] = txt_numero_despacho.Text;
+            ChildRows["cant"] = 0;
+            ChildRows["ratio"] = 0;
+            ChildRows["width"] = 0;
+            ChildRows["msi"] = 0;
+            ChildRows["kilo_rollo"] = 0;
+            ChildRows["precio"] = 0.0;
+            ChildRows.Row.SetParentRow(ParentRow.Row);
+            ChildRows.EndEdit();
+            bsitem.Position = bsitem.Count - 1;
+            ContadorRegistros();
+        }
+
     }
 }

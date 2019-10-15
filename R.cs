@@ -101,7 +101,7 @@ namespace RitramaAPP
                     public static string SQL_SELECT_TRANSPORTE = "SELECT transport_id,transport_name FROM transporte";
                     public static string SQL_SELECT_CHEFERES = "SELECT chofer_id,chofer_name FROM chofer";
                     public static string SQL_SELECT_CAMION = "SELECT placas_id,camion_name FROM camion";
-                    public static string SQL_SELECT_PRODUCTOS = "SELECT product_id,product_name FROM producto";
+                    public static string SQL_SELECT_PRODUCTOS = "SELECT product_id,product_name,masterRolls,Resmas,Graphics FROM producto";
                 }
                 public class PEDIDOS
                 {
