@@ -36,7 +36,7 @@ namespace RitramaAPP.form
             bs.DataSource = ds;
             bs.DataMember = "dtdespacho";
             txt_numero_despacho.DataBindings.Add("text", bs, "numero");
-            txt_fecha_despacho.DataBindings.Add("text",bs,"fecha");
+            txt_fecha_despacho.DataBindings.Add("text", bs, "fecha");
             txt_customer_id.DataBindings.Add("text", bs, "customer_id");
             txt_customer_name.DataBindings.Add("text", bs, "customer_name");
             txt_customer_direc.DataBindings.Add("text", bs, "customer_dir");
@@ -46,16 +46,16 @@ namespace RitramaAPP.form
             txt_transport_id.DataBindings.Add("text", bs, "transport_id");
             txt_transport_name.DataBindings.Add("text", bs, "transport_name");
             txt_chofer_id.DataBindings.Add("text", bs, "chofer_id");
-            txt_chofer_name.DataBindings.Add("text",bs,"chofer_name");
+            txt_chofer_name.DataBindings.Add("text", bs, "chofer_name");
             txt_placas.DataBindings.Add("text", bs, "placas_id");
-            txt_camion.DataBindings.Add("text",bs,"camion_name");
-            txt_tipo_embalaje.DataBindings.Add("text",bs,"packing");
+            txt_camion.DataBindings.Add("text", bs, "camion_name");
+            txt_tipo_embalaje.DataBindings.Add("text", bs, "packing");
             txt_ocompra.DataBindings.Add("text", bs, "orden_compra");
-            txt_otrabajo.DataBindings.Add("text",bs,"orden_trabajo");
-            txt_ocorte.DataBindings.Add("text",bs,"orden_corte");
-            txt_subtotal.DataBindings.Add("text",bs,"subtotal");
-            txt_monto_itbis.DataBindings.Add("text",bs,"itbis");
-            txt_total_despacho.DataBindings.Add("text",bs,"total$rd");
+            txt_otrabajo.DataBindings.Add("text", bs, "orden_trabajo");
+            txt_ocorte.DataBindings.Add("text", bs, "orden_corte");
+            txt_subtotal.DataBindings.Add("text", bs, "subtotal");
+            txt_monto_itbis.DataBindings.Add("text", bs, "itbis");
+            txt_total_despacho.DataBindings.Add("text", bs, "total$rd");
             txt_porc_itbis.DataBindings.Add("text", bs, "porc_itbis");
             bsitem.DataSource = bs;
             bsitem.DataMember = "FK_MASTER_DETAILS";
@@ -64,7 +64,7 @@ namespace RitramaAPP.form
         private void AplicarEstilosGrid()
         {
             grid_items.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("product_id",80,"Product Id.","product_id");
+            AGREGAR_COLUMN_GRID("product_id", 80, "Product Id.", "product_id");
             AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name");
             AGREGAR_COLUMN_GRID("cant", 60, "Cant.", "cant");
             AGREGAR_COLUMN_GRID("unid", 60, "Unidad", "unid_id");
@@ -114,13 +114,13 @@ namespace RitramaAPP.form
             OptionsForm(0);
             EditMode = 1;
         }
-        private void ContadorRegistros() 
+        private void ContadorRegistros()
         {
-        
+
         }
-        private void OptionsMenu(int state) 
+        private void OptionsMenu(int state)
         {
-            switch (state) 
+            switch (state)
             {
                 case 0:
                     //modo agregar nuevo orden.
@@ -143,9 +143,9 @@ namespace RitramaAPP.form
             }
 
         }
-        private void OptionsForm(int state) 
+        private void OptionsForm(int state)
         {
-            switch (state) 
+            switch (state)
             {
                 case 0:
                     txt_fecha_despacho.Enabled = true;
@@ -161,18 +161,22 @@ namespace RitramaAPP.form
         }
         private void bot_buscar_clientes_Click(object sender, EventArgs e)
         {
-            SeleccionCustomers selectcustomer = new SeleccionCustomers();
-            selectcustomer.dtcustomer = ds.Tables["dtcustomer"];
-            selectcustomer.ShowDialog();
-            txt_customer_id.Text = selectcustomer.GetCustomerId;
-            txt_customer_name.Text = selectcustomer.GetCustomerName;
-            txt_customer_direc.Text = selectcustomer.GetCustomerDirecc;
+            using (SeleccionCustomers selectcustomer = new SeleccionCustomers())
+            {
+                selectcustomer.dtcustomer = ds.Tables["dtcustomer"];
+                selectcustomer.ShowDialog();
+                txt_customer_id.Text = selectcustomer.GetCustomerId;
+                txt_customer_name.Text = selectcustomer.GetCustomerName;
+                txt_customer_direc.Text = selectcustomer.GetCustomerDirecc;
+            }
         }
 
         private void bot_vendor_search_Click(object sender, EventArgs e)
         {
-            SeleccionVendedores selectvendedores = new SeleccionVendedores();
-            selectvendedores.dtvendedor = ds.Tables["dtvendor"];
+            SeleccionVendedores selectvendedores = new SeleccionVendedores
+            {
+                dtvendedor = ds.Tables["dtvendor"]
+            };
             selectvendedores.ShowDialog();
             txt_vendor_id.Text = selectvendedores.GetVendedorId;
             txt_vendor_name.Text = selectvendedores.GetVendedorName;
@@ -180,9 +184,23 @@ namespace RitramaAPP.form
 
         private void bot_transport_search_Click(object sender, EventArgs e)
         {
-            SeleccionTransporte selecttransporte = new SeleccionTransporte();
-            selecttransporte.dttransporte = ds.Tables["dttransporte"];
+            SeleccionTransporte selecttransporte = new SeleccionTransporte
+            {
+                dttransporte = ds.Tables["dttransporte"]
+            };
             selecttransporte.ShowDialog();
+            txt_transport_id.Text = selecttransporte.GetTransporteId;
+            txt_transport_name.Text = selecttransporte.GetTransporteName;
+        }
+        private void bot_chofer_search_Click(object sender, EventArgs e)
+        {
+            SeleccionChofer selectchofer = new SeleccionChofer
+            {
+                dtchofer = ds.Tables["dtchofer"]
+            };
+            selectchofer.ShowDialog();
+            txt_chofer_id.Text = selectchofer.GetChoferId;
+            txt_chofer_name.Text = selectchofer.GetChoferName;
         }
     }
 }

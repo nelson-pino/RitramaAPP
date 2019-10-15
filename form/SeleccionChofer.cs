@@ -10,24 +10,24 @@ using System.Windows.Forms;
 
 namespace RitramaAPP.form
 {
-    public partial class SeleccionTransporte : Form
+    public partial class SeleccionChofer : Form
     {
-        public SeleccionTransporte()
+        public SeleccionChofer()
         {
             InitializeComponent();
         }
-        public DataTable dttransporte { get; set; }
-        public string GetTransporteId { get; set; }
-        public string GetTransporteName { get; set; }
+        public DataTable dtchofer { get; set; }
+        public string GetChoferId { get; set; }
+        public string GetChoferName { get; set; }
         DataView dv = new DataView();
-        private void SeleccionTransporte_Load(object sender, EventArgs e)
+        private void SeleccionChofer_Load(object sender, EventArgs e)
         {
-            dv = dttransporte.DefaultView;
+            dv = dtchofer.DefaultView;
             grid_items.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("transport_id", 75, "Trans. Id.", "transport_id");
-            AGREGAR_COLUMN_GRID("transport_name", 2000, "Nombre transporte", "transport_name");
+            AGREGAR_COLUMN_GRID("chofer_id", 60, "Chofer Id.", "chofer_id");
+            AGREGAR_COLUMN_GRID("chofer_name", 200, "Nombre chofer", "chofer_name");
             grid_items.DataSource = dv;
-            CONTADOR_REGISTROS.Text = Convert.ToString(dv.Count) + " registros encontrados.";
+            lbl_contador_registros.Text = Convert.ToString(dv.Count) + " registros encontrados.";
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd)
         {
@@ -40,24 +40,27 @@ namespace RitramaAPP.form
             };
             grid_items.Columns.Add(col);
         }
-
         private void txt_buscar_TextChanged(object sender, EventArgs e)
         {
-            if (RA_CODIGO.Checked)
+            if (rad_codigo.Checked)
             {
                 dv.RowFilter = "transport_id LIKE '%" + this.txt_buscar.Text + "%'";
             }
-            if (RA_NOMBRE_VENDEDOR.Checked)
+            if (rad_producto.Checked)
             {
                 dv.RowFilter = "transport_name LIKE '%" + this.txt_buscar.Text + "%'";
             }
-            CONTADOR_REGISTROS.Text = Convert.ToString(dv.Count) + " registros encontrados.";
+            lbl_contador_registros.Text = Convert.ToString(dv.Count) + " registros encontrados.";
         }
 
         private void grid_items_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            GetTransporteId = grid_items.Rows[e.RowIndex].Cells[0].Value.ToString();
-            GetTransporteName = grid_items.Rows[e.RowIndex].Cells[1].Value.ToString();
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+            GetChoferId = grid_items.Rows[e.RowIndex].Cells[0].Value.ToString();
+            GetChoferName = grid_items.Rows[e.RowIndex].Cells[1].Value.ToString();
             this.Close();
         }
     }

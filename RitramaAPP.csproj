@@ -102,6 +102,12 @@
     <Compile Include="form\frmSincroRecepciones.Designer.cs">
       <DependentUpon>frmSincroRecepciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\SeleccionChofer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\SeleccionChofer.Designer.cs">
+      <DependentUpon>SeleccionChofer.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\SeleccionCustomers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,6 +217,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\frmSincroRecepciones.resx">
       <DependentUpon>frmSincroRecepciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\SeleccionChofer.resx">
+      <DependentUpon>SeleccionChofer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\SeleccionCustomers.resx">
       <DependentUpon>SeleccionCustomers.cs</DependentUpon>
