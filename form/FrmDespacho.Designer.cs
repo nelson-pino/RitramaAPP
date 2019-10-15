@@ -56,7 +56,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txt_chofer_name = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.BOT_CAMION = new System.Windows.Forms.Button();
             this.txt_placas = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txt_camion = new System.Windows.Forms.TextBox();
@@ -358,15 +358,16 @@
             this.label11.TabIndex = 24;
             this.label11.Text = "Nombre del Chofer";
             // 
-            // button4
+            // BOT_CAMION
             // 
-            this.button4.Location = new System.Drawing.Point(416, 243);
-            this.button4.Margin = new System.Windows.Forms.Padding(2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(29, 19);
-            this.button4.TabIndex = 31;
-            this.button4.Text = "...";
-            this.button4.UseVisualStyleBackColor = true;
+            this.BOT_CAMION.Location = new System.Drawing.Point(416, 243);
+            this.BOT_CAMION.Margin = new System.Windows.Forms.Padding(2);
+            this.BOT_CAMION.Name = "BOT_CAMION";
+            this.BOT_CAMION.Size = new System.Drawing.Size(29, 19);
+            this.BOT_CAMION.TabIndex = 31;
+            this.BOT_CAMION.Text = "...";
+            this.BOT_CAMION.UseVisualStyleBackColor = true;
+            this.BOT_CAMION.Click += new System.EventHandler(this.BOT_CAMION_Click);
             // 
             // txt_placas
             // 
@@ -740,7 +741,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.grid_items);
             this.Controls.Add(this.txt_camion);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.BOT_CAMION);
             this.Controls.Add(this.txt_placas);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.bot_chofer_search);
@@ -814,7 +815,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txt_chofer_name;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button BOT_CAMION;
         private System.Windows.Forms.TextBox txt_placas;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txt_camion;

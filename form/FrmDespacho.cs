@@ -202,5 +202,16 @@ namespace RitramaAPP.form
             txt_chofer_id.Text = selectchofer.GetChoferId;
             txt_chofer_name.Text = selectchofer.GetChoferName;
         }
+
+        private void BOT_CAMION_Click(object sender, EventArgs e)
+        {
+            SeleccionCamion selectcamion = new SeleccionCamion
+            {
+                dtcamion = ds.Tables["dtcamion"]
+            };
+            selectcamion.ShowDialog();
+            txt_placas.Text = selectcamion.GetCamionPlaca;
+            txt_camion.Text = selectcamion.GetCamionModelo;
+        }
     }
 }
