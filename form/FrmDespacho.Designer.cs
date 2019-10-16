@@ -620,18 +620,18 @@
             // 
             // txt_subtotal
             // 
-            this.txt_subtotal.Location = new System.Drawing.Point(644, 522);
+            this.txt_subtotal.Location = new System.Drawing.Point(594, 522);
             this.txt_subtotal.Margin = new System.Windows.Forms.Padding(2);
             this.txt_subtotal.Name = "txt_subtotal";
             this.txt_subtotal.ReadOnly = true;
-            this.txt_subtotal.Size = new System.Drawing.Size(97, 20);
+            this.txt_subtotal.Size = new System.Drawing.Size(145, 20);
             this.txt_subtotal.TabIndex = 44;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(580, 522);
+            this.label17.Location = new System.Drawing.Point(525, 522);
             this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(62, 13);
@@ -640,18 +640,18 @@
             // 
             // txt_monto_itbis
             // 
-            this.txt_monto_itbis.Location = new System.Drawing.Point(644, 544);
+            this.txt_monto_itbis.Location = new System.Drawing.Point(594, 544);
             this.txt_monto_itbis.Margin = new System.Windows.Forms.Padding(2);
             this.txt_monto_itbis.Name = "txt_monto_itbis";
             this.txt_monto_itbis.ReadOnly = true;
-            this.txt_monto_itbis.Size = new System.Drawing.Size(97, 20);
+            this.txt_monto_itbis.Size = new System.Drawing.Size(145, 20);
             this.txt_monto_itbis.TabIndex = 46;
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(545, 547);
+            this.label18.Location = new System.Drawing.Point(490, 547);
             this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(31, 13);
@@ -660,18 +660,18 @@
             // 
             // txt_total_despacho
             // 
-            this.txt_total_despacho.Location = new System.Drawing.Point(644, 567);
+            this.txt_total_despacho.Location = new System.Drawing.Point(594, 567);
             this.txt_total_despacho.Margin = new System.Windows.Forms.Padding(2);
             this.txt_total_despacho.Name = "txt_total_despacho";
             this.txt_total_despacho.ReadOnly = true;
-            this.txt_total_despacho.Size = new System.Drawing.Size(97, 20);
+            this.txt_total_despacho.Size = new System.Drawing.Size(145, 20);
             this.txt_total_despacho.TabIndex = 48;
             // 
             // label19
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(603, 570);
+            this.label19.Location = new System.Drawing.Point(548, 570);
             this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(44, 13);
@@ -680,7 +680,7 @@
             // 
             // txt_porc_itbis
             // 
-            this.txt_porc_itbis.Location = new System.Drawing.Point(583, 544);
+            this.txt_porc_itbis.Location = new System.Drawing.Point(528, 544);
             this.txt_porc_itbis.Margin = new System.Windows.Forms.Padding(2);
             this.txt_porc_itbis.Name = "txt_porc_itbis";
             this.txt_porc_itbis.ReadOnly = true;

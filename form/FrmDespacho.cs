@@ -27,6 +27,7 @@ namespace RitramaAPP.form
         BindingSource bsitem = new BindingSource();
         DataRowView ParentRow, ChildRows;
         int EditMode = 0;
+        decimal PORC_ITBIS = 18;
 
         private void FrmDespacho_Load(object sender, EventArgs e)
         {
@@ -62,9 +63,9 @@ namespace RitramaAPP.form
         private void AplicarEstilosGrid()
         {
             grid_items.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("product_id", 80, "Product Id.", "product_id");
+            AGREGAR_COLUMN_GRID("product_id", 70, "Product Id.", "product_id");
             AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name");
-            AGREGAR_COLUMN_GRID("unidad", 60, "Unidad", "unid_id");
+            AGREGAR_COLUMN_GRID("unidad", 50, "Unidad", "unid_id");
             DataGridViewButtonColumn col3 = new DataGridViewButtonColumn
             {
                 Name = "SeachProduct",
@@ -72,13 +73,13 @@ namespace RitramaAPP.form
                 HeaderText = "..."
             };
             grid_items.Columns.Add(col3);
-            AGREGAR_COLUMN_GRID("cant", 60, "Cant.", "cant");
-            AGREGAR_COLUMN_GRID("ancho", 60, "Ancho (inch)", "width");
-            AGREGAR_COLUMN_GRID("msi", 60, "Msi.", "msi");
-            AGREGAR_COLUMN_GRID("ratio", 60, "Ratio", "ratio");
-            AGREGAR_COLUMN_GRID("kilo_rollo", 60, "kilo rollo", "kilo_rollo");
-            AGREGAR_COLUMN_GRID("precio", 60, "precio", "precio");
-            AGREGAR_COLUMN_GRID("total_renglon", 60, "Total renglon", "total_renglon");
+            AGREGAR_COLUMN_GRID("cant", 50, "Cant.", "cant");
+            AGREGAR_COLUMN_GRID("ancho", 50, "Ancho (inch)", "width");
+            AGREGAR_COLUMN_GRID("msi", 50, "Msi.", "msi");
+            AGREGAR_COLUMN_GRID("ratio", 50, "Ratio", "ratio");
+            AGREGAR_COLUMN_GRID("kilo_rollo", 50, "kilo rollo", "kilo_rollo");
+            AGREGAR_COLUMN_GRID("precio", 50, "precio", "precio");
+            AGREGAR_COLUMN_GRID("total_renglon", 50, "Total renglon", "total_renglon");
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd)
         {
@@ -116,6 +117,7 @@ namespace RitramaAPP.form
             ContadorRegistros();
             OptionsMenu(0);
             OptionsForm(0);
+            txt_porc_itbis.Text = PORC_ITBIS.ToString();
             EditMode = 1;
         }
         private void ContadorRegistros()
@@ -236,6 +238,7 @@ namespace RitramaAPP.form
                 selectProducts.dtproducto = ds.Tables["dtproducto"];
                 selectProducts.ShowDialog();
                 grid_items.Rows[e.RowIndex].Cells["product_id"].Value = selectProducts.GetProductId;
+                //establecer la unidad.
                 if (selectProducts.GetMasterRolls) 
                 {
                     grid_items.Rows[e.RowIndex].Cells["unidad"].Value = "Master";
@@ -248,7 +251,6 @@ namespace RitramaAPP.form
                 {
                     grid_items.Rows[e.RowIndex].Cells["unidad"].Value = "Graphics";
                 }
-                
              }
         }
 
@@ -265,8 +267,12 @@ namespace RitramaAPP.form
             if (e.ColumnIndex == 4 || e.ColumnIndex == 9) 
             {
                 grid_items.Rows[e.RowIndex].Cells["total_renglon"].Value =
-                    Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["cant"].Value) *
-                    Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["precio"].Value);
+                Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["cant"].Value) *
+                Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["precio"].Value);
+                //calcular el subtotal.
+                txt_subtotal.Text = CalcularSubtotal();
+                txt_monto_itbis.Text = CalcularIva(PORC_ITBIS, Convert.ToDecimal(txt_subtotal.Text));
+                txt_total_despacho.Text = CalcularTotal(Convert.ToDecimal(txt_subtotal.Text), Convert.ToDecimal(txt_monto_itbis.Text));
             }
         }
 
@@ -283,11 +289,32 @@ namespace RitramaAPP.form
             ChildRows["msi"] = 0;
             ChildRows["kilo_rollo"] = 0;
             ChildRows["precio"] = 0.0;
+            ChildRows["total_renglon"] = 0;
             ChildRows.Row.SetParentRow(ParentRow.Row);
             ChildRows.EndEdit();
             bsitem.Position = bsitem.Count - 1;
             ContadorRegistros();
         }
-
+        private string CalcularSubtotal()
+        {
+            decimal subtotal = 0;
+            for (int i = 0; i <= grid_items.Rows.Count - 1; i++)
+            {
+                subtotal = subtotal + Convert.ToDecimal(grid_items.Rows[i].Cells["total_renglon"].Value);
+            }
+            return string.Format("{0,12:N2}", subtotal);
+        }
+        private string CalcularIva(decimal PORC_ITBIS,decimal subtotal)
+        {
+            decimal monto_itbis = 0;
+            monto_itbis = (PORC_ITBIS * subtotal) / 100; 
+            return string.Format("{0,12:N2}", monto_itbis);
+        }
+        private string CalcularTotal(decimal subtotal, decimal monto_itbis)
+        {
+            decimal total = 0;
+            total = (subtotal + monto_itbis);
+            return string.Format("{0,12:N2}", total);
+        }
     }
 }
