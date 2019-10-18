@@ -17,9 +17,10 @@ namespace RitramaAPP.form
         DespachosManager despachomanager = new DespachosManager();
         DataSet ds = new DataSet();
         BindingSource bs = new BindingSource();
+        ConfigManager config = new ConfigManager();
         BindingSource bsitem = new BindingSource();
         DataRowView ParentRow, ChildRows;
-        int EditMode = 0;
+        int EditMode = 0,Consec = 0;
         decimal PORC_ITBIS = 18;
         ClassDespacho despacho;
 
@@ -102,9 +103,10 @@ namespace RitramaAPP.form
 
         private void bot_nuevo_Click(object sender, EventArgs e)
         {
+            Consec = Convert.ToInt32(config.GetParameterControl("CONSEC_DP")) + 1;
             ParentRow = (DataRowView)bs.AddNew();
             ParentRow.BeginEdit();
-            ParentRow["numero"] = "1000";
+            ParentRow["numero"] = Convert.ToString(Consec);
             ParentRow["fecha"] = DateTime.Today;
             ParentRow.EndEdit();
             txt_numero_despacho.Focus();
@@ -320,11 +322,37 @@ namespace RitramaAPP.form
         private void ToSaveAdd()
         {
             despachomanager.Add(CrearObjectDespacho(), false);
+            config.SetParametersControl(Consec.ToString(), "CONSEC_DP");
         }
         private void ToSaveUpdate()
         {
 
         }
+
+        private void BOT_SIGUIENTE_Click(object sender, EventArgs e)
+        {
+            bs.Position += 1;
+            ContadorRegistros();
+        }
+
+        private void BOT_ANTERIOR_Click(object sender, EventArgs e)
+        {
+            bs.Position -= 1;
+            ContadorRegistros();
+        }
+
+        private void BOT_PRIMERO_Click(object sender, EventArgs e)
+        {
+            bs.Position = 0;
+            ContadorRegistros();
+        }
+
+        private void BOT_ULTIMO_Click(object sender, EventArgs e)
+        {
+            bs.Position = bs.Count - 1;
+            ContadorRegistros();
+        }
+
         private string CalcularTotal(decimal subtotal, decimal monto_itbis)
         {
             decimal total = 0;
@@ -366,6 +394,7 @@ namespace RitramaAPP.form
                     cantidad = Convert.ToDecimal(grid_items.Rows[fila].Cells[4].Value),
                     unidad = grid_items.Rows[fila].Cells[2].Value.ToString(),
                     width = Convert.ToDecimal(grid_items.Rows[fila].Cells[5].Value),
+                    lenght = 0,
                     msi = Convert.ToDecimal(grid_items.Rows[fila].Cells[6].Value),
                     ratio = Convert.ToDecimal(grid_items.Rows[fila].Cells[7].Value),
                     kilo_rollo = Convert.ToDecimal(grid_items.Rows[fila].Cells[8].Value),

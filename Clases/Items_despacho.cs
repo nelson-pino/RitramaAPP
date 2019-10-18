@@ -7,6 +7,7 @@
         public decimal cantidad { get; set; }
         public string unidad { get; set; }
         public decimal width { get; set; }
+        public decimal lenght { get; set; }
         public decimal msi { get; set; }
         public decimal ratio { get; set; }
         public decimal kilo_rollo { get; set; }

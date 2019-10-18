@@ -106,13 +106,31 @@ namespace RitramaAPP.Clases
             R.SQL.QUERY_SQL.DESPACHOS.SQL_INSERT_HEADER_ORDEN_DESPACHO, SetParametersAddHeaderDespacho(datos),
             ismessage, R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_INSERT_ERROR_ADD_HEADER_DESPACHOS);
 
-            ////ADD ITEMS-DETAILS DE ORDEN DE PRODUCCION A LA BASE DE DATOS.
-            //foreach (Items_despacho item in datos.items)
-            //{
-            //    CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_INSERT_DETAILS_OC,
-            //    SetParametersAddOrdenDetails(item), ismessage,
-            //    R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_ADD_ORDEN_ERROR_FAIL_DETAILS);
-            //}
+            //ADD ITEMS-DETAILS DE ORDEN DE PRODUCCION A LA BASE DE DATOS.
+            foreach (Items_despacho item in datos.items)
+            {
+                CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_INSERT_HEADER_DETAILS_DESPACHO,
+                SetParametersAddDetailsDespacho(item,datos.numero), ismessage,
+                R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_INSERT_ERROR_ADD_DETAILS_DESPACHOS);
+            }
+        }
+        public List<SqlParameter> SetParametersAddDetailsDespacho(Items_despacho datos,string numero)
+        {
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = numero},
+                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.NVarChar, Value = datos.product_id},
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.Decimal, Value = datos.cantidad},
+                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.NVarChar, Value = datos.unidad},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.Decimal, Value = datos.width},
+                new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.Decimal, Value = datos.lenght},
+                new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.Decimal, Value = datos.msi},
+                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.Decimal, Value = datos.ratio},
+                new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Decimal, Value = datos.kilo_rollo},
+                new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.Decimal, Value = datos.precio},
+                new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Decimal, Value = datos.subtotal}
+            };
+            return sp;
         }
         public List<SqlParameter> SetParametersAddHeaderDespacho(ClassDespacho datos)
         {
@@ -135,7 +153,6 @@ namespace RitramaAPP.Clases
             };
             return sp;
         }
-
         public void GetProducto()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_PRODUCTOS,

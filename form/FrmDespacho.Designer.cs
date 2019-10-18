@@ -464,6 +464,7 @@
             this.BOT_PRIMERO.Name = "BOT_PRIMERO";
             this.BOT_PRIMERO.Size = new System.Drawing.Size(73, 24);
             this.BOT_PRIMERO.Text = "Primero";
+            this.BOT_PRIMERO.Click += new System.EventHandler(this.BOT_PRIMERO_Click);
             // 
             // BOT_ANTERIOR
             // 
@@ -472,6 +473,7 @@
             this.BOT_ANTERIOR.Name = "BOT_ANTERIOR";
             this.BOT_ANTERIOR.Size = new System.Drawing.Size(74, 24);
             this.BOT_ANTERIOR.Text = "Anterior";
+            this.BOT_ANTERIOR.Click += new System.EventHandler(this.BOT_ANTERIOR_Click);
             // 
             // BOT_SIGUIENTE
             // 
@@ -480,6 +482,7 @@
             this.BOT_SIGUIENTE.Name = "BOT_SIGUIENTE";
             this.BOT_SIGUIENTE.Size = new System.Drawing.Size(80, 24);
             this.BOT_SIGUIENTE.Text = "Siguiente";
+            this.BOT_SIGUIENTE.Click += new System.EventHandler(this.BOT_SIGUIENTE_Click);
             // 
             // BOT_ULTIMO
             // 
@@ -488,6 +491,7 @@
             this.BOT_ULTIMO.Name = "BOT_ULTIMO";
             this.BOT_ULTIMO.Size = new System.Drawing.Size(67, 24);
             this.BOT_ULTIMO.Text = "Ultimo";
+            this.BOT_ULTIMO.Click += new System.EventHandler(this.BOT_ULTIMO_Click);
             // 
             // bot_nuevo
             // 
