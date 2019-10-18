@@ -22,6 +22,7 @@ namespace RitramaAPP.form
         int EditMode = 0;
         decimal PORC_ITBIS = 18;
         ClassDespacho despacho;
+        string prueba = "valor";
 
         private void FrmDespacho_Load(object sender, EventArgs e)
         {
