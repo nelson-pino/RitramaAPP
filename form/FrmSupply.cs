@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using RitramaAPP.Clases;
+using RitramaAPP.form;
+using System;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using RitramaAPP.Clases;
-using RitramaAPP.form;
 
 namespace RitramaAPP
 {
@@ -28,13 +23,13 @@ namespace RitramaAPP
             ds = suply.ds;
             bs.DataSource = ds;
             bs.DataMember = "dtsupply";
-            txt_supply_id.DataBindings.Add("text",bs, "Proveedor_ID");
-            txt_supply_name.DataBindings.Add("text",bs, "Proveedor_Name");
+            txt_supply_id.DataBindings.Add("text", bs, "Proveedor_ID");
+            txt_supply_name.DataBindings.Add("text", bs, "Proveedor_Name");
             txt_direccion_supply.DataBindings.Add("text", bs, "Preveedor_Dir");
             txt_email_supply.DataBindings.Add("text", bs, "Preveedor_email");
             txt_telefono_supply.DataBindings.Add("text", bs, "Preveedor_phone");
-            CHK_ANULADO.DataBindings.Add("checked",bs,"anulado");
-            RAD_UNID1.DataBindings.Add("checked",bs,"unidad_master_1");
+            CHK_ANULADO.DataBindings.Add("checked", bs, "anulado");
+            RAD_UNID1.DataBindings.Add("checked", bs, "unidad_master_1");
             RAD_UNID2.DataBindings.Add("checked", bs, "unidad_master_2");
             ContadorRegistros();
         }
@@ -149,7 +144,7 @@ namespace RitramaAPP
 
         private void BOT_BUSCAR_Click(object sender, EventArgs e)
         {
-            SeleccionProveedores  BrowseProviders = new SeleccionProveedores();
+            SeleccionProveedores BrowseProviders = new SeleccionProveedores();
             BrowseProviders.dtsupply = ds.Tables["dtsupply"];
             BrowseProviders.ShowDialog();
             int itemFound = bs.Find("Proveedor_ID", BrowseProviders.itemSelected);

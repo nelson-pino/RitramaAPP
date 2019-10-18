@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 using System.Globalization;
+using System.IO;
+using System.Windows.Forms;
 
 namespace RitramaAPP.Clases
 {
@@ -32,8 +29,8 @@ namespace RitramaAPP.Clases
             LoadProviders();
             RelacionesDS();
         }
-      
-        public Boolean CommandSqlGeneric(string db, string query, List<SqlParameter> spc,string messageok,string messagefail,Boolean msg_onoff)
+
+        public Boolean CommandSqlGeneric(string db, string query, List<SqlParameter> spc, string messageok, string messagefail, Boolean msg_onoff)
         {
             // Ejecuta comando sql query y no devuleve ni valor ni datos.
             try
@@ -59,7 +56,7 @@ namespace RitramaAPP.Clases
                 {
                     MessageBox.Show(messageok);
                 }
-                
+
                 return true;
             }
             catch (Exception ex)
@@ -92,27 +89,27 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-        public void Add(ClassRecepcion datos,Boolean message)
+        public void Add(ClassRecepcion datos, Boolean message)
         {
             CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_INSERT_DOCS_RECEPCIONES,
-                SetParametersAdd(datos),R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_INSERT_RECEPCIONES_OK,
-                R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_INSERT_RECEPCIONES_FAIL,message);
+                SetParametersAdd(datos), R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_INSERT_RECEPCIONES_OK,
+                R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_INSERT_RECEPCIONES_FAIL, message);
         }
-        public void Update(ClassRecepcion datos,bool msg_onoff)
+        public void Update(ClassRecepcion datos, bool msg_onoff)
         {
             CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_UPDATE_ORDEN_RECEPCION,
             SetParametersUpdate(datos), R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_UPDATE_RECEPCIONES_OK,
-            R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_UPDATE_RECEPCIONES_FAIL,msg_onoff);
+            R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_UPDATE_RECEPCIONES_FAIL, msg_onoff);
         }
         public void LoadRecepciones()
         {
-            CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME,R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_SELECT_ORDENES_RECEPCION,
-                darecepcion, "dtrecepcion",R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_SELECT_LOADRECEPCIONES_FAIL);
+            CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_SELECT_ORDENES_RECEPCION,
+                darecepcion, "dtrecepcion", R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_SELECT_LOADRECEPCIONES_FAIL);
         }
         public void LoadProducts()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_SELECT_PRODUCTS,
-                daproducto,"dtproducto", R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PRODUCTOS.MESSAGE_SELECT_LOADPRODUCTOS_FAIL);
+                daproducto, "dtproducto", R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PRODUCTOS.MESSAGE_SELECT_LOADPRODUCTOS_FAIL);
         }
         public void LoadProviders()
         {
@@ -121,7 +118,7 @@ namespace RitramaAPP.Clases
         }
         public List<ClassRecepcion> DownloadDataMateriaPrimaTxtMovil()
         {
-            
+
             string path = R.PATH_FILES.FILE_TXT_MATERIA_PRIMA;
             List<ClassRecepcion> lista = new List<ClassRecepcion>();
             if (File.Exists(path))
@@ -152,7 +149,7 @@ namespace RitramaAPP.Clases
                                     Part_Number = strArray[1],
                                     ProductName = SearchProductName(strArray[1]),
                                     Tipo = SearchTipoProduct(strArray[1]),
-                                    Width =  WidthValue,
+                                    Width = WidthValue,
                                     Lenght = LenghtValue,
                                     Roll_ID = (strArray[4])
                                 };
@@ -160,7 +157,7 @@ namespace RitramaAPP.Clases
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("error al leer la data y convertir el archivo txt de recepciones en la pc: "  +   ex);
+                                MessageBox.Show("error al leer la data y convertir el archivo txt de recepciones en la pc: " + ex);
                             }
                         }
                     }
@@ -174,7 +171,7 @@ namespace RitramaAPP.Clases
             }
             else
             {
-               
+
             }
             return lista;
         }
@@ -198,7 +195,7 @@ namespace RitramaAPP.Clases
             micomm.Desconectar();
             comando.Dispose();
             da.Dispose();
-            if(dt.Rows.Count > 0) 
+            if (dt.Rows.Count > 0)
             {
                 if (Convert.ToBoolean(dt.Rows[0][0]))
                 {
@@ -260,7 +257,7 @@ namespace RitramaAPP.Clases
             {
                 return false;
             }
-        } 
+        }
         public Boolean VericarMasterollMetros(string codigo_prv)
         {
             Boolean providerMeters;
@@ -301,7 +298,7 @@ namespace RitramaAPP.Clases
             {
                 result = 1;
             }
-            
+
             else if (Convert.ToBoolean(dt.Rows[0]["Resmas"]))
             {
                 result = 2;

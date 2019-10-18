@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RitramaAPP.Clases;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -41,7 +36,7 @@ namespace RitramaAPP.Clases
             comando.Dispose();
             return cant_value;
         }
-        public Boolean SetParametersControl(string value,string filter)
+        public Boolean SetParametersControl(string value, string filter)
         {
             try
             {

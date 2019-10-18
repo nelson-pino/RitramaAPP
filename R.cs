@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RitramaAPP
+﻿namespace RitramaAPP
 {
     public class R
     {
         public class SQL
-        { 
+        {
             public class DATABASE
             {
-                public static string NAME = "ritrama";    
+                public static string NAME = "ritrama";
             }
             public class TABLES
             {
@@ -34,7 +28,7 @@ namespace RitramaAPP
                 }
                 public class CUSTOMERS
                 {
-                    public static string  SQL_SELECT_CUSTOMERS = "SELECT Customer_ID,Customer_Name,Customer_Category," +
+                    public static string SQL_SELECT_CUSTOMERS = "SELECT Customer_ID,Customer_Name,Customer_Category," +
                         "Customer_Dir,Customer_Email,Anulado  FROM customer";
                 }
 
@@ -58,7 +52,7 @@ namespace RitramaAPP
                     public static string SQL_QUERY_UPDATE_ORDEN_RECEPCION = "UPDATE OrdenRecepcion SET fecha_pro=@p2,embarque=@p3," +
                         "Roll_Id=@p4,anulado=@p5,ubicacion=@p6,Proveedor_Id=@p7,width=@p8,lenght=@p9,splice=@p10,core=@p11 " +
                         "WHERE OrderPurchase=@p1";
-                    public static string SQL_QUERY_INSERT_DOCS_RECEPCIONES = "INSERT INTO " + R.SQL.TABLES.TABLE_RECEPCION + 
+                    public static string SQL_QUERY_INSERT_DOCS_RECEPCIONES = "INSERT INTO " + R.SQL.TABLES.TABLE_RECEPCION +
                     "(OrderPurchase,Part_Number,Width,Lenght,Roll_Id,Proveedor_Id,Ubicacion,Core,Splice,Anulado,fecha_reg,hora_reg," +
                         "fecha_pro,master,resma,graphics,embarque,palet_num,palet_cant,palet_pag,num_sincro,registro_movil) " +
                         "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14," +
@@ -94,7 +88,7 @@ namespace RitramaAPP
                 }
                 public class DESPACHOS
                 {
-                    public static string SQL_SELECT_DESPACHOS_HEADER = "SELECT numero,fecha,customer_id,person_contact,conduce,vendor_id,transport_id,chofer_id,placas_id,packing,orden_trabajo,orden_corte,orden_compra,subtotal,porc_itbis,itbis,total$rd FROM despacho";
+                    public static string SQL_SELECT_DESPACHOS_HEADER = "SELECT numero,fecha,customer_id,person_contact,vendor_id,transport_id,chofer_id,placas_id,packing,orden_trabajo,orden_compra,subtotal,porc_itbis,itbis,total$rd FROM despacho";
                     public static string SQL_SELECT_DESPACHOS_DETAILS = "SELECT numero,product_id,cant,unid_id,width,lenght,msi,ratio,kilo_rollo,kilo_total,precio,total_renglon FROM item_despacho";
                     public static string SQL_SELECT_CUSTOMERS = "SELECT Customer_ID,Customer_Name,Customer_Category,Customer_Dir,Customer_Email,Anulado  FROM customer";
                     public static string SQL_SELECT_VENDEDORES = "SELECT vendor_id,vendor_name FROM vendedor";
@@ -102,6 +96,7 @@ namespace RitramaAPP
                     public static string SQL_SELECT_CHEFERES = "SELECT chofer_id,chofer_name FROM chofer";
                     public static string SQL_SELECT_CAMION = "SELECT placas_id,camion_name FROM camion";
                     public static string SQL_SELECT_PRODUCTOS = "SELECT product_id,product_name,masterRolls,Resmas,Graphics FROM producto";
+                    public static string SQL_INSERT_HEADER_ORDEN_DESPACHO = "INSERT INTO despacho (numero,fecha,customer_id,person_contact,vendor_id,transport_id,chofer_id,placas_id,packing,orden_trabajo,orden_compra,subtotal,itbis,total$rd) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14)";
                 }
                 public class PEDIDOS
                 {
@@ -130,11 +125,11 @@ namespace RitramaAPP
                 public static string MESSAGE_SELECT_LOADRECEPCIONES_FAIL = "Error al tratar de traer los datos de las recepciones de materia prima.";
 
             }
-            public class CUSTOMERS 
+            public class CUSTOMERS
             {
                 public static string MESSAGE_SELECT_LOAD_CUSTOMERS_FAIL = "Error al tratar de cargas los clientes al sistema ERROR: ";
             }
-            public class PRODUCCION 
+            public class PRODUCCION
             {
                 public static string MESSAGE_LOAD_ROLLOS_CORTADOS_ERROR_FAIL = "Error al cargar la lista de los rollos cortados. error code:";
                 public static string MESSAGE_ADD_ORDEN_ERROR_FAIL_HEADER = "Error al tratar de grabar el encabezado de la orden de produccion";
@@ -146,16 +141,17 @@ namespace RitramaAPP
 
 
             }
-            public class DESPACHOS 
+            public class DESPACHOS
             {
                 public static string MESSAGE_SELECT_ERROR_LOAD_PRODUCTS = "Error al tratar de cargar los productos.";
                 public static string MESSAGE_SELECT_ERROR_LOAD_CHOFERES = "Error al tratar de cargar los choferes.";
-                public static string MESSAGE_SELECT_ERROR_LOAD_CAMIONES= "Error al tratar de cargar los camiones.";
+                public static string MESSAGE_SELECT_ERROR_LOAD_CAMIONES = "Error al tratar de cargar los camiones.";
                 public static string MESSAGE_SELECT_ERROR_LOAD_TRANSPORTE = "Error al tratar de cargar los transportes.";
                 public static string MESSAGE_SELECT_ERROR_LOAD_VENDEDOR = "Error al tratar de cargar los vendedores.";
                 public static string MESSAGE_SELECT_ERROR_LOAD_CUSTOMERS = "Error al tratar de cargar los clientes en el modulo de despacho.";
                 public static string MESSAGE_SELECT_ERROR_LOAD_HEADER_DESPACHOS = "Error al tratar de cargar los encabezados de los despachos.";
                 public static string MESSAGE_SELECT_ERROR_LOAD_DETAILS_DESPACHOS = "Error al tratar de cargar los detalle de los despachos.";
+                public static string MESSAGE_INSERT_ERROR_ADD_HEADER_DESPACHOS = "Error al tratar de insertar el encabezado de despacho.";
             }
         }
         public class PATH_FILES

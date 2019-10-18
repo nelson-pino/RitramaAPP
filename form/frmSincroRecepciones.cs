@@ -1,12 +1,11 @@
-﻿using System;
+﻿using RitramaAPP.Clases;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using RitramaAPP.Clases;
-using System.IO;
-
-using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace RitramaAPP.form
 {
@@ -42,8 +41,8 @@ namespace RitramaAPP.form
             CREATE_COLUMN_TEXTBOX_GRID("rollid", 120, "Roll Id.", "Roll_ID");
             CREATE_COLUMN_TEXTBOX_GRID("proveedor_id", 60, "Prov. Id", "Supply_Id");
             CREATE_COLUMN_TEXTBOX_GRID("proveedor_name", 200, "Nombre del Proveedor", "SupplyName");
-            CREATE_COLUMN_CHECKBOX_GRID("proveedor_ok", 60, "proveedor_ok","");
-            CREATE_COLUMN_CHECKBOX_GRID("product_ok", 60, "product_ok","");
+            CREATE_COLUMN_CHECKBOX_GRID("proveedor_ok", 60, "proveedor_ok", "");
+            CREATE_COLUMN_CHECKBOX_GRID("product_ok", 60, "product_ok", "");
             CREATE_COLUMN_CHECKBOX_GRID("orden_ok", 60, "orden_ok", "");
             CREATE_COLUMN_CHECKBOX_GRID("total_ok", 60, "total_ok", "");
         }
@@ -79,7 +78,7 @@ namespace RitramaAPP.form
             {
                 MessageBox.Show("seleccione en proveedor primero.");
             }
-            for (int i=0; i<= grid_item.Rows.Count-1; i++)
+            for (int i = 0; i <= grid_item.Rows.Count - 1; i++)
             {
                 if (Convert.ToString(grid_item.Rows[i].Cells["proveedor_id"].Value) == "")
                 {
@@ -93,13 +92,13 @@ namespace RitramaAPP.form
         {
             VALID_DATA();
             bot_tranferir_data.Enabled = true;
-        }   
+        }
 
         private void Grid_item_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             foreach (DataGridViewRow Myrow in grid_item.Rows)
             {
-                if(Myrow.Cells["total_ok"].Value != null)
+                if (Myrow.Cells["total_ok"].Value != null)
                 {
                     if (Convert.ToBoolean(Myrow.Cells["total_ok"].Value) == false)
                     {
@@ -246,7 +245,7 @@ namespace RitramaAPP.form
                     data.Palet_paginas = 0;
                     data.Num_sincro = numsincro;
                     data.Registro_movil = true;
-                    recepmanager.Add(data,false);
+                    recepmanager.Add(data, false);
                     sincrook = true;
                 }
             }
@@ -255,7 +254,7 @@ namespace RitramaAPP.form
             {
                 MessageBox.Show("Se guardaron los datos correctamente.");
             }
-            
+
             //borra el archivo
             try
             {
@@ -267,7 +266,7 @@ namespace RitramaAPP.form
             catch (Exception ex)
             {
                 MessageBox.Show("error al tratar de eliminar el txt de recepciones materia prima" + ex);
-                
+
             }
 
             Lista.Clear();

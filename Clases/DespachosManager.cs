@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RitramaAPP.Clases;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace RitramaAPP.Clases
 {
-    
+
     public class DespachosManager
     {
         Conexion Micomm = new Conexion();
@@ -31,8 +27,8 @@ namespace RitramaAPP.Clases
         DataTable dtitems = new DataTable();
         DataTable dtproducto = new DataTable();
         public DataSet ds = new DataSet();
-       
-        
+
+
         public DespachosManager()
         {
             GetProducto();
@@ -102,37 +98,75 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
+
+        public void Add(ClassDespacho datos, Boolean ismessage)
+        {
+            //ADD HEADER DE ORDEN DE PRODUCCION A LA BASE DE DATOS.
+            CommandSqlGeneric(R.SQL.DATABASE.NAME,
+            R.SQL.QUERY_SQL.DESPACHOS.SQL_INSERT_HEADER_ORDEN_DESPACHO, SetParametersAddHeaderDespacho(datos),
+            ismessage, R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_INSERT_ERROR_ADD_HEADER_DESPACHOS);
+
+            ////ADD ITEMS-DETAILS DE ORDEN DE PRODUCCION A LA BASE DE DATOS.
+            //foreach (Items_despacho item in datos.items)
+            //{
+            //    CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_INSERT_DETAILS_OC,
+            //    SetParametersAddOrdenDetails(item), ismessage,
+            //    R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_ADD_ORDEN_ERROR_FAIL_DETAILS);
+            //}
+        }
+        public List<SqlParameter> SetParametersAddHeaderDespacho(ClassDespacho datos)
+        {
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = datos.numero},
+                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.DateTime, Value = datos.fecha_despacho},
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.NVarChar, Value = datos.curstomer_id},
+                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.NVarChar, Value = datos.persona_entrega},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.NVarChar, Value = datos.vendedor_id},
+                new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.NVarChar, Value = datos.transport_id},
+                new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.NVarChar, Value = datos.chofer_id},
+                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.NVarChar, Value = datos.placas_id},
+                new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.NVarChar, Value = datos.tipo_embalaje},
+                new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.NVarChar, Value = datos.orden_trabajo},
+                new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.NVarChar, Value = datos.orden_compra},
+                new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.Decimal, Value = datos.subtotal},
+                new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.Decimal, Value = datos.monto_itbis},
+                new SqlParameter() {ParameterName = "@p14", SqlDbType = SqlDbType.Decimal, Value = datos.total},
+            };
+            return sp;
+        }
+
         public void GetProducto()
         {
-            CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME,R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_PRODUCTOS,
-            daproducto,"dtproducto",R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_PRODUCTS);
+            CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_PRODUCTOS,
+            daproducto, "dtproducto", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_PRODUCTS);
         }
-        public void Getchofer() 
+        public void Getchofer()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_CHEFERES,
             dachofer, "dtchofer", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_CHOFERES);
         }
-        private void GetCamion() 
+        private void GetCamion()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_CAMION,
             dacamion, "dtcamion", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_CAMIONES);
         }
-        private void GetTransporte() 
+        private void GetTransporte()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_TRANSPORTE,
             datransporte, "dttransporte", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_TRANSPORTE);
         }
-        private void GetVendedores() 
+        private void GetVendedores()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_VENDEDORES,
             davendor, "dtvendor", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_VENDEDOR);
         }
-        private void GetCustomers() 
+        private void GetCustomers()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_CUSTOMERS,
             dacustomer, "dtcustomer", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_CUSTOMERS);
         }
-        public void GetDespachos() 
+        public void GetDespachos()
         {
             //TABLA MASTER
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_DESPACHOS_HEADER,

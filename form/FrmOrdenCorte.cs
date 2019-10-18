@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Office.Interop.Excel;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Microsoft.Office.Interop.Excel;
 using RitramaAPP.Clases;
 using RitramaAPP.form;
-using System.IO;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Globalization;
+using System.IO;
+using System.Windows.Forms;
 
 namespace RitramaAPP
 {
@@ -30,30 +26,30 @@ namespace RitramaAPP
         private DataRowView ParentRow;
         readonly double factor = 0.012;
         int EditMode = 0;
-        string modproduct_id,modcan_cortado,modwidth,modlenght,modmsi;
+        string modproduct_id, modcan_cortado, modwidth, modlenght, modmsi;
         Boolean ischanged_rollos = false;
         Orden orden;
-   
+
         private void FrmOrdenCorte_Load(object sender, EventArgs e)
         {
             AplicarEstilosGridRollos();
             ds = managerorden.ds;
             bs.DataSource = ds;
             bs.DataMember = "dtordenes";
-            txt_numero_oc.DataBindings.Add("text",bs,"numero");
+            txt_numero_oc.DataBindings.Add("text", bs, "numero");
             txt_fecha_orden.DataBindings.Add("text", bs, "fecha");
             txt_fecha_producc.DataBindings.Add("text", bs, "fecha_produccion");
             txt_rollid_1.DataBindings.Add("text", bs, "rollid_1");
-            txt_width1_rollid.DataBindings.Add("text",bs,"width_1");
-            txt_lenght1_rollid.DataBindings.Add("text",bs,"lenght_1");
+            txt_width1_rollid.DataBindings.Add("text", bs, "width_1");
+            txt_lenght1_rollid.DataBindings.Add("text", bs, "lenght_1");
             txt_rollid_2.DataBindings.Add("text", bs, "rollid_2");
             txt_width2_rollid.DataBindings.Add("text", bs, "width_2");
             txt_lenght2_rollid.DataBindings.Add("text", bs, "lenght_2");
             txt_product_id.DataBindings.Add("text", bs, "product_id");
             txt_product_name.DataBindings.Add("text", bs, "product_name");
             txt_cant_cortado.DataBindings.Add("text", bs, "cant_cortado");
-            txt_width_cortado.DataBindings.Add("text",bs,"width_cortado");
-            txt_lenght_cortado.DataBindings.Add("text",bs,"lenght_cortado");
+            txt_width_cortado.DataBindings.Add("text", bs, "width_cortado");
+            txt_lenght_cortado.DataBindings.Add("text", bs, "lenght_cortado");
             txt_msi_cortado.DataBindings.Add("text", bs, "msi_cortado");
             //binding del detalle
             bsdetalle.DataSource = bs;
@@ -79,7 +75,7 @@ namespace RitramaAPP
             OptionsForm(0);
             EditMode = 1;
         }
-        private void OptionsForm(int state) 
+        private void OptionsForm(int state)
         {
             switch (state)
             {
@@ -134,9 +130,9 @@ namespace RitramaAPP
                     break;
             }
         }
-        private void OptionsMenu(int state) 
+        private void OptionsMenu(int state)
         {
-            switch (state) 
+            switch (state)
             {
                 case 0:
                     //modo agregar nuevo orden.
@@ -169,7 +165,7 @@ namespace RitramaAPP
         }
         private void ContadorRegistros()
         {
-            contador.Text = "Documento :" + (bs.Position + 1).ToString() +"/"+ bs.Count.ToString();
+            contador.Text = "Documento :" + (bs.Position + 1).ToString() + "/" + bs.Count.ToString();
         }
         private void Bot_siguiente_Click(object sender, EventArgs e)
         {
@@ -194,7 +190,7 @@ namespace RitramaAPP
             bs.Position = bs.Count - 1;
             ContadorRegistros();
         }
-        private void AGREGAR_COLUMN_GRID(string name,int size,string title,string field_bd) 
+        private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd)
         {
             DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
             {
@@ -223,7 +219,7 @@ namespace RitramaAPP
             col.Items.Add("Detalle");
             col.Items.Add("Rechazado");
             col.Name = "status";
-            col.HeaderText="status";
+            col.HeaderText = "status";
             col.DataPropertyName = "status";
             col.Width = 80;
             col.FlatStyle = FlatStyle.Popup;
@@ -242,7 +238,7 @@ namespace RitramaAPP
         }
         private void BOT_SAVE_Click(object sender, EventArgs e)
         {
-            switch (EditMode) 
+            switch (EditMode)
             {
                 case 1:
                     ToSaveAdd();
@@ -262,24 +258,24 @@ namespace RitramaAPP
             OptionsForm(1);
             EditMode = 0;
         }
-        private void ToSaveUpdate() 
+        private void ToSaveUpdate()
         {
             if (ischanged_rollos)
             {
                 managerorden.DeleteRollDetailsOrden(txt_numero_oc.Text);
                 managerorden.Update_INSERT(CrearObjectOrden(), false);
             }
-            else 
+            else
             {
                 managerorden.Update_Only(CrearObjectOrden(), false);
             }
-            
+
             EditMode = 0;
             ischanged_rollos = false;
             OptionsMenu(1);
             OptionsForm(1);
         }
-        private Orden CrearObjectOrden() 
+        private Orden CrearObjectOrden()
         {
             orden = new Orden
             {
@@ -322,7 +318,7 @@ namespace RitramaAPP
             }
             return orden;
         }
-     
+
         private List<Roll_Details> GENERAR_DETALLE_ROLLOS_CORTADOS()
         {
             List<Roll_Details> rollos = new List<Roll_Details>();
@@ -344,12 +340,12 @@ namespace RitramaAPP
                     Msi = Convert.ToDecimal(txt_msi_cortado.Text),
                     Splice = 0,
                     Code_Person = "XC80RP3000WG",
-                    Status ="Ok"
+                    Status = "Ok"
                 };
                 rollos.Add(item);
                 code_unique += 1;
             }
-            configmanager.SetParametersControl(code_unique.ToString(),"UC");
+            configmanager.SetParametersControl(code_unique.ToString(), "UC");
             return rollos;
         }
 
@@ -359,9 +355,9 @@ namespace RitramaAPP
             string PATH = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data txt\";
             string separator = ",";
 
-            using (StreamWriter sr = new StreamWriter(PATH + FILE)) 
+            using (StreamWriter sr = new StreamWriter(PATH + FILE))
             {
-                foreach (DataGridViewRow row in grid_rollos.Rows) 
+                foreach (DataGridViewRow row in grid_rollos.Rows)
                 {
                     sr.WriteLine(row.Cells[0].Value.ToString() + separator +
                     row.Cells[1].Value.ToString().Trim() + separator +
@@ -448,15 +444,15 @@ namespace RitramaAPP
             }
             catch (Exception ex)
             {
-                MessageBox.Show("error al transmitir data a excel. error code:"+ex);
+                MessageBox.Show("error al transmitir data a excel. error code:" + ex);
             }
-            
+
         }
         private void Bot_buscar_rollid1_Click(object sender, EventArgs e)
         {
             using (FrmBuscarRollid rollid = new FrmBuscarRollid())
             {
-                rollid.Dtrollid = ds.Tables["dtrollid"]; 
+                rollid.Dtrollid = ds.Tables["dtrollid"];
                 rollid.ShowDialog();
                 txt_rollid_1.Text = rollid.GetrollId;
                 txt_width1_rollid.Text = rollid.GetValueWidth;
@@ -480,10 +476,10 @@ namespace RitramaAPP
         {
             CALCULAR_MSI();
         }
-        private void CALCULAR_MSI() 
+        private void CALCULAR_MSI()
         {
-            if (EditMode != 0 || txt_lenght_cortado.Text != string.Empty || 
-                txt_width_cortado.Text != string.Empty)  
+            if (EditMode != 0 || txt_lenght_cortado.Text != string.Empty ||
+                txt_width_cortado.Text != string.Empty)
             {
                 try
                 {
@@ -497,8 +493,8 @@ namespace RitramaAPP
 
                     txt_msi_cortado.Text = "0";
                 }
-                
-                    
+
+
             }
         }
         private void Txt_numero_oc_KeyPress(object sender, KeyPressEventArgs e)
@@ -542,7 +538,7 @@ namespace RitramaAPP
 
         private void Txt_cant_cortado_Validating(object sender, CancelEventArgs e)
         {
-            if (txt_cant_cortado.Text == string.Empty) 
+            if (txt_cant_cortado.Text == string.Empty)
             {
                 e.Cancel = true;
             }
@@ -555,13 +551,13 @@ namespace RitramaAPP
 
         private void Bot_generar_rollos_cortados_Click(object sender, EventArgs e)
         {
-            if(EditMode == 2 || grid_rollos.Rows.Count > 0) 
+            if (EditMode == 2 || grid_rollos.Rows.Count > 0)
             {
                 try
                 {
-                        
-                    if(modcan_cortado == txt_cant_cortado.Text && 
-                        modproduct_id == txt_product_id.Text && 
+
+                    if (modcan_cortado == txt_cant_cortado.Text &&
+                        modproduct_id == txt_product_id.Text &&
                         modwidth == txt_width_cortado.Text)
                     {
                         MessageBox.Show("no ha cambiado los datos de la orden");
@@ -580,7 +576,7 @@ namespace RitramaAPP
                 {
                     MessageBox.Show(ex.Message);
                 }
-            } 
+            }
             List<Roll_Details> lista = GENERAR_DETALLE_ROLLOS_CORTADOS();
             //Agregar encabezado a la orden.
             ParentRow.BeginEdit();
@@ -601,8 +597,8 @@ namespace RitramaAPP
             ParentRow["anulada"] = false;
             ParentRow["procesado"] = false;
             ParentRow.EndEdit();
-            DataRowView ChildRows; 
-            foreach (Roll_Details item in lista) 
+            DataRowView ChildRows;
+            foreach (Roll_Details item in lista)
             {
                 ChildRows = (DataRowView)bsdetalle.AddNew();
                 ChildRows.BeginEdit();
@@ -611,7 +607,7 @@ namespace RitramaAPP
                 ChildRows["product_id"] = item.Product_id;
                 ChildRows["product_name"] = item.Product_name;
                 ChildRows["unique_code"] = item.Unique_code;
-                ChildRows["width"] = double.Parse(item.Width.ToString(),CultureInfo.InvariantCulture);
+                ChildRows["width"] = double.Parse(item.Width.ToString(), CultureInfo.InvariantCulture);
                 ChildRows["large"] = item.Large;
                 ChildRows["Msi"] = item.Msi;
                 ChildRows["Splice"] = item.Splice;
@@ -622,7 +618,7 @@ namespace RitramaAPP
                 ChildRows.EndEdit();
             }
             bs.EndEdit();
-            if (EditMode == 1) 
+            if (EditMode == 1)
             {
                 bs.Position = bs.Count - 1;
                 bot_generar_rollos_cortados.Enabled = false;
@@ -651,7 +647,7 @@ namespace RitramaAPP
                 rowcurrent.Row.Delete();
                 bs.EndEdit();
                 ContadorRegistros();
-                bs.Position = bs.Count - 1; 
+                bs.Position = bs.Count - 1;
                 //activo la funciones del menu
                 OptionsMenu(1);
                 OptionsForm(1);

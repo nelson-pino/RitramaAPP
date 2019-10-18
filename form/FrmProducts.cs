@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using RitramaAPP.Clases;
+using RitramaAPP.form;
+using System;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using RitramaAPP.Clases;
-using RitramaAPP.form;
 
 namespace RitramaAPP
 {
@@ -28,14 +23,14 @@ namespace RitramaAPP
             ds = producto.ds;
             bs.DataSource = ds;
             bs.DataMember = "dtproducto";
-            txt_product_id.DataBindings.Add("text",bs, "Product_ID");
-            txt_product_name.DataBindings.Add("text",bs, "Product_Name");
+            txt_product_id.DataBindings.Add("text", bs, "Product_ID");
+            txt_product_name.DataBindings.Add("text", bs, "Product_Name");
             txt_descrip_product.DataBindings.Add("text", bs, "Product_Descrip");
-            txt_precio.DataBindings.Add("text",bs, "precio");
+            txt_precio.DataBindings.Add("text", bs, "precio");
             txt_referencia.DataBindings.Add("text", bs, "Product_Ref");
             txt_code_bar.DataBindings.Add("text", bs, "Codebar");
             cbo_category.DataBindings.Add("text", bs, "Category_ID");
-            CHK_ANULADO.DataBindings.Add("checked",bs, "anulado");
+            CHK_ANULADO.DataBindings.Add("checked", bs, "anulado");
             RAD_MASTER_ROLLS.DataBindings.Add("checked", bs, "MasterRolls");
             RAD_RESMAS.DataBindings.Add("checked", bs, "Resmas");
             RAD_GRAPHICS.DataBindings.Add("checked", bs, "graphics");
@@ -116,7 +111,7 @@ namespace RitramaAPP
         }
         private void GrabarUpdateRegistro()
         {
-            
+
             ClassProduct producto = new ClassProduct();
             producto.Prodct_ID = txt_product_id.Text;
             producto.ProductName = txt_product_name.Text;
@@ -325,7 +320,7 @@ namespace RitramaAPP
 
 
 
-            
+
 
         }
 
@@ -333,7 +328,7 @@ namespace RitramaAPP
         {
             if (producto.ProductoExiste(txt_product_id.Text) && EditMode == 1)
             {
-                MessageBox.Show("El codigo de producto: " + txt_product_id.Text+" ya existe.");
+                MessageBox.Show("El codigo de producto: " + txt_product_id.Text + " ya existe.");
                 txt_product_id.Text = "";
             }
         }

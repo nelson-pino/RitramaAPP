@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RitramaAPP.Clases;
+using System;
 using System.Windows.Forms;
-using RitramaAPP.Clases;
 
 namespace RitramaAPP
 {
@@ -27,6 +20,7 @@ namespace RitramaAPP
             TXT_N2P2.Text = manager.GetParameterControl("FMPUL");
             TXT_N2P3.Text = manager.GetParameterControl("FMPIE");
             TXT_N3P1.Text = manager.GetParameterControl("LSR");
+            txt_param7.Text = manager.GetParameterControl("CONSEC_DP");
         }
     }
 }

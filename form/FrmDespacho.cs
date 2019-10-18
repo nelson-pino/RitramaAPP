@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using CrystalDecisions.CrystalReports.Engine;
 using RitramaAPP.Clases;
-using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.Shared;
-using CrystalDecisions.Windows.Forms;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Windows.Forms;
 
 
 namespace RitramaAPP.form
@@ -28,6 +21,7 @@ namespace RitramaAPP.form
         DataRowView ParentRow, ChildRows;
         int EditMode = 0;
         decimal PORC_ITBIS = 18;
+        ClassDespacho despacho;
 
         private void FrmDespacho_Load(object sender, EventArgs e)
         {
@@ -239,7 +233,7 @@ namespace RitramaAPP.form
                 selectProducts.ShowDialog();
                 grid_items.Rows[e.RowIndex].Cells["product_id"].Value = selectProducts.GetProductId;
                 //establecer la unidad.
-                if (selectProducts.GetMasterRolls) 
+                if (selectProducts.GetMasterRolls)
                 {
                     grid_items.Rows[e.RowIndex].Cells["unidad"].Value = "Master";
                 }
@@ -251,7 +245,7 @@ namespace RitramaAPP.form
                 {
                     grid_items.Rows[e.RowIndex].Cells["unidad"].Value = "Graphics";
                 }
-             }
+            }
         }
 
         private void grid_items_KeyUp(object sender, KeyEventArgs e)
@@ -264,7 +258,7 @@ namespace RitramaAPP.form
 
         private void grid_items_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 4 || e.ColumnIndex == 9) 
+            if (e.ColumnIndex == 4 || e.ColumnIndex == 9)
             {
                 grid_items.Rows[e.RowIndex].Cells["total_renglon"].Value =
                 Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["cant"].Value) *
@@ -276,10 +270,10 @@ namespace RitramaAPP.form
             }
         }
 
-        private void AgregarRenglon() 
+        private void AgregarRenglon()
         {
             //Agregar detalle de la factura.
-            
+
             ChildRows = (DataRowView)bsitem.AddNew();
             ChildRows.BeginEdit();
             ChildRows["numero"] = txt_numero_despacho.Text;
@@ -304,17 +298,83 @@ namespace RitramaAPP.form
             }
             return string.Format("{0,12:N2}", subtotal);
         }
-        private string CalcularIva(decimal PORC_ITBIS,decimal subtotal)
+        private string CalcularIva(decimal PORC_ITBIS, decimal subtotal)
         {
             decimal monto_itbis = 0;
-            monto_itbis = (PORC_ITBIS * subtotal) / 100; 
+            monto_itbis = (PORC_ITBIS * subtotal) / 100;
             return string.Format("{0,12:N2}", monto_itbis);
+        }
+
+        private void BOT_SAVE_Click(object sender, EventArgs e)
+        {
+            switch (EditMode)
+            {
+                case 1:
+                    ToSaveAdd();
+                    break;
+                case 2:
+                    ToSaveUpdate();
+                    break;
+            }
+        }
+        private void ToSaveAdd()
+        {
+            despachomanager.Add(CrearObjectDespacho(), false);
+        }
+        private void ToSaveUpdate()
+        {
+
         }
         private string CalcularTotal(decimal subtotal, decimal monto_itbis)
         {
             decimal total = 0;
             total = (subtotal + monto_itbis);
             return string.Format("{0,12:N2}", total);
+        }
+        private ClassDespacho CrearObjectDespacho()
+        {
+            despacho = new ClassDespacho
+            {
+                numero = (txt_numero_despacho.Text),
+                fecha_despacho = Convert.ToDateTime(txt_fecha_despacho.Text),
+                curstomer_id = txt_customer_id.Text,
+                curstomer_name = txt_customer_name.Text,
+                curstomer_direc = txt_customer_direc.Text,
+                persona_entrega = txt_contact_person.Text,
+                vendedor_id = txt_vendor_id.Text,
+                vendedor_name = txt_vendor_name.Text,
+                transport_id = txt_transport_id.Text,
+                transport_name = txt_transport_name.Text,
+                chofer_id = txt_chofer_id.Text,
+                chofer_name = txt_chofer_name.Text,
+                placas_id = txt_placas.Text,
+                modelo_camion = txt_camion.Text,
+                tipo_embalaje = txt_tipo_embalaje.Text,
+                orden_trabajo = txt_otrabajo.Text,
+                orden_compra = txt_ocompra.Text,
+                subtotal = Convert.ToDecimal(txt_subtotal.Text),
+                monto_itbis = Convert.ToDecimal(txt_monto_itbis.Text),
+                total = Convert.ToDecimal(txt_total_despacho.Text)
+            };
+            despacho.items = new List<Items_despacho>();
+            for (int fila = 0; fila <= grid_items.Rows.Count - 1; fila++)
+            {
+                Items_despacho item = new Items_despacho
+                {
+                    product_id = grid_items.Rows[fila].Cells[0].Value.ToString(),
+                    product_name = grid_items.Rows[fila].Cells[1].Value.ToString(),
+                    cantidad = Convert.ToDecimal(grid_items.Rows[fila].Cells[4].Value),
+                    unidad = grid_items.Rows[fila].Cells[2].Value.ToString(),
+                    width = Convert.ToDecimal(grid_items.Rows[fila].Cells[5].Value),
+                    msi = Convert.ToDecimal(grid_items.Rows[fila].Cells[6].Value),
+                    ratio = Convert.ToDecimal(grid_items.Rows[fila].Cells[7].Value),
+                    kilo_rollo = Convert.ToDecimal(grid_items.Rows[fila].Cells[8].Value),
+                    precio = Convert.ToDecimal(grid_items.Rows[fila].Cells[9].Value),
+                    subtotal = Convert.ToDecimal(grid_items.Rows[fila].Cells[10].Value)
+                };
+                despacho.items.Add(item);
+            }
+            return despacho;
         }
     }
 }

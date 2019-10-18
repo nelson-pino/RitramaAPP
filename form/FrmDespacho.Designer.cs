@@ -131,9 +131,9 @@
             this.label1.Location = new System.Drawing.Point(124, 89);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 13);
+            this.label1.Size = new System.Drawing.Size(43, 13);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Numero Despacho:";
+            this.label1.Text = "Fecha :";
             // 
             // txt_customer_id
             // 
@@ -515,6 +515,7 @@
             this.BOT_SAVE.Name = "BOT_SAVE";
             this.BOT_SAVE.Size = new System.Drawing.Size(55, 24);
             this.BOT_SAVE.Text = "Save";
+            this.BOT_SAVE.Click += new System.EventHandler(this.BOT_SAVE_Click);
             // 
             // bot_modificar
             // 

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RitramaAPP.form
@@ -22,7 +16,7 @@ namespace RitramaAPP.form
         public string Getproduct_id { get; set; }
         public string GetProduct_name { get; set; }
         public string GetValueWidth { get; set; }
-        public string GetvalueLenght  { get; set; }
+        public string GetvalueLenght { get; set; }
         private void FrmBuscarRollid_Load(object sender, EventArgs e)
         {
             dv = Dtrollid.DefaultView;
@@ -31,9 +25,9 @@ namespace RitramaAPP.form
             Grid_Items.DataSource = Dtrollid;
             CONTADOR_REGISTRO.Text = Convert.ToString(dv.Count) + " registros encontrados.";
         }
-        private void AplicarEstilosGrid() 
+        private void AplicarEstilosGrid()
         {
-            AGREGAR_COLUMN_GRID("rollid",62,"Roll Id", "Roll_Id");
+            AGREGAR_COLUMN_GRID("rollid", 62, "Roll Id", "Roll_Id");
             AGREGAR_COLUMN_GRID("product_id", 55, "Product Id", "part_number");
             AGREGAR_COLUMN_GRID("product_name", 250, "Nombre del Producto", "product_name");
             AGREGAR_COLUMN_GRID("width", 50, "Width", "width");

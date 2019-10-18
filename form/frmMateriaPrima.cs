@@ -1,14 +1,10 @@
-﻿using System;
+﻿using RitramaAPP.Clases;
+using RitramaAPP.form;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using RitramaAPP.Clases;
-using RitramaAPP.form;
 
 namespace RitramaAPP
 {
@@ -30,29 +26,29 @@ namespace RitramaAPP
             ds = Manager.ds;
             bs.DataSource = ds;
             bs.DataMember = "dtrecepcion";
-            txt_orden.DataBindings.Add("text",bs, "OrderPurchase");
-            txt_part_number.DataBindings.Add("text",bs, "Part_Number");
+            txt_orden.DataBindings.Add("text", bs, "OrderPurchase");
+            txt_part_number.DataBindings.Add("text", bs, "Part_Number");
             txt_width.DataBindings.Add("text", bs, "Width");
-            txt_lenght.DataBindings.Add("text",bs, "Lenght");
-            txt_roll_id.DataBindings.Add("text",bs, "Roll_Id");
+            txt_lenght.DataBindings.Add("text", bs, "Lenght");
+            txt_roll_id.DataBindings.Add("text", bs, "Roll_Id");
             txt_id_supply.DataBindings.Add("text", bs, "Proveedor_Id");
             txt_ubic.DataBindings.Add("text", bs, "Ubicacion");
             txt_splice.DataBindings.Add("text", bs, "Splice");
-            txt_core.DataBindings.Add("text",bs,"Core");
+            txt_core.DataBindings.Add("text", bs, "Core");
             txt_fecha_reg.DataBindings.Add("text", bs, "fecha_reg");
-            txt_hora_reg.DataBindings.Add("text",bs,"hora_reg");
-            txt_supply_name.DataBindings.Add("text",bs, "suplidor_des");
-            txt_product_name.DataBindings.Add("text",bs,"product_name");
+            txt_hora_reg.DataBindings.Add("text", bs, "hora_reg");
+            txt_supply_name.DataBindings.Add("text", bs, "suplidor_des");
+            txt_product_name.DataBindings.Add("text", bs, "product_name");
             txt_fecha_produccion.DataBindings.Add("text", bs, "fecha_pro");
             rad_masterRolls.DataBindings.Add("checked", bs, "master");
             rad_resmas.DataBindings.Add("checked", bs, "resma");
-            rad_graphics.DataBindings.Add("checked",bs, "graphics");
+            rad_graphics.DataBindings.Add("checked", bs, "graphics");
             txt_num_embarque.DataBindings.Add("text", bs, "embarque");
             txt_numero_palet.DataBindings.Add("text", bs, "palet_num");
             txt_cant_palet.DataBindings.Add("text", bs, "palet_cant");
-            txt_paginas.DataBindings.Add("text",bs,"palet_pag");
+            txt_paginas.DataBindings.Add("text", bs, "palet_pag");
             txt_lote.DataBindings.Add("text", bs, "num_sincro");
-            CHK_ANULADO.DataBindings.Add("checked",bs,"anulado");
+            CHK_ANULADO.DataBindings.Add("checked", bs, "anulado");
             ContadorRegistros();
         }
         private void Bot_sincro_Click(object sender, EventArgs e)
@@ -201,8 +197,8 @@ namespace RitramaAPP
                 MessageBox.Show("Introduzca el part number.");
                 return;
             }
-            if (rad_masterRolls.Checked == false && 
-                rad_graphics.Checked == false && 
+            if (rad_masterRolls.Checked == false &&
+                rad_graphics.Checked == false &&
                 rad_resmas.Checked == false)
             {
                 MessageBox.Show("debe suministrar el tipo de producto...");
@@ -234,7 +230,7 @@ namespace RitramaAPP
                     return;
                 }
             }
-            recepcionManager.Add(recepcion,true);
+            recepcionManager.Add(recepcion, true);
             OpcionesMenu(0);
             OpcionesForms(1);
             ContadorRegistros();
@@ -256,7 +252,7 @@ namespace RitramaAPP
                 Splice = Convert.ToInt32(txt_splice.Text),
                 Core = Convert.ToDecimal(txt_core.Text)
             };
-            manager.Update(recepcion,false);
+            manager.Update(recepcion, false);
             OpcionesMenu(0);
             OpcionesForms(1);
             EditMode = 0;
@@ -499,8 +495,8 @@ namespace RitramaAPP
 
         private void Bot_convert_Click(object sender, EventArgs e)
         {
-            if (chk_master_mts.Checked && rad_masterRolls.Checked 
-                && Convert.ToDouble(txt_width.Text) > 0 
+            if (chk_master_mts.Checked && rad_masterRolls.Checked
+                && Convert.ToDouble(txt_width.Text) > 0
                 && Convert.ToDouble(txt_lenght.Text) > 0)
             {
                 DialogResult dr = MessageBox.Show("Esta seguro de convertir los valores de width y lenght a pulgadas-pies(S/N)?",
@@ -508,8 +504,8 @@ namespace RitramaAPP
                 switch (dr)
                 {
                     case DialogResult.Yes:
-                        double value_width = Math.Round((Convert.ToDouble(txt_width.Text) * FACTOR_METROS_PULDADAS),2,MidpointRounding.ToEven);
-                        double value_lengh = Math.Round((Convert.ToDouble(txt_lenght.Text) * FACTOR_METROS_PIES),2,MidpointRounding.ToEven);
+                        double value_width = Math.Round((Convert.ToDouble(txt_width.Text) * FACTOR_METROS_PULDADAS), 2, MidpointRounding.ToEven);
+                        double value_lengh = Math.Round((Convert.ToDouble(txt_lenght.Text) * FACTOR_METROS_PIES), 2, MidpointRounding.ToEven);
                         txt_width.Text = Convert.ToString(value_width);
                         txt_lenght.Text = Convert.ToString(value_lengh);
                         bot_convert.Enabled = false;
@@ -555,7 +551,7 @@ namespace RitramaAPP
                 int itemFound = bs.Find("OrderPurchase", frmbuscarOrden.GetOrderbyID);
                 bs.Position = itemFound;
             }
-           
+
         }
 
         private void Bot_modificar_Click(object sender, EventArgs e)
@@ -566,7 +562,7 @@ namespace RitramaAPP
         }
         private void FrmMateriaPrima_FormClosed(object sender, FormClosedEventArgs e)
         {
-            
+
         }
 
         private void Toolsbar_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

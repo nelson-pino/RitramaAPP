@@ -98,7 +98,7 @@ namespace RitramaAPP.Clases
         }
         public void Add(ClassSupply datos)
         {
-            
+
             //llamo al comando sql generico.
             CommandSqlGeneric(R.SQL.DATABASE.NAME,
                 R.SQL.QUERY_SQL.PROVIDERS.SQL_QUERY_INSERT_PROVEEDORES, SetParameters(datos));
@@ -107,7 +107,7 @@ namespace RitramaAPP.Clases
         public void Update(ClassSupply datos)
         {
             CommandSqlGeneric(R.SQL.DATABASE.NAME,
-                R.SQL.QUERY_SQL.PROVIDERS.SQL_QUERY_UPDATE_PROVEEDORES,SetParameters(datos));
+                R.SQL.QUERY_SQL.PROVIDERS.SQL_QUERY_UPDATE_PROVEEDORES, SetParameters(datos));
         }
         public List<SqlParameter> SetParameters(ClassSupply datos)
         {

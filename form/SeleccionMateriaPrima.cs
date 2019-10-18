@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RitramaAPP.form
@@ -18,7 +12,7 @@ namespace RitramaAPP.form
         }
         public DataTable dtrecepcion { get; set; }
         public string GetOrderbyID { get; set; }
-        
+
         DataView dv = new DataView();
         private void SeleccionMateriaPrima_Load(object sender, EventArgs e)
         {

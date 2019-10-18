@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -18,7 +15,7 @@ namespace RitramaAPP.Clases
 
         public DataTable Dtproducto => dtproducto;
 
-        public Boolean CommandSqlGeneric(string db, string query, List<SqlParameter> spc,Boolean msg,string messagerror)
+        public Boolean CommandSqlGeneric(string db, string query, List<SqlParameter> spc, Boolean msg, string messagerror)
         {
             // Ejecuta comando sql query y no devuleve ni valor ni datos.
             try
@@ -54,13 +51,13 @@ namespace RitramaAPP.Clases
         }
         public void Add(ClassProduct datos)
         {
-            CommandSqlGeneric(R.SQL.DATABASE.NAME,R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_INSERT_PRODUCT,
-                SetParameters(datos),true,R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PRODUCTOS.MESSAGE_ADD_PRODUCTS_ERROR);
+            CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_INSERT_PRODUCT,
+                SetParameters(datos), true, R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PRODUCTOS.MESSAGE_ADD_PRODUCTS_ERROR);
         }
         public void Update(ClassProduct datos)
         {
-            CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_UPDATE_PRODUCTS, 
-                SetParameters(datos), true,R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PRODUCTOS.MESSAGE_UPDATE_PRODUCTS_ERROR);
+            CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_UPDATE_PRODUCTS,
+                SetParameters(datos), true, R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PRODUCTOS.MESSAGE_UPDATE_PRODUCTS_ERROR);
         }
         public List<SqlParameter> SetParameters(ClassProduct datos)
         {

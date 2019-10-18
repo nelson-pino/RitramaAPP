@@ -58,8 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\ClassCustomer.cs" />
+    <Compile Include="Clases\ClassDespacho.cs" />
     <Compile Include="Clases\ClassItemsPedidos.cs" />
     <Compile Include="Clases\DespachosManager.cs" />
+    <Compile Include="Clases\Items_despacho.cs" />
     <Compile Include="Clases\Orden.cs" />
     <Compile Include="Clases\ClassPedidos.cs" />
     <Compile Include="Clases\ClassSupply.cs" />

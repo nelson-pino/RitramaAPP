@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using RitramaAPP.Clases;
+using RitramaAPP.form;
+using System;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using RitramaAPP.Clases;
-using RitramaAPP.form;
 
 namespace RitramaAPP
 {
@@ -33,7 +28,7 @@ namespace RitramaAPP
             txt_customers_direcc.DataBindings.Add("text", bs, "Customer_Dir");
             txt_category.DataBindings.Add("text", bs, "Customer_Category");
             txt_customer_email.DataBindings.Add("text", bs, "Customer_Email");
-            txt_phone.DataBindings.Add("text", bs,"phone");
+            txt_phone.DataBindings.Add("text", bs, "phone");
             CHK_ANULADO.DataBindings.Add("checked", bs, "anulado");
 
             ContadorRegistros();
@@ -197,7 +192,7 @@ namespace RitramaAPP
         }
         private void OpcionesForms(int states)
         {
-            switch(states)
+            switch (states)
             {
                 case 0:
                     //modo READ

@@ -1,17 +1,13 @@
-﻿using System;
+﻿using RitramaAPP.Clases;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RitramaAPP.Clases;
 namespace RitramaAPP
 {
     public class Orden
     {
-        
-        public Orden() 
+        public Orden()
         {
-            
+
         }
         public string Numero { get; set; }
         public DateTime Fecha { get; set; }
