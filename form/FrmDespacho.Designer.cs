@@ -90,8 +90,8 @@
             this.label19 = new System.Windows.Forms.Label();
             this.txt_porc_itbis = new System.Windows.Forms.TextBox();
             this.bot_buscar_clientes = new System.Windows.Forms.Button();
-            this.agregar_renglon = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.bot_agregar_renglon = new System.Windows.Forms.Button();
+            this.bot_eliminar_renglon = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grid_items)).BeginInit();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -232,6 +232,7 @@
             // 
             // bot_vendor_search
             // 
+            this.bot_vendor_search.Enabled = false;
             this.bot_vendor_search.Location = new System.Drawing.Point(105, 196);
             this.bot_vendor_search.Margin = new System.Windows.Forms.Padding(2);
             this.bot_vendor_search.Name = "bot_vendor_search";
@@ -281,6 +282,7 @@
             // 
             // bot_transport_search
             // 
+            this.bot_transport_search.Enabled = false;
             this.bot_transport_search.Location = new System.Drawing.Point(397, 195);
             this.bot_transport_search.Margin = new System.Windows.Forms.Padding(2);
             this.bot_transport_search.Name = "bot_transport_search";
@@ -311,6 +313,7 @@
             // 
             // bot_chofer_search
             // 
+            this.bot_chofer_search.Enabled = false;
             this.bot_chofer_search.Location = new System.Drawing.Point(105, 244);
             this.bot_chofer_search.Margin = new System.Windows.Forms.Padding(2);
             this.bot_chofer_search.Name = "bot_chofer_search";
@@ -360,6 +363,7 @@
             // 
             // BOT_CAMION
             // 
+            this.BOT_CAMION.Enabled = false;
             this.BOT_CAMION.Location = new System.Drawing.Point(416, 243);
             this.BOT_CAMION.Margin = new System.Windows.Forms.Padding(2);
             this.BOT_CAMION.Name = "BOT_CAMION";
@@ -403,9 +407,11 @@
             this.grid_items.AllowUserToDeleteRows = false;
             this.grid_items.AllowUserToResizeRows = false;
             this.grid_items.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grid_items.Enabled = false;
             this.grid_items.Location = new System.Drawing.Point(24, 266);
             this.grid_items.Margin = new System.Windows.Forms.Padding(2);
             this.grid_items.Name = "grid_items";
+            this.grid_items.ReadOnly = true;
             this.grid_items.RowHeadersWidth = 28;
             this.grid_items.RowTemplate.Height = 24;
             this.grid_items.Size = new System.Drawing.Size(716, 236);
@@ -694,6 +700,7 @@
             // 
             // bot_buscar_clientes
             // 
+            this.bot_buscar_clientes.Enabled = false;
             this.bot_buscar_clientes.Location = new System.Drawing.Point(317, 105);
             this.bot_buscar_clientes.Margin = new System.Windows.Forms.Padding(2);
             this.bot_buscar_clientes.Name = "bot_buscar_clientes";
@@ -703,24 +710,26 @@
             this.bot_buscar_clientes.UseVisualStyleBackColor = true;
             this.bot_buscar_clientes.Click += new System.EventHandler(this.bot_buscar_clientes_Click);
             // 
-            // agregar_renglon
+            // bot_agregar_renglon
             // 
-            this.agregar_renglon.Location = new System.Drawing.Point(746, 266);
-            this.agregar_renglon.Name = "agregar_renglon";
-            this.agregar_renglon.Size = new System.Drawing.Size(75, 23);
-            this.agregar_renglon.TabIndex = 53;
-            this.agregar_renglon.Text = "Agregar";
-            this.agregar_renglon.UseVisualStyleBackColor = true;
-            this.agregar_renglon.Click += new System.EventHandler(this.agregar_renglon_Click);
+            this.bot_agregar_renglon.Enabled = false;
+            this.bot_agregar_renglon.Location = new System.Drawing.Point(746, 266);
+            this.bot_agregar_renglon.Name = "bot_agregar_renglon";
+            this.bot_agregar_renglon.Size = new System.Drawing.Size(75, 23);
+            this.bot_agregar_renglon.TabIndex = 53;
+            this.bot_agregar_renglon.Text = "Agregar";
+            this.bot_agregar_renglon.UseVisualStyleBackColor = true;
+            this.bot_agregar_renglon.Click += new System.EventHandler(this.agregar_renglon_Click);
             // 
-            // button1
+            // bot_eliminar_renglon
             // 
-            this.button1.Location = new System.Drawing.Point(746, 295);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 54;
-            this.button1.Text = "Eliminar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.bot_eliminar_renglon.Enabled = false;
+            this.bot_eliminar_renglon.Location = new System.Drawing.Point(746, 295);
+            this.bot_eliminar_renglon.Name = "bot_eliminar_renglon";
+            this.bot_eliminar_renglon.Size = new System.Drawing.Size(75, 23);
+            this.bot_eliminar_renglon.TabIndex = 54;
+            this.bot_eliminar_renglon.Text = "Eliminar";
+            this.bot_eliminar_renglon.UseVisualStyleBackColor = true;
             // 
             // FrmDespacho
             // 
@@ -728,8 +737,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(827, 614);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.agregar_renglon);
+            this.Controls.Add(this.bot_eliminar_renglon);
+            this.Controls.Add(this.bot_agregar_renglon);
             this.Controls.Add(this.bot_buscar_clientes);
             this.Controls.Add(this.txt_porc_itbis);
             this.Controls.Add(this.txt_total_despacho);
@@ -857,7 +866,7 @@
         private System.Windows.Forms.ToolStripButton BOT_BUSCAR;
         private System.Windows.Forms.ToolStripButton bot_sincro;
         private System.Windows.Forms.Button bot_buscar_clientes;
-        private System.Windows.Forms.Button agregar_renglon;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button bot_agregar_renglon;
+        private System.Windows.Forms.Button bot_eliminar_renglon;
     }
 }

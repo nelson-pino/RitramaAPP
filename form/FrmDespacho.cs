@@ -138,7 +138,17 @@ namespace RitramaAPP.form
                     BOT_IMPRIMIR.Enabled = false;
                     break;
                 case 1:
-
+                    //modo despues de grabar
+                    BOT_PRIMERO.Enabled = true;
+                    BOT_SIGUIENTE.Enabled = true;
+                    BOT_ANTERIOR.Enabled = true;
+                    BOT_ULTIMO.Enabled = true;
+                    bot_nuevo.Enabled = true;
+                    BOT_BUSCAR.Enabled = true;
+                    BOT_CANCELAR.Enabled = false;
+                    BOT_SAVE.Enabled = false;
+                    bot_modificar.Enabled = true;
+                    BOT_IMPRIMIR.Enabled = true;
                     break;
                 case 2:
                     break;
@@ -150,20 +160,42 @@ namespace RitramaAPP.form
             switch (state)
             {
                 case 0:
+                    //abrir el formulario para agregar un nuevo despacho
                     txt_fecha_despacho.Enabled = true;
                     txt_customer_id.ReadOnly = false;
                     txt_contact_person.ReadOnly = false;
                     txt_ocompra.ReadOnly = false;
                     txt_otrabajo.ReadOnly = false;
                     txt_tipo_embalaje.ReadOnly = false;
-
-
+                    bot_vendor_search.Enabled = true;
+                    bot_chofer_search.Enabled = true;
+                    BOT_CAMION.Enabled = true;
+                    bot_transport_search.Enabled = true;
+                    bot_agregar_renglon.Enabled = true;
+                    bot_eliminar_renglon.Enabled = true;
+                    bot_buscar_clientes.Enabled = true;
+                    grid_items.Enabled = true;
+                    grid_items.ReadOnly = false;
                     break;
                 case 1:
+                    // cerrar el formulario para no permitir mas cambio y colocarlo en modo readonly.
+                    txt_fecha_despacho.Enabled = false;
+                    txt_customer_id.ReadOnly = true;
+                    txt_contact_person.ReadOnly = true;
+                    txt_ocompra.ReadOnly = true;
+                    txt_otrabajo.ReadOnly = true;
+                    txt_tipo_embalaje.ReadOnly = true;
+                    bot_buscar_clientes.Enabled = false;
+                    BOT_CAMION.Enabled = false;
+                    bot_chofer_search.Enabled = false;
+                    bot_vendor_search.Enabled = false;
+                    bot_transport_search.Enabled = false;
+                    bot_agregar_renglon.Enabled = false;
+                    bot_eliminar_renglon.Enabled = false;
+                    grid_items.Enabled = false;
                     break;
                 case 2:
                     break;
-
             }
         }
         private void bot_buscar_clientes_Click(object sender, EventArgs e)
@@ -323,6 +355,9 @@ namespace RitramaAPP.form
         {
             despachomanager.Add(CrearObjectDespacho(), false);
             config.SetParametersControl(Consec.ToString(), "CONSEC_DP");
+            OptionsMenu(1);
+            OptionsForm(1);
+
         }
         private void ToSaveUpdate()
         {
@@ -352,7 +387,6 @@ namespace RitramaAPP.form
             bs.Position = bs.Count - 1;
             ContadorRegistros();
         }
-
         private string CalcularTotal(decimal subtotal, decimal monto_itbis)
         {
             decimal total = 0;
