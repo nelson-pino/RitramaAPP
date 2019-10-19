@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using RitramaAPP.Clases;
 using System.IO;
+using System.Linq;
 
 namespace RitramaAPP.form
 {
@@ -20,7 +21,7 @@ namespace RitramaAPP.form
         {
             AplicarEstiloGrid();
         }
-        private void bot_leer_Click(object sender, EventArgs e)
+        private void Bot_leer_Click(object sender, EventArgs e)
         {
             ExtraerDataAppMovil();
             //getdata de los unique code.
@@ -35,9 +36,25 @@ namespace RitramaAPP.form
                 item.Msi = rollo.Msi;
                 item.Splice = rollo.Splice;
                 item.Roll_id = rollo.Roll_id;
+                item.Code_Person = rollo.Code_Person;
+                item.Status = rollo.Status;
             }
             grid_itemRC.DataSource = lista;
-           REGISTROS_TOTALES.Text = "Numero de Registros : "+lista.Count.ToString();
+            //linq que consolida los renglones del conduce.
+
+            var result = from line in lista
+                         group line by line.Product_id into g
+                         select new 
+                         {
+                             product_id = g.First().Product_id,
+                             product_name = g.First().Product_name,
+                             cant = g.Count().ToString()
+                         };
+
+            grid_productos.DataSource = result.ToList();
+
+            REGISTROS_TOTALES.Text = "Numero de Registros : "+lista.Count.ToString();
+
         }
         private void AplicarEstiloGrid() 
         {
@@ -51,6 +68,12 @@ namespace RitramaAPP.form
             AGREGAR_COLUMN_GRID("msi", 60, "Msi", "msi", grid_itemRC);
             AGREGAR_COLUMN_GRID("splice", 60, "Splice", "splice", grid_itemRC);
             AGREGAR_COLUMN_GRID("roll_id", 60, "Roll Id.", "roll_id", grid_itemRC);
+            AGREGAR_COLUMN_GRID("code_person", 60, "Codigo Perso.", "code_person", grid_itemRC);
+            AGREGAR_COLUMN_GRID("status", 60, "Status Calidad", "status", grid_itemRC);
+            grid_productos.AutoGenerateColumns = false;
+            AGREGAR_COLUMN_GRID("product_id", 60, "Product_id", "product_id", grid_productos);
+            AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name", grid_productos);
+            AGREGAR_COLUMN_GRID("cant", 60, "Cantida Rollos", "cant", grid_productos);
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd,DataGridView grid)
         {

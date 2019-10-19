@@ -1,4 +1,5 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
+﻿using System.Linq;
+using CrystalDecisions.CrystalReports.Engine;
 using RitramaAPP.Clases;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,8 @@ namespace RitramaAPP.form
         {
             InitializeComponent();
         }
-        DespachosManager despachomanager = new DespachosManager();
+
+        readonly DespachosManager despachomanager = new DespachosManager();
         DataSet ds = new DataSet();
         BindingSource bs = new BindingSource();
         ConfigManager config = new ConfigManager();
@@ -89,19 +91,21 @@ namespace RitramaAPP.form
         }
         private void BOT_IMPRIMIR_Click(object sender, EventArgs e)
         {
-            FrmReportViewCrystal frmReportView = new FrmReportViewCrystal();
-            ReportDocument reporte = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-            string PathReport = @"C:\Users\Npino\Desktop\RITRAMA\RitramaAPP\RitramaAPP\RitramaAPP\Reports\Format_Despacho.rpt";
-            reporte.Load(PathReport);
-            //reporte.SetParameterValue("NUMERO", "");
-            frmReportView.crystalReportViewer.ReportSource = reporte;
-            frmReportView.Text = "Formato de Facturacion";
-            frmReportView.Width = 860;
-            frmReportView.Height = 700;
-            frmReportView.Show();
+            using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
+            {
+                ReportDocument reporte = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                string PathReport = @"C:\Users\Npino\Desktop\RITRAMA\RitramaAPP\RitramaAPP\RitramaAPP\Reports\Format_Despacho.rpt";
+                reporte.Load(PathReport);
+                //reporte.SetParameterValue("NUMERO", "");
+                frmReportView.crystalReportViewer.ReportSource = reporte;
+                frmReportView.Text = "Formato de Facturacion";
+                frmReportView.Width = 860;
+                frmReportView.Height = 700;
+                frmReportView.Show();
+            }
         }
 
-        private void bot_nuevo_Click(object sender, EventArgs e)
+        private void Bot_nuevo_Click(object sender, EventArgs e)
         {
             Consec = Convert.ToInt32(config.GetParameterControl("CONSEC_DP")) + 1;
             ParentRow = (DataRowView)bs.AddNew();
@@ -198,7 +202,7 @@ namespace RitramaAPP.form
                     break;
             }
         }
-        private void bot_buscar_clientes_Click(object sender, EventArgs e)
+        private void Bot_buscar_clientes_Click(object sender, EventArgs e)
         {
             using (SeleccionCustomers selectcustomer = new SeleccionCustomers())
             {
@@ -210,7 +214,7 @@ namespace RitramaAPP.form
             }
         }
 
-        private void bot_vendor_search_Click(object sender, EventArgs e)
+        private void Bot_vendor_search_Click(object sender, EventArgs e)
         {
             SeleccionVendedores selectvendedores = new SeleccionVendedores
             {
@@ -221,7 +225,7 @@ namespace RitramaAPP.form
             txt_vendor_name.Text = selectvendedores.GetVendedorName;
         }
 
-        private void bot_transport_search_Click(object sender, EventArgs e)
+        private void Bot_transport_search_Click(object sender, EventArgs e)
         {
             SeleccionTransporte selecttransporte = new SeleccionTransporte
             {
@@ -231,7 +235,7 @@ namespace RitramaAPP.form
             txt_transport_id.Text = selecttransporte.GetTransporteId;
             txt_transport_name.Text = selecttransporte.GetTransporteName;
         }
-        private void bot_chofer_search_Click(object sender, EventArgs e)
+        private void Bot_chofer_search_Click(object sender, EventArgs e)
         {
             SeleccionChofer selectchofer = new SeleccionChofer
             {
@@ -253,17 +257,19 @@ namespace RitramaAPP.form
             txt_camion.Text = selectcamion.GetCamionModelo;
         }
 
-        private void agregar_renglon_Click(object sender, EventArgs e)
+        private void Agregar_renglon_Click(object sender, EventArgs e)
         {
             AgregarRenglon();
         }
 
-        private void grid_items_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void Grid_items_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 3)
             {
-                SeleccionProductos selectProducts = new SeleccionProductos();
-                selectProducts.dtproducto = ds.Tables["dtproducto"];
+                SeleccionProductos selectProducts = new SeleccionProductos
+                {
+                    dtproducto = ds.Tables["dtproducto"]
+                };
                 selectProducts.ShowDialog();
                 grid_items.Rows[e.RowIndex].Cells["product_id"].Value = selectProducts.GetProductId;
                 //establecer la unidad.
@@ -282,7 +288,7 @@ namespace RitramaAPP.form
             }
         }
 
-        private void grid_items_KeyUp(object sender, KeyEventArgs e)
+        private void Grid_items_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -290,7 +296,7 @@ namespace RitramaAPP.form
             }
         }
 
-        private void grid_items_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void Grid_items_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 4 || e.ColumnIndex == 9)
             {
@@ -332,7 +338,7 @@ namespace RitramaAPP.form
             decimal subtotal = 0;
             for (int i = 0; i <= grid_items.Rows.Count - 1; i++)
             {
-                subtotal = subtotal + Convert.ToDecimal(grid_items.Rows[i].Cells["total_renglon"].Value);
+                subtotal += Convert.ToDecimal(grid_items.Rows[i].Cells["total_renglon"].Value);
             }
             return string.Format("{0,12:N2}", subtotal);
         }
@@ -458,10 +464,12 @@ namespace RitramaAPP.form
             }
         }
 
-        private void bot_sincro_Click(object sender, EventArgs e)
+        private void Bot_sincro_Click(object sender, EventArgs e)
         {
-            PickingList pl = new PickingList();
-            pl.ShowDialog();
+            using (PickingList pl = new PickingList())
+            {
+                pl.ShowDialog();
+            }
         }
 
         private ClassDespacho CrearObjectDespacho()

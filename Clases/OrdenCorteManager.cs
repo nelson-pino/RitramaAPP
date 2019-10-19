@@ -420,6 +420,8 @@ namespace RitramaAPP.Clases
                     rollo.Msi = reader.GetDecimal(6);
                     rollo.Splice = reader.GetInt32(7);
                     rollo.Roll_id = reader.GetString(8);
+                    rollo.Code_Person = reader.GetString(9);
+                    rollo.Status = reader.GetString(10);
                 }
                 comando.Dispose();
                 Micomm.Desconectar();

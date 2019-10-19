@@ -240,7 +240,7 @@
             this.bot_vendor_search.TabIndex = 16;
             this.bot_vendor_search.Text = "...";
             this.bot_vendor_search.UseVisualStyleBackColor = true;
-            this.bot_vendor_search.Click += new System.EventHandler(this.bot_vendor_search_Click);
+            this.bot_vendor_search.Click += new System.EventHandler(this.Bot_vendor_search_Click);
             // 
             // txt_vendor_name
             // 
@@ -290,7 +290,7 @@
             this.bot_transport_search.TabIndex = 23;
             this.bot_transport_search.Text = "...";
             this.bot_transport_search.UseVisualStyleBackColor = true;
-            this.bot_transport_search.Click += new System.EventHandler(this.bot_transport_search_Click);
+            this.bot_transport_search.Click += new System.EventHandler(this.Bot_transport_search_Click);
             // 
             // txt_transport_id
             // 
@@ -321,7 +321,7 @@
             this.bot_chofer_search.TabIndex = 28;
             this.bot_chofer_search.Text = "...";
             this.bot_chofer_search.UseVisualStyleBackColor = true;
-            this.bot_chofer_search.Click += new System.EventHandler(this.bot_chofer_search_Click);
+            this.bot_chofer_search.Click += new System.EventHandler(this.Bot_chofer_search_Click);
             // 
             // txt_chofer_id
             // 
@@ -416,9 +416,9 @@
             this.grid_items.RowTemplate.Height = 24;
             this.grid_items.Size = new System.Drawing.Size(716, 236);
             this.grid_items.TabIndex = 33;
-            this.grid_items.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_items_CellContentClick);
-            this.grid_items.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_items_CellEndEdit);
-            this.grid_items.KeyUp += new System.Windows.Forms.KeyEventHandler(this.grid_items_KeyUp);
+            this.grid_items.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_items_CellContentClick);
+            this.grid_items.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_items_CellEndEdit);
+            this.grid_items.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Grid_items_KeyUp);
             // 
             // panel1
             // 
@@ -609,7 +609,7 @@
             this.bot_buscar_clientes.TabIndex = 52;
             this.bot_buscar_clientes.Text = "...";
             this.bot_buscar_clientes.UseVisualStyleBackColor = true;
-            this.bot_buscar_clientes.Click += new System.EventHandler(this.bot_buscar_clientes_Click);
+            this.bot_buscar_clientes.Click += new System.EventHandler(this.Bot_buscar_clientes_Click);
             // 
             // bot_agregar_renglon
             // 
@@ -620,7 +620,7 @@
             this.bot_agregar_renglon.TabIndex = 53;
             this.bot_agregar_renglon.Text = "Agregar";
             this.bot_agregar_renglon.UseVisualStyleBackColor = true;
-            this.bot_agregar_renglon.Click += new System.EventHandler(this.agregar_renglon_Click);
+            this.bot_agregar_renglon.Click += new System.EventHandler(this.Agregar_renglon_Click);
             // 
             // bot_eliminar_renglon
             // 
@@ -675,7 +675,7 @@
             this.bot_nuevo.Name = "bot_nuevo";
             this.bot_nuevo.Size = new System.Drawing.Size(66, 24);
             this.bot_nuevo.Text = "Nuevo";
-            this.bot_nuevo.Click += new System.EventHandler(this.bot_nuevo_Click);
+            this.bot_nuevo.Click += new System.EventHandler(this.Bot_nuevo_Click);
             // 
             // BOT_CANCELAR
             // 
@@ -731,7 +731,7 @@
             this.bot_sincro.Name = "bot_sincro";
             this.bot_sincro.Size = new System.Drawing.Size(80, 24);
             this.bot_sincro.Text = "Sincro";
-            this.bot_sincro.Click += new System.EventHandler(this.bot_sincro_Click);
+            this.bot_sincro.Click += new System.EventHandler(this.Bot_sincro_Click);
             // 
             // FrmDespacho
             // 

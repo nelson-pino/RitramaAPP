@@ -85,7 +85,7 @@
             this.bot_leer.TabIndex = 1;
             this.bot_leer.Text = "Leer Data";
             this.bot_leer.UseVisualStyleBackColor = true;
-            this.bot_leer.Click += new System.EventHandler(this.bot_leer_Click);
+            this.bot_leer.Click += new System.EventHandler(this.Bot_leer_Click);
             // 
             // bot_transferir
             // 
