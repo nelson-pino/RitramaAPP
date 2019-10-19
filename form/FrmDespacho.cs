@@ -294,6 +294,10 @@ namespace RitramaAPP.form
         {
             if (e.ColumnIndex == 4 || e.ColumnIndex == 9)
             {
+                if (Convert.ToString(grid_items.Rows[e.RowIndex].Cells["cant"].Value ) == "") 
+                {
+                    return;
+                }
                 grid_items.Rows[e.RowIndex].Cells["total_renglon"].Value =
                 Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["cant"].Value) *
                 Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["precio"].Value);
@@ -353,6 +357,43 @@ namespace RitramaAPP.form
         }
         private void ToSaveAdd()
         {
+            //validar el formulario
+            if (txt_customer_id.Text.Length == 0)
+            {
+                MessageBox.Show("Introduzca el codigo del Cliente.?");
+                return;
+            }
+            if (txt_vendor_id.Text.Length == 0)
+            {
+                MessageBox.Show("Introduzca el codigo del Vendedor.?");
+                return;
+            }
+            if (txt_transport_id.Text.Length == 0)
+            {
+                MessageBox.Show("Introduzca el codigo del transporte.?");
+                return;
+            }
+            if (txt_chofer_id.Text.Length == 0)
+            {
+                MessageBox.Show("Introduzca el codigo del chofer.?");
+                return;
+            }
+            if (txt_placas.Text.Length == 0)
+            {
+                MessageBox.Show("Introduzca el codigo placas.?");
+                return;
+            }
+            //validar que exista 
+            if (grid_items.Rows.Count < 1) 
+            {
+                MessageBox.Show("Ingrese los datos del renglon antes de grabar.?");
+                return;
+            }
+            //validar renglones
+            if (!ValidarRenglon())
+            {
+                return;
+            };
             despachomanager.Add(CrearObjectDespacho(), false);
             config.SetParametersControl(Consec.ToString(), "CONSEC_DP");
             OptionsMenu(1);
@@ -438,6 +479,32 @@ namespace RitramaAPP.form
                 despacho.items.Add(item);
             }
             return despacho;
+        }
+        private Boolean ValidarRenglon()
+        {
+            Boolean chk = true;
+            for (int i = 0; i <= grid_items.Rows.Count - 1; i++)
+            {
+                if (Convert.ToString(grid_items.Rows[i].Cells["product_id"].Value) == "")
+                {
+                    MessageBox.Show("falta el codigo del articulo.?");
+                    chk = false;
+                    break;
+                }
+                if (Convert.ToDecimal(grid_items.Rows[i].Cells["cant"].Value) <= 0)
+                {
+                    MessageBox.Show("Introduzca la cantidad.?");
+                    chk = false;
+                    break;
+                }
+                if (Convert.ToDecimal(grid_items.Rows[i].Cells["precio"].Value) <= 0)
+                {
+                    MessageBox.Show("Introduzca el precio.?");
+                    chk = false;
+                    break;
+                }
+            }
+            return chk;
         }
     }
 }
