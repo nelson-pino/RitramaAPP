@@ -434,6 +434,36 @@ namespace RitramaAPP.form
             total = (subtotal + monto_itbis);
             return string.Format("{0,12:N2}", total);
         }
+
+        private void BOT_CANCELAR_Click(object sender, EventArgs e)
+        {
+            if (EditMode == 1)
+            {
+                DataRowView rowcurrent;
+                rowcurrent = (DataRowView)bs.Current;
+                rowcurrent.Row.Delete();
+                bs.EndEdit();
+                ContadorRegistros();
+                bs.Position = bs.Count - 1;
+                //activo la funciones del menu
+                OptionsMenu(1);
+                OptionsForm(1);
+                EditMode = 0;
+            }
+            if (EditMode == 2)
+            {
+                OptionsMenu(1);
+                OptionsForm(1);
+                EditMode = 0;
+            }
+        }
+
+        private void bot_sincro_Click(object sender, EventArgs e)
+        {
+            PickingList pl = new PickingList();
+            pl.ShowDialog();
+        }
+
         private ClassDespacho CrearObjectDespacho()
         {
             despacho = new ClassDespacho

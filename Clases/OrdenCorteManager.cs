@@ -183,9 +183,6 @@ namespace RitramaAPP.Clases
                 R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_UPDATE_ERROR_ORDER_ROLLSDETAIL);
             }
         }
-
-
-
         public Boolean SaveDataDetailsRolls(List<Roll_Details> rollos)
         {
             SqlTransaction transac = null;
@@ -398,5 +395,42 @@ namespace RitramaAPP.Clases
                 SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_DELETE_ORDEN_ROLLDETAILS, numero, false,
                 R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_DELETE_ORDER_ROLLSDETAIL);
         }
+        public Roll_Details GetDataUniqueCode(string rc) 
+        {
+            Roll_Details rollo = new Roll_Details();
+            try
+            {
+                Micomm.Conectar(R.SQL.DATABASE.NAME);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = Micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_SELECT_GETDATA_UNIQUE_CODE
+                };
+                SqlParameter p1 = new SqlParameter("@p1", rc);
+                comando.Parameters.Add(p1);
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    rollo.Product_id = reader.GetString(1);
+                    rollo.Product_name = reader.GetString(2);
+                    rollo.Roll_number = reader.GetInt32(3).ToString();
+                    rollo.Width = reader.GetDecimal(4);
+                    rollo.Large = reader.GetDecimal(5);
+                    rollo.Msi = reader.GetDecimal(6);
+                    rollo.Splice = reader.GetInt32(7);
+                    rollo.Roll_id = reader.GetString(8);
+                }
+                comando.Dispose();
+                Micomm.Desconectar();
+                return rollo;
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("error al tratar de leer la data de un codigo unico..." + ex);
+                return rollo;
+            }
+        }
+
     }
 }

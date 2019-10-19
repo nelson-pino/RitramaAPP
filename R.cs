@@ -85,6 +85,8 @@
                         "width_cortado=@p12,lenght_cortado=@p13,msi_cortado=@p14 WHERE numero=@p1";
                     public static string SQL_QUERY_DELETE_ORDEN_ROLLDETAILS = "DELETE rolls_details WHERE numero=@p1";
                     public static string SQL_QUERY_UPDATE_ROLLSDETAILS_RENGLON = "UPDATE rolls_details SET splice=@p3,code_person=@p4,status=@p5 WHERE (numero=@p1 AND unique_code=@p2)";
+                    public static string SQL_QUERY_SELECT_GETDATA_UNIQUE_CODE = "SELECT numero,product_id,product_name,roll_number,width,large,msi,splice,roll_id FROM rolls_details WHERE unique_code=@p1";
+
                 }
                 public class DESPACHOS
                 {
