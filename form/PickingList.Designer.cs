@@ -30,19 +30,19 @@
         {
             this.tab_productos = new System.Windows.Forms.TabControl();
             this.tab_uniqueCode = new System.Windows.Forms.TabPage();
+            this.grid_itemRC = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.grid_productos = new System.Windows.Forms.DataGridView();
             this.bot_leer = new System.Windows.Forms.Button();
             this.bot_transferir = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.grid_itemRC = new System.Windows.Forms.DataGridView();
-            this.grid_productos = new System.Windows.Forms.DataGridView();
             this.REGISTROS_TOTALES = new System.Windows.Forms.Label();
             this.tab_productos.SuspendLayout();
             this.tab_uniqueCode.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_itemRC)).BeginInit();
+            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_productos)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab_productos
@@ -66,6 +66,21 @@
             this.tab_uniqueCode.Text = "Unique Code:";
             this.tab_uniqueCode.UseVisualStyleBackColor = true;
             // 
+            // grid_itemRC
+            // 
+            this.grid_itemRC.AllowUserToAddRows = false;
+            this.grid_itemRC.AllowUserToDeleteRows = false;
+            this.grid_itemRC.AllowUserToResizeColumns = false;
+            this.grid_itemRC.AllowUserToResizeRows = false;
+            this.grid_itemRC.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.grid_itemRC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grid_itemRC.Location = new System.Drawing.Point(6, 6);
+            this.grid_itemRC.Name = "grid_itemRC";
+            this.grid_itemRC.ReadOnly = true;
+            this.grid_itemRC.RowHeadersWidth = 25;
+            this.grid_itemRC.Size = new System.Drawing.Size(530, 280);
+            this.grid_itemRC.TabIndex = 0;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.grid_productos);
@@ -76,6 +91,20 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Productos:";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // grid_productos
+            // 
+            this.grid_productos.AllowUserToAddRows = false;
+            this.grid_productos.AllowUserToDeleteRows = false;
+            this.grid_productos.AllowUserToResizeRows = false;
+            this.grid_productos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.grid_productos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grid_productos.Location = new System.Drawing.Point(3, 6);
+            this.grid_productos.Name = "grid_productos";
+            this.grid_productos.ReadOnly = true;
+            this.grid_productos.RowHeadersWidth = 25;
+            this.grid_productos.Size = new System.Drawing.Size(533, 280);
+            this.grid_productos.TabIndex = 0;
             // 
             // bot_leer
             // 
@@ -95,6 +124,7 @@
             this.bot_transferir.TabIndex = 2;
             this.bot_transferir.Text = "Transferir Conduce";
             this.bot_transferir.UseVisualStyleBackColor = true;
+            this.bot_transferir.Click += new System.EventHandler(this.Bot_transferir_Click);
             // 
             // groupBox1
             // 
@@ -105,35 +135,6 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informacion del Picking List Despacho";
-            // 
-            // grid_itemRC
-            // 
-            this.grid_itemRC.AllowUserToAddRows = false;
-            this.grid_itemRC.AllowUserToDeleteRows = false;
-            this.grid_itemRC.AllowUserToResizeColumns = false;
-            this.grid_itemRC.AllowUserToResizeRows = false;
-            this.grid_itemRC.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.grid_itemRC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grid_itemRC.Location = new System.Drawing.Point(6, 6);
-            this.grid_itemRC.Name = "grid_itemRC";
-            this.grid_itemRC.ReadOnly = true;
-            this.grid_itemRC.RowHeadersWidth = 25;
-            this.grid_itemRC.Size = new System.Drawing.Size(530, 280);
-            this.grid_itemRC.TabIndex = 0;
-            // 
-            // grid_productos
-            // 
-            this.grid_productos.AllowUserToAddRows = false;
-            this.grid_productos.AllowUserToDeleteRows = false;
-            this.grid_productos.AllowUserToResizeRows = false;
-            this.grid_productos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.grid_productos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grid_productos.Location = new System.Drawing.Point(3, 6);
-            this.grid_productos.Name = "grid_productos";
-            this.grid_productos.ReadOnly = true;
-            this.grid_productos.RowHeadersWidth = 25;
-            this.grid_productos.Size = new System.Drawing.Size(533, 280);
-            this.grid_productos.TabIndex = 0;
             // 
             // REGISTROS_TOTALES
             // 
@@ -159,11 +160,11 @@
             this.Load += new System.EventHandler(this.PickingList_Load);
             this.tab_productos.ResumeLayout(false);
             this.tab_uniqueCode.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grid_itemRC)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grid_productos)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grid_itemRC)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grid_productos)).EndInit();
             this.ResumeLayout(false);
 
         }

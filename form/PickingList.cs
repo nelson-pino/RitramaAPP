@@ -13,9 +13,11 @@ namespace RitramaAPP.form
         {
             InitializeComponent();
         }
-        List<Roll_Details> lista;
-        string path = R.PATH_FILES.FILE_TXT_MATERIA_PRIMA;
-        OrdenCorteManager produccionManager = new OrdenCorteManager();
+        public List<Roll_Details> Lista_rollos { get; set; }
+        public IEnumerable<producto> list_products { get; set; }
+
+        readonly string path = R.PATH_FILES.FILE_TXT_MATERIA_PRIMA;
+        readonly OrdenCorteManager produccionManager = new OrdenCorteManager();
 
         private void PickingList_Load(object sender, EventArgs e)
         {
@@ -25,7 +27,7 @@ namespace RitramaAPP.form
         {
             ExtraerDataAppMovil();
             //getdata de los unique code.
-           foreach (Roll_Details item in lista) 
+           foreach (Roll_Details item in Lista_rollos) 
            {
                 Roll_Details rollo = produccionManager.GetDataUniqueCode(item.Unique_code);
                 item.Product_id = rollo.Product_id;
@@ -39,21 +41,22 @@ namespace RitramaAPP.form
                 item.Code_Person = rollo.Code_Person;
                 item.Status = rollo.Status;
             }
-            grid_itemRC.DataSource = lista;
+            grid_itemRC.DataSource = Lista_rollos;
             //linq que consolida los renglones del conduce.
 
-            var result = from line in lista
+            list_products = from line in Lista_rollos
                          group line by line.Product_id into g
-                         select new 
+                         select new producto
                          {
                              product_id = g.First().Product_id,
                              product_name = g.First().Product_name,
-                             cant = g.Count().ToString()
+                             product_quantity = g.Count().ToString()
                          };
 
-            grid_productos.DataSource = result.ToList();
+            grid_productos.DataSource = list_products.ToList();
 
-            REGISTROS_TOTALES.Text = "Numero de Registros : "+lista.Count.ToString();
+            
+            REGISTROS_TOTALES.Text = "Numero de Registros : "+Lista_rollos.Count.ToString();
 
         }
         private void AplicarEstiloGrid() 
@@ -73,7 +76,7 @@ namespace RitramaAPP.form
             grid_productos.AutoGenerateColumns = false;
             AGREGAR_COLUMN_GRID("product_id", 60, "Product_id", "product_id", grid_productos);
             AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name", grid_productos);
-            AGREGAR_COLUMN_GRID("cant", 60, "Cantida Rollos", "cant", grid_productos);
+            AGREGAR_COLUMN_GRID("cant", 60, "Cantida Rollos", "product_quantity", grid_productos);
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd,DataGridView grid)
         {
@@ -89,7 +92,7 @@ namespace RitramaAPP.form
         private void ExtraerDataAppMovil() 
         {
             //extraigo los unique code
-            lista = new List<Roll_Details>();
+            Lista_rollos = new List<Roll_Details>();
             if (File.Exists(path))
             {
                 try
@@ -111,7 +114,7 @@ namespace RitramaAPP.form
                                     Unique_code = strArray[0],
 
                                 };
-                                lista.Add(rollo);
+                                Lista_rollos.Add(rollo);
                             }
                             catch (Exception ex)
                             {
@@ -127,5 +130,18 @@ namespace RitramaAPP.form
                 }
             }
         }
-    }   
+
+        private void Bot_transferir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+    public class producto 
+    {
+        public string product_id { get; set; }
+        public string product_name { get; set; }
+
+        public string product_quantity { get; set; }
+
+    }
 }

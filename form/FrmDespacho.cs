@@ -178,6 +178,7 @@ namespace RitramaAPP.form
                     bot_agregar_renglon.Enabled = true;
                     bot_eliminar_renglon.Enabled = true;
                     bot_buscar_clientes.Enabled = true;
+                    bot_sincro.Enabled = true;
                     grid_items.Enabled = true;
                     grid_items.ReadOnly = false;
                     break;
@@ -196,6 +197,7 @@ namespace RitramaAPP.form
                     bot_transport_search.Enabled = false;
                     bot_agregar_renglon.Enabled = false;
                     bot_eliminar_renglon.Enabled = false;
+                    bot_sincro.Enabled = false;
                     grid_items.Enabled = false;
                     break;
                 case 2:
@@ -469,7 +471,18 @@ namespace RitramaAPP.form
             using (PickingList pl = new PickingList())
             {
                 pl.ShowDialog();
+                int fila = 0;
+                foreach (producto item in pl.list_products) 
+                {
+                    AgregarRenglon();
+                    grid_items.Rows[fila].Cells["product_id"].Value = pl.list_products.ElementAt(fila).product_id;
+                    grid_items.Rows[fila].Cells["cant"].Value = pl.list_products.ElementAt(fila).product_quantity;
+                    grid_items.Rows[fila].Cells["unidad"].Value = "rollo cortado.";
+                    fila += 1;
+                }
+
             }
+            
         }
 
         private ClassDespacho CrearObjectDespacho()
