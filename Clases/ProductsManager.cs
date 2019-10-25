@@ -49,10 +49,10 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-        public void Add(ClassProduct datos)
+        public void Add(ClassProduct datos,Boolean mensajeok)
         {
             CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_INSERT_PRODUCT,
-                SetParameters(datos), true, R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PRODUCTOS.MESSAGE_ADD_PRODUCTS_ERROR);
+                SetParameters(datos), mensajeok, R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PRODUCTOS.MESSAGE_ADD_PRODUCTS_ERROR);
         }
         public void Update(ClassProduct datos)
         {
@@ -63,17 +63,19 @@ namespace RitramaAPP.Clases
         {
             List<SqlParameter> sp = new List<SqlParameter>()
             {
-                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = datos.Prodct_ID },
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = datos.Product_id },
                 new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.NVarChar, Value = datos.ProductName },
                 new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.NVarChar, Value = datos.Descripcion },
                 new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.NVarChar, Value = datos.Referencia },
                 new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.NVarChar, Value = datos.Codebar },
                 new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.NVarChar, Value = datos.Categoria},
                 new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.Bit, Value = datos.MasterRolls},
-                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.Bit, Value = datos.Resmas},
-                new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Bit, Value = datos.Graphics},
-                new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.Bit, Value = datos.Anulado},
-                new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Decimal, Value = datos.Precio}
+                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.Bit, Value = datos.Rollo_Cortado},
+                new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Bit, Value = datos.Resmas},
+                new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.Bit, Value = datos.Graphics},
+                new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Bit, Value = datos.Anulado},
+                new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.Decimal, Value = datos.Precio},
+                new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.NVarChar, Value = datos.Code_RC}
             };
             return sp;
         }
