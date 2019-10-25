@@ -30,159 +30,231 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button2 = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.bot_borrar = new System.Windows.Forms.Button();
+            this.bot_editar = new System.Windows.Forms.Button();
+            this.bot_incluir = new System.Windows.Forms.Button();
+            this.bot_sincro = new System.Windows.Forms.Button();
+            this.txt_buscar = new System.Windows.Forms.TextBox();
+            this.grid_iniciales = new System.Windows.Forms.DataGridView();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_iniciales)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label15);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(9, 10);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(776, 44);
+            this.panel1.Size = new System.Drawing.Size(846, 98);
             this.panel1.TabIndex = 36;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(226, 5);
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(242, 35);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(339, 29);
+            this.label15.Size = new System.Drawing.Size(278, 25);
             this.label15.TabIndex = 0;
-            this.label15.Text = "MODULO DE INVENTARIOS";
+            this.label15.Text = "MODULO DE INVENTARIO";
             // 
-            // textBox1
+            // tabControl1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 77);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(729, 22);
-            this.textBox1.TabIndex = 37;
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(9, 113);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(846, 795);
+            this.tabControl1.TabIndex = 37;
             // 
-            // button1
+            // tabPage1
             // 
-            this.button1.Location = new System.Drawing.Point(747, 77);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(41, 23);
-            this.button1.TabIndex = 38;
-            this.button1.Text = "...";
-            this.button1.UseVisualStyleBackColor = true;
+            this.tabPage1.Controls.Add(this.checkBox3);
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.bot_borrar);
+            this.tabPage1.Controls.Add(this.bot_editar);
+            this.tabPage1.Controls.Add(this.bot_incluir);
+            this.tabPage1.Controls.Add(this.bot_sincro);
+            this.tabPage1.Controls.Add(this.txt_buscar);
+            this.tabPage1.Controls.Add(this.grid_iniciales);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(838, 769);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Toma Fisica";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.TabPage1_Click);
             // 
-            // dataGridView1
+            // groupBox1
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4,
-            this.Column5,
-            this.Column6,
-            this.Column7,
-            this.Column8});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 105);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(776, 333);
-            this.dataGridView1.TabIndex = 39;
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.checkBox2);
+            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Location = new System.Drawing.Point(699, 200);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(129, 129);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Filtros de Busqueda:";
             // 
-            // Column1
+            // checkBox2
             // 
-            this.Column1.HeaderText = "Id. Product";
-            this.Column1.MinimumWidth = 6;
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 80;
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(6, 58);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(126, 17);
+            this.checkBox2.TabIndex = 1;
+            this.checkBox2.Text = "Nombre del Producto";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // Column2
+            // checkBox1
             // 
-            this.Column2.HeaderText = "Descripcion del Producto";
-            this.Column2.MinimumWidth = 6;
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 230;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(6, 35);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(75, 17);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Product Id";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // Column3
+            // label1
             // 
-            this.Column3.HeaderText = "Ubicacion";
-            this.Column3.MinimumWidth = 6;
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 80;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(244, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Introduzca la palabra clave para buscar productos";
             // 
-            // Column4
+            // bot_borrar
             // 
-            this.Column4.HeaderText = "Inicial";
-            this.Column4.MinimumWidth = 6;
-            this.Column4.Name = "Column4";
-            this.Column4.Width = 70;
+            this.bot_borrar.Location = new System.Drawing.Point(705, 161);
+            this.bot_borrar.Name = "bot_borrar";
+            this.bot_borrar.Size = new System.Drawing.Size(118, 23);
+            this.bot_borrar.TabIndex = 5;
+            this.bot_borrar.Text = "Borrar Fila";
+            this.bot_borrar.UseVisualStyleBackColor = true;
             // 
-            // Column5
+            // bot_editar
             // 
-            this.Column5.HeaderText = "Entradas";
-            this.Column5.MinimumWidth = 6;
-            this.Column5.Name = "Column5";
-            this.Column5.Width = 70;
+            this.bot_editar.Location = new System.Drawing.Point(705, 132);
+            this.bot_editar.Name = "bot_editar";
+            this.bot_editar.Size = new System.Drawing.Size(118, 23);
+            this.bot_editar.TabIndex = 4;
+            this.bot_editar.Text = "Editar";
+            this.bot_editar.UseVisualStyleBackColor = true;
             // 
-            // Column6
+            // bot_incluir
             // 
-            this.Column6.HeaderText = "Salidas";
-            this.Column6.MinimumWidth = 6;
-            this.Column6.Name = "Column6";
-            this.Column6.Width = 70;
+            this.bot_incluir.Location = new System.Drawing.Point(705, 103);
+            this.bot_incluir.Name = "bot_incluir";
+            this.bot_incluir.Size = new System.Drawing.Size(118, 23);
+            this.bot_incluir.TabIndex = 3;
+            this.bot_incluir.Text = "Incluir";
+            this.bot_incluir.UseVisualStyleBackColor = true;
             // 
-            // Column7
+            // bot_sincro
             // 
-            this.Column7.HeaderText = "Final";
-            this.Column7.MinimumWidth = 6;
-            this.Column7.Name = "Column7";
-            this.Column7.Width = 70;
+            this.bot_sincro.Location = new System.Drawing.Point(705, 74);
+            this.bot_sincro.Name = "bot_sincro";
+            this.bot_sincro.Size = new System.Drawing.Size(118, 23);
+            this.bot_sincro.TabIndex = 2;
+            this.bot_sincro.Text = "Cargar Data";
+            this.bot_sincro.UseVisualStyleBackColor = true;
             // 
-            // Column8
+            // txt_buscar
             // 
-            this.Column8.HeaderText = "Fisico";
-            this.Column8.MinimumWidth = 6;
-            this.Column8.Name = "Column8";
-            this.Column8.Width = 70;
+            this.txt_buscar.Location = new System.Drawing.Point(15, 49);
+            this.txt_buscar.Name = "txt_buscar";
+            this.txt_buscar.Size = new System.Drawing.Size(678, 20);
+            this.txt_buscar.TabIndex = 1;
             // 
-            // button2
+            // grid_iniciales
             // 
-            this.button2.Location = new System.Drawing.Point(12, 444);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(173, 59);
-            this.button2.TabIndex = 40;
-            this.button2.Text = "Toma Fisica con Colector";
-            this.button2.UseVisualStyleBackColor = true;
+            this.grid_iniciales.AllowUserToResizeRows = false;
+            this.grid_iniciales.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.grid_iniciales.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
+            this.grid_iniciales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grid_iniciales.Location = new System.Drawing.Point(15, 75);
+            this.grid_iniciales.MultiSelect = false;
+            this.grid_iniciales.Name = "grid_iniciales";
+            this.grid_iniciales.ReadOnly = true;
+            this.grid_iniciales.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
+            this.grid_iniciales.RowHeadersWidth = 24;
+            this.grid_iniciales.Size = new System.Drawing.Size(678, 254);
+            this.grid_iniciales.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(838, 769);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Consulta de Inventario";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 101);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(125, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Numero de Registros";
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(46, 372);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(191, 17);
+            this.checkBox3.TabIndex = 9;
+            this.checkBox3.Text = "Si el producto existe sobreescribirlo";
+            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // FrmInventario
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 573);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(866, 920);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmInventario";
             this.Text = "FrmInventario";
+            this.Load += new System.EventHandler(this.FrmInventario_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_iniciales)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -190,17 +262,20 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TextBox txt_buscar;
+        private System.Windows.Forms.DataGridView grid_iniciales;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button bot_borrar;
+        private System.Windows.Forms.Button bot_editar;
+        private System.Windows.Forms.Button bot_incluir;
+        private System.Windows.Forms.Button bot_sincro;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox checkBox3;
     }
 }

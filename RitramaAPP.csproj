@@ -206,6 +206,12 @@
     <Compile Include="form\SeleccionVendedores.Designer.cs">
       <DependentUpon>SeleccionVendedores.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\SincroInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\SincroInventario.Designer.cs">
+      <DependentUpon>SincroInventario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -282,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\SeleccionVendedores.resx">
       <DependentUpon>SeleccionVendedores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\SincroInventario.resx">
+      <DependentUpon>SincroInventario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
