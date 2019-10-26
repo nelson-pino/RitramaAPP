@@ -69,7 +69,7 @@
     <Compile Include="Clases\ConfigManager.cs" />
     <Compile Include="Clases\CustomerManager.cs" />
     <Compile Include="Clases\Orden_Items.cs" />
-    <Compile Include="Clases\OrdenCorteManager.cs" />
+    <Compile Include="Clases\ProduccionManager.cs" />
     <Compile Include="Clases\ProductsManager.cs" />
     <Compile Include="Clases\RecepcionManager.cs" />
     <Compile Include="Clases\Roll_Details.cs" />

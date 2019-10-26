@@ -44,6 +44,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.RAD_ROLLO_CORTADO = new System.Windows.Forms.RadioButton();
             this.RAD_GRAPHICS = new System.Windows.Forms.RadioButton();
             this.CHK_ANULADO = new System.Windows.Forms.CheckBox();
             this.LABEL_CONTADOR_REGISTRO = new System.Windows.Forms.Label();
@@ -63,7 +64,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txt_precio = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.RAD_ROLLO_CORTADO = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
             this.txt_codeRC = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
@@ -75,7 +75,7 @@
             // txt_product_id
             // 
             this.txt_product_id.Location = new System.Drawing.Point(25, 125);
-            this.txt_product_id.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_product_id.Margin = new System.Windows.Forms.Padding(2);
             this.txt_product_id.Name = "txt_product_id";
             this.txt_product_id.ReadOnly = true;
             this.txt_product_id.Size = new System.Drawing.Size(113, 20);
@@ -106,10 +106,10 @@
             // txt_product_name
             // 
             this.txt_product_name.Location = new System.Drawing.Point(25, 168);
-            this.txt_product_name.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_product_name.Margin = new System.Windows.Forms.Padding(2);
             this.txt_product_name.Name = "txt_product_name";
             this.txt_product_name.ReadOnly = true;
-            this.txt_product_name.Size = new System.Drawing.Size(317, 20);
+            this.txt_product_name.Size = new System.Drawing.Size(469, 20);
             this.txt_product_name.TabIndex = 1;
             // 
             // label3
@@ -125,7 +125,7 @@
             // txt_referencia
             // 
             this.txt_referencia.Location = new System.Drawing.Point(25, 252);
-            this.txt_referencia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_referencia.Margin = new System.Windows.Forms.Padding(2);
             this.txt_referencia.Name = "txt_referencia";
             this.txt_referencia.ReadOnly = true;
             this.txt_referencia.Size = new System.Drawing.Size(113, 20);
@@ -144,7 +144,7 @@
             // txt_code_bar
             // 
             this.txt_code_bar.Location = new System.Drawing.Point(25, 298);
-            this.txt_code_bar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_code_bar.Margin = new System.Windows.Forms.Padding(2);
             this.txt_code_bar.Name = "txt_code_bar";
             this.txt_code_bar.ReadOnly = true;
             this.txt_code_bar.Size = new System.Drawing.Size(113, 20);
@@ -161,7 +161,7 @@
             "Peliculas Monomericas",
             "otros productos"});
             this.cbo_category.Location = new System.Drawing.Point(25, 388);
-            this.cbo_category.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbo_category.Margin = new System.Windows.Forms.Padding(2);
             this.cbo_category.Name = "cbo_category";
             this.cbo_category.Size = new System.Drawing.Size(274, 21);
             this.cbo_category.TabIndex = 6;
@@ -181,7 +181,7 @@
             this.RAD_MASTER_ROLLS.AutoSize = true;
             this.RAD_MASTER_ROLLS.Enabled = false;
             this.RAD_MASTER_ROLLS.Location = new System.Drawing.Point(17, 24);
-            this.RAD_MASTER_ROLLS.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RAD_MASTER_ROLLS.Margin = new System.Windows.Forms.Padding(2);
             this.RAD_MASTER_ROLLS.Name = "RAD_MASTER_ROLLS";
             this.RAD_MASTER_ROLLS.Size = new System.Drawing.Size(83, 17);
             this.RAD_MASTER_ROLLS.TabIndex = 0;
@@ -194,7 +194,7 @@
             this.RAD_RESMAS.AutoSize = true;
             this.RAD_RESMAS.Enabled = false;
             this.RAD_RESMAS.Location = new System.Drawing.Point(17, 46);
-            this.RAD_RESMAS.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RAD_RESMAS.Margin = new System.Windows.Forms.Padding(2);
             this.RAD_RESMAS.Name = "RAD_RESMAS";
             this.RAD_RESMAS.Size = new System.Drawing.Size(63, 17);
             this.RAD_RESMAS.TabIndex = 1;
@@ -220,7 +220,7 @@
             this.panel1.Controls.Add(this.label15);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(676, 65);
             this.panel1.TabIndex = 35;
@@ -231,21 +231,34 @@
             this.groupBox1.Controls.Add(this.RAD_GRAPHICS);
             this.groupBox1.Controls.Add(this.RAD_MASTER_ROLLS);
             this.groupBox1.Controls.Add(this.RAD_RESMAS);
-            this.groupBox1.Location = new System.Drawing.Point(419, 162);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Location = new System.Drawing.Point(515, 169);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(150, 126);
             this.groupBox1.TabIndex = 36;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tipo de producto:";
+            // 
+            // RAD_ROLLO_CORTADO
+            // 
+            this.RAD_ROLLO_CORTADO.AutoSize = true;
+            this.RAD_ROLLO_CORTADO.Enabled = false;
+            this.RAD_ROLLO_CORTADO.Location = new System.Drawing.Point(17, 89);
+            this.RAD_ROLLO_CORTADO.Margin = new System.Windows.Forms.Padding(2);
+            this.RAD_ROLLO_CORTADO.Name = "RAD_ROLLO_CORTADO";
+            this.RAD_ROLLO_CORTADO.Size = new System.Drawing.Size(89, 17);
+            this.RAD_ROLLO_CORTADO.TabIndex = 3;
+            this.RAD_ROLLO_CORTADO.TabStop = true;
+            this.RAD_ROLLO_CORTADO.Text = "Rollo Cortado";
+            this.RAD_ROLLO_CORTADO.UseVisualStyleBackColor = true;
             // 
             // RAD_GRAPHICS
             // 
             this.RAD_GRAPHICS.AutoSize = true;
             this.RAD_GRAPHICS.Enabled = false;
             this.RAD_GRAPHICS.Location = new System.Drawing.Point(17, 68);
-            this.RAD_GRAPHICS.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RAD_GRAPHICS.Margin = new System.Windows.Forms.Padding(2);
             this.RAD_GRAPHICS.Name = "RAD_GRAPHICS";
             this.RAD_GRAPHICS.Size = new System.Drawing.Size(67, 17);
             this.RAD_GRAPHICS.TabIndex = 2;
@@ -257,8 +270,8 @@
             // 
             this.CHK_ANULADO.AutoSize = true;
             this.CHK_ANULADO.Enabled = false;
-            this.CHK_ANULADO.Location = new System.Drawing.Point(428, 108);
-            this.CHK_ANULADO.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CHK_ANULADO.Location = new System.Drawing.Point(512, 128);
+            this.CHK_ANULADO.Margin = new System.Windows.Forms.Padding(2);
             this.CHK_ANULADO.Name = "CHK_ANULADO";
             this.CHK_ANULADO.Size = new System.Drawing.Size(145, 17);
             this.CHK_ANULADO.TabIndex = 7;
@@ -289,10 +302,10 @@
             // txt_descrip_product
             // 
             this.txt_descrip_product.Location = new System.Drawing.Point(25, 211);
-            this.txt_descrip_product.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_descrip_product.Margin = new System.Windows.Forms.Padding(2);
             this.txt_descrip_product.Name = "txt_descrip_product";
             this.txt_descrip_product.ReadOnly = true;
-            this.txt_descrip_product.Size = new System.Drawing.Size(317, 20);
+            this.txt_descrip_product.Size = new System.Drawing.Size(469, 20);
             this.txt_descrip_product.TabIndex = 2;
             // 
             // toolStrip1
@@ -421,7 +434,7 @@
             // txt_precio
             // 
             this.txt_precio.Location = new System.Drawing.Point(25, 341);
-            this.txt_precio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_precio.Margin = new System.Windows.Forms.Padding(2);
             this.txt_precio.Name = "txt_precio";
             this.txt_precio.ReadOnly = true;
             this.txt_precio.Size = new System.Drawing.Size(113, 20);
@@ -430,27 +443,14 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.LABEL_CONTADOR_REGISTRO);
-            this.groupBox2.Location = new System.Drawing.Point(419, 305);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Location = new System.Drawing.Point(515, 304);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(150, 81);
             this.groupBox2.TabIndex = 45;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Contador de Registros:";
-            // 
-            // RAD_ROLLO_CORTADO
-            // 
-            this.RAD_ROLLO_CORTADO.AutoSize = true;
-            this.RAD_ROLLO_CORTADO.Enabled = false;
-            this.RAD_ROLLO_CORTADO.Location = new System.Drawing.Point(17, 89);
-            this.RAD_ROLLO_CORTADO.Margin = new System.Windows.Forms.Padding(2);
-            this.RAD_ROLLO_CORTADO.Name = "RAD_ROLLO_CORTADO";
-            this.RAD_ROLLO_CORTADO.Size = new System.Drawing.Size(89, 17);
-            this.RAD_ROLLO_CORTADO.TabIndex = 3;
-            this.RAD_ROLLO_CORTADO.TabStop = true;
-            this.RAD_ROLLO_CORTADO.Text = "Rollo Cortado";
-            this.RAD_ROLLO_CORTADO.UseVisualStyleBackColor = true;
             // 
             // label8
             // 
@@ -499,7 +499,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txt_product_id);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmProducts";
             this.Text = "FrmProducts";
             this.Load += new System.EventHandler(this.FrmProducts_Load);

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace RitramaAPP.Clases
 {
-    public class OrdenCorteManager
+    public class ProduccionManager
     {
         readonly Conexion Micomm = new Conexion();
         public DataSet ds = new DataSet();
@@ -21,7 +21,7 @@ namespace RitramaAPP.Clases
         public DataTable Dtproducts => dtproducts;
         public DataTable Dtordenes => dtordenes;
 
-        public OrdenCorteManager()
+        public ProduccionManager()
         {
             CargarProducts();
             CargarOrdenes();
@@ -365,6 +365,10 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.Int, Value = datos.Splice},
                 new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.NVarChar, Value = datos.Code_Person},
                 new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.NVarChar, Value = datos.Status},
+                new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.Decimal, Value = datos.Width},
+                new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.Decimal, Value = datos.Large},
+                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.Decimal, Value = datos.Msi},
+                new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.NVarChar, Value = datos.Roll_id},
             };
             return sp;
         }
@@ -432,6 +436,31 @@ namespace RitramaAPP.Clases
                 MessageBox.Show("error al tratar de leer la data de un codigo unico..." + ex);
                 return rollo;
             }
+        }
+        public string GetCodeRC(string product_id) 
+        {
+            Micomm.Conectar(R.SQL.DATABASE.NAME);
+            SqlCommand comando = new SqlCommand
+            {
+                CommandType = CommandType.Text,
+                CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_SELECT_GETDATA_CODE_RC,
+                Connection = Micomm.cnn
+            };
+            SqlParameter p1 = new SqlParameter("@p1", product_id);
+            comando.Parameters.Add(p1);
+            string coderc;
+            try
+            {
+                coderc = comando.ExecuteScalar().ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los codigo RC de productos...error code:" + ex);
+                coderc = "vacio";
+            }
+            Micomm.Desconectar();
+            comando.Dispose();
+            return coderc;
         }
 
     }

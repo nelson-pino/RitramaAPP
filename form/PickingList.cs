@@ -17,7 +17,7 @@ namespace RitramaAPP.form
         public IEnumerable<producto> list_products { get; set; }
 
         readonly string path = R.PATH_FILES.FILE_TXT_MATERIA_PRIMA;
-        readonly OrdenCorteManager produccionManager = new OrdenCorteManager();
+        readonly ProduccionManager produccionManager = new ProduccionManager();
 
         private void PickingList_Load(object sender, EventArgs e)
         {

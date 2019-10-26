@@ -23,7 +23,7 @@
                     public static string SQL_QUERY_SELECT_TYPE_PRODUCT = "SELECT MasterRolls,rollo_cortado,Resmas,Graphics FROM producto WHERE product_id=@p1";
                     public static string SQL_QUERY_SELECT_PRODUCT_NAME = "SELECT  Product_Name FROM producto WHERE product_id=@p1";
                     public static string SQL_QUERY_INSERT_PRODUCT = "INSERT INTO producto (Product_ID,Product_Name,Product_Descrip,Product_Ref,Codebar,Category_ID,MasterRolls,rollo_cortado,Resmas,Graphics,anulado,precio,code_RC) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13)";
-                    public static string SQL_QUERY_UPDATE_PRODUCTS = "UPDATE producto SET Product_Name=@p2,Product_Descrip=@p3,Product_Ref=@p4,Codebar=@p5,Category_ID=@p6,MasterRolls=@p7,rollo_cortado=@8,Resmas=@p9,Graphics=@p10,anulado=@p11,precio=@p12 WHERE Product_ID=@p1";
+                    public static string SQL_QUERY_UPDATE_PRODUCTS = "UPDATE producto SET Product_Name=@p2,Product_Descrip=@p3,Product_Ref=@p4,Codebar=@p5,Category_ID=@p6,Resmas=@p9,Graphics=@p10,anulado=@p11,precio=@p12 WHERE Product_ID=@p1";
                     public static string SQL_QUERY_COUNT_PRODUCTS = "SELECT count(*) FROM producto WHERE product_id=@p1";
                 }
                 public class CUSTOMERS
@@ -84,8 +84,9 @@
                         "product_id=@p4,rollid_1=@p5,width_1=@p6,lenght_1=@p7,rollid_2=@p8,width_2=@p9,lenght_2=@p10,cant_cortado=@p11," +
                         "width_cortado=@p12,lenght_cortado=@p13,msi_cortado=@p14 WHERE numero=@p1";
                     public static string SQL_QUERY_DELETE_ORDEN_ROLLDETAILS = "DELETE rolls_details WHERE numero=@p1";
-                    public static string SQL_QUERY_UPDATE_ROLLSDETAILS_RENGLON = "UPDATE rolls_details SET splice=@p3,code_person=@p4,status=@p5 WHERE (numero=@p1 AND unique_code=@p2)";
+                    public static string SQL_QUERY_UPDATE_ROLLSDETAILS_RENGLON = "UPDATE rolls_details SET splice=@p3,code_person=@p4,status=@p5,width=@p6,large=@p7,msi=@p8,roll_id=@p9 WHERE (numero=@p1 AND unique_code=@p2)";
                     public static string SQL_QUERY_SELECT_GETDATA_UNIQUE_CODE = "SELECT numero,product_id,product_name,roll_number,width,large,msi,splice,roll_id,code_person,status FROM rolls_details WHERE unique_code=@p1";
+                    public static string SQL_QUERY_SELECT_GETDATA_CODE_RC = "SELECT code_RC FROM producto WHERE product_id=@p1";
                 }
                 public class DESPACHOS
                 {

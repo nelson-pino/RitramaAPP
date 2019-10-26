@@ -90,6 +90,8 @@ namespace RitramaAPP
             RAD_GRAPHICS.Enabled = true;
             RAD_MASTER_ROLLS.Checked = false;
             RAD_RESMAS.Checked = false;
+            RAD_GRAPHICS.Checked = false;
+            RAD_ROLLO_CORTADO.Checked = false;
             CHK_ANULADO.Checked = false;
             CHK_ANULADO.DataBindings.Clear();
             RAD_MASTER_ROLLS.DataBindings.Clear();
@@ -128,6 +130,7 @@ namespace RitramaAPP
                 Precio = Convert.ToDouble(txt_precio.Text),
                 MasterRolls = RAD_MASTER_ROLLS.Checked,
                 Resmas = RAD_RESMAS.Checked,
+                Code_RC = "",
                 Anulado = CHK_ANULADO.Checked,
                 Graphics = RAD_GRAPHICS.Checked
             };

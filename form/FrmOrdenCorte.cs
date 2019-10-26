@@ -17,7 +17,7 @@ namespace RitramaAPP
         {
             InitializeComponent();
         }
-        readonly OrdenCorteManager managerorden = new OrdenCorteManager();
+        readonly ProduccionManager managerorden = new ProduccionManager();
         readonly ConfigManager configmanager = new ConfigManager();
         readonly BindingSource bs = new BindingSource();
         readonly BindingSource bsdetalle = new BindingSource();
@@ -260,6 +260,7 @@ namespace RitramaAPP
         }
         private void ToSaveUpdate()
         {
+            // Si hubo modificaciones en los renglones de rollos cortados.
             if (ischanged_rollos)
             {
                 managerorden.DeleteRollDetailsOrden(txt_numero_oc.Text);
@@ -597,14 +598,16 @@ namespace RitramaAPP
             ParentRow["anulada"] = false;
             ParentRow["procesado"] = false;
             ParentRow.EndEdit();
+            //Agregar el detalle de la Orden.
             DataRowView ChildRows;
+            string CodeRC = managerorden.GetCodeRC(txt_product_id.Text.Trim());
             foreach (Roll_Details item in lista)
             {
                 ChildRows = (DataRowView)bsdetalle.AddNew();
                 ChildRows.BeginEdit();
                 ChildRows["numero"] = item.Numero_Orden;
                 ChildRows["roll_number"] = item.Roll_number;
-                ChildRows["product_id"] = item.Product_id;
+                ChildRows["product_id"] = CodeRC;
                 ChildRows["product_name"] = item.Product_name;
                 ChildRows["unique_code"] = item.Unique_code;
                 ChildRows["width"] = double.Parse(item.Width.ToString(), CultureInfo.InvariantCulture);
