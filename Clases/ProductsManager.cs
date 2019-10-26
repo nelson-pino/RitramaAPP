@@ -160,5 +160,39 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
+        public string GetProductName(string product_id) 
+        {
+            string productName;    
+            micomm.Conectar(R.SQL.DATABASE.NAME);
+            SqlCommand comando = new SqlCommand
+            {
+                CommandType = CommandType.Text,
+                CommandText = R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_SELECT_PRODUCT_NAME,
+                Connection = micomm.cnn
+            };
+            SqlParameter p1 = new SqlParameter("@p1", product_id);
+            comando.Parameters.Add(p1);
+            productName = comando.ExecuteScalar().ToString();
+            micomm.Desconectar();
+            comando.Dispose();
+            return productName;
+        }
+        public string GetProductType(string product_id) 
+        {
+            string category;
+            micomm.Conectar(R.SQL.DATABASE.NAME);
+            SqlCommand comando = new SqlCommand
+            {
+                CommandType = CommandType.Text,
+                CommandText = R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_CATEGORY_PRODUCTS,
+                Connection = micomm.cnn
+            };
+            SqlParameter p1 = new SqlParameter("@p1", product_id);
+            comando.Parameters.Add(p1);
+            category = comando.ExecuteScalar().ToString();
+            micomm.Desconectar();
+            comando.Dispose();
+            return category;
+        }
     }
 }

@@ -472,11 +472,11 @@ namespace RitramaAPP.form
             {
                 pl.ShowDialog();
                 int fila = 0;
-                foreach (producto item in pl.list_products) 
+                foreach (Producto item in pl.List_products) 
                 {
                     AgregarRenglon();
-                    grid_items.Rows[fila].Cells["product_id"].Value = pl.list_products.ElementAt(fila).product_id;
-                    grid_items.Rows[fila].Cells["cant"].Value = pl.list_products.ElementAt(fila).product_quantity;
+                    grid_items.Rows[fila].Cells["product_id"].Value = pl.List_products.ElementAt(fila).Product_id;
+                    grid_items.Rows[fila].Cells["cant"].Value = pl.List_products.ElementAt(fila).Product_quantity;
                     grid_items.Rows[fila].Cells["unidad"].Value = "rollo cortado.";
                     fila += 1;
                 }

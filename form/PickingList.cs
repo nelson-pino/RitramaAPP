@@ -14,7 +14,7 @@ namespace RitramaAPP.form
             InitializeComponent();
         }
         public List<Roll_Details> Lista_rollos { get; set; }
-        public IEnumerable<producto> list_products { get; set; }
+        public IEnumerable<Producto> List_products { get; set; }
 
         readonly string path = R.PATH_FILES.FILE_TXT_MATERIA_PRIMA;
         readonly ProduccionManager produccionManager = new ProduccionManager();
@@ -44,16 +44,16 @@ namespace RitramaAPP.form
             grid_itemRC.DataSource = Lista_rollos;
             //linq que consolida los renglones del conduce.
 
-            list_products = from line in Lista_rollos
+            List_products = from line in Lista_rollos
                          group line by line.Product_id into g
-                         select new producto
+                         select new Producto
                          {
-                             product_id = g.First().Product_id,
-                             product_name = g.First().Product_name,
-                             product_quantity = g.Count().ToString()
+                             Product_id = g.First().Product_id,
+                             Product_name = g.First().Product_name,
+                             Product_quantity = g.Count().ToString()
                          };
 
-            grid_productos.DataSource = list_products.ToList();
+            grid_productos.DataSource = List_products.ToList();
 
             
             REGISTROS_TOTALES.Text = "Numero de Registros : "+Lista_rollos.Count.ToString();
@@ -136,12 +136,12 @@ namespace RitramaAPP.form
             this.Close();
         }
     }
-    public class producto 
+    public class Producto 
     {
-        public string product_id { get; set; }
-        public string product_name { get; set; }
+        public string Product_id { get; set; }
+        public string Product_name { get; set; }
 
-        public string product_quantity { get; set; }
+        public string Product_quantity { get; set; }
 
     }
 }

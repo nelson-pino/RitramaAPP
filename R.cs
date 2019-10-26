@@ -25,6 +25,7 @@
                     public static string SQL_QUERY_INSERT_PRODUCT = "INSERT INTO producto (Product_ID,Product_Name,Product_Descrip,Product_Ref,Codebar,Category_ID,MasterRolls,rollo_cortado,Resmas,Graphics,anulado,precio,code_RC) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13)";
                     public static string SQL_QUERY_UPDATE_PRODUCTS = "UPDATE producto SET Product_Name=@p2,Product_Descrip=@p3,Product_Ref=@p4,Codebar=@p5,Category_ID=@p6,Resmas=@p9,Graphics=@p10,anulado=@p11,precio=@p12 WHERE Product_ID=@p1";
                     public static string SQL_QUERY_COUNT_PRODUCTS = "SELECT count(*) FROM producto WHERE product_id=@p1";
+                    public static string SQL_QUERY_CATEGORY_PRODUCTS = "select case when MasterRolls = 1 then 'Master' when rollo_cortado = 1 then 'Rollo Cortado' when Graphics = 1 then 'Graphics' when Resmas = 1 then 'Resma' else 'sin tipo' end from producto where Product_ID=@p1";
                 }
                 public class CUSTOMERS
                 {
