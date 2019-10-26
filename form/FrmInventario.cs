@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using RitramaAPP.Clases;
 
@@ -16,7 +17,7 @@ namespace RitramaAPP
         readonly ProductsManager productmanager = new ProductsManager();
         List<Item> items;
         readonly string pathfile = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data\InventarioFisico.txt";
-        
+        public IEnumerable<Item> itemFilter { get; set; }
         private void FrmInventario_Load(object sender, EventArgs e)
         {
             grid_iniciales.AutoGenerateColumns = false;
@@ -113,7 +114,32 @@ namespace RitramaAPP
             CONTADOR_REGISTROS.Text = "Numero de Registros: "+items.Count.ToString();
             
         }
-        private class Item 
+     
+        private void bot_buscar_ini_Click(object sender, EventArgs e)
+        {
+            if (RAD_PRODUCT_ID.Checked) 
+            {
+                itemFilter = from g in items
+                             where g.Product_id.Contains(txt_buscar.Text.ToUpper())
+                             select g;
+
+            }
+            if (RAD_PRODUCTNAME.Checked) 
+            {
+                itemFilter = from g in items
+                             where g.Product_name.Contains(txt_buscar.Text.ToUpper())
+                             select g;
+            }
+            if (RAD_TIPO.Checked)
+            {
+                itemFilter = from g in items
+                             where g.Tipo.Contains(txt_buscar.Text.ToUpper())
+                             select g;
+            }
+            
+            grid_iniciales.DataSource = itemFilter.ToList();
+        }
+        public class Item
         {
             public string Tipo { get; set; }
             public string Product_id { get; set; }
@@ -126,4 +152,6 @@ namespace RitramaAPP
             public decimal Cantidad { get; set; }
         }
     }
+    
+
 }

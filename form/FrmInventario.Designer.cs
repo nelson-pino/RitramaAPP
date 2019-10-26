@@ -35,8 +35,6 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.CONTADOR_REGISTROS = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.bot_borrar = new System.Windows.Forms.Button();
             this.bot_editar = new System.Windows.Forms.Button();
@@ -46,7 +44,9 @@
             this.grid_iniciales = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.bot_buscar_ini = new System.Windows.Forms.Button();
-            this.RAD_TIPO = new System.Windows.Forms.CheckBox();
+            this.RAD_PRODUCT_ID = new System.Windows.Forms.RadioButton();
+            this.RAD_PRODUCTNAME = new System.Windows.Forms.RadioButton();
+            this.RAD_TIPO = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -105,7 +105,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(838, 769);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Toma Fisica";
+            this.tabPage1.Text = "Inventario Inicial";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.TabPage1_Click);
             // 
@@ -122,8 +122,8 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.RAD_TIPO);
-            this.groupBox1.Controls.Add(this.checkBox2);
-            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.RAD_PRODUCTNAME);
+            this.groupBox1.Controls.Add(this.RAD_PRODUCT_ID);
             this.groupBox1.Location = new System.Drawing.Point(718, 200);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(113, 129);
@@ -140,26 +140,6 @@
             this.CONTADOR_REGISTROS.Size = new System.Drawing.Size(125, 13);
             this.CONTADOR_REGISTROS.TabIndex = 8;
             this.CONTADOR_REGISTROS.Text = "Numero de Registros";
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(6, 58);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(109, 17);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Nombre Producto";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(6, 35);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(75, 17);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Product Id";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -247,14 +227,39 @@
             this.bot_buscar_ini.TabIndex = 10;
             this.bot_buscar_ini.Text = "Buscar";
             this.bot_buscar_ini.UseVisualStyleBackColor = true;
+            this.bot_buscar_ini.Click += new System.EventHandler(this.bot_buscar_ini_Click);
+            // 
+            // RAD_PRODUCT_ID
+            // 
+            this.RAD_PRODUCT_ID.AutoSize = true;
+            this.RAD_PRODUCT_ID.Checked = true;
+            this.RAD_PRODUCT_ID.Location = new System.Drawing.Point(6, 46);
+            this.RAD_PRODUCT_ID.Name = "RAD_PRODUCT_ID";
+            this.RAD_PRODUCT_ID.Size = new System.Drawing.Size(77, 17);
+            this.RAD_PRODUCT_ID.TabIndex = 11;
+            this.RAD_PRODUCT_ID.TabStop = true;
+            this.RAD_PRODUCT_ID.Text = "Product Id.";
+            this.RAD_PRODUCT_ID.UseVisualStyleBackColor = true;
+            // 
+            // RAD_PRODUCTNAME
+            // 
+            this.RAD_PRODUCTNAME.AutoSize = true;
+            this.RAD_PRODUCTNAME.Location = new System.Drawing.Point(6, 64);
+            this.RAD_PRODUCTNAME.Name = "RAD_PRODUCTNAME";
+            this.RAD_PRODUCTNAME.Size = new System.Drawing.Size(108, 17);
+            this.RAD_PRODUCTNAME.TabIndex = 12;
+            this.RAD_PRODUCTNAME.TabStop = true;
+            this.RAD_PRODUCTNAME.Text = "Nombre Producto";
+            this.RAD_PRODUCTNAME.UseVisualStyleBackColor = true;
             // 
             // RAD_TIPO
             // 
             this.RAD_TIPO.AutoSize = true;
-            this.RAD_TIPO.Location = new System.Drawing.Point(6, 81);
+            this.RAD_TIPO.Location = new System.Drawing.Point(6, 82);
             this.RAD_TIPO.Name = "RAD_TIPO";
-            this.RAD_TIPO.Size = new System.Drawing.Size(47, 17);
-            this.RAD_TIPO.TabIndex = 2;
+            this.RAD_TIPO.Size = new System.Drawing.Size(46, 17);
+            this.RAD_TIPO.TabIndex = 13;
+            this.RAD_TIPO.TabStop = true;
             this.RAD_TIPO.Text = "Tipo";
             this.RAD_TIPO.UseVisualStyleBackColor = true;
             // 
@@ -297,11 +302,11 @@
         private System.Windows.Forms.Button bot_incluir;
         private System.Windows.Forms.Button bot_sincro;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label CONTADOR_REGISTROS;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.Button bot_buscar_ini;
-        private System.Windows.Forms.CheckBox RAD_TIPO;
+        private System.Windows.Forms.RadioButton RAD_TIPO;
+        private System.Windows.Forms.RadioButton RAD_PRODUCTNAME;
+        private System.Windows.Forms.RadioButton RAD_PRODUCT_ID;
     }
 }
