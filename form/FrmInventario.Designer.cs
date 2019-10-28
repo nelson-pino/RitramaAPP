@@ -32,9 +32,11 @@
             this.label15 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.CONTADOR_REGISTROS = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.RAD_TIPO = new System.Windows.Forms.RadioButton();
+            this.RAD_PRODUCTNAME = new System.Windows.Forms.RadioButton();
+            this.RAD_PRODUCT_ID = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.bot_borrar = new System.Windows.Forms.Button();
             this.bot_editar = new System.Windows.Forms.Button();
@@ -43,15 +45,15 @@
             this.txt_buscar = new System.Windows.Forms.TextBox();
             this.grid_iniciales = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.bot_buscar_ini = new System.Windows.Forms.Button();
-            this.RAD_PRODUCT_ID = new System.Windows.Forms.RadioButton();
-            this.RAD_PRODUCTNAME = new System.Windows.Forms.RadioButton();
-            this.RAD_TIPO = new System.Windows.Forms.RadioButton();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.grid_inventario = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_iniciales)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_inventario)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -64,7 +66,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(846, 98);
             this.panel1.TabIndex = 36;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel1_Paint);
             // 
             // label15
             // 
@@ -89,9 +90,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.bot_buscar_ini);
             this.tabPage1.Controls.Add(this.CONTADOR_REGISTROS);
-            this.tabPage1.Controls.Add(this.checkBox3);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.bot_borrar);
@@ -107,17 +106,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Inventario Inicial";
             this.tabPage1.UseVisualStyleBackColor = true;
-            this.tabPage1.Click += new System.EventHandler(this.TabPage1_Click);
             // 
-            // checkBox3
+            // CONTADOR_REGISTROS
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(46, 372);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(191, 17);
-            this.checkBox3.TabIndex = 9;
-            this.checkBox3.Text = "Si el producto existe sobreescribirlo";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.CONTADOR_REGISTROS.AutoSize = true;
+            this.CONTADOR_REGISTROS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CONTADOR_REGISTROS.Location = new System.Drawing.Point(545, 347);
+            this.CONTADOR_REGISTROS.Name = "CONTADOR_REGISTROS";
+            this.CONTADOR_REGISTROS.Size = new System.Drawing.Size(125, 13);
+            this.CONTADOR_REGISTROS.TabIndex = 8;
+            this.CONTADOR_REGISTROS.Text = "Numero de Registros";
             // 
             // groupBox1
             // 
@@ -131,15 +129,39 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de Busqueda:";
             // 
-            // CONTADOR_REGISTROS
+            // RAD_TIPO
             // 
-            this.CONTADOR_REGISTROS.AutoSize = true;
-            this.CONTADOR_REGISTROS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CONTADOR_REGISTROS.Location = new System.Drawing.Point(545, 347);
-            this.CONTADOR_REGISTROS.Name = "CONTADOR_REGISTROS";
-            this.CONTADOR_REGISTROS.Size = new System.Drawing.Size(125, 13);
-            this.CONTADOR_REGISTROS.TabIndex = 8;
-            this.CONTADOR_REGISTROS.Text = "Numero de Registros";
+            this.RAD_TIPO.AutoSize = true;
+            this.RAD_TIPO.Location = new System.Drawing.Point(6, 82);
+            this.RAD_TIPO.Name = "RAD_TIPO";
+            this.RAD_TIPO.Size = new System.Drawing.Size(46, 17);
+            this.RAD_TIPO.TabIndex = 13;
+            this.RAD_TIPO.TabStop = true;
+            this.RAD_TIPO.Text = "Tipo";
+            this.RAD_TIPO.UseVisualStyleBackColor = true;
+            // 
+            // RAD_PRODUCTNAME
+            // 
+            this.RAD_PRODUCTNAME.AutoSize = true;
+            this.RAD_PRODUCTNAME.Location = new System.Drawing.Point(6, 64);
+            this.RAD_PRODUCTNAME.Name = "RAD_PRODUCTNAME";
+            this.RAD_PRODUCTNAME.Size = new System.Drawing.Size(108, 17);
+            this.RAD_PRODUCTNAME.TabIndex = 12;
+            this.RAD_PRODUCTNAME.TabStop = true;
+            this.RAD_PRODUCTNAME.Text = "Nombre Producto";
+            this.RAD_PRODUCTNAME.UseVisualStyleBackColor = true;
+            // 
+            // RAD_PRODUCT_ID
+            // 
+            this.RAD_PRODUCT_ID.AutoSize = true;
+            this.RAD_PRODUCT_ID.Checked = true;
+            this.RAD_PRODUCT_ID.Location = new System.Drawing.Point(6, 46);
+            this.RAD_PRODUCT_ID.Name = "RAD_PRODUCT_ID";
+            this.RAD_PRODUCT_ID.Size = new System.Drawing.Size(77, 17);
+            this.RAD_PRODUCT_ID.TabIndex = 11;
+            this.RAD_PRODUCT_ID.TabStop = true;
+            this.RAD_PRODUCT_ID.Text = "Product Id.";
+            this.RAD_PRODUCT_ID.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -191,11 +213,14 @@
             // 
             this.txt_buscar.Location = new System.Drawing.Point(7, 49);
             this.txt_buscar.Name = "txt_buscar";
-            this.txt_buscar.Size = new System.Drawing.Size(595, 20);
+            this.txt_buscar.Size = new System.Drawing.Size(706, 20);
             this.txt_buscar.TabIndex = 1;
+            this.txt_buscar.TextChanged += new System.EventHandler(this.Txt_buscar_TextChanged);
             // 
             // grid_iniciales
             // 
+            this.grid_iniciales.AllowUserToAddRows = false;
+            this.grid_iniciales.AllowUserToDeleteRows = false;
             this.grid_iniciales.AllowUserToResizeRows = false;
             this.grid_iniciales.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.grid_iniciales.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
@@ -211,6 +236,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.textBox1);
+            this.tabPage2.Controls.Add(this.grid_inventario);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -219,49 +246,20 @@
             this.tabPage2.Text = "Consulta de Inventario";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // bot_buscar_ini
+            // textBox1
             // 
-            this.bot_buscar_ini.Location = new System.Drawing.Point(608, 46);
-            this.bot_buscar_ini.Name = "bot_buscar_ini";
-            this.bot_buscar_ini.Size = new System.Drawing.Size(105, 23);
-            this.bot_buscar_ini.TabIndex = 10;
-            this.bot_buscar_ini.Text = "Buscar";
-            this.bot_buscar_ini.UseVisualStyleBackColor = true;
-            this.bot_buscar_ini.Click += new System.EventHandler(this.bot_buscar_ini_Click);
+            this.textBox1.Location = new System.Drawing.Point(6, 29);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(558, 20);
+            this.textBox1.TabIndex = 1;
             // 
-            // RAD_PRODUCT_ID
+            // grid_inventario
             // 
-            this.RAD_PRODUCT_ID.AutoSize = true;
-            this.RAD_PRODUCT_ID.Checked = true;
-            this.RAD_PRODUCT_ID.Location = new System.Drawing.Point(6, 46);
-            this.RAD_PRODUCT_ID.Name = "RAD_PRODUCT_ID";
-            this.RAD_PRODUCT_ID.Size = new System.Drawing.Size(77, 17);
-            this.RAD_PRODUCT_ID.TabIndex = 11;
-            this.RAD_PRODUCT_ID.TabStop = true;
-            this.RAD_PRODUCT_ID.Text = "Product Id.";
-            this.RAD_PRODUCT_ID.UseVisualStyleBackColor = true;
-            // 
-            // RAD_PRODUCTNAME
-            // 
-            this.RAD_PRODUCTNAME.AutoSize = true;
-            this.RAD_PRODUCTNAME.Location = new System.Drawing.Point(6, 64);
-            this.RAD_PRODUCTNAME.Name = "RAD_PRODUCTNAME";
-            this.RAD_PRODUCTNAME.Size = new System.Drawing.Size(108, 17);
-            this.RAD_PRODUCTNAME.TabIndex = 12;
-            this.RAD_PRODUCTNAME.TabStop = true;
-            this.RAD_PRODUCTNAME.Text = "Nombre Producto";
-            this.RAD_PRODUCTNAME.UseVisualStyleBackColor = true;
-            // 
-            // RAD_TIPO
-            // 
-            this.RAD_TIPO.AutoSize = true;
-            this.RAD_TIPO.Location = new System.Drawing.Point(6, 82);
-            this.RAD_TIPO.Name = "RAD_TIPO";
-            this.RAD_TIPO.Size = new System.Drawing.Size(46, 17);
-            this.RAD_TIPO.TabIndex = 13;
-            this.RAD_TIPO.TabStop = true;
-            this.RAD_TIPO.Text = "Tipo";
-            this.RAD_TIPO.UseVisualStyleBackColor = true;
+            this.grid_inventario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grid_inventario.Location = new System.Drawing.Point(6, 55);
+            this.grid_inventario.Name = "grid_inventario";
+            this.grid_inventario.Size = new System.Drawing.Size(665, 388);
+            this.grid_inventario.TabIndex = 0;
             // 
             // FrmInventario
             // 
@@ -283,6 +281,9 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_iniciales)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_inventario)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -303,10 +304,10 @@
         private System.Windows.Forms.Button bot_sincro;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label CONTADOR_REGISTROS;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.Button bot_buscar_ini;
         private System.Windows.Forms.RadioButton RAD_TIPO;
         private System.Windows.Forms.RadioButton RAD_PRODUCTNAME;
         private System.Windows.Forms.RadioButton RAD_PRODUCT_ID;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridView grid_inventario;
     }
 }

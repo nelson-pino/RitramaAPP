@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using RitramaAPP.Clases;
+using System.Data;
 
 namespace RitramaAPP
 {
@@ -15,23 +16,69 @@ namespace RitramaAPP
         }
 
         readonly ProductsManager productmanager = new ProductsManager();
+        readonly InventarioManager inimanager = new InventarioManager();
         List<Item> items;
-        readonly string pathfile = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data\InventarioFisico.txt";
-        public IEnumerable<Item> itemFilter { get; set; }
+        public IEnumerable<Item> ItemFilter { get; set; }
+        DataView dv = new DataView();
+        DataTable dtinicial;
+        
         private void FrmInventario_Load(object sender, EventArgs e)
         {
+            dv.RowFilter = "";
+            AplicarEstilosGrid();
+            dtinicial = inimanager.ToListIni();
+            dv = dtinicial.DefaultView;
+            grid_iniciales.DataSource = dv;
+            CONTADOR_REGISTROS.Text = "Numero de Registros: " + Convert.ToString(dv.Count);
+            if (dv.Count > 0)
+            {
+                bot_sincro.Enabled = false;
+            }
+            else
+            {
+                bot_sincro.Enabled = true;
+            }
+        }
+        private void Bot_sincro_Click(object sender, EventArgs e)
+        {
+            items = inimanager.GetDataIni();
+            grid_iniciales.DataSource = items;
+            CONTADOR_REGISTROS.Text = "Numero de Registros: "+items.Count.ToString();
+            //buscar los nombre de los productos.
+            foreach (Item elemento in items)
+            {
+                elemento.Product_name = productmanager.GetProductName(elemento.Product_id);
+                elemento.Tipo = productmanager.GetProductType(elemento.Product_id);
+            }
+            inimanager.SaveDataIni(items); 
+        }
+        
+        private void Bot_buscar_ini_Click(object sender, EventArgs e)
+        {
+            
+        }
+        private void AplicarEstilosGrid() 
+        {
             grid_iniciales.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("product_id",60,"Product Id.","product_id",grid_iniciales);
+            AGREGAR_COLUMN_GRID("product_id", 60, "Product Id.", "product_id", grid_iniciales);
             AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name", grid_iniciales);
-            AGREGAR_COLUMN_GRID("product_type", 60, "Tipo", "Tipo", grid_iniciales);
+            AGREGAR_COLUMN_GRID("product_type", 60, "Tipo", "tipo", grid_iniciales);
             AGREGAR_COLUMN_GRID("cantidad", 60, "Cantidad Inicial", "cantidad", grid_iniciales);
             AGREGAR_COLUMN_GRID("width", 50, "Width", "width", grid_iniciales);
             AGREGAR_COLUMN_GRID("lenght", 50, "Lenght", "lenght", grid_iniciales);
             AGREGAR_COLUMN_GRID("msi", 50, "Msi", "msi", grid_iniciales);
-            AGREGAR_COLUMN_GRID("ubicacion", 50, "Ubicacion", "ubicacion", grid_iniciales);
-            AGREGAR_COLUMN_GRID("numero_id", 65, "RC/Roll Id", "unique_code", grid_iniciales);
-            CONTADOR_REGISTROS.Text = "Numero de Registros: 0";
-        }
+            AGREGAR_COLUMN_GRID("ubicacion", 50, "Ubicacion", "ubic", grid_iniciales);
+            AGREGAR_COLUMN_GRID("numero_id", 65, "RC/Roll Id", "documento", grid_iniciales);
+            //columnas de grid de inventario.
+            AGREGAR_COLUMN_GRID("product_id", 60, "Product Id.", "product_id", grid_inventario);
+            AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name", grid_inventario);
+            AGREGAR_COLUMN_GRID("product_type", 60, "Tipo", "Tipo", grid_inventario);
+            AGREGAR_COLUMN_GRID("cant_ini", 60, "Cantidad Inicial", "cant_ini", grid_inventario);
+            AGREGAR_COLUMN_GRID("cant_ent", 60, "Entradas", "cant_ent", grid_inventario);
+            AGREGAR_COLUMN_GRID("cant_sal", 60, "Salidas", "cant_sal", grid_inventario);
+            AGREGAR_COLUMN_GRID("cant_final", 60, "Existencia", "cant_final", grid_inventario);
+            
+        }        
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd, DataGridView grid)
         {
             DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
@@ -43,115 +90,22 @@ namespace RitramaAPP
             };
             grid.Columns.Add(col);
         }
-        private void TabPage1_Click(object sender, EventArgs e)
+
+        private void Txt_buscar_TextChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void Bot_sincro_Click(object sender, EventArgs e)
-        {
-            //extraer data del txt de inventario inicial
-            items = new List<Item>();
-            if (File.Exists(pathfile))
+            if (RAD_PRODUCT_ID.Checked)
             {
-                try
-                {
-                    using (StreamReader sr = new StreamReader(pathfile))
-                    {
-                        while (sr.Peek() >= 0)
-                        {
-                                string str;
-                                string[] strArray;
-                                str = sr.ReadLine();
-                                strArray = str.Split(',');
-                                string tipo = strArray[0];
-                                string product_id = strArray[1];
-                              
-                                Item elemento = new Item
-                                {
-                                    Product_id = strArray[1],
-                                    Tipo = strArray[0]
-
-                                };
-                                if (tipo == "m" || tipo == "rc")
-                                {
-                                    elemento.Width = Convert.ToDecimal(strArray[2]);
-                                    elemento.Lenght = Convert.ToDecimal(strArray[3]);
-                                    elemento.Msi = Convert.ToDecimal(strArray[4]);
-                                    elemento.Ubicacion = strArray[5];
-                                    elemento.Unique_code = strArray[6];
-                                    elemento.Cantidad = 1;
-                                }
-                                if (tipo == "g" || tipo == "r")
-                                {
-                                    elemento.Cantidad  = Convert.ToDecimal(strArray[2]);
-                                    elemento.Ubicacion = strArray[3];
-                                    elemento.Unique_code = "";
-                                }
-                                items.Add(elemento);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("no se encontro el archivo txt de inventario inicial" + ex);
-
-                }
+                dv.RowFilter = "product_id LIKE '%" + this.txt_buscar.Text + "%'";
             }
-            //buscar los nombre de los productos.
-            foreach (Item elemento in items) 
+            if (RAD_PRODUCTNAME.Checked)
             {
-                elemento.Product_name = productmanager.GetProductName(elemento.Product_id);
-                elemento.Tipo = productmanager.GetProductType(elemento.Product_id);
-            }
-
-            grid_iniciales.DataSource = items;
-            CONTADOR_REGISTROS.Text = "Numero de Registros: "+items.Count.ToString();
-            
-        }
-     
-        private void bot_buscar_ini_Click(object sender, EventArgs e)
-        {
-            if (RAD_PRODUCT_ID.Checked) 
-            {
-                itemFilter = from g in items
-                             where g.Product_id.Contains(txt_buscar.Text.ToUpper())
-                             select g;
-
-            }
-            if (RAD_PRODUCTNAME.Checked) 
-            {
-                itemFilter = from g in items
-                             where g.Product_name.Contains(txt_buscar.Text.ToUpper())
-                             select g;
+                dv.RowFilter = "product_name LIKE '%" + this.txt_buscar.Text + "%'";
             }
             if (RAD_TIPO.Checked)
             {
-                itemFilter = from g in items
-                             where g.Tipo.Contains(txt_buscar.Text.ToUpper())
-                             select g;
+                dv.RowFilter = "tipo LIKE '%" + this.txt_buscar.Text + "%'";
             }
-            
-            grid_iniciales.DataSource = itemFilter.ToList();
-        }
-        public class Item
-        {
-            public string Tipo { get; set; }
-            public string Product_id { get; set; }
-            public string Product_name { get; set; }
-            public decimal Width { get; set; }
-            public decimal Lenght { get; set; }
-            public decimal Msi { get; set; }
-            public string Ubicacion { get; set; }
-            public string Unique_code { get; set; }
-            public decimal Cantidad { get; set; }
+            CONTADOR_REGISTROS.Text = "Numero de Registros: " + Convert.ToString(dv.Count);
         }
     }
-    
-
 }

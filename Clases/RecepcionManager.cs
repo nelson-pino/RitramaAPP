@@ -92,29 +92,29 @@ namespace RitramaAPP.Clases
         public void Add(ClassRecepcion datos, Boolean message)
         {
             CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_INSERT_DOCS_RECEPCIONES,
-                SetParametersAdd(datos), R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_INSERT_RECEPCIONES_OK,
-                R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_INSERT_RECEPCIONES_FAIL, message);
+                SetParametersAdd(datos), R.ERROR_MESSAGES.MODULO_RECEPCIONES.MESSAGE_INSERT_RECEPCIONES_OK,
+                R.ERROR_MESSAGES.MODULO_RECEPCIONES.MESSAGE_INSERT_RECEPCIONES_FAIL, message);
         }
         public void Update(ClassRecepcion datos, bool msg_onoff)
         {
             CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_UPDATE_ORDEN_RECEPCION,
-            SetParametersUpdate(datos), R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_UPDATE_RECEPCIONES_OK,
-            R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_UPDATE_RECEPCIONES_FAIL, msg_onoff);
+            SetParametersUpdate(datos), R.ERROR_MESSAGES.MODULO_RECEPCIONES.MESSAGE_UPDATE_RECEPCIONES_OK,
+            R.ERROR_MESSAGES.MODULO_RECEPCIONES.MESSAGE_UPDATE_RECEPCIONES_FAIL, msg_onoff);
         }
         public void LoadRecepciones()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.RECEPCIONES.SQL_QUERY_SELECT_ORDENES_RECEPCION,
-                darecepcion, "dtrecepcion", R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_RECEPCIONES.MESSAGE_SELECT_LOADRECEPCIONES_FAIL);
+                darecepcion, "dtrecepcion", R.ERROR_MESSAGES.MODULO_RECEPCIONES.MESSAGE_SELECT_LOADRECEPCIONES_FAIL);
         }
         public void LoadProducts()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_SELECT_PRODUCTS,
-                daproducto, "dtproducto", R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PRODUCTOS.MESSAGE_SELECT_LOADPRODUCTOS_FAIL);
+                daproducto, "dtproducto", R.ERROR_MESSAGES.MODULO_PRODUCTOS.MESSAGE_SELECT_LOADPRODUCTOS_FAIL);
         }
         public void LoadProviders()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PROVIDERS.SQL_QUERY_SELECT_PROVEEDORES,
-               daprovider, "dtprovider", R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PROVEEDORES.MESSAGE_SELECT_LOADPROVEEDORES_FAIL);
+               daprovider, "dtprovider", R.ERROR_MESSAGES.MODULO_PROVEEDORES.MESSAGE_SELECT_LOADPROVEEDORES_FAIL);
         }
         public List<ClassRecepcion> DownloadDataMateriaPrimaTxtMovil()
         {

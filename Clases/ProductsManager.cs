@@ -52,12 +52,12 @@ namespace RitramaAPP.Clases
         public void Add(ClassProduct datos,Boolean mensajeok)
         {
             CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_INSERT_PRODUCT,
-                SetParameters(datos), mensajeok, R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PRODUCTOS.MESSAGE_ADD_PRODUCTS_ERROR);
+                SetParameters(datos), mensajeok, R.ERROR_MESSAGES.MODULO_PRODUCTOS.MESSAGE_ADD_PRODUCTS_ERROR);
         }
         public void Update(ClassProduct datos)
         {
             CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_UPDATE_PRODUCTS,
-                SetParameters(datos), true, R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PRODUCTOS.MESSAGE_UPDATE_PRODUCTS_ERROR);
+                SetParameters(datos), true, R.ERROR_MESSAGES.MODULO_PRODUCTOS.MESSAGE_UPDATE_PRODUCTS_ERROR);
         }
         public List<SqlParameter> SetParameters(ClassProduct datos)
         {

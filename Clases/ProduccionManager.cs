@@ -119,12 +119,12 @@ namespace RitramaAPP.Clases
         {
             // encabeza de la orden de corte
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCCION.SQL_SELECT_ORDEN_CORTE,
-            daordenes, "dtordenes", R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_ADD_ORDEN_ERROR_FAIL_HEADER);
+            daordenes, "dtordenes", R.ERROR_MESSAGES.PRODUCCION.MESSAGE_ADD_ORDEN_ERROR_FAIL_HEADER);
 
             //detalle de la orden de corte.
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME,
             R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_SELECT_ROLLOS_CORTADOS, darenglones, "dtrenglones",
-            R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_LOAD_ROLLOS_CORTADOS_ERROR_FAIL);
+            R.ERROR_MESSAGES.PRODUCCION.MESSAGE_LOAD_ROLLOS_CORTADOS_ERROR_FAIL);
 
             return true;
 
@@ -132,26 +132,26 @@ namespace RitramaAPP.Clases
         public void CargarProducts()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_SELECT_PRODUCT_ALL,
-                    daproducts, "dtproducts", R.MESSAGES_TEXT_SYSTEM_MODULES.MODULO_PRODUCTOS.MESSAGE_SELECT_LOADPRODUCTOS_FAIL);
+                    daproducts, "dtproducts", R.ERROR_MESSAGES.MODULO_PRODUCTOS.MESSAGE_SELECT_LOADPRODUCTOS_FAIL);
         }
         public void CargarRollsId()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME,
             R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_SELECT_ROLLID, darollid, "dtrollid",
-            R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_LOAD_ROLLID_ERROR_FAIL);
+            R.ERROR_MESSAGES.PRODUCCION.MESSAGE_LOAD_ROLLID_ERROR_FAIL);
         }
         public void Add(Orden datos, Boolean ismessage)
         {
             //ADD HEADER DE ORDEN DE PRODUCCION A LA BASE DE DATOS.
             CommandSqlGeneric(R.SQL.DATABASE.NAME,
             R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_INSERT_MASTER_OC, SetParametersAddHeaderOrden(datos),
-            ismessage, R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_ADD_ORDEN_ERROR_FAIL_HEADER);
+            ismessage, R.ERROR_MESSAGES.PRODUCCION.MESSAGE_ADD_ORDEN_ERROR_FAIL_HEADER);
             //ADD ITEMS-DETAILS DE ORDEN DE PRODUCCION A LA BASE DE DATOS.
             foreach (Roll_Details item in datos.rollos)
             {
                 CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_INSERT_DETAILS_OC,
                 SetParametersAddOrdenDetails(item), ismessage,
-                R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_ADD_ORDEN_ERROR_FAIL_DETAILS);
+                R.ERROR_MESSAGES.PRODUCCION.MESSAGE_ADD_ORDEN_ERROR_FAIL_DETAILS);
             }
         }
         public void Update_INSERT(Orden datos, Boolean ismessage)
@@ -159,13 +159,13 @@ namespace RitramaAPP.Clases
             //ACTUALIZAR HEADER DE ORDEN DE PRODUCCION.
             CommandSqlGeneric(R.SQL.DATABASE.NAME,
             R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_UPDATE_ORDEN_PRODUCCION, SetParametersUpdateHeaderOrden(datos),
-            ismessage, R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_UPDATE__ERROR_HEADER);
+            ismessage, R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE__ERROR_HEADER);
             //INSERTA NUEVO RENGLONES EN CAMBIO Q CAMBIE LA DATA DE LA ORDEN ITEMS-DETAILS DE ORDEN DE PRODUCCION A LA BASE DE DATOS.
             foreach (Roll_Details item in datos.rollos)
             {
                 CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_INSERT_DETAILS_OC,
                 SetParametersAddOrdenDetails(item), ismessage,
-                R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_ADD_ORDEN_ERROR_FAIL_DETAILS);
+                R.ERROR_MESSAGES.PRODUCCION.MESSAGE_ADD_ORDEN_ERROR_FAIL_DETAILS);
             }
         }
         public void Update_Only(Orden datos, Boolean ismessage)
@@ -173,14 +173,14 @@ namespace RitramaAPP.Clases
             //ACTUALIZAR HEADER DE ORDEN DE PRODUCCION.
             CommandSqlGeneric(R.SQL.DATABASE.NAME,
             R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_UPDATE_ORDEN_PRODUCCION, SetParametersUpdateHeaderOrden(datos),
-            ismessage, R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_UPDATE__ERROR_HEADER);
+            ismessage, R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE__ERROR_HEADER);
 
             //INSERTA NUEVO RENGLONES EN CAMBIO Q CAMBIE LA DATA DE LA ORDEN ITEMS-DETAILS DE ORDEN DE PRODUCCION A LA BASE DE DATOS.
             foreach (Roll_Details item in datos.rollos)
             {
                 CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_UPDATE_ROLLSDETAILS_RENGLON,
                 SetParametersUpdateOrdenDetails(item), ismessage,
-                R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_UPDATE_ERROR_ORDER_ROLLSDETAIL);
+                R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_ERROR_ORDER_ROLLSDETAIL);
             }
         }
         public Boolean SaveDataDetailsRolls(List<Roll_Details> rollos)
@@ -397,7 +397,7 @@ namespace RitramaAPP.Clases
         {
             CommandSqlGenericOneParameter(R.SQL.DATABASE.NAME, R.
                 SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_DELETE_ORDEN_ROLLDETAILS, numero, false,
-                R.MESSAGES_TEXT_SYSTEM_MODULES.PRODUCCION.MESSAGE_DELETE_ORDER_ROLLSDETAIL);
+                R.ERROR_MESSAGES.PRODUCCION.MESSAGE_DELETE_ORDER_ROLLSDETAIL);
         }
         public Roll_Details GetDataUniqueCode(string rc) 
         {

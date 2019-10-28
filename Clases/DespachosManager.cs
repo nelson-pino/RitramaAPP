@@ -104,14 +104,14 @@ namespace RitramaAPP.Clases
             //ADD HEADER DE ORDEN DE PRODUCCION A LA BASE DE DATOS.
             CommandSqlGeneric(R.SQL.DATABASE.NAME,
             R.SQL.QUERY_SQL.DESPACHOS.SQL_INSERT_HEADER_ORDEN_DESPACHO, SetParametersAddHeaderDespacho(datos),
-            ismessage, R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_INSERT_ERROR_ADD_HEADER_DESPACHOS);
+            ismessage, R.ERROR_MESSAGES.DESPACHOS.MESSAGE_INSERT_ERROR_ADD_HEADER_DESPACHOS);
 
             //ADD ITEMS-DETAILS DE ORDEN DE PRODUCCION A LA BASE DE DATOS.
             foreach (Items_despacho item in datos.items)
             {
                 CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_INSERT_HEADER_DETAILS_DESPACHO,
                 SetParametersAddDetailsDespacho(item,datos.numero), ismessage,
-                R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_INSERT_ERROR_ADD_DETAILS_DESPACHOS);
+                R.ERROR_MESSAGES.DESPACHOS.MESSAGE_INSERT_ERROR_ADD_DETAILS_DESPACHOS);
             }
         }
         public List<SqlParameter> SetParametersAddDetailsDespacho(Items_despacho datos,string numero)
@@ -156,41 +156,41 @@ namespace RitramaAPP.Clases
         public void GetProducto()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_PRODUCTOS,
-            daproducto, "dtproducto", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_PRODUCTS);
+            daproducto, "dtproducto", R.ERROR_MESSAGES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_PRODUCTS);
         }
         public void Getchofer()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_CHEFERES,
-            dachofer, "dtchofer", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_CHOFERES);
+            dachofer, "dtchofer", R.ERROR_MESSAGES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_CHOFERES);
         }
         private void GetCamion()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_CAMION,
-            dacamion, "dtcamion", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_CAMIONES);
+            dacamion, "dtcamion", R.ERROR_MESSAGES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_CAMIONES);
         }
         private void GetTransporte()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_TRANSPORTE,
-            datransporte, "dttransporte", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_TRANSPORTE);
+            datransporte, "dttransporte", R.ERROR_MESSAGES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_TRANSPORTE);
         }
         private void GetVendedores()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_VENDEDORES,
-            davendor, "dtvendor", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_VENDEDOR);
+            davendor, "dtvendor", R.ERROR_MESSAGES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_VENDEDOR);
         }
         private void GetCustomers()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_CUSTOMERS,
-            dacustomer, "dtcustomer", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_CUSTOMERS);
+            dacustomer, "dtcustomer", R.ERROR_MESSAGES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_CUSTOMERS);
         }
         public void GetDespachos()
         {
             //TABLA MASTER
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_DESPACHOS_HEADER,
-            dadespacho, "dtdespacho", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_HEADER_DESPACHOS);
+            dadespacho, "dtdespacho", R.ERROR_MESSAGES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_HEADER_DESPACHOS);
             //TABLA DETAILS
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_DESPACHOS_DETAILS,
-            daitems, "dtitems", R.MESSAGES_TEXT_SYSTEM_MODULES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_DETAILS_DESPACHOS);
+            daitems, "dtitems", R.ERROR_MESSAGES.DESPACHOS.MESSAGE_SELECT_ERROR_LOAD_DETAILS_DESPACHOS);
         }
         public Boolean RelacionesDS()
         {
