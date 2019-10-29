@@ -23,7 +23,7 @@ namespace RitramaAPP
         public int Cant_cortados { get; set; }
         public decimal Widht_cortados { get; set; }
         public decimal Lenght_cortados { get; set; }
-        public decimal msi_cortados { get; set; }
+        public decimal Msi_cortados { get; set; }
         public Boolean Anulada { get; set; }
         public Boolean Procesado { get; set; }
         public int Status { get; set; }

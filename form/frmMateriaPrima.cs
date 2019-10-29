@@ -176,6 +176,7 @@ namespace RitramaAPP
             recepcion.Palet_number = txt_numero_palet.Text;
             recepcion.Palet_cant = Convert.ToInt32(txt_cant_palet.Text);
             recepcion.Palet_paginas = Convert.ToInt32(txt_paginas.Text);
+            recepcion.Disponible = true;
             // Validar la entidad documento recepcion.
             if (recepcion.Orden == string.Empty)
             {

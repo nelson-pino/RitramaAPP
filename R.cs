@@ -55,9 +55,9 @@
                         "WHERE OrderPurchase=@p1";
                     public static string SQL_QUERY_INSERT_DOCS_RECEPCIONES = "INSERT INTO " + R.SQL.TABLES.TABLE_RECEPCION +
                     "(OrderPurchase,Part_Number,Width,Lenght,Roll_Id,Proveedor_Id,Ubicacion,Core,Splice,Anulado,fecha_reg,hora_reg," +
-                        "fecha_pro,master,resma,graphics,embarque,palet_num,palet_cant,palet_pag,num_sincro,registro_movil) " +
+                        "fecha_pro,master,resma,graphics,embarque,palet_num,palet_cant,palet_pag,num_sincro,registro_movil,disponible) " +
                         "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14," +
-                        "@p15,@p16,@p17,@p18,@p19,@p20,@p21,@p22)";
+                        "@p15,@p16,@p17,@p18,@p19,@p20,@p21,@p22,@p23)";
                     public static string SQL_QUERY_VERIFY_ORDEN_REPEAT = "SELECT count(*) FROM OrdenRecepcion WHERE " +
                         "OrderPurchase=@p1";
                 }
@@ -72,8 +72,8 @@
                     public static string SQL_QUERY_INSERT_MASTER_OC = "INSERT orden_corte (numero,fecha,fecha_produccion,product_id,rollid_1,width_1,lenght_1," +
                         "rollid_2,width_2,lenght_2,cant_cortado,width_cortado,lenght_cortado,msi_cortado,anulada,Procesado) " +
                         "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14,@p15,@p16) ";
-                    public static string SQL_QUERY_INSERT_DETAILS_OC = "INSERT rolls_details (numero,product_id,product_name,roll_number,unique_code,splice,width,large,msi,roll_id,code_person,status) " +
-                        "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12)";
+                    public static string SQL_QUERY_INSERT_DETAILS_OC = "INSERT rolls_details (numero,product_id,product_name,roll_number,unique_code,splice,width,large,msi,roll_id,code_person,status,disponible) " +
+                        "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13)";
                     public static string SQL_QUERY_SELECT_ROLLID = "SELECT a.roll_id,a.part_number,b.product_name,a.width,a.lenght FROM OrdenRecepcion a LEFT JOIN producto b ON a.part_number = b.product_id";
                     public static string SQL_QUERY_SELECT_ROLLOS_CORTADOS = "SELECT numero,product_id,product_name,roll_number,unique_code,splice,width,large,msi,roll_id,code_person,status FROM rolls_details";
                     public static string SQL_QUERY_INSERT_ROLLID = "INSERT INTO roll_id (numero,roll_id) VALUES (@P1,@p2)";
@@ -109,7 +109,11 @@
                     public static string SQL_SELECT_INVENTARIO_QUERY_MASTER = "SELECT a.Product_ID,a.Product_Name," +
                     "case when a.MasterRolls = 1 then 'Master' when a.rollo_cortado = 1 then 'Rollo Cortado' " +
                     "when a.Graphics = 1 then 'Graphics' when a.Resmas = 1 then 'Resma' else 'sin tipo' end as tipo," +
-                    "ISNULL((SELECT sum(cantidad) from iniciales b where a.Product_ID = b.product_id),0) as cant_ini FROM producto a";
+                    "ISNULL((SELECT sum(cantidad) from iniciales b where a.Product_ID = b.product_id),0) as cant_ini," +
+                    "CASE WHEN a.MasterRolls=1 or a.Resmas=1 or a.Graphics=1 THEN ISNULL((SELECT CASE WHEN b.master= 1 THEN count(*) " +
+                    "ELSE SUM(b.palet_cant) END FROM OrdenRecepcion b where a.Product_ID = b.Part_Number " +
+                    "GROUP BY b.Part_Number, b.master),0) ELSE ISNULL((select count(*) from rolls_details b " +
+                    "where b.product_id = a.Product_ID group by b.product_id),0) END AS cant_ENT FROM producto a";
                 }
             }
         }

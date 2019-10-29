@@ -331,7 +331,7 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Decimal, Value = datos.Cant_cortados},
                 new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.Decimal, Value = datos.Widht_cortados},
                 new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.Decimal, Value = datos.Lenght_cortados},
-                new SqlParameter() {ParameterName = "@p14", SqlDbType = SqlDbType.Decimal, Value = datos.msi_cortados},
+                new SqlParameter() {ParameterName = "@p14", SqlDbType = SqlDbType.Decimal, Value = datos.Msi_cortados},
                 new SqlParameter() {ParameterName = "@p15", SqlDbType = SqlDbType.Bit, Value = datos.Anulada},
                 new SqlParameter() {ParameterName = "@p16", SqlDbType = SqlDbType.Bit, Value = datos.Procesado}
             };
@@ -353,6 +353,7 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.NVarChar, Value = datos.Roll_id},
                 new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.NVarChar, Value = datos.Code_Person},
                 new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.NVarChar, Value = datos.Status},
+                new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.Bit, Value = datos.Disponible}
             };
             return sp;
         }
@@ -369,6 +370,7 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.Decimal, Value = datos.Large},
                 new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.Decimal, Value = datos.Msi},
                 new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.NVarChar, Value = datos.Roll_id},
+                new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.Bit, Value = datos.Disponible}
             };
             return sp;
         }
@@ -389,7 +391,7 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Int, Value = datos.Cant_cortados},
                 new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.Decimal, Value = datos.Widht_cortados},
                 new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.Decimal, Value = datos.Lenght_cortados},
-                new SqlParameter() {ParameterName = "@p14", SqlDbType = SqlDbType.Decimal, Value = datos.msi_cortados}
+                new SqlParameter() {ParameterName = "@p14", SqlDbType = SqlDbType.Decimal, Value = datos.Msi_cortados}
             };
             return sp;
         }

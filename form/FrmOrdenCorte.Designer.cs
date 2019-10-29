@@ -286,7 +286,7 @@
             this.grid_rollos.Name = "grid_rollos";
             this.grid_rollos.RowHeadersWidth = 25;
             this.grid_rollos.RowTemplate.Height = 24;
-            this.grid_rollos.Size = new System.Drawing.Size(814, 246);
+            this.grid_rollos.Size = new System.Drawing.Size(814, 281);
             this.grid_rollos.TabIndex = 17;
             // 
             // txt_fecha_producc

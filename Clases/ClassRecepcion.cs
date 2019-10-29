@@ -31,5 +31,6 @@ namespace RitramaAPP
         public string Tipo { get; set; }
         public int Num_sincro { get; set; }
         public bool Registro_movil { get; set; }
+        public Boolean Disponible { get; set; }
     }
 }

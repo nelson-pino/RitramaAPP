@@ -293,7 +293,7 @@ namespace RitramaAPP
                 Cant_cortados = Convert.ToInt32(txt_cant_cortado.Text),
                 Widht_cortados = Convert.ToDecimal(txt_width_cortado.Text),
                 Lenght_cortados = Convert.ToDecimal(txt_lenght_cortado.Text),
-                msi_cortados = Convert.ToDecimal(txt_msi_cortado.Text),
+                Msi_cortados = Convert.ToDecimal(txt_msi_cortado.Text),
                 Anulada = false,
                 Procesado = false
             };
@@ -314,6 +314,7 @@ namespace RitramaAPP
                     Roll_id = grid_rollos.Rows[fila].Cells[8].Value.ToString(),
                     Code_Person = grid_rollos.Rows[fila].Cells[9].Value.ToString(),
                     Status = grid_rollos.Rows[fila].Cells[10].Value.ToString(),
+                    Disponible = true
                 };
                 orden.rollos.Add(rollo_cortado);
             }

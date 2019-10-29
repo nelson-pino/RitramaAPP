@@ -17,5 +17,6 @@ namespace RitramaAPP.Clases
         public string Code_Person { get; set; }
         public string Unique_code { get; set; }
         public string Status { get; set; }
+        public Boolean Disponible { get; set; }
     }
 }
