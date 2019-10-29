@@ -156,6 +156,12 @@ namespace RitramaAPP.Clases
             return CommandSqlGenericDt(R.SQL.DATABASE.NAME,R.SQL.QUERY_SQL.INVENTARIO.SQL_SELECT_INVENTARIO_INICIALES,
                 R.ERROR_MESSAGES.INVENTARIO.MESSAGE_SELECT_INICIALES_ERROR);
         }
+        public DataTable CargarInventario() 
+        {
+            return  CommandSqlGenericDt(R.SQL.DATABASE.NAME,R.
+                SQL.QUERY_SQL.INVENTARIO.SQL_SELECT_INVENTARIO_QUERY_MASTER,
+                R.ERROR_MESSAGES.INVENTARIO.MESSAGE_CARGAR_INVENTARIO_ERROR);
+        }
     }
     public class Item
     {

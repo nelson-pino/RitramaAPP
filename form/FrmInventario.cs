@@ -14,23 +14,28 @@ namespace RitramaAPP
         {
             InitializeComponent();
         }
-
         readonly ProductsManager productmanager = new ProductsManager();
         readonly InventarioManager inimanager = new InventarioManager();
         List<Item> items;
         public IEnumerable<Item> ItemFilter { get; set; }
-        DataView dv = new DataView();
+        DataView dvini = new DataView();
+        DataView dvinventario = new DataView();
         DataTable dtinicial;
+        DataTable dtinventario;
         
         private void FrmInventario_Load(object sender, EventArgs e)
         {
-            dv.RowFilter = "";
+            dvini.RowFilter = "";
             AplicarEstilosGrid();
             dtinicial = inimanager.ToListIni();
-            dv = dtinicial.DefaultView;
-            grid_iniciales.DataSource = dv;
-            CONTADOR_REGISTROS.Text = "Numero de Registros: " + Convert.ToString(dv.Count);
-            if (dv.Count > 0)
+            dvini = dtinicial.DefaultView;
+            grid_iniciales.DataSource = dvini;
+            CONTADOR_REGISTROS.Text = "Numero de Registros: " + Convert.ToString(dvini.Count);
+            FormOptions();
+        }
+        private void FormOptions() 
+        {
+            if (dvini.Count > 0)
             {
                 bot_sincro.Enabled = false;
             }
@@ -53,10 +58,6 @@ namespace RitramaAPP
             inimanager.SaveDataIni(items); 
         }
         
-        private void Bot_buscar_ini_Click(object sender, EventArgs e)
-        {
-            
-        }
         private void AplicarEstilosGrid() 
         {
             grid_iniciales.AutoGenerateColumns = false;
@@ -72,12 +73,11 @@ namespace RitramaAPP
             //columnas de grid de inventario.
             AGREGAR_COLUMN_GRID("product_id", 60, "Product Id.", "product_id", grid_inventario);
             AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name", grid_inventario);
-            AGREGAR_COLUMN_GRID("product_type", 60, "Tipo", "Tipo", grid_inventario);
+            AGREGAR_COLUMN_GRID("product_type", 60, "Tipo", "tipo", grid_inventario);
             AGREGAR_COLUMN_GRID("cant_ini", 60, "Cantidad Inicial", "cant_ini", grid_inventario);
             AGREGAR_COLUMN_GRID("cant_ent", 60, "Entradas", "cant_ent", grid_inventario);
             AGREGAR_COLUMN_GRID("cant_sal", 60, "Salidas", "cant_sal", grid_inventario);
             AGREGAR_COLUMN_GRID("cant_final", 60, "Existencia", "cant_final", grid_inventario);
-            
         }        
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd, DataGridView grid)
         {
@@ -95,17 +95,43 @@ namespace RitramaAPP
         {
             if (RAD_PRODUCT_ID.Checked)
             {
-                dv.RowFilter = "product_id LIKE '%" + this.txt_buscar.Text + "%'";
+                dvini.RowFilter = "product_id LIKE '%" + this.txt_buscar.Text + "%'";
             }
             if (RAD_PRODUCTNAME.Checked)
             {
-                dv.RowFilter = "product_name LIKE '%" + this.txt_buscar.Text + "%'";
+                dvini.RowFilter = "product_name LIKE '%" + this.txt_buscar.Text + "%'";
             }
             if (RAD_TIPO.Checked)
             {
-                dv.RowFilter = "tipo LIKE '%" + this.txt_buscar.Text + "%'";
+                dvini.RowFilter = "tipo LIKE '%" + this.txt_buscar.Text + "%'";
             }
-            CONTADOR_REGISTROS.Text = "Numero de Registros: " + Convert.ToString(dv.Count);
+            CONTADOR_REGISTROS.Text = "Numero de Registros: " + Convert.ToString(dvini.Count);
+        }
+
+        private void BOT_UPDATE_INVENTARIO_Click(object sender, EventArgs e)
+        {
+            dtinventario = inimanager.CargarInventario();
+            dvinventario = dtinventario.DefaultView;
+            grid_inventario.DataSource = dvinventario;
+            CONTA_REGISTER_INVENTARIO.Text = "Numero de Registros: "  + dvinventario.Count.ToString();
+            
+        }
+
+        private void Txt_buscar_inventario_TextChanged(object sender, EventArgs e)
+        {
+            if(radinv_productid.Checked)
+            {
+                dvinventario.RowFilter = "product_id LIKE '%" + this.txt_buscar_inventario.Text + "%'";
+            }
+            if (radinv_productName.Checked)
+            {
+                dvinventario.RowFilter = "product_name LIKE '%" + this.txt_buscar_inventario.Text + "%'";
+            }
+            if (radinv_tipo.Checked)
+            {
+                dvinventario.RowFilter = "tipo LIKE '%" + this.txt_buscar_inventario.Text + "%'";
+            }
+            CONTA_REGISTER_INVENTARIO.Text = "Numero de Registros: " + Convert.ToString(dvinventario.Count);
         }
     }
 }
