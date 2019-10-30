@@ -93,6 +93,7 @@
             this.txt_numero_oc.Size = new System.Drawing.Size(114, 20);
             this.txt_numero_oc.TabIndex = 0;
             this.txt_numero_oc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_numero_oc_KeyPress);
+            this.txt_numero_oc.Validating += new System.ComponentModel.CancelEventHandler(this.Txt_numero_oc_Validating);
             // 
             // label1
             // 
@@ -521,8 +522,8 @@
             this.txt_width_cortado.ReadOnly = true;
             this.txt_width_cortado.Size = new System.Drawing.Size(128, 20);
             this.txt_width_cortado.TabIndex = 13;
-            this.txt_width_cortado.TextChanged += new System.EventHandler(this.Txt_width_cortado_TextChanged);
             this.txt_width_cortado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_width_cortado_KeyPress);
+            this.txt_width_cortado.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_width_cortado_KeyUp);
             // 
             // label14
             // 
@@ -542,8 +543,8 @@
             this.txt_lenght_cortado.ReadOnly = true;
             this.txt_lenght_cortado.Size = new System.Drawing.Size(128, 20);
             this.txt_lenght_cortado.TabIndex = 14;
-            this.txt_lenght_cortado.TextChanged += new System.EventHandler(this.Txt_lenght_cortado_TextChanged);
             this.txt_lenght_cortado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_lenght_cortado_KeyPress);
+            this.txt_lenght_cortado.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_lenght_cortado_KeyUp);
             // 
             // label16
             // 

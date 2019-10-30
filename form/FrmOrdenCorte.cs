@@ -69,6 +69,7 @@ namespace RitramaAPP
             ParentRow["width_cortado"] = "0";
             ParentRow["lenght_cortado"] = "0";
             ParentRow.EndEdit();
+            txt_width_cortado.Text = "0";
             txt_numero_oc.Focus();
             ContadorRegistros();
             OptionsMenu(0);
@@ -251,9 +252,49 @@ namespace RitramaAPP
         private void ToSaveAdd()
         {
             //validar el formulario
-
+            if(txt_numero_oc.Text.Length == 0 || txt_numero_oc.Text == "0") 
+            {
+                MessageBox.Show("introduzca el numero de la orden");
+                return; 
+            }
+            if (txt_rollid_1.Text.Length == 0)
+            {
+                MessageBox.Show("introduzca el numero de Roll ID.");
+                return;
+            }
+            if (txt_product_id.Text.Length == 0)
+            {
+                MessageBox.Show("introduzca el product id.");
+                return;
+            }
+            if ( Convert.ToDouble(txt_cant_cortado.Text) <= 0) 
+            {
+                MessageBox.Show("introduzca la cantidad a producir.");
+                return;
+            }
+            if (Convert.ToDouble(txt_width_cortado.Text) <= 0)
+            {
+                MessageBox.Show("introduzca el width de la cantidad a producir.");
+                return;
+            }
+            if (Convert.ToDouble(txt_lenght_cortado.Text) <= 0)
+            {
+                MessageBox.Show("introduzca el lenght de la cantidad a producir.");
+                return;
+            }
+            if (grid_rollos.Rows.Count == 0) 
+            {
+                MessageBox.Show("No puede grabar una orden sin renglones...");
+                return;
+            }
             //llenar el encabezado de la orden de produccion
             managerorden.Add(CrearObjectOrden(), false);
+            //actualizar los rollid.
+            managerorden.UpdateRollId(orden.Rollid_1);
+            if(txt_rollid_2.Text.Length > 0) 
+            {
+                managerorden.UpdateRollId(orden.Rollid_2);
+            }
             OptionsMenu(1);
             OptionsForm(1);
             EditMode = 0;
@@ -452,36 +493,39 @@ namespace RitramaAPP
         }
         private void Bot_buscar_rollid1_Click(object sender, EventArgs e)
         {
-            using (FrmBuscarRollid rollid = new FrmBuscarRollid())
-            {
-                rollid.Dtrollid = ds.Tables["dtrollid"];
-                rollid.ShowDialog();
-                txt_rollid_1.Text = rollid.GetrollId;
-                txt_width1_rollid.Text = rollid.GetValueWidth;
-                txt_lenght1_rollid.Text = rollid.GetvalueLenght;
-                txt_product_id.Text = rollid.Getproduct_id;
-                txt_product_name.Text = rollid.GetProduct_name;
-            }
+            CargarRollIDNumber(0);
         }
         private void Bot_buscar_rollid2_Click(object sender, EventArgs e)
         {
+            CargarRollIDNumber(1);
+        }
+        private void CargarRollIDNumber(int state) 
+        {
             using (FrmBuscarRollid rollid = new FrmBuscarRollid())
             {
-                rollid.Dtrollid = ds.Tables["dtrollid"];
+                rollid.Dtrollid = managerorden.CargarRollsId();
                 rollid.ShowDialog();
-                txt_rollid_2.Text = rollid.GetrollId;
-                txt_width2_rollid.Text = rollid.GetValueWidth;
-                txt_lenght2_rollid.Text = rollid.GetvalueLenght;
+               
+                if (state == 0)
+                {
+                    txt_rollid_1.Text = rollid.GetrollId;
+                    txt_width1_rollid.Text = rollid.GetValueWidth;
+                    txt_lenght1_rollid.Text = rollid.GetvalueLenght;
+                    txt_product_id.Text = rollid.Getproduct_id;
+                    txt_product_name.Text = rollid.GetProduct_name;
+                }
+                else 
+                {
+                    txt_rollid_2.Text = rollid.GetrollId;
+                    txt_width2_rollid.Text = rollid.GetValueWidth;
+                    txt_lenght2_rollid.Text = rollid.GetvalueLenght;
+                }
             }
-        }
-        private void Txt_lenght_cortado_TextChanged(object sender, EventArgs e)
-        {
-            CALCULAR_MSI();
         }
         private void CALCULAR_MSI()
         {
-            if (EditMode != 0 || txt_lenght_cortado.Text != string.Empty ||
-                txt_width_cortado.Text != string.Empty)
+            if (EditMode != 0 || Convert.ToDouble(txt_lenght_cortado.Text)>0 ||
+                Convert.ToDouble(txt_width_cortado.Text) > 0)
             {
                 try
                 {
@@ -538,6 +582,31 @@ namespace RitramaAPP
             }
         }
 
+        private void Txt_width_cortado_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(Convert.ToDouble(txt_width_cortado.Text)>0 && Convert.ToDouble(txt_lenght_cortado.Text) > 0) 
+            {
+                CALCULAR_MSI();
+            }
+        }
+
+        private void Txt_lenght_cortado_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (Convert.ToDouble(txt_width_cortado.Text) > 0 && Convert.ToDouble(txt_lenght_cortado.Text) > 0)
+            {
+                CALCULAR_MSI();
+            }
+        }
+
+        private void Txt_numero_oc_Validating(object sender, CancelEventArgs e)
+        {
+            if (managerorden.OrderExiste(txt_numero_oc.Text) && EditMode == 1)
+            {
+                MessageBox.Show("La Orden produccion : " + txt_numero_oc.Text + " ya existe.");
+                txt_numero_oc.Text = "";
+            }
+        }
+
         private void Txt_cant_cortado_Validating(object sender, CancelEventArgs e)
         {
             if (txt_cant_cortado.Text == string.Empty)
@@ -545,14 +614,9 @@ namespace RitramaAPP
                 e.Cancel = true;
             }
         }
-
-        private void Txt_width_cortado_TextChanged(object sender, EventArgs e)
-        {
-            CALCULAR_MSI();
-        }
-
         private void Bot_generar_rollos_cortados_Click(object sender, EventArgs e)
         {
+            
             if (EditMode == 2 || grid_rollos.Rows.Count > 0)
             {
                 try
@@ -628,6 +692,7 @@ namespace RitramaAPP
                 bot_generar_rollos_cortados.Enabled = false;
             }
             ischanged_rollos = true;
+            CALCULAR_MSI();
         }
         private void Bot_modificar_Click(object sender, EventArgs e)
         {

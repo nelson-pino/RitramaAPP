@@ -13,7 +13,6 @@ namespace RitramaAPP.Clases
         readonly SqlDataAdapter daordenes = new SqlDataAdapter();
         readonly SqlDataAdapter darenglones = new SqlDataAdapter();
         readonly SqlDataAdapter daproducts = new SqlDataAdapter();
-        readonly SqlDataAdapter darollid = new SqlDataAdapter();
         readonly DataTable dtordenes = new DataTable();
         readonly DataTable dtrenglones = new DataTable();
         readonly DataTable dtproducts = new DataTable();
@@ -25,7 +24,6 @@ namespace RitramaAPP.Clases
         {
             CargarProducts();
             CargarOrdenes();
-            CargarRollsId();
             RelacionesDS();
         }
         public Boolean CommandSqlGeneric(string db, string query, List<SqlParameter> spc, Boolean msg, string messagerror)
@@ -115,6 +113,35 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
+        public DataTable CommandSqlGenericDt(string db, string query, string messagefail)
+        {
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
+
+                Micomm.Conectar(db);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = Micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = query
+                };
+                comando.ExecuteNonQuery();
+                da.SelectCommand = comando;
+                da.Fill(dt);
+                comando.Dispose();
+                Micomm.Desconectar();
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(messagefail + ex);
+
+            }
+            da.Dispose();
+            return dt;
+        }
         public Boolean CargarOrdenes()
         {
             // encabeza de la orden de corte
@@ -134,11 +161,10 @@ namespace RitramaAPP.Clases
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_SELECT_PRODUCT_ALL,
                     daproducts, "dtproducts", R.ERROR_MESSAGES.MODULO_PRODUCTOS.MESSAGE_SELECT_LOADPRODUCTOS_FAIL);
         }
-        public void CargarRollsId()
+        public DataTable CargarRollsId()
         {
-            CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME,
-            R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_SELECT_ROLLID, darollid, "dtrollid",
-            R.ERROR_MESSAGES.PRODUCCION.MESSAGE_LOAD_ROLLID_ERROR_FAIL);
+            return CommandSqlGenericDt(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_SELECT_ROLLID, 
+                R.ERROR_MESSAGES.PRODUCCION.MESSAGE_LOAD_ROLLID_ERROR_FAIL);
         }
         public void Add(Orden datos, Boolean ismessage)
         {
@@ -463,6 +489,37 @@ namespace RitramaAPP.Clases
             Micomm.Desconectar();
             comando.Dispose();
             return coderc;
+        }
+        public void UpdateRollId(string numberRollId) 
+        {
+            CommandSqlGenericOneParameter(R.SQL.DATABASE.NAME,
+                R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_UPDATE_ROLLID_DISPONIBILIDAD,
+                numberRollId,false,R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_ERROR_UPDATE_ROLLID);
+        }
+
+        public Boolean OrderExiste(string codigo)
+        {
+            int result;
+            Micomm.Conectar(R.SQL.DATABASE.NAME);
+            SqlCommand comando = new SqlCommand
+            {
+                CommandType = CommandType.Text,
+                CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_SELECT_VERIFIFY_REPEAT_OC,
+                Connection = Micomm.cnn
+            };
+            SqlParameter p1 = new SqlParameter("@p1", codigo);
+            comando.Parameters.Add(p1);
+            result = Convert.ToInt16(comando.ExecuteScalar());
+            Micomm.Desconectar();
+            comando.Dispose();
+            if (result == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }
