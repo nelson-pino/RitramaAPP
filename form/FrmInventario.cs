@@ -113,7 +113,14 @@ namespace RitramaAPP
             dtinventario = inimanager.CargarInventario();
             dvinventario = dtinventario.DefaultView;
             grid_inventario.DataSource = dvinventario;
+            //Calculo de la Columna de Existencia Final.
+            for (int i = 0; i <= grid_inventario.Rows.Count-1; i++) 
+            {
+                grid_inventario.Rows[i].Cells["cant_final"].Value = Convert.ToDouble(grid_inventario.Rows[i].Cells["cant_ini"].Value) +
+                    Convert.ToDouble(grid_inventario.Rows[i].Cells["cant_ent"].Value)-Convert.ToDouble(grid_inventario.Rows[i].Cells["cant_sal"].Value);
+            }
             CONTA_REGISTER_INVENTARIO.Text = "Numero de Registros: "  + dvinventario.Count.ToString();
+
             
         }
 

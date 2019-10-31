@@ -110,14 +110,9 @@
                 {
                     public static string SQL_INSERT_INVENTARIO_SAVE_INICIALES = "INSERT INTO iniciales (product_id,cantidad,width,lenght,msi,ubic,documento) values (@p1,@p2,@p3,@p4,@p5,@p6,@p7)";
                     public static string SQL_SELECT_INVENTARIO_INICIALES = "SELECT a.product_id,b.Product_Name,case when b.MasterRolls = 1 then 'Master' when b.rollo_cortado = 1 then 'Rollo Cortado' when b.Graphics = 1 then 'Graphics' when b.Resmas = 1 then 'Resma' else 'sin tipo' end as tipo,cantidad, width,lenght,msi,ubic,documento FROM iniciales a LEFT JOIN producto b ON a.product_id= b.Product_ID ";
-                    public static string SQL_SELECT_INVENTARIO_QUERY_MASTER = "SELECT a.Product_ID,a.Product_Name," +
-                    "case when a.MasterRolls = 1 then 'Master' when a.rollo_cortado = 1 then 'Rollo Cortado' " +
-                    "when a.Graphics = 1 then 'Graphics' when a.Resmas = 1 then 'Resma' else 'sin tipo' end as tipo," +
-                    "ISNULL((SELECT sum(cantidad) from iniciales b where a.Product_ID = b.product_id),0) as cant_ini," +
-                    "CASE WHEN a.MasterRolls=1 or a.Resmas=1 or a.Graphics=1 THEN ISNULL((SELECT CASE WHEN b.master= 1 THEN count(*) " +
-                    "ELSE SUM(b.palet_cant) END FROM OrdenRecepcion b where a.Product_ID = b.Part_Number " +
-                    "GROUP BY b.Part_Number, b.master),0) ELSE ISNULL((select count(*) from rolls_details b " +
-                    "where b.product_id = a.Product_ID group by b.product_id),0) END AS cant_ENT FROM producto a";
+                    public static string SQL_SELECT_INVENTARIO_QUERY_MASTER = "SELECT a.Product_ID,a.Product_Name,case when a.MasterRolls = 1 then 'Master' when a.rollo_cortado = 1 then 'Rollo Cortado' when a.Graphics = 1 then 'Graphics' when a.Resmas = 1 then 'Resma' else 'sin tipo' end as tipo,ISNULL((SELECT sum(cantidad) from iniciales b where a.Product_ID = b.product_id),0) as cant_ini,CASE WHEN a.MasterRolls=1 or a.Resmas=1 or a.Graphics= 1 THEN " +
+                    "ISNULL((SELECT CASE WHEN b.master= 1 THEN count(*) ELSE SUM(b.palet_cant) END FROM OrdenRecepcion b where a.Product_ID = b.Part_Number GROUP BY b.Part_Number, b.master),0) ELSE ISNULL((select count(*) from rolls_details b where b.product_id = a.Product_ID group by b.product_id),0) END AS cant_ENT,CASE WHEN a.MasterRolls=1 THEN ISNULL((SELECT CASE WHEN b.master= 1 THEN COUNT(*) END FROM OrdenRecepcion b where a.Product_ID = b.Part_Number AND b.disponible= 0 " +
+                    "GROUP BY b.Part_Number, b.master),0) WHEN a.Resmas=1 OR a.Graphics= 1 THEN ISNULL((SELECT sum(cant) from item_despacho b where a.Product_ID= b.product_id group by b.product_id),0)  WHEN a.rollo_cortado=1 THEN 0 END AS cant_sal FROM producto a";
                 }
             }
         }

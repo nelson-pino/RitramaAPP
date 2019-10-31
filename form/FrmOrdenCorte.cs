@@ -584,6 +584,10 @@ namespace RitramaAPP
 
         private void Txt_width_cortado_KeyUp(object sender, KeyEventArgs e)
         {
+            if(txt_width_cortado.Text == "") 
+            {
+                return;
+            }
             if(Convert.ToDouble(txt_width_cortado.Text)>0 && Convert.ToDouble(txt_lenght_cortado.Text) > 0) 
             {
                 CALCULAR_MSI();
@@ -592,6 +596,10 @@ namespace RitramaAPP
 
         private void Txt_lenght_cortado_KeyUp(object sender, KeyEventArgs e)
         {
+            if (txt_lenght_cortado.Text == "")
+            {
+                return;
+            }
             if (Convert.ToDouble(txt_width_cortado.Text) > 0 && Convert.ToDouble(txt_lenght_cortado.Text) > 0)
             {
                 CALCULAR_MSI();
