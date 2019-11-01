@@ -92,9 +92,18 @@
             this.bot_buscar_clientes = new System.Windows.Forms.Button();
             this.bot_agregar_renglon = new System.Windows.Forms.Button();
             this.bot_eliminar_renglon = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.grid_UniqueCode = new System.Windows.Forms.DataGridView();
+            this.BOT_DESPACHOS_RC = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grid_items)).BeginInit();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_UniqueCode)).BeginInit();
             this.SuspendLayout();
             // 
             // NumeroDespachoLabel
@@ -408,13 +417,13 @@
             this.grid_items.AllowUserToResizeRows = false;
             this.grid_items.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_items.Enabled = false;
-            this.grid_items.Location = new System.Drawing.Point(24, 266);
+            this.grid_items.Location = new System.Drawing.Point(5, 5);
             this.grid_items.Margin = new System.Windows.Forms.Padding(2);
             this.grid_items.Name = "grid_items";
             this.grid_items.ReadOnly = true;
             this.grid_items.RowHeadersWidth = 28;
             this.grid_items.RowTemplate.Height = 24;
-            this.grid_items.Size = new System.Drawing.Size(716, 236);
+            this.grid_items.Size = new System.Drawing.Size(703, 195);
             this.grid_items.TabIndex = 33;
             this.grid_items.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_items_CellContentClick);
             this.grid_items.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_items_CellEndEdit);
@@ -716,9 +725,9 @@
             // bot_agregar_renglon
             // 
             this.bot_agregar_renglon.Enabled = false;
-            this.bot_agregar_renglon.Location = new System.Drawing.Point(746, 266);
+            this.bot_agregar_renglon.Location = new System.Drawing.Point(741, 292);
             this.bot_agregar_renglon.Name = "bot_agregar_renglon";
-            this.bot_agregar_renglon.Size = new System.Drawing.Size(75, 23);
+            this.bot_agregar_renglon.Size = new System.Drawing.Size(77, 23);
             this.bot_agregar_renglon.TabIndex = 53;
             this.bot_agregar_renglon.Text = "Agregar";
             this.bot_agregar_renglon.UseVisualStyleBackColor = true;
@@ -727,12 +736,62 @@
             // bot_eliminar_renglon
             // 
             this.bot_eliminar_renglon.Enabled = false;
-            this.bot_eliminar_renglon.Location = new System.Drawing.Point(746, 295);
+            this.bot_eliminar_renglon.Location = new System.Drawing.Point(741, 321);
             this.bot_eliminar_renglon.Name = "bot_eliminar_renglon";
-            this.bot_eliminar_renglon.Size = new System.Drawing.Size(75, 23);
+            this.bot_eliminar_renglon.Size = new System.Drawing.Size(77, 23);
             this.bot_eliminar_renglon.TabIndex = 54;
             this.bot_eliminar_renglon.Text = "Eliminar";
             this.bot_eliminar_renglon.UseVisualStyleBackColor = true;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(25, 270);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(714, 231);
+            this.tabControl1.TabIndex = 55;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.grid_items);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(706, 205);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Renglones";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.grid_UniqueCode);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(706, 205);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Detalle RC";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // grid_UniqueCode
+            // 
+            this.grid_UniqueCode.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grid_UniqueCode.Location = new System.Drawing.Point(6, 6);
+            this.grid_UniqueCode.Name = "grid_UniqueCode";
+            this.grid_UniqueCode.Size = new System.Drawing.Size(679, 193);
+            this.grid_UniqueCode.TabIndex = 0;
+            // 
+            // BOT_DESPACHOS_RC
+            // 
+            this.BOT_DESPACHOS_RC.Enabled = false;
+            this.BOT_DESPACHOS_RC.Location = new System.Drawing.Point(742, 350);
+            this.BOT_DESPACHOS_RC.Name = "BOT_DESPACHOS_RC";
+            this.BOT_DESPACHOS_RC.Size = new System.Drawing.Size(77, 23);
+            this.BOT_DESPACHOS_RC.TabIndex = 56;
+            this.BOT_DESPACHOS_RC.Text = "Desp. RC";
+            this.BOT_DESPACHOS_RC.UseVisualStyleBackColor = true;
             // 
             // FrmDespacho
             // 
@@ -740,6 +799,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(827, 614);
+            this.Controls.Add(this.BOT_DESPACHOS_RC);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.bot_eliminar_renglon);
             this.Controls.Add(this.bot_agregar_renglon);
             this.Controls.Add(this.bot_buscar_clientes);
@@ -759,7 +820,6 @@
             this.Controls.Add(this.label13);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.grid_items);
             this.Controls.Add(this.txt_camion);
             this.Controls.Add(this.BOT_CAMION);
             this.Controls.Add(this.txt_placas);
@@ -801,6 +861,10 @@
             this.panel1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grid_UniqueCode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -871,5 +935,10 @@
         private System.Windows.Forms.Button bot_buscar_clientes;
         private System.Windows.Forms.Button bot_agregar_renglon;
         private System.Windows.Forms.Button bot_eliminar_renglon;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.DataGridView grid_UniqueCode;
+        private System.Windows.Forms.Button BOT_DESPACHOS_RC;
     }
 }

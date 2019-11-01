@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tab_productos = new System.Windows.Forms.TabControl();
             this.tab_uniqueCode = new System.Windows.Forms.TabPage();
             this.grid_itemRC = new System.Windows.Forms.DataGridView();
@@ -36,7 +37,11 @@
             this.bot_leer = new System.Windows.Forms.Button();
             this.bot_transferir = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.bot_borrar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txt_uniqueCode = new System.Windows.Forms.TextBox();
             this.REGISTROS_TOTALES = new System.Windows.Forms.Label();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tab_productos.SuspendLayout();
             this.tab_uniqueCode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_itemRC)).BeginInit();
@@ -68,7 +73,6 @@
             // 
             // grid_itemRC
             // 
-            this.grid_itemRC.AllowUserToAddRows = false;
             this.grid_itemRC.AllowUserToDeleteRows = false;
             this.grid_itemRC.AllowUserToResizeColumns = false;
             this.grid_itemRC.AllowUserToResizeRows = false;
@@ -128,6 +132,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.bot_borrar);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.txt_uniqueCode);
             this.groupBox1.Controls.Add(this.REGISTROS_TOTALES);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
@@ -135,6 +142,32 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informacion del Picking List Despacho";
+            // 
+            // bot_borrar
+            // 
+            this.bot_borrar.Location = new System.Drawing.Point(305, 71);
+            this.bot_borrar.Name = "bot_borrar";
+            this.bot_borrar.Size = new System.Drawing.Size(75, 23);
+            this.bot_borrar.TabIndex = 4;
+            this.bot_borrar.Text = "Borrar";
+            this.bot_borrar.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 74);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(75, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Unique Code :";
+            // 
+            // txt_uniqueCode
+            // 
+            this.txt_uniqueCode.Location = new System.Drawing.Point(91, 71);
+            this.txt_uniqueCode.Name = "txt_uniqueCode";
+            this.txt_uniqueCode.Size = new System.Drawing.Size(100, 20);
+            this.txt_uniqueCode.TabIndex = 1;
+            this.txt_uniqueCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_uniqueCode_KeyDown);
             // 
             // REGISTROS_TOTALES
             // 
@@ -144,6 +177,11 @@
             this.REGISTROS_TOTALES.Size = new System.Drawing.Size(79, 13);
             this.REGISTROS_TOTALES.TabIndex = 0;
             this.REGISTROS_TOTALES.Text = "Total : Registro";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // PickingList
             // 
@@ -180,5 +218,9 @@
         private System.Windows.Forms.DataGridView grid_productos;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label REGISTROS_TOTALES;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txt_uniqueCode;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Button bot_borrar;
     }
 }

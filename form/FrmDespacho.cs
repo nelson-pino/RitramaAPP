@@ -18,12 +18,12 @@ namespace RitramaAPP.form
 
         readonly DespachosManager despachomanager = new DespachosManager();
         DataSet ds = new DataSet();
-        BindingSource bs = new BindingSource();
-        ConfigManager config = new ConfigManager();
-        BindingSource bsitem = new BindingSource();
+        readonly BindingSource bs = new BindingSource();
+        readonly ConfigManager config = new ConfigManager();
+        readonly BindingSource bsitem = new BindingSource();
         DataRowView ParentRow, ChildRows;
         int EditMode = 0,Consec = 0;
-        decimal PORC_ITBIS = 18;
+        readonly decimal PORC_ITBIS = 18;
         ClassDespacho despacho;
 
         private void FrmDespacho_Load(object sender, EventArgs e)
@@ -59,10 +59,11 @@ namespace RitramaAPP.form
         }
         private void AplicarEstilosGrid()
         {
+            //grid renglones
             grid_items.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("product_id", 70, "Product Id.", "product_id");
-            AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name");
-            AGREGAR_COLUMN_GRID("unidad", 50, "Unidad", "unid_id");
+            AGREGAR_COLUMN_GRID("product_id", 70, "Product Id.", "product_id",grid_items);
+            AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name", grid_items);
+            AGREGAR_COLUMN_GRID("unidad", 50, "Unidad", "unid_id", grid_items);
             DataGridViewButtonColumn col3 = new DataGridViewButtonColumn
             {
                 Name = "SeachProduct",
@@ -70,15 +71,26 @@ namespace RitramaAPP.form
                 HeaderText = "..."
             };
             grid_items.Columns.Add(col3);
-            AGREGAR_COLUMN_GRID("cant", 50, "Cant.", "cant");
-            AGREGAR_COLUMN_GRID("ancho", 50, "Ancho (inch)", "width");
-            AGREGAR_COLUMN_GRID("msi", 50, "Msi.", "msi");
-            AGREGAR_COLUMN_GRID("ratio", 50, "Ratio", "ratio");
-            AGREGAR_COLUMN_GRID("kilo_rollo", 50, "kilo rollo", "kilo_rollo");
-            AGREGAR_COLUMN_GRID("precio", 50, "precio", "precio");
-            AGREGAR_COLUMN_GRID("total_renglon", 50, "Total renglon", "total_renglon");
+            AGREGAR_COLUMN_GRID("cant", 50, "Cant.", "cant", grid_items);
+            AGREGAR_COLUMN_GRID("ancho", 50, "Ancho (inch)", "width", grid_items);
+            AGREGAR_COLUMN_GRID("msi", 50, "Msi.", "msi", grid_items);
+            AGREGAR_COLUMN_GRID("ratio", 50, "Ratio", "ratio", grid_items);
+            AGREGAR_COLUMN_GRID("kilo_rollo", 50, "kilo rollo", "kilo_rollo", grid_items);
+            AGREGAR_COLUMN_GRID("precio", 50, "precio", "precio", grid_items);
+            AGREGAR_COLUMN_GRID("total_renglon", 50, "Total renglon", "total_renglon", grid_items);
+            // grid detalle rc.
+            grid_UniqueCode.AutoGenerateColumns = false;
+            AGREGAR_COLUMN_GRID("code_unique", 60, "Codigo Unico", "unique_code", grid_UniqueCode);
+            AGREGAR_COLUMN_GRID("product_id", 60, "Product Id", "product_id", grid_UniqueCode);
+            AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name", grid_UniqueCode);
+            AGREGAR_COLUMN_GRID("roll_number", 50, "Roll Number", "roll_number", grid_UniqueCode);
+            AGREGAR_COLUMN_GRID("width", 50, "Width", "width", grid_UniqueCode);
+            AGREGAR_COLUMN_GRID("lenght", 50, "Lenght", "large", grid_UniqueCode);
+            AGREGAR_COLUMN_GRID("msi", 50, "Msi", "msi", grid_UniqueCode);
+            AGREGAR_COLUMN_GRID("splice", 50, "Splice", "splice", grid_UniqueCode);
+            AGREGAR_COLUMN_GRID("rollid", 50, "Roll Id", "roll_id", grid_UniqueCode);
         }
-        private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd)
+        private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd,DataGridView grid)
         {
             DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
             {
@@ -87,7 +99,7 @@ namespace RitramaAPP.form
                 HeaderText = title,
                 DataPropertyName = field_bd
             };
-            grid_items.Columns.Add(col);
+            grid.Columns.Add(col);
         }
         private void BOT_IMPRIMIR_Click(object sender, EventArgs e)
         {
@@ -179,6 +191,7 @@ namespace RitramaAPP.form
                     bot_eliminar_renglon.Enabled = true;
                     bot_buscar_clientes.Enabled = true;
                     bot_sincro.Enabled = true;
+                    BOT_DESPACHOS_RC.Enabled = true;
                     grid_items.Enabled = true;
                     grid_items.ReadOnly = false;
                     break;
@@ -346,8 +359,7 @@ namespace RitramaAPP.form
         }
         private string CalcularIva(decimal PORC_ITBIS, decimal subtotal)
         {
-            decimal monto_itbis = 0;
-            monto_itbis = (PORC_ITBIS * subtotal) / 100;
+            decimal monto_itbis = PORC_ITBIS * subtotal / 100;
             return string.Format("{0,12:N2}", monto_itbis);
         }
 
@@ -438,8 +450,7 @@ namespace RitramaAPP.form
         }
         private string CalcularTotal(decimal subtotal, decimal monto_itbis)
         {
-            decimal total = 0;
-            total = (subtotal + monto_itbis);
+            decimal total = subtotal + monto_itbis;
             return string.Format("{0,12:N2}", total);
         }
 
@@ -472,14 +483,24 @@ namespace RitramaAPP.form
             {
                 pl.ShowDialog();
                 int fila = 0;
+                if (pl.List_products.Count() == 0) 
+                {
+                    return;
+                }
+                //llenar el grid de renglones. 
                 foreach (Producto item in pl.List_products) 
                 {
                     AgregarRenglon();
                     grid_items.Rows[fila].Cells["product_id"].Value = pl.List_products.ElementAt(fila).Product_id;
                     grid_items.Rows[fila].Cells["cant"].Value = pl.List_products.ElementAt(fila).Product_quantity;
                     grid_items.Rows[fila].Cells["unidad"].Value = "rollo cortado.";
+                    grid_items.Rows[fila].Cells["ancho"].Value = pl.List_products.ElementAt(fila).width;
+                    grid_items.Rows[fila].Cells["msi"].Value = pl.List_products.ElementAt(fila).msi;
                     fila += 1;
                 }
+                //llenar el grid de unique_code.
+                grid_UniqueCode.DataSource = pl.Lista_rollos.ToList();
+              
 
             }
             

@@ -454,6 +454,7 @@ namespace RitramaAPP.Clases
                     rollo.Roll_id = reader.GetString(8);
                     rollo.Code_Person = reader.GetString(9);
                     rollo.Status = reader.GetString(10);
+                    rollo.Unique_code = reader.GetString(11);
                 }
                 comando.Dispose();
                 Micomm.Desconectar();

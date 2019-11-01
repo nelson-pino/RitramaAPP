@@ -27,8 +27,6 @@ namespace RitramaAPP.Clases
         DataTable dtitems = new DataTable();
         DataTable dtproducto = new DataTable();
         public DataSet ds = new DataSet();
-
-
         public DespachosManager()
         {
             GetProducto();

@@ -21,7 +21,9 @@ namespace RitramaAPP.form
 
         private void PickingList_Load(object sender, EventArgs e)
         {
+            Lista_rollos = new List<Roll_Details>();
             AplicarEstiloGrid();
+
         }
         private void Bot_leer_Click(object sender, EventArgs e)
         {
@@ -59,16 +61,32 @@ namespace RitramaAPP.form
             REGISTROS_TOTALES.Text = "Numero de Registros : "+Lista_rollos.Count.ToString();
 
         }
+        private void CALCULATE_DATA() 
+        {
+            List_products = from line in Lista_rollos
+                            group line by new { line.Product_id, line.Width, line.Large } into g
+                            select new Producto
+                            {
+                                Product_id = g.First().Product_id,
+                                Product_name = g.First().Product_name,
+                                Product_quantity = g.Count().ToString(),
+                                width = g.First().Width,
+                                lenght = g.First().Large,
+                                msi = g.First().Msi
+                            };
+
+            grid_productos.DataSource = List_products.ToList();
+        }
         private void AplicarEstiloGrid() 
         {
             grid_itemRC.AutoGenerateColumns = false;
             AGREGAR_COLUMN_GRID("unique_code",60,"Codigo Unico","unique_code",grid_itemRC);
             AGREGAR_COLUMN_GRID("product_id", 60, "Product Id.", "product_id", grid_itemRC);
-            AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Proudcto", "product_name", grid_itemRC);
+            AGREGAR_COLUMN_GRID("product_name", 180, "Nombre del Proudcto", "product_name", grid_itemRC);
             AGREGAR_COLUMN_GRID("roll_number", 40, "Roll number", "roll_number", grid_itemRC);
-            AGREGAR_COLUMN_GRID("width", 60, "Width", "width", grid_itemRC);
-            AGREGAR_COLUMN_GRID("large", 60, "Largo", "large", grid_itemRC);
-            AGREGAR_COLUMN_GRID("msi", 60, "Msi", "msi", grid_itemRC);
+            AGREGAR_COLUMN_GRID("width", 50, "Width", "width", grid_itemRC);
+            AGREGAR_COLUMN_GRID("large", 50, "Largo", "large", grid_itemRC);
+            AGREGAR_COLUMN_GRID("msi", 50, "Msi", "msi", grid_itemRC);
             AGREGAR_COLUMN_GRID("splice", 60, "Splice", "splice", grid_itemRC);
             AGREGAR_COLUMN_GRID("roll_id", 60, "Roll Id.", "roll_id", grid_itemRC);
             AGREGAR_COLUMN_GRID("code_person", 60, "Codigo Perso.", "code_person", grid_itemRC);
@@ -77,6 +95,9 @@ namespace RitramaAPP.form
             AGREGAR_COLUMN_GRID("product_id", 60, "Product_id", "product_id", grid_productos);
             AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name", grid_productos);
             AGREGAR_COLUMN_GRID("cant", 60, "Cantida Rollos", "product_quantity", grid_productos);
+            AGREGAR_COLUMN_GRID("width", 60, "Width", "width", grid_productos);
+            AGREGAR_COLUMN_GRID("lenght", 60, "Lenght", "lenght", grid_productos);
+            AGREGAR_COLUMN_GRID("msi", 60, "Msi", "msi", grid_productos);
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd,DataGridView grid)
         {
@@ -135,13 +156,48 @@ namespace RitramaAPP.form
         {
             this.Close();
         }
+       private void LoadRC() 
+       {
+            Roll_Details rollo = produccionManager.GetDataUniqueCode("RC" + txt_uniqueCode.Text.Trim());
+            //verificar valores vacios.
+            if (rollo.Unique_code == "" || rollo.Unique_code == null) return;
+            //verificar valores repetidos
+            foreach (Roll_Details item in Lista_rollos)
+            {
+                if (item.Unique_code.Equals("RC" + txt_uniqueCode.Text.Trim()))
+                {
+                    MessageBox.Show("esta repetido");
+                    return; 
+                }
+            }
+
+
+            Lista_rollos.Add(rollo);
+            grid_itemRC.DataSource = Lista_rollos.ToList();
+            txt_uniqueCode.Text = "";
+            REGISTROS_TOTALES.Text = "Numero de Registros : " + Lista_rollos.Count.ToString();
+        }
+        private void txt_uniqueCode_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                if (txt_uniqueCode.Text == string.Empty) 
+                {
+                    return;
+                }
+                LoadRC();
+                CALCULATE_DATA();
+            }
+        }
     }
     public class Producto 
     {
         public string Product_id { get; set; }
         public string Product_name { get; set; }
-
         public string Product_quantity { get; set; }
+        public decimal width { get; set; }
+        public decimal lenght { get; set; }
+        public decimal msi { get; set; }
 
     }
 }
