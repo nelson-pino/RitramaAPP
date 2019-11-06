@@ -27,6 +27,7 @@ namespace RitramaAPP.Clases
         DataTable dtitems = new DataTable();
         DataTable dtproducto = new DataTable();
         public DataSet ds = new DataSet();
+
         public DespachosManager()
         {
             GetProducto();
@@ -96,7 +97,35 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
+        public DataTable CommandSqlGenericDt(string db, string query, string messagefail)
+        {
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
 
+                Micomm.Conectar(db);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = Micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = query
+                };
+                comando.ExecuteNonQuery();
+                da.SelectCommand = comando;
+                da.Fill(dt);
+                comando.Dispose();
+                Micomm.Desconectar();
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(messagefail + ex);
+
+            }
+            da.Dispose();
+            return dt;
+        }
         public void Add(ClassDespacho datos, Boolean ismessage)
         {
             //ADD HEADER DE ORDEN DE PRODUCCION A LA BASE DE DATOS.
@@ -110,6 +139,14 @@ namespace RitramaAPP.Clases
                 CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_INSERT_HEADER_DETAILS_DESPACHO,
                 SetParametersAddDetailsDespacho(item,datos.numero), ismessage,
                 R.ERROR_MESSAGES.DESPACHOS.MESSAGE_INSERT_ERROR_ADD_DETAILS_DESPACHOS);
+            }
+        }
+        public void AddRC(List<Roll_Details> datos, string numero)
+        {
+            foreach (Roll_Details item in datos)
+            {
+                CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_INSERT_UNIQUECODE_LIST_DESPACHO,
+                SetParametersAddRCDespacho(item,numero),false,R.ERROR_MESSAGES.DESPACHOS.MESSAGE_INSERT_UNIQUECODE_ADD_DETAILS_DESPACHOS);
             }
         }
         public List<SqlParameter> SetParametersAddDetailsDespacho(Items_despacho datos,string numero)
@@ -148,6 +185,22 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.Decimal, Value = datos.subtotal},
                 new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.Decimal, Value = datos.monto_itbis},
                 new SqlParameter() {ParameterName = "@p14", SqlDbType = SqlDbType.Decimal, Value = datos.total},
+            };
+            return sp;
+        }
+        public List<SqlParameter> SetParametersAddRCDespacho(Roll_Details datos,string numero)
+        {
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = numero},
+                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.NVarChar, Value = datos.Unique_code},
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.NVarChar, Value = datos.Product_id},
+                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.Decimal, Value = datos.Width},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.Decimal, Value = datos.Large},
+                new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.Decimal, Value = datos.Msi},
+                new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.NVarChar, Value = datos.Roll_number},
+                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.NVarChar, Value = datos.Roll_id},
+                new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Int, Value = datos.Splice}
             };
             return sp;
         }
@@ -251,5 +304,58 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
+        public List<Roll_Details> GetDataUniqueCode(string conduce)
+        {
+            List<Roll_Details> lista = new List<Roll_Details>();
+
+            try
+            {
+                Micomm.Conectar(R.SQL.DATABASE.NAME);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = Micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_UNIQUECODE_DETAILS_DESPACHO
+                };
+            
+                SqlParameter p1 = new SqlParameter("@p1", conduce);
+                comando.Parameters.Add(p1);
+                SqlDataReader reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Roll_Details rollo = new Roll_Details();
+                    
+                    rollo.Product_id = reader.GetString(0);
+                    rollo.Product_name = reader.GetString(1);
+                    rollo.Roll_number = reader.GetInt32(2).ToString();
+                    rollo.Width = reader.GetDecimal(3);
+                    rollo.Large = reader.GetDecimal(4);
+                    rollo.Msi = reader.GetDecimal(5);
+                    rollo.Splice = reader.GetInt32(6);
+                    rollo.Roll_id = reader.GetString(7);
+                    rollo.Code_Person = "";
+                    rollo.Status = "";
+                    rollo.Unique_code = reader.GetString(8);
+
+                    lista.Add(rollo);
+
+
+                }
+
+                comando.Dispose();
+                Micomm.Desconectar();
+                return lista;
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("error al tratar de leer los RC en el detalle del conduce (DESPACHO)..." + ex);
+                return lista;
+            }
+        }
+
+
+
+
     }
 }

@@ -105,6 +105,8 @@
                     public static string SQL_SELECT_PRODUCTOS = "SELECT product_id,product_name,masterRolls,Resmas,Graphics FROM producto";
                     public static string SQL_INSERT_HEADER_ORDEN_DESPACHO = "INSERT INTO despacho (numero,fecha,customer_id,person_contact,vendor_id,transport_id,chofer_id,placas_id,packing,orden_trabajo,orden_compra,subtotal,itbis,total$rd) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14)";
                     public static string SQL_INSERT_HEADER_DETAILS_DESPACHO = "INSERT INTO item_despacho (numero,product_id,cant,unid_id,width,lenght,msi,ratio,kilo_rollo,precio,total_renglon) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11)";
+                    public static string SQL_INSERT_UNIQUECODE_LIST_DESPACHO = "INSERT INTO rcdespacho (conduce,unique_code,product_id,roll_number,width,lenght,msi,roll_id,splice) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9)";
+                    public static string SQL_SELECT_UNIQUECODE_DETAILS_DESPACHO = "select a.product_id,b.Product_Name,a.roll_number,a.width,a.lenght,a.msi,a.splice,a.roll_id,a.unique_code from rcdespacho a left join producto b on a.product_id=b.Product_ID where a.conduce=@p1";
                 }
                 public class INVENTARIO
                 {
@@ -172,6 +174,8 @@
                 public static string MESSAGE_SELECT_ERROR_LOAD_DETAILS_DESPACHOS = "Error al tratar de cargar los detalle de los despachos.";
                 public static string MESSAGE_INSERT_ERROR_ADD_HEADER_DESPACHOS = "Error al tratar de insertar el encabezado de despacho.";
                 public static string MESSAGE_INSERT_ERROR_ADD_DETAILS_DESPACHOS = "Error al tratar de insertar el detalle en la orden de despacho.";
+                public static string MESSAGE_INSERT_UNIQUECODE_ADD_DETAILS_DESPACHOS = "Error insertar los detalle de los unique code en el despacho.";
+                public static string MESSAGE_SELECT_UNIQUECODE_DETAILS_DESPACHOS = "Error al tratar de traer la data ";
             }
         }
         public class PATH_FILES

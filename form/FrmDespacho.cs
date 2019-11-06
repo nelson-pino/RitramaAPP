@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using CrystalDecisions.CrystalReports.Engine;
+//using CrystalDecisions.CrystalReports.Engine;
 using RitramaAPP.Clases;
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace RitramaAPP.form
         int EditMode = 0,Consec = 0;
         readonly decimal PORC_ITBIS = 18;
         ClassDespacho despacho;
-
+        List<Roll_Details> listarc;
         private void FrmDespacho_Load(object sender, EventArgs e)
         {
             AplicarEstilosGrid();
@@ -56,6 +56,7 @@ namespace RitramaAPP.form
             bsitem.DataSource = bs;
             bsitem.DataMember = "FK_MASTER_DETAILS";
             grid_items.DataSource = bsitem;
+            LoadDataRC();
         }
         private void AplicarEstilosGrid()
         {
@@ -105,15 +106,15 @@ namespace RitramaAPP.form
         {
             using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
             {
-                ReportDocument reporte = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                string PathReport = @"C:\Users\Npino\Desktop\RITRAMA\RitramaAPP\RitramaAPP\RitramaAPP\Reports\Format_Despacho.rpt";
-                reporte.Load(PathReport);
-                //reporte.SetParameterValue("NUMERO", "");
-                frmReportView.crystalReportViewer.ReportSource = reporte;
-                frmReportView.Text = "Formato de Facturacion";
-                frmReportView.Width = 860;
-                frmReportView.Height = 700;
-                frmReportView.Show();
+                //ReportDocument reporte = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                //string PathReport = @"C:\Users\Npino\Desktop\RITRAMA\RitramaAPP\RitramaAPP\RitramaAPP\Reports\Format_Despacho.rpt";
+                //reporte.Load(PathReport);
+                ////reporte.SetParameterValue("NUMERO", "");
+                //frmReportView.crystalReportViewer.ReportSource = reporte;
+                //frmReportView.Text = "Formato de Facturacion";
+                //frmReportView.Width = 860;
+                //frmReportView.Height = 700;
+                //frmReportView.Show();
             }
         }
 
@@ -414,8 +415,15 @@ namespace RitramaAPP.form
             {
                 return;
             };
+            // grabar la orden de conduce.
             despachomanager.Add(CrearObjectDespacho(), false);
+            // grabar el detalle de los uniques code
+            despachomanager.AddRC(listarc,txt_numero_despacho.Text.Trim());
+            //grabar el consecutivo en la tabla de parametros.
             config.SetParametersControl(Consec.ToString(), "CONSEC_DP");
+            //Actualizar los inventarios
+            Actualizarinventarios();
+            
             OptionsMenu(1);
             OptionsForm(1);
 
@@ -429,24 +437,28 @@ namespace RitramaAPP.form
         {
             bs.Position += 1;
             ContadorRegistros();
+            LoadDataRC();
         }
 
         private void BOT_ANTERIOR_Click(object sender, EventArgs e)
         {
             bs.Position -= 1;
             ContadorRegistros();
+            LoadDataRC();
         }
 
         private void BOT_PRIMERO_Click(object sender, EventArgs e)
         {
             bs.Position = 0;
             ContadorRegistros();
+            LoadDataRC();
         }
 
         private void BOT_ULTIMO_Click(object sender, EventArgs e)
         {
             bs.Position = bs.Count - 1;
             ContadorRegistros();
+            LoadDataRC();
         }
         private string CalcularTotal(decimal subtotal, decimal monto_itbis)
         {
@@ -500,10 +512,16 @@ namespace RitramaAPP.form
                 }
                 //llenar el grid de unique_code.
                 grid_UniqueCode.DataSource = pl.Lista_rollos.ToList();
-              
 
+
+
+                listarc = pl.Lista_rollos.ToList();
             }
             
+        }
+        private void LoadDataRC() 
+        {
+            grid_UniqueCode.DataSource = despachomanager.GetDataUniqueCode(txt_numero_despacho.Text.Trim());
         }
 
         private ClassDespacho CrearObjectDespacho()
@@ -577,6 +595,10 @@ namespace RitramaAPP.form
                 }
             }
             return chk;
+        }
+        private void Actualizarinventarios() 
+        {
+            
         }
     }
 }

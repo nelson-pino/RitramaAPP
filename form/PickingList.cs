@@ -46,14 +46,7 @@ namespace RitramaAPP.form
             grid_itemRC.DataSource = Lista_rollos;
             //linq que consolida los renglones del conduce.
 
-            List_products = from line in Lista_rollos
-                         group line by line.Product_id into g
-                         select new Producto
-                         {
-                             Product_id = g.First().Product_id,
-                             Product_name = g.First().Product_name,
-                             Product_quantity = g.Count().ToString()
-                         };
+            CALCULATE_DATA();
 
             grid_productos.DataSource = List_products.ToList();
 
@@ -158,15 +151,25 @@ namespace RitramaAPP.form
         }
        private void LoadRC() 
        {
-            Roll_Details rollo = produccionManager.GetDataUniqueCode("RC" + txt_uniqueCode.Text.Trim());
+            string prefix;
+            if(txt_uniqueCode.Text.Length == 7)
+            {
+                prefix = "";
+            }
+            else 
+            {
+                prefix = "RC";
+            }
+            Roll_Details rollo = produccionManager.GetDataUniqueCode(prefix + txt_uniqueCode.Text.Trim());
             //verificar valores vacios.
             if (rollo.Unique_code == "" || rollo.Unique_code == null) return;
             //verificar valores repetidos
             foreach (Roll_Details item in Lista_rollos)
             {
-                if (item.Unique_code.Equals("RC" + txt_uniqueCode.Text.Trim()))
+                if (item.Unique_code.Equals(prefix + txt_uniqueCode.Text.Trim()))
                 {
                     MessageBox.Show("esta repetido");
+                    txt_uniqueCode.Text = "";
                     return; 
                 }
             }

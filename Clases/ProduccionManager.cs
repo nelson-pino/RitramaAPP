@@ -452,7 +452,7 @@ namespace RitramaAPP.Clases
                     rollo.Msi = reader.GetDecimal(6);
                     rollo.Splice = reader.GetInt32(7);
                     rollo.Roll_id = reader.GetString(8);
-                    rollo.Code_Person = reader.GetString(9);
+                    rollo.Code_Person = reader.GetString(9); 
                     rollo.Status = reader.GetString(10);
                     rollo.Unique_code = reader.GetString(11);
                 }
@@ -497,7 +497,6 @@ namespace RitramaAPP.Clases
                 R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_UPDATE_ROLLID_DISPONIBILIDAD,
                 numberRollId,false,R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_ERROR_UPDATE_ROLLID);
         }
-
         public Boolean OrderExiste(string codigo)
         {
             int result;
@@ -522,6 +521,5 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-
     }
 }

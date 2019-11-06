@@ -97,6 +97,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.grid_UniqueCode = new System.Windows.Forms.DataGridView();
             this.BOT_DESPACHOS_RC = new System.Windows.Forms.Button();
+            this.BOT_DETALLE_RC = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.grid_items)).BeginInit();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -793,12 +794,22 @@
             this.BOT_DESPACHOS_RC.Text = "Desp. RC";
             this.BOT_DESPACHOS_RC.UseVisualStyleBackColor = true;
             // 
+            // BOT_DETALLE_RC
+            // 
+            this.BOT_DETALLE_RC.Location = new System.Drawing.Point(741, 379);
+            this.BOT_DETALLE_RC.Name = "BOT_DETALLE_RC";
+            this.BOT_DETALLE_RC.Size = new System.Drawing.Size(77, 23);
+            this.BOT_DETALLE_RC.TabIndex = 57;
+            this.BOT_DETALLE_RC.Text = "Detalle RC";
+            this.BOT_DETALLE_RC.UseVisualStyleBackColor = true;
+            // 
             // FrmDespacho
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(827, 614);
+            this.Controls.Add(this.BOT_DETALLE_RC);
             this.Controls.Add(this.BOT_DESPACHOS_RC);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.bot_eliminar_renglon);
@@ -940,5 +951,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataGridView grid_UniqueCode;
         private System.Windows.Forms.Button BOT_DESPACHOS_RC;
+        private System.Windows.Forms.Button BOT_DETALLE_RC;
     }
 }
