@@ -13,7 +13,6 @@ namespace RitramaAPP.Clases
     public class InventarioManager
     {
         readonly Conexion Micomm = new Conexion();
-        readonly string pathfile = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data\InventarioFisico.txt";
         public Boolean CommandSqlGeneric(string db, string query, List<SqlParameter> spc, Boolean msg, string messagerror)
         {
             // Ejecuta comando sql query y no devuleve ni valor ni datos.
@@ -81,11 +80,11 @@ namespace RitramaAPP.Clases
         {
             //extraer data del txt de inventario inicial
             List<Item> items = new List<Item>();
-            if (File.Exists(pathfile))
+            if (File.Exists(R.PATH_FILES.FILE_TXT_DATA_CANT_INICIALES))
             {
                 try
                 {
-                    using (StreamReader sr = new StreamReader(pathfile))
+                    using (StreamReader sr = new StreamReader(R.PATH_FILES.FILE_TXT_DATA_CANT_INICIALES))
                     {
                         while (sr.Peek() >= 0)
                         {

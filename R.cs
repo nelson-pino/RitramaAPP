@@ -180,7 +180,12 @@
         }
         public class PATH_FILES
         {
-            public static string FILE_TXT_MATERIA_PRIMA = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data\data.txt";
+            public static string FILE_TXT_MATERIA_PRIMA = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data\recepciones.txt";
+            public static string FILE_TXT_DATA_ETIQUETA = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data\data.txt";
+            public static string FILE_TXT_DATA_PICKING_DESPACHO = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data\picking.txt";
+            public static string FILE_TXT_DATA_CANT_INICIALES = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data\iniciales.txt";
+
         }
+
     }
 }

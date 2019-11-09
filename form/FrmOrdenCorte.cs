@@ -394,11 +394,9 @@ namespace RitramaAPP
 
         private void BOT_EXCEL_EXPORT_Click(object sender, EventArgs e)
         {
-            string FILE = "data.txt";
-            string PATH = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data txt\";
             string separator = ",";
 
-            using (StreamWriter sr = new StreamWriter(PATH + FILE))
+            using (StreamWriter sr = new StreamWriter(R.PATH_FILES.FILE_TXT_DATA_ETIQUETA))
             {
                 foreach (DataGridViewRow row in grid_rollos.Rows)
                 {

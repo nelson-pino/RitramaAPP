@@ -16,7 +16,7 @@ namespace RitramaAPP.form
         public List<Roll_Details> Lista_rollos { get; set; }
         public IEnumerable<Producto> List_products { get; set; }
 
-        readonly string path = R.PATH_FILES.FILE_TXT_MATERIA_PRIMA;
+        
         readonly ProduccionManager produccionManager = new ProduccionManager();
 
         private void PickingList_Load(object sender, EventArgs e)
@@ -107,11 +107,11 @@ namespace RitramaAPP.form
         {
             //extraigo los unique code
             Lista_rollos = new List<Roll_Details>();
-            if (File.Exists(path))
+            if (File.Exists(R.PATH_FILES.FILE_TXT_DATA_PICKING_DESPACHO))
             {
                 try
                 {
-                    using (StreamReader sr = new StreamReader(path))
+                    using (StreamReader sr = new StreamReader(R.PATH_FILES.FILE_TXT_DATA_PICKING_DESPACHO))
                     {
                         while (sr.Peek() >= 0)
                         {

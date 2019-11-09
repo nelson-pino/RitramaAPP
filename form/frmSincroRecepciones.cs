@@ -245,6 +245,7 @@ namespace RitramaAPP.form
                     data.Palet_paginas = 0;
                     data.Num_sincro = numsincro;
                     data.Registro_movil = true;
+                    data.Disponible = true;
                     recepmanager.Add(data, false);
                     sincrook = true;
                 }
