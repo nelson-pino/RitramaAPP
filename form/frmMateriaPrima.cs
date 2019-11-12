@@ -14,8 +14,7 @@ namespace RitramaAPP
         {
             InitializeComponent();
         }
-        const Double FACTOR_METROS_PULDADAS = 39.3701;
-        const Double FACTOR_METROS_PIES = 3.28084;
+       
         readonly RecepcionManager manager = new RecepcionManager();
         readonly BindingSource bs = new BindingSource();
         DataSet ds = new DataSet();
@@ -35,8 +34,6 @@ namespace RitramaAPP
             txt_ubic.DataBindings.Add("text", bs, "Ubicacion");
             txt_splice.DataBindings.Add("text", bs, "Splice");
             txt_core.DataBindings.Add("text", bs, "Core");
-            txt_fecha_reg.DataBindings.Add("text", bs, "fecha_reg");
-            txt_hora_reg.DataBindings.Add("text", bs, "hora_reg");
             txt_supply_name.DataBindings.Add("text", bs, "suplidor_des");
             txt_product_name.DataBindings.Add("text", bs, "product_name");
             txt_fecha_produccion.DataBindings.Add("text", bs, "fecha_pro");
@@ -47,8 +44,9 @@ namespace RitramaAPP
             txt_numero_palet.DataBindings.Add("text", bs, "palet_num");
             txt_cant_palet.DataBindings.Add("text", bs, "palet_cant");
             txt_paginas.DataBindings.Add("text", bs, "palet_pag");
-            txt_lote.DataBindings.Add("text", bs, "num_sincro");
             CHK_ANULADO.DataBindings.Add("checked", bs, "anulado");
+            txt_width_metros.DataBindings.Add("text",bs,"width_metros");
+            txt_lenght_metros.DataBindings.Add("text", bs, "lenght_metros");
             ContadorRegistros();
         }
         private void Bot_sincro_Click(object sender, EventArgs e)
@@ -155,20 +153,22 @@ namespace RitramaAPP
             ClassRecepcion recepcion = new ClassRecepcion();
             RecepcionManager recepcionManager = new RecepcionManager();
             recepcion.Orden = txt_orden.Text;
-            recepcion.Fecha_reg = Convert.ToDateTime(txt_fecha_reg.Text);
-            recepcion.Hora_reg = txt_hora_reg.Text;
             recepcion.Part_Number = txt_part_number.Text;
             recepcion.ProductName = txt_product_name.Text;
             recepcion.Supply_Id = txt_id_supply.Text;
             recepcion.SupplyName = txt_supply_name.Text;
             recepcion.Width = Convert.ToDouble(txt_width.Text);
             recepcion.Lenght = Convert.ToDouble(txt_lenght.Text);
+            recepcion.Width_metros = Convert.ToDouble(txt_width_metros.Text);
+            recepcion.Lenght_metros = Convert.ToDouble(txt_lenght_metros.Text);
             recepcion.Roll_ID = txt_roll_id.Text;
             recepcion.Ubicacion = txt_ubic.Text;
             recepcion.Splice = Convert.ToInt16(txt_splice.Text);
             recepcion.Core = Convert.ToDecimal(txt_core.Text);
             recepcion.Anulado = false;
             recepcion.Fecha_produccion = Convert.ToDateTime(txt_fecha_produccion.Text);
+            recepcion.Fecha_reg = DateTime.Today;
+            recepcion.Hora_reg = DateTime.Now.ToString("h:mm:ss");
             recepcion.Master = rad_masterRolls.Checked;
             recepcion.Resma = rad_resmas.Checked;
             recepcion.Graphics = rad_graphics.Checked;
@@ -250,6 +250,8 @@ namespace RitramaAPP
                 Supply_Id = txt_id_supply.Text,
                 Width = Convert.ToDouble(txt_width.Text),
                 Lenght = Convert.ToDouble(txt_lenght.Text),
+                Width_metros = Convert.ToDouble(txt_width_metros.Text),
+                Lenght_metros = Convert.ToDouble(txt_lenght_metros.Text),
                 Splice = Convert.ToInt32(txt_splice.Text),
                 Core = Convert.ToDecimal(txt_core.Text)
             };
@@ -390,7 +392,7 @@ namespace RitramaAPP
         {
             using (SeleccionProductos BrowseProducts = new SeleccionProductos
             {
-                dtproducto = ds.Tables["dtproducto"]
+                Dtproducto = ds.Tables["dtproducto"]
             })
             {
                 BrowseProducts.ShowDialog();
@@ -505,8 +507,8 @@ namespace RitramaAPP
                 switch (dr)
                 {
                     case DialogResult.Yes:
-                        double value_width = Math.Round((Convert.ToDouble(txt_width.Text) * FACTOR_METROS_PULDADAS), 2, MidpointRounding.ToEven);
-                        double value_lengh = Math.Round((Convert.ToDouble(txt_lenght.Text) * FACTOR_METROS_PIES), 2, MidpointRounding.ToEven);
+                        double value_width = Math.Round((Convert.ToDouble(txt_width.Text) * R.CONSTANTES.FACTOR_METROS_PULDADAS), 2, MidpointRounding.ToEven);
+                        double value_lengh = Math.Round((Convert.ToDouble(txt_lenght.Text) * R.CONSTANTES.FACTOR_METROS_PIES), 2, MidpointRounding.ToEven);
                         txt_width.Text = Convert.ToString(value_width);
                         txt_lenght.Text = Convert.ToString(value_lengh);
                         bot_convert.Enabled = false;
@@ -569,6 +571,36 @@ namespace RitramaAPP
         private void Toolsbar_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void Txt_width_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txt_width.Text == "")
+            {
+                return;
+            }
+            CONVERT_INCH_METROS();
+        }
+
+        private void Txt_lenght_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txt_lenght.Text == "")
+            {
+                return;
+            }
+            CONVERT_PIES_METROS();
+        }
+        private void CONVERT_INCH_METROS()
+        {
+            double width_inch_metros = Convert.ToDouble(txt_width.Text) * 
+                R.CONSTANTES.FACTOR_PULGADAS_METROS;
+            txt_width_metros.Text = width_inch_metros.ToString();
+        }
+        private void CONVERT_PIES_METROS()
+        {
+            double width_pie_metros = Convert.ToDouble(txt_lenght.Text) * 
+                R.CONSTANTES.FACTOR_PIES_METROS;
+            txt_lenght_metros.Text = width_pie_metros.ToString();
         }
     }
 }

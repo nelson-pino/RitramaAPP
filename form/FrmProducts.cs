@@ -313,10 +313,10 @@ namespace RitramaAPP
         {
             SeleccionProductos BrowseProducts = new SeleccionProductos
             {
-                dtproducto = ds.Tables["dtproducto"]
+                Dtproducto = ds.Tables["dtproducto"]
             };
             BrowseProducts.ShowDialog();
-            int itemFound = bs.Find("Product_ID", BrowseProducts.itemSelected);
+            int itemFound = bs.Find("Product_ID", BrowseProducts.ItemSelected);
             bs.Position = itemFound;
         }
 

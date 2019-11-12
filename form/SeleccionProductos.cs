@@ -10,8 +10,8 @@ namespace RitramaAPP.form
         {
             InitializeComponent();
         }
-        public DataTable dtproducto { get; set; }
-        public string itemSelected { get; set; }
+        public DataTable Dtproducto { get; set; }
+        public string ItemSelected { get; set; }
         public string GetProductId { get; set; }
         public string GetProductName { get; set; }
         public Boolean GetMasterRolls { get; set; }
@@ -21,46 +21,58 @@ namespace RitramaAPP.form
         DataView dv = new DataView();
         private void SeleccionProductos_Load(object sender, EventArgs e)
         {
-            dv = dtproducto.DefaultView;
+            dv = Dtproducto.DefaultView;
             grid_productos.AutoGenerateColumns = false;
-            DataGridViewTextBoxColumn col1 = new DataGridViewTextBoxColumn();
-            col1.Name = "id_product";
-            col1.Width = 65;
-            col1.HeaderText = "Codigo";
-            col1.DataPropertyName = "Product_ID";
+            DataGridViewTextBoxColumn col1 = new DataGridViewTextBoxColumn
+            {
+                Name = "id_product",
+                Width = 65,
+                HeaderText = "Codigo",
+                DataPropertyName = "Product_ID"
+            };
             grid_productos.Columns.Add(col1);
-            DataGridViewTextBoxColumn col2 = new DataGridViewTextBoxColumn();
-            col2.Name = "part_name";
-            col2.Width = 250;
-            col2.HeaderText = "Producto";
-            col2.DataPropertyName = "Product_Name";
+            DataGridViewTextBoxColumn col2 = new DataGridViewTextBoxColumn
+            {
+                Name = "part_name",
+                Width = 250,
+                HeaderText = "Producto",
+                DataPropertyName = "Product_Name"
+            };
             grid_productos.Columns.Add(col2);
-            DataGridViewTextBoxColumn col3 = new DataGridViewTextBoxColumn();
-            col3.Name = "product_type";
-            col3.Width = 80;
-            col3.HeaderText = "Tipo";
-            col3.DataPropertyName = "Tipo";
+            DataGridViewTextBoxColumn col3 = new DataGridViewTextBoxColumn
+            {
+                Name = "product_type",
+                Width = 80,
+                HeaderText = "Tipo",
+                DataPropertyName = "Tipo"
+            };
             grid_productos.Columns.Add(col3);
-            DataGridViewTextBoxColumn col4 = new DataGridViewTextBoxColumn();
-            col4.Name = "masterRolls";
-            col4.Width = 60;
-            col4.HeaderText = "Master";
-            col4.DataPropertyName = "masterRolls";
-            col4.Visible = false;
+            DataGridViewTextBoxColumn col4 = new DataGridViewTextBoxColumn
+            {
+                Name = "masterRolls",
+                Width = 60,
+                HeaderText = "Master",
+                DataPropertyName = "masterRolls",
+                Visible = false
+            };
             grid_productos.Columns.Add(col4);
-            DataGridViewTextBoxColumn col5 = new DataGridViewTextBoxColumn();
-            col5.Name = "resmas";
-            col5.Width = 60;
-            col5.HeaderText = "Resma";
-            col5.DataPropertyName = "Resmas";
-            col5.Visible = false;
+            DataGridViewTextBoxColumn col5 = new DataGridViewTextBoxColumn
+            {
+                Name = "resmas",
+                Width = 60,
+                HeaderText = "Hojas",
+                DataPropertyName = "Resmas",
+                Visible = false
+            };
             grid_productos.Columns.Add(col5);
-            DataGridViewTextBoxColumn col6 = new DataGridViewTextBoxColumn();
-            col6.Name = "graphics";
-            col6.Width = 60;
-            col6.HeaderText = "Graphics";
-            col6.DataPropertyName = "graphics";
-            col6.Visible = false;
+            DataGridViewTextBoxColumn col6 = new DataGridViewTextBoxColumn
+            {
+                Name = "graphics",
+                Width = 60,
+                HeaderText = "Graphics",
+                DataPropertyName = "graphics",
+                Visible = false
+            };
             grid_productos.Columns.Add(col6);
             
             dv.RowFilter = "";
@@ -86,7 +98,7 @@ namespace RitramaAPP.form
             {
                 return;
             }
-            itemSelected = grid_productos.Rows[e.RowIndex].Cells[0].Value.ToString();
+            ItemSelected = grid_productos.Rows[e.RowIndex].Cells[0].Value.ToString();
             GetProductId = grid_productos.Rows[e.RowIndex].Cells[0].Value.ToString();
             GetProductName = grid_productos.Rows[e.RowIndex].Cells[1].Value.ToString();
             GetMasterRolls = Convert.ToBoolean(grid_productos.Rows[e.RowIndex].Cells[3].Value);

@@ -12,6 +12,8 @@ namespace RitramaAPP
         public string Orden { get; set; }
         public double Width { get; set; }
         public double Lenght { get; set; }
+        public double Width_metros { get; set; }
+        public double Lenght_metros { get; set; }
         public int Splice { get; set; }
         public decimal Core { get; set; }
         public string Roll_ID { get; set; }

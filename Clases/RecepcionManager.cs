@@ -362,7 +362,9 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p20", SqlDbType = SqlDbType.Int, Value = datos.Palet_paginas},
                 new SqlParameter() {ParameterName = "@p21", SqlDbType = SqlDbType.Int, Value = datos.Num_sincro},
                 new SqlParameter() {ParameterName = "@p22", SqlDbType = SqlDbType.Bit, Value = datos.Registro_movil},
-                new SqlParameter() {ParameterName = "@p23", SqlDbType = SqlDbType.Bit, Value = datos.Disponible}
+                new SqlParameter() {ParameterName = "@p23", SqlDbType = SqlDbType.Bit, Value = datos.Disponible},
+                new SqlParameter() {ParameterName = "@p24", SqlDbType = SqlDbType.Decimal, Value = datos.Width},
+                new SqlParameter() {ParameterName = "@p25", SqlDbType = SqlDbType.Decimal, Value = datos.Lenght}
             };
             return sp;
         }
@@ -381,6 +383,8 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Decimal, Value = datos.Lenght},
                 new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.Decimal, Value = datos.Splice},
                 new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Decimal, Value = datos.Core},
+                new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.Decimal, Value = datos.Width_metros},
+                new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.Decimal, Value = datos.Lenght_metros},
             };
             return sp;
         }

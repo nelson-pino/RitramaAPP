@@ -70,10 +70,6 @@
             this.LABEL_CONTADOR_REGISTRO = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txt_orden = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txt_fecha_reg = new System.Windows.Forms.TextBox();
-            this.txt_hora_reg = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
             this.bot_search_product = new System.Windows.Forms.Button();
             this.bot_search_provider = new System.Windows.Forms.Button();
             this.txt_fecha_produccion = new System.Windows.Forms.DateTimePicker();
@@ -93,23 +89,23 @@
             this.label19 = new System.Windows.Forms.Label();
             this.txt_numero_palet = new System.Windows.Forms.TextBox();
             this.bot_convert = new System.Windows.Forms.Button();
-            this.label22 = new System.Windows.Forms.Label();
-            this.txt_lote = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.chk_master_mts = new System.Windows.Forms.CheckBox();
+            this.txt_width_metros = new System.Windows.Forms.TextBox();
+            this.txt_lenght_metros = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.toolsbar.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(9, 426);
+            this.label10.Location = new System.Drawing.Point(14, 505);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(52, 13);
@@ -188,7 +184,7 @@
             // 
             // txt_part_number
             // 
-            this.txt_part_number.Location = new System.Drawing.Point(17, 265);
+            this.txt_part_number.Location = new System.Drawing.Point(17, 274);
             this.txt_part_number.Margin = new System.Windows.Forms.Padding(2);
             this.txt_part_number.Name = "txt_part_number";
             this.txt_part_number.ReadOnly = true;
@@ -199,7 +195,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(15, 250);
+            this.label5.Location = new System.Drawing.Point(15, 259);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(81, 13);
@@ -208,7 +204,7 @@
             // 
             // txt_product_name
             // 
-            this.txt_product_name.Location = new System.Drawing.Point(208, 265);
+            this.txt_product_name.Location = new System.Drawing.Point(208, 274);
             this.txt_product_name.Margin = new System.Windows.Forms.Padding(2);
             this.txt_product_name.Name = "txt_product_name";
             this.txt_product_name.ReadOnly = true;
@@ -219,7 +215,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(206, 249);
+            this.label6.Location = new System.Drawing.Point(206, 258);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(151, 13);
@@ -230,7 +226,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(9, 387);
+            this.label8.Location = new System.Drawing.Point(9, 410);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(81, 13);
@@ -241,7 +237,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(202, 387);
+            this.label9.Location = new System.Drawing.Point(202, 410);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(82, 13);
@@ -250,27 +246,27 @@
             // 
             // txt_splice
             // 
-            this.txt_splice.Location = new System.Drawing.Point(9, 442);
+            this.txt_splice.Location = new System.Drawing.Point(12, 520);
             this.txt_splice.Margin = new System.Windows.Forms.Padding(2);
             this.txt_splice.Name = "txt_splice";
             this.txt_splice.ReadOnly = true;
             this.txt_splice.Size = new System.Drawing.Size(143, 20);
-            this.txt_splice.TabIndex = 19;
+            this.txt_splice.TabIndex = 12;
             // 
             // txt_core
             // 
-            this.txt_core.Location = new System.Drawing.Point(202, 442);
+            this.txt_core.Location = new System.Drawing.Point(200, 520);
             this.txt_core.Margin = new System.Windows.Forms.Padding(2);
             this.txt_core.Name = "txt_core";
             this.txt_core.ReadOnly = true;
             this.txt_core.Size = new System.Drawing.Size(183, 20);
-            this.txt_core.TabIndex = 21;
+            this.txt_core.TabIndex = 13;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(200, 426);
+            this.label11.Location = new System.Drawing.Point(198, 505);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(41, 13);
@@ -288,18 +284,18 @@
             // 
             // txt_ubic
             // 
-            this.txt_ubic.Location = new System.Drawing.Point(9, 485);
+            this.txt_ubic.Location = new System.Drawing.Point(7, 576);
             this.txt_ubic.Margin = new System.Windows.Forms.Padding(2);
             this.txt_ubic.Name = "txt_ubic";
             this.txt_ubic.ReadOnly = true;
             this.txt_ubic.Size = new System.Drawing.Size(183, 20);
-            this.txt_ubic.TabIndex = 25;
+            this.txt_ubic.TabIndex = 14;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(7, 469);
+            this.label13.Location = new System.Drawing.Point(5, 560);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(72, 13);
@@ -328,12 +324,13 @@
             // 
             // txt_lenght
             // 
-            this.txt_lenght.Location = new System.Drawing.Point(202, 403);
+            this.txt_lenght.Location = new System.Drawing.Point(202, 426);
             this.txt_lenght.Margin = new System.Windows.Forms.Padding(2);
             this.txt_lenght.Name = "txt_lenght";
             this.txt_lenght.ReadOnly = true;
             this.txt_lenght.Size = new System.Drawing.Size(182, 20);
-            this.txt_lenght.TabIndex = 32;
+            this.txt_lenght.TabIndex = 9;
+            this.txt_lenght.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_lenght_KeyUp);
             // 
             // panel1
             // 
@@ -354,18 +351,19 @@
             this.label15.Location = new System.Drawing.Point(323, 27);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(168, 25);
+            this.label15.Size = new System.Drawing.Size(156, 25);
             this.label15.TabIndex = 0;
-            this.label15.Text = "MATERIA PRIMA";
+            this.label15.Text = "RECEPCIONES";
             // 
             // txt_width
             // 
-            this.txt_width.Location = new System.Drawing.Point(9, 403);
+            this.txt_width.Location = new System.Drawing.Point(9, 426);
             this.txt_width.Margin = new System.Windows.Forms.Padding(2);
             this.txt_width.Name = "txt_width";
             this.txt_width.ReadOnly = true;
             this.txt_width.Size = new System.Drawing.Size(143, 20);
-            this.txt_width.TabIndex = 34;
+            this.txt_width.TabIndex = 8;
+            this.txt_width.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_width_KeyUp);
             // 
             // toolsbar
             // 
@@ -517,7 +515,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 130);
+            this.label1.Location = new System.Drawing.Point(20, 175);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
@@ -526,58 +524,18 @@
             // 
             // txt_orden
             // 
-            this.txt_orden.Location = new System.Drawing.Point(16, 146);
+            this.txt_orden.Location = new System.Drawing.Point(20, 191);
             this.txt_orden.Margin = new System.Windows.Forms.Padding(2);
             this.txt_orden.Name = "txt_orden";
             this.txt_orden.ReadOnly = true;
             this.txt_orden.Size = new System.Drawing.Size(143, 20);
-            this.txt_orden.TabIndex = 0;
+            this.txt_orden.TabIndex = 2;
             this.txt_orden.Validating += new System.ComponentModel.CancelEventHandler(this.Txt_orden_Validating);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(111, 28);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(50, 13);
-            this.label7.TabIndex = 41;
-            this.label7.Text = "Fecha :";
-            // 
-            // txt_fecha_reg
-            // 
-            this.txt_fecha_reg.Location = new System.Drawing.Point(111, 45);
-            this.txt_fecha_reg.Margin = new System.Windows.Forms.Padding(2);
-            this.txt_fecha_reg.Name = "txt_fecha_reg";
-            this.txt_fecha_reg.ReadOnly = true;
-            this.txt_fecha_reg.Size = new System.Drawing.Size(195, 20);
-            this.txt_fecha_reg.TabIndex = 40;
-            // 
-            // txt_hora_reg
-            // 
-            this.txt_hora_reg.Location = new System.Drawing.Point(310, 45);
-            this.txt_hora_reg.Margin = new System.Windows.Forms.Padding(2);
-            this.txt_hora_reg.Name = "txt_hora_reg";
-            this.txt_hora_reg.ReadOnly = true;
-            this.txt_hora_reg.Size = new System.Drawing.Size(170, 20);
-            this.txt_hora_reg.TabIndex = 42;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(306, 25);
-            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(42, 13);
-            this.label16.TabIndex = 43;
-            this.label16.Text = "Hora :";
             // 
             // bot_search_product
             // 
             this.bot_search_product.Enabled = false;
-            this.bot_search_product.Location = new System.Drawing.Point(136, 263);
+            this.bot_search_product.Location = new System.Drawing.Point(136, 272);
             this.bot_search_product.Margin = new System.Windows.Forms.Padding(2);
             this.bot_search_product.Name = "bot_search_product";
             this.bot_search_product.Size = new System.Drawing.Size(22, 19);
@@ -622,7 +580,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(16, 174);
+            this.label18.Location = new System.Drawing.Point(18, 136);
             this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(136, 13);
@@ -631,12 +589,12 @@
             // 
             // txt_num_embarque
             // 
-            this.txt_num_embarque.Location = new System.Drawing.Point(16, 190);
+            this.txt_num_embarque.Location = new System.Drawing.Point(18, 152);
             this.txt_num_embarque.Margin = new System.Windows.Forms.Padding(2);
             this.txt_num_embarque.Name = "txt_num_embarque";
             this.txt_num_embarque.ReadOnly = true;
             this.txt_num_embarque.Size = new System.Drawing.Size(143, 20);
-            this.txt_num_embarque.TabIndex = 2;
+            this.txt_num_embarque.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -683,7 +641,7 @@
             this.groupBox2.Controls.Add(this.rad_resmas);
             this.groupBox2.Controls.Add(this.rad_graphics);
             this.groupBox2.Controls.Add(this.rad_masterRolls);
-            this.groupBox2.Location = new System.Drawing.Point(16, 287);
+            this.groupBox2.Location = new System.Drawing.Point(16, 310);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
@@ -699,10 +657,10 @@
             this.rad_resmas.Location = new System.Drawing.Point(27, 44);
             this.rad_resmas.Margin = new System.Windows.Forms.Padding(2);
             this.rad_resmas.Name = "rad_resmas";
-            this.rad_resmas.Size = new System.Drawing.Size(58, 17);
+            this.rad_resmas.Size = new System.Drawing.Size(52, 17);
             this.rad_resmas.TabIndex = 3;
             this.rad_resmas.TabStop = true;
-            this.rad_resmas.Text = "Resma";
+            this.rad_resmas.Text = "Hojas";
             this.rad_resmas.UseVisualStyleBackColor = true;
             this.rad_resmas.CheckedChanged += new System.EventHandler(this.Rad_resmas_CheckedChanged);
             // 
@@ -714,7 +672,7 @@
             this.groupBox3.Controls.Add(this.label20);
             this.groupBox3.Controls.Add(this.label19);
             this.groupBox3.Controls.Add(this.txt_numero_palet);
-            this.groupBox3.Location = new System.Drawing.Point(228, 292);
+            this.groupBox3.Location = new System.Drawing.Point(228, 315);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
@@ -784,50 +742,13 @@
             // 
             this.bot_convert.Enabled = false;
             this.bot_convert.Image = ((System.Drawing.Image)(resources.GetObject("bot_convert.Image")));
-            this.bot_convert.Location = new System.Drawing.Point(387, 401);
+            this.bot_convert.Location = new System.Drawing.Point(387, 424);
             this.bot_convert.Margin = new System.Windows.Forms.Padding(2);
             this.bot_convert.Name = "bot_convert";
             this.bot_convert.Size = new System.Drawing.Size(29, 22);
             this.bot_convert.TabIndex = 56;
             this.bot_convert.UseVisualStyleBackColor = true;
             this.bot_convert.Click += new System.EventHandler(this.Bot_convert_Click);
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(11, 28);
-            this.label22.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(101, 13);
-            this.label22.TabIndex = 58;
-            this.label22.Text = "Numero de Lote:";
-            // 
-            // txt_lote
-            // 
-            this.txt_lote.Location = new System.Drawing.Point(11, 45);
-            this.txt_lote.Margin = new System.Windows.Forms.Padding(2);
-            this.txt_lote.Name = "txt_lote";
-            this.txt_lote.ReadOnly = true;
-            this.txt_lote.Size = new System.Drawing.Size(98, 20);
-            this.txt_lote.TabIndex = 57;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.txt_lote);
-            this.groupBox4.Controls.Add(this.label22);
-            this.groupBox4.Controls.Add(this.txt_fecha_reg);
-            this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Controls.Add(this.txt_hora_reg);
-            this.groupBox4.Controls.Add(this.label16);
-            this.groupBox4.Location = new System.Drawing.Point(9, 518);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(532, 76);
-            this.groupBox4.TabIndex = 59;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Datos de Sincronizacion:";
             // 
             // chk_master_mts
             // 
@@ -841,13 +762,56 @@
             this.chk_master_mts.Text = "Master Roll en Metros";
             this.chk_master_mts.UseVisualStyleBackColor = true;
             // 
+            // txt_width_metros
+            // 
+            this.txt_width_metros.Location = new System.Drawing.Point(7, 472);
+            this.txt_width_metros.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_width_metros.Name = "txt_width_metros";
+            this.txt_width_metros.ReadOnly = true;
+            this.txt_width_metros.Size = new System.Drawing.Size(143, 20);
+            this.txt_width_metros.TabIndex = 10;
+            // 
+            // txt_lenght_metros
+            // 
+            this.txt_lenght_metros.Location = new System.Drawing.Point(200, 472);
+            this.txt_lenght_metros.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_lenght_metros.Name = "txt_lenght_metros";
+            this.txt_lenght_metros.ReadOnly = true;
+            this.txt_lenght_metros.Size = new System.Drawing.Size(182, 20);
+            this.txt_lenght_metros.TabIndex = 11;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(200, 456);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(96, 13);
+            this.label7.TabIndex = 62;
+            this.label7.Text = "Lengh [Metros]:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(7, 456);
+            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(94, 13);
+            this.label16.TabIndex = 61;
+            this.label16.Text = "Width [Metros]:";
+            // 
             // FrmMateriaPrima
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(832, 609);
+            this.Controls.Add(this.txt_width_metros);
+            this.Controls.Add(this.txt_lenght_metros);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.chk_master_mts);
-            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.bot_convert);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -903,8 +867,6 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -952,10 +914,6 @@
         private System.Windows.Forms.Label LABEL_CONTADOR_REGISTRO;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_orden;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txt_fecha_reg;
-        private System.Windows.Forms.TextBox txt_hora_reg;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button bot_search_product;
         private System.Windows.Forms.Button bot_search_provider;
         private System.Windows.Forms.DateTimePicker txt_fecha_produccion;
@@ -974,10 +932,11 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txt_numero_palet;
         private System.Windows.Forms.Button bot_convert;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.TextBox txt_lote;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.CheckBox chk_master_mts;
         private System.Windows.Forms.RadioButton rad_resmas;
+        private System.Windows.Forms.TextBox txt_width_metros;
+        private System.Windows.Forms.TextBox txt_lenght_metros;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label16;
     }
 }

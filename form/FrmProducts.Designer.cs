@@ -196,10 +196,10 @@
             this.RAD_RESMAS.Location = new System.Drawing.Point(17, 46);
             this.RAD_RESMAS.Margin = new System.Windows.Forms.Padding(2);
             this.RAD_RESMAS.Name = "RAD_RESMAS";
-            this.RAD_RESMAS.Size = new System.Drawing.Size(63, 17);
+            this.RAD_RESMAS.Size = new System.Drawing.Size(52, 17);
             this.RAD_RESMAS.TabIndex = 1;
             this.RAD_RESMAS.TabStop = true;
-            this.RAD_RESMAS.Text = "Resmas";
+            this.RAD_RESMAS.Text = "Hojas";
             this.RAD_RESMAS.UseVisualStyleBackColor = true;
             // 
             // label15

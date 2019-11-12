@@ -284,7 +284,7 @@ namespace RitramaAPP.form
             {
                 SeleccionProductos selectProducts = new SeleccionProductos
                 {
-                    dtproducto = ds.Tables["dtproducto"]
+                    Dtproducto = ds.Tables["dtproducto"]
                 };
                 selectProducts.ShowDialog();
                 grid_items.Rows[e.RowIndex].Cells["product_id"].Value = selectProducts.GetProductId;
