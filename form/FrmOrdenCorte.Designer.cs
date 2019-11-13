@@ -56,9 +56,7 @@
             this.txt_width1_rollid = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txt_lenght1_rollid = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.txt_lenght2_rollid = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.txt_width2_rollid = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txt_rollid_2 = new System.Windows.Forms.TextBox();
@@ -70,15 +68,18 @@
             this.txt_product_name = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txt_cant_cortado = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.txt_width_cortado = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.txt_lenght_cortado = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txt_msi_cortado = new System.Windows.Forms.TextBox();
             this.bot_generar_rollos_cortados = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.chk_process = new System.Windows.Forms.CheckBox();
+            this.btn_eliminar_renglon = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_rollos)).BeginInit();
@@ -135,7 +136,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(862, 65);
+            this.panel1.Size = new System.Drawing.Size(833, 65);
             this.panel1.TabIndex = 35;
             // 
             // contador
@@ -165,7 +166,7 @@
             this.BOT_EXCEL_EXPORT});
             this.toolStrip1.Location = new System.Drawing.Point(0, 65);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(862, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(833, 27);
             this.toolStrip1.TabIndex = 45;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -284,11 +285,13 @@
             this.grid_rollos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grid_rollos.Location = new System.Drawing.Point(9, 346);
             this.grid_rollos.Margin = new System.Windows.Forms.Padding(2);
+            this.grid_rollos.MultiSelect = false;
             this.grid_rollos.Name = "grid_rollos";
             this.grid_rollos.RowHeadersWidth = 25;
             this.grid_rollos.RowTemplate.Height = 24;
             this.grid_rollos.Size = new System.Drawing.Size(814, 281);
             this.grid_rollos.TabIndex = 17;
+            this.grid_rollos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_rollos_CellEndEdit);
             // 
             // txt_fecha_producc
             // 
@@ -334,9 +337,9 @@
             this.label5.Location = new System.Drawing.Point(189, 146);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.Size = new System.Drawing.Size(76, 13);
             this.label5.TabIndex = 63;
-            this.label5.Text = "Width :";
+            this.label5.Text = "Width [INCH] :";
             // 
             // txt_width1_rollid
             // 
@@ -353,9 +356,9 @@
             this.label7.Location = new System.Drawing.Point(297, 146);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 13);
+            this.label7.Size = new System.Drawing.Size(73, 13);
             this.label7.TabIndex = 65;
-            this.label7.Text = "Lenght:";
+            this.label7.Text = "Lenght [PIES]";
             // 
             // txt_lenght1_rollid
             // 
@@ -366,16 +369,6 @@
             this.txt_lenght1_rollid.Size = new System.Drawing.Size(104, 20);
             this.txt_lenght1_rollid.TabIndex = 5;
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(297, 192);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 13);
-            this.label8.TabIndex = 71;
-            this.label8.Text = "Lenght:";
-            // 
             // txt_lenght2_rollid
             // 
             this.txt_lenght2_rollid.Location = new System.Drawing.Point(297, 211);
@@ -384,16 +377,6 @@
             this.txt_lenght2_rollid.ReadOnly = true;
             this.txt_lenght2_rollid.Size = new System.Drawing.Size(104, 20);
             this.txt_lenght2_rollid.TabIndex = 8;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(189, 192);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(41, 13);
-            this.label9.TabIndex = 69;
-            this.label9.Text = "Width :";
             // 
             // txt_width2_rollid
             // 
@@ -476,11 +459,11 @@
             // 
             // txt_product_name
             // 
-            this.txt_product_name.Location = new System.Drawing.Point(192, 260);
+            this.txt_product_name.Location = new System.Drawing.Point(149, 260);
             this.txt_product_name.Margin = new System.Windows.Forms.Padding(2);
             this.txt_product_name.Name = "txt_product_name";
             this.txt_product_name.ReadOnly = true;
-            this.txt_product_name.Size = new System.Drawing.Size(352, 20);
+            this.txt_product_name.Size = new System.Drawing.Size(405, 20);
             this.txt_product_name.TabIndex = 11;
             // 
             // label6
@@ -495,6 +478,7 @@
             // 
             // txt_cant_cortado
             // 
+            this.txt_cant_cortado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_cant_cortado.Location = new System.Drawing.Point(14, 306);
             this.txt_cant_cortado.Margin = new System.Windows.Forms.Padding(2);
             this.txt_cant_cortado.Name = "txt_cant_cortado";
@@ -504,18 +488,9 @@
             this.txt_cant_cortado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_cant_cortado_KeyPress);
             this.txt_cant_cortado.Validating += new System.ComponentModel.CancelEventHandler(this.Txt_cant_cortado_Validating);
             // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(152, 287);
-            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(44, 13);
-            this.label13.TabIndex = 81;
-            this.label13.Text = "Width  :";
-            // 
             // txt_width_cortado
             // 
+            this.txt_width_cortado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_width_cortado.Location = new System.Drawing.Point(152, 306);
             this.txt_width_cortado.Margin = new System.Windows.Forms.Padding(2);
             this.txt_width_cortado.Name = "txt_width_cortado";
@@ -525,18 +500,9 @@
             this.txt_width_cortado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_width_cortado_KeyPress);
             this.txt_width_cortado.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_width_cortado_KeyUp);
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(284, 287);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(49, 13);
-            this.label14.TabIndex = 83;
-            this.label14.Text = "Lenght  :";
-            // 
             // txt_lenght_cortado
             // 
+            this.txt_lenght_cortado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_lenght_cortado.Location = new System.Drawing.Point(284, 306);
             this.txt_lenght_cortado.Margin = new System.Windows.Forms.Padding(2);
             this.txt_lenght_cortado.Name = "txt_lenght_cortado";
@@ -549,20 +515,22 @@
             // label16
             // 
             this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.Location = new System.Drawing.Point(416, 287);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(32, 13);
             this.label16.TabIndex = 85;
-            this.label16.Text = "Msi  :";
+            this.label16.Text = "MSI :";
             // 
             // txt_msi_cortado
             // 
+            this.txt_msi_cortado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_msi_cortado.Location = new System.Drawing.Point(416, 306);
             this.txt_msi_cortado.Margin = new System.Windows.Forms.Padding(2);
             this.txt_msi_cortado.Name = "txt_msi_cortado";
             this.txt_msi_cortado.ReadOnly = true;
-            this.txt_msi_cortado.Size = new System.Drawing.Size(128, 20);
+            this.txt_msi_cortado.Size = new System.Drawing.Size(138, 20);
             this.txt_msi_cortado.TabIndex = 15;
             // 
             // bot_generar_rollos_cortados
@@ -598,20 +566,73 @@
             this.chk_process.Text = "Procesado";
             this.chk_process.UseVisualStyleBackColor = true;
             // 
+            // btn_eliminar_renglon
+            // 
+            this.btn_eliminar_renglon.Location = new System.Drawing.Point(735, 318);
+            this.btn_eliminar_renglon.Name = "btn_eliminar_renglon";
+            this.btn_eliminar_renglon.Size = new System.Drawing.Size(88, 23);
+            this.btn_eliminar_renglon.TabIndex = 89;
+            this.btn_eliminar_renglon.Text = "- Fila";
+            this.btn_eliminar_renglon.UseVisualStyleBackColor = true;
+            this.btn_eliminar_renglon.Click += new System.EventHandler(this.Btn_eliminar_renglon_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(189, 192);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(76, 13);
+            this.label8.TabIndex = 90;
+            this.label8.Text = "Width [INCH] :";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(297, 192);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(73, 13);
+            this.label9.TabIndex = 91;
+            this.label9.Text = "Lenght [PIES]";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(151, 291);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(76, 13);
+            this.label13.TabIndex = 92;
+            this.label13.Text = "Width [INCH] :";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(281, 291);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(73, 13);
+            this.label14.TabIndex = 93;
+            this.label14.Text = "Lenght [PIES]";
+            // 
             // FrmOrdenCorte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(862, 673);
+            this.ClientSize = new System.Drawing.Size(833, 673);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.btn_eliminar_renglon);
             this.Controls.Add(this.chk_process);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.bot_generar_rollos_cortados);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.txt_msi_cortado);
-            this.Controls.Add(this.label14);
             this.Controls.Add(this.txt_lenght_cortado);
-            this.Controls.Add(this.label13);
             this.Controls.Add(this.txt_width_cortado);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txt_cant_cortado);
@@ -621,9 +642,7 @@
             this.Controls.Add(this.txt_product_id);
             this.Controls.Add(this.bot_buscar_rollid2);
             this.Controls.Add(this.bot_buscar_rollid1);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.txt_lenght2_rollid);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.txt_width2_rollid);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txt_rollid_2);
@@ -685,9 +704,7 @@
         private System.Windows.Forms.TextBox txt_width1_rollid;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txt_lenght1_rollid;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txt_lenght2_rollid;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txt_width2_rollid;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txt_rollid_2;
@@ -699,9 +716,7 @@
         private System.Windows.Forms.TextBox txt_product_name;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txt_cant_cortado;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txt_width_cortado;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txt_lenght_cortado;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txt_msi_cortado;
@@ -709,5 +724,10 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox chk_process;
         private System.Windows.Forms.ToolStripButton bot_modificar;
+        private System.Windows.Forms.Button btn_eliminar_renglon;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
     }
 }

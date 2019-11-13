@@ -37,6 +37,7 @@ namespace RitramaAPP
             txt_supply_name.DataBindings.Add("text", bs, "suplidor_des");
             txt_product_name.DataBindings.Add("text", bs, "product_name");
             txt_fecha_produccion.DataBindings.Add("text", bs, "fecha_pro");
+            Txt_fecha_recep.DataBindings.Add("text", bs, "fecha_recep");
             rad_masterRolls.DataBindings.Add("checked", bs, "master");
             rad_resmas.DataBindings.Add("checked", bs, "resma");
             rad_graphics.DataBindings.Add("checked", bs, "graphics");
@@ -167,6 +168,7 @@ namespace RitramaAPP
             recepcion.Core = Convert.ToDecimal(txt_core.Text);
             recepcion.Anulado = false;
             recepcion.Fecha_produccion = Convert.ToDateTime(txt_fecha_produccion.Text);
+            recepcion.Fecha_recepcion = Convert.ToDateTime(Txt_fecha_recep.Text);
             recepcion.Fecha_reg = DateTime.Today;
             recepcion.Hora_reg = DateTime.Now.ToString("h:mm:ss");
             recepcion.Master = rad_masterRolls.Checked;
@@ -243,6 +245,7 @@ namespace RitramaAPP
             {
                 Orden = txt_orden.Text,
                 Fecha_produccion = Convert.ToDateTime(txt_fecha_produccion.Text),
+                Fecha_recepcion  = Convert.ToDateTime(Txt_fecha_recep.Text),
                 Embarque = txt_num_embarque.Text,
                 Roll_ID = txt_roll_id.Text,
                 Ubicacion = txt_ubic.Text,
@@ -308,6 +311,7 @@ namespace RitramaAPP
                     txt_ubic.ReadOnly = false;
                     txt_num_embarque.ReadOnly = false;
                     txt_fecha_produccion.Enabled = true;
+                    Txt_fecha_recep.Enabled = true;
                     rad_masterRolls.Enabled = true;
                     rad_resmas.Enabled = true;
                     rad_graphics.Enabled = true;
@@ -324,6 +328,7 @@ namespace RitramaAPP
                     txt_roll_id.ReadOnly = true;
                     txt_ubic.ReadOnly = true;
                     txt_fecha_produccion.Enabled = false;
+                    Txt_fecha_recep.Enabled = false;
                     txt_num_embarque.ReadOnly = true;
                     bot_search_product.Enabled = false;
                     bot_search_provider.Enabled = false;
@@ -350,6 +355,7 @@ namespace RitramaAPP
                 case 2:
                     //MODO UPDATE-OPEN
                     txt_fecha_produccion.Enabled = true;
+                    Txt_fecha_recep.Enabled = true;
                     txt_num_embarque.ReadOnly = false;
                     txt_roll_id.ReadOnly = false;
                     txt_ubic.ReadOnly = false;

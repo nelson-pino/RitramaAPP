@@ -521,5 +521,29 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
+        public Boolean DeleteUniqueCode(string Unique_Code) 
+        {
+            int result;
+            Micomm.Conectar(R.SQL.DATABASE.NAME);
+            SqlCommand comando = new SqlCommand
+            {
+                CommandType = CommandType.Text,
+                CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_DELETE_UNIQUE_CODE,
+                Connection = Micomm.cnn
+            };
+            SqlParameter p1 = new SqlParameter("@p1", Unique_Code);
+            comando.Parameters.Add(p1);
+            result = Convert.ToInt16(comando.ExecuteScalar());
+            Micomm.Desconectar();
+            comando.Dispose();
+            if (result == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

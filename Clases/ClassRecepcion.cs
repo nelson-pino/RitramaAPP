@@ -23,6 +23,7 @@ namespace RitramaAPP
         public string ProductName { get; set; }
         public Boolean Anulado { get; set; }
         public DateTime Fecha_produccion { get; set; }
+        public DateTime Fecha_recepcion { get; set; }
         public Boolean Master { get; set; }
         public Boolean Resma { get; set; }
         public Boolean Graphics { get; set; }

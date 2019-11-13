@@ -24,7 +24,6 @@ namespace RitramaAPP
         readonly System.Data.DataTable dtproducts = new System.Data.DataTable();
         DataSet ds = new DataSet();
         private DataRowView ParentRow;
-        readonly double factor = 0.012;
         int EditMode = 0;
         string modproduct_id, modcan_cortado, modwidth, modlenght, modmsi;
         Boolean ischanged_rollos = false;
@@ -217,8 +216,9 @@ namespace RitramaAPP
             AGREGAR_COLUMN_GRID("code_personalize", 100, "Code Person.", "code_person");
             DataGridViewComboBoxColumn col = new DataGridViewComboBoxColumn();
             col.Items.Add("Ok");
-            col.Items.Add("Detalle");
             col.Items.Add("Rechazado");
+            col.Items.Add("Retenido");
+            col.Items.Add("Reservado");
             col.Name = "status";
             col.HeaderText = "status";
             col.DataPropertyName = "status";
@@ -382,7 +382,7 @@ namespace RitramaAPP
                     Large = Convert.ToDecimal(txt_lenght_cortado.Text),
                     Msi = Convert.ToDecimal(txt_msi_cortado.Text),
                     Splice = 0,
-                    Code_Person = "XC80RP3000WG",
+                    Code_Person = "N/A",
                     Status = "Ok"
                 };
                 rollos.Add(item);
@@ -528,17 +528,14 @@ namespace RitramaAPP
                 try
                 {
                     double msi = ((Convert.ToDouble(txt_width_cortado.Text)
-                            * Convert.ToDouble(txt_lenght_cortado.Text)) * factor);
+                            * Convert.ToDouble(txt_lenght_cortado.Text)) 
+                            * R.CONSTANTES.FACTOR_CALCULO_MSI);
                     txt_msi_cortado.Text = msi.ToString();
                 }
                 catch (Exception)
                 {
-
-
                     txt_msi_cortado.Text = "0";
                 }
-
-
             }
         }
         private void Txt_numero_oc_KeyPress(object sender, KeyPressEventArgs e)
@@ -562,7 +559,7 @@ namespace RitramaAPP
 
         private void Txt_width_cortado_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string CaracValid = "0123456789";
+            string CaracValid = "0123456789.";
             if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
             {
                 // si no es bakcspace y no es un numero se omite.   
@@ -572,7 +569,7 @@ namespace RitramaAPP
 
         private void Txt_lenght_cortado_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string CaracValid = "0123456789";
+            string CaracValid = "0123456789,.";
             if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
             {
                 // si no es bakcspace y no es un numero se omite.   
@@ -611,6 +608,51 @@ namespace RitramaAPP
                 MessageBox.Show("La Orden produccion : " + txt_numero_oc.Text + " ya existe.");
                 txt_numero_oc.Text = "";
             }
+        }
+
+        private void Grid_rollos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 4 || e.ColumnIndex == 5) 
+            {
+                CALCULAR_MSI_RENGLON(e.RowIndex);
+            }
+        }
+       private void CALCULAR_MSI_RENGLON(int fila) 
+       {
+            if (EditMode != 0 || Convert.ToDouble(grid_rollos.Rows[fila].Cells["largo"].Value) > 0 ||
+                 Convert.ToDouble(grid_rollos.Rows[fila].Cells["ancho"].Value) > 0)
+            {
+                try
+                {
+                    double msi = ((Convert.ToDouble(grid_rollos.Rows[fila].Cells["ancho"].Value)
+                            * Convert.ToDouble(grid_rollos.Rows[fila].Cells["largo"].Value)) 
+                            * R.CONSTANTES.FACTOR_CALCULO_MSI);
+                    grid_rollos.Rows[fila].Cells["msi"].Value  = msi.ToString();
+                }
+                catch (Exception)
+                {
+
+
+                    grid_rollos.Rows[fila].Cells["msi"].Value = "0";
+                }
+
+
+            }
+        }
+
+        private void Btn_eliminar_renglon_Click(object sender, EventArgs e)
+        {
+            //ACTUALIZAR LA INTERFAZ GRAFICA.
+
+            string rc = ""; ;
+            foreach (DataGridViewRow item in this.grid_rollos.SelectedRows)
+            {
+                rc = item.Cells["unique_code"].Value.ToString();
+                grid_rollos.Rows.RemoveAt(item.Index);
+            }
+            //ACTUALIZAR LA BASE DE DATOS. 
+            managerorden.DeleteUniqueCode(rc);
+
         }
 
         private void Txt_cant_cortado_Validating(object sender, CancelEventArgs e)

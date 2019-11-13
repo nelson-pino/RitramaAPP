@@ -15,7 +15,7 @@ namespace RitramaAPP
         {
             switch (e.Node.Text)
             {
-                case "Materia Prima":
+                case "Recepciones":
                     panel1.Controls.Clear();
                     FrmMateriaPrima f = new FrmMateriaPrima();
                     f.TopLevel = false;
@@ -37,7 +37,7 @@ namespace RitramaAPP
                     fcorte.TopLevel = false;
                     this.panel1.Controls.Add(fcorte);
                     fcorte.Dock = DockStyle.Fill;
-                    fcorte.Show();
+                     fcorte.Show();
                     break;
                 case "Productos":
                     panel1.Controls.Clear();
@@ -88,11 +88,6 @@ namespace RitramaAPP
                     fDespachos.Show();
                     break;
             }
-        }
-
-        private void Main_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

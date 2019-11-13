@@ -94,6 +94,8 @@
             this.txt_lenght_metros = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.Txt_fecha_recep = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
             this.toolsbar.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -492,7 +494,7 @@
             // 
             this.CHK_ANULADO.AutoSize = true;
             this.CHK_ANULADO.Enabled = false;
-            this.CHK_ANULADO.Location = new System.Drawing.Point(500, 137);
+            this.CHK_ANULADO.Location = new System.Drawing.Point(675, 152);
             this.CHK_ANULADO.Margin = new System.Windows.Forms.Padding(2);
             this.CHK_ANULADO.Name = "CHK_ANULADO";
             this.CHK_ANULADO.Size = new System.Drawing.Size(123, 17);
@@ -559,7 +561,7 @@
             // txt_fecha_produccion
             // 
             this.txt_fecha_produccion.Enabled = false;
-            this.txt_fecha_produccion.Location = new System.Drawing.Point(208, 152);
+            this.txt_fecha_produccion.Location = new System.Drawing.Point(417, 152);
             this.txt_fecha_produccion.Margin = new System.Windows.Forms.Padding(2);
             this.txt_fecha_produccion.Name = "txt_fecha_produccion";
             this.txt_fecha_produccion.Size = new System.Drawing.Size(182, 20);
@@ -569,7 +571,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(206, 137);
+            this.label17.Location = new System.Drawing.Point(415, 137);
             this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(136, 13);
@@ -802,11 +804,33 @@
             this.label16.TabIndex = 61;
             this.label16.Text = "Width [Metros]:";
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(207, 137);
+            this.label22.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(133, 13);
+            this.label22.TabIndex = 64;
+            this.label22.Text = "Fecha de Recepcion :";
+            // 
+            // Txt_fecha_recep
+            // 
+            this.Txt_fecha_recep.Enabled = false;
+            this.Txt_fecha_recep.Location = new System.Drawing.Point(209, 152);
+            this.Txt_fecha_recep.Margin = new System.Windows.Forms.Padding(2);
+            this.Txt_fecha_recep.Name = "Txt_fecha_recep";
+            this.Txt_fecha_recep.Size = new System.Drawing.Size(182, 20);
+            this.Txt_fecha_recep.TabIndex = 63;
+            // 
             // FrmMateriaPrima
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(832, 609);
+            this.Controls.Add(this.label22);
+            this.Controls.Add(this.Txt_fecha_recep);
             this.Controls.Add(this.txt_width_metros);
             this.Controls.Add(this.txt_lenght_metros);
             this.Controls.Add(this.label7);
@@ -938,5 +962,7 @@
         private System.Windows.Forms.TextBox txt_lenght_metros;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.DateTimePicker Txt_fecha_recep;
     }
 }
