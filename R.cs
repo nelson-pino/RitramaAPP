@@ -93,8 +93,8 @@ namespace RitramaAPP
                     public static string SQL_QUERY_UPDATE_ROLLID_DISPONIBILIDAD = "UPDATE OrdenRecepcion SET disponible=0 WHERE Roll_Id=@p1";
                     public static string SQL_QUERY_SELECT_VERIFIFY_REPEAT_OC = "SELECT count(*) FROM orden_corte WHERE numero=@p1";
                     public static string SQL_QUERY_DELETE_UNIQUE_CODE = "DELETE FROM rolls_details WHERE unique_code=@p1";
-
-
+                    public static string SQL_QUERY_PROCESAR_ORDEN_OC = "UPDATE orden_corte SET Procesado=1 WHERE numero=@p1";
+                    public static string SQL_QUERY_ANULAR_ORDEN_OC = "UPDATE orden_corte SET anulada=1 WHERE numero=@p1";
 
                 }
                 public class DESPACHOS
@@ -165,6 +165,8 @@ namespace RitramaAPP
                 public static string MESSAGE_DELETE_ORDER_ROLLSDETAIL = "Error al tratar de eliminar informacion de los rollos cortados...";
                 public static string MESSAGE_UPDATE_ERROR_ORDER_ROLLSDETAIL = "ERROR AL ACTUALIZAR LA DATA DE LOS ROLLOS CORTADOS...";
                 public static string MESSAGE_UPDATE_ERROR_UPDATE_ROLLID = "Error al actualizar la disponibilidad de los numeros ROLL ID.";
+                public static string MESSAGE_UPDATE_PROCESAR_ORDEN_OC = "Error al procesar documento de orden de corte";
+                public static string MESSAGE_UPDATE_ANULAR_ORDEN_OC = "Error al Anular documento de orden de corte";
             }
             public class DESPACHOS
             {

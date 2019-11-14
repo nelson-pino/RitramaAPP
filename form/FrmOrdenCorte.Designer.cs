@@ -45,6 +45,7 @@
             this.BOT_SAVE = new System.Windows.Forms.ToolStripButton();
             this.bot_modificar = new System.Windows.Forms.ToolStripButton();
             this.BOT_BUSCAR = new System.Windows.Forms.ToolStripButton();
+            this.Bot_procesar = new System.Windows.Forms.ToolStripButton();
             this.BOT_EXCEL_EXPORT = new System.Windows.Forms.ToolStripButton();
             this.txt_fecha_orden = new System.Windows.Forms.DateTimePicker();
             this.grid_rollos = new System.Windows.Forms.DataGridView();
@@ -73,13 +74,14 @@
             this.label16 = new System.Windows.Forms.Label();
             this.txt_msi_cortado = new System.Windows.Forms.TextBox();
             this.bot_generar_rollos_cortados = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chk_anulado = new System.Windows.Forms.CheckBox();
             this.chk_process = new System.Windows.Forms.CheckBox();
             this.btn_eliminar_renglon = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.Bot_Anular = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_rollos)).BeginInit();
@@ -119,11 +121,11 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(214, 19);
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(244, 19);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(216, 25);
+            this.label15.Size = new System.Drawing.Size(297, 31);
             this.label15.TabIndex = 0;
             this.label15.Text = "ORDENES DE CORTE";
             // 
@@ -136,14 +138,14 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(833, 65);
+            this.panel1.Size = new System.Drawing.Size(1113, 65);
             this.panel1.TabIndex = 35;
             // 
             // contador
             // 
             this.contador.AutoSize = true;
             this.contador.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.contador.Location = new System.Drawing.Point(533, 31);
+            this.contador.Location = new System.Drawing.Point(719, 34);
             this.contador.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.contador.Name = "contador";
             this.contador.Size = new System.Drawing.Size(81, 13);
@@ -163,10 +165,12 @@
             this.BOT_SAVE,
             this.bot_modificar,
             this.BOT_BUSCAR,
+            this.Bot_procesar,
+            this.Bot_Anular,
             this.BOT_EXCEL_EXPORT});
             this.toolStrip1.Location = new System.Drawing.Point(0, 65);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(833, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1113, 27);
             this.toolStrip1.TabIndex = 45;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -258,6 +262,15 @@
             this.BOT_BUSCAR.Text = "Buscar";
             this.BOT_BUSCAR.Click += new System.EventHandler(this.BOT_BUSCAR_Click);
             // 
+            // Bot_procesar
+            // 
+            this.Bot_procesar.Image = ((System.Drawing.Image)(resources.GetObject("Bot_procesar.Image")));
+            this.Bot_procesar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Bot_procesar.Name = "Bot_procesar";
+            this.Bot_procesar.Size = new System.Drawing.Size(76, 24);
+            this.Bot_procesar.Text = "Procesar";
+            this.Bot_procesar.Click += new System.EventHandler(this.Bot_procesar_Click);
+            // 
             // BOT_EXCEL_EXPORT
             // 
             this.BOT_EXCEL_EXPORT.Image = ((System.Drawing.Image)(resources.GetObject("BOT_EXCEL_EXPORT.Image")));
@@ -287,6 +300,7 @@
             this.grid_rollos.Margin = new System.Windows.Forms.Padding(2);
             this.grid_rollos.MultiSelect = false;
             this.grid_rollos.Name = "grid_rollos";
+            this.grid_rollos.ReadOnly = true;
             this.grid_rollos.RowHeadersWidth = 25;
             this.grid_rollos.RowTemplate.Height = 24;
             this.grid_rollos.Size = new System.Drawing.Size(814, 281);
@@ -544,22 +558,22 @@
             this.bot_generar_rollos_cortados.UseVisualStyleBackColor = true;
             this.bot_generar_rollos_cortados.Click += new System.EventHandler(this.Bot_generar_rollos_cortados_Click);
             // 
-            // checkBox1
+            // chk_anulado
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(654, 122);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(123, 17);
-            this.checkBox1.TabIndex = 16;
-            this.checkBox1.Text = "Documento Anulado";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chk_anulado.AutoSize = true;
+            this.chk_anulado.Enabled = false;
+            this.chk_anulado.Location = new System.Drawing.Point(700, 122);
+            this.chk_anulado.Name = "chk_anulado";
+            this.chk_anulado.Size = new System.Drawing.Size(123, 17);
+            this.chk_anulado.TabIndex = 16;
+            this.chk_anulado.Text = "Documento Anulado";
+            this.chk_anulado.UseVisualStyleBackColor = true;
             // 
             // chk_process
             // 
             this.chk_process.AutoSize = true;
             this.chk_process.Enabled = false;
-            this.chk_process.Location = new System.Drawing.Point(654, 142);
+            this.chk_process.Location = new System.Drawing.Point(700, 142);
             this.chk_process.Name = "chk_process";
             this.chk_process.Size = new System.Drawing.Size(77, 17);
             this.chk_process.TabIndex = 88;
@@ -568,6 +582,7 @@
             // 
             // btn_eliminar_renglon
             // 
+            this.btn_eliminar_renglon.Enabled = false;
             this.btn_eliminar_renglon.Location = new System.Drawing.Point(735, 318);
             this.btn_eliminar_renglon.Name = "btn_eliminar_renglon";
             this.btn_eliminar_renglon.Size = new System.Drawing.Size(88, 23);
@@ -616,19 +631,28 @@
             this.label14.TabIndex = 93;
             this.label14.Text = "Lenght [PIES]";
             // 
+            // Bot_Anular
+            // 
+            this.Bot_Anular.Image = ((System.Drawing.Image)(resources.GetObject("Bot_Anular.Image")));
+            this.Bot_Anular.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Bot_Anular.Name = "Bot_Anular";
+            this.Bot_Anular.Size = new System.Drawing.Size(66, 24);
+            this.Bot_Anular.Text = "Anular";
+            this.Bot_Anular.Click += new System.EventHandler(this.Bot_Anular_Click);
+            // 
             // FrmOrdenCorte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(833, 673);
+            this.ClientSize = new System.Drawing.Size(1113, 673);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btn_eliminar_renglon);
             this.Controls.Add(this.chk_process);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.chk_anulado);
             this.Controls.Add(this.bot_generar_rollos_cortados);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.txt_msi_cortado);
@@ -721,7 +745,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txt_msi_cortado;
         private System.Windows.Forms.Button bot_generar_rollos_cortados;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chk_anulado;
         private System.Windows.Forms.CheckBox chk_process;
         private System.Windows.Forms.ToolStripButton bot_modificar;
         private System.Windows.Forms.Button btn_eliminar_renglon;
@@ -729,5 +753,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ToolStripButton Bot_procesar;
+        private System.Windows.Forms.ToolStripButton Bot_Anular;
     }
 }

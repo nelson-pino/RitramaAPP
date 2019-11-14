@@ -545,5 +545,17 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
+        public void ProcesarOrden(string orden) 
+        {
+            CommandSqlGenericOneParameter(R.SQL.DATABASE.NAME,
+                R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_PROCESAR_ORDEN_OC,orden,
+                false,R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_PROCESAR_ORDEN_OC);
+        }
+        public void AnularOrden(string orden) 
+        {
+            CommandSqlGenericOneParameter(R.SQL.DATABASE.NAME,
+                    R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_ANULAR_ORDEN_OC, orden,
+                    false, R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_ANULAR_ORDEN_OC);
+        }
     }
 }

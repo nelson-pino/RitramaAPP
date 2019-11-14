@@ -107,7 +107,7 @@
             this.panel1.Location = new System.Drawing.Point(160, 2);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(858, 660);
+            this.panel1.Size = new System.Drawing.Size(916, 660);
             this.panel1.TabIndex = 3;
             // 
             // pictureBox1
@@ -124,7 +124,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1029, 715);
+            this.ClientSize = new System.Drawing.Size(1082, 715);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.treeView1);

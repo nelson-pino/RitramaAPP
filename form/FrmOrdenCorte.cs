@@ -50,13 +50,19 @@ namespace RitramaAPP
             txt_width_cortado.DataBindings.Add("text", bs, "width_cortado");
             txt_lenght_cortado.DataBindings.Add("text", bs, "lenght_cortado");
             txt_msi_cortado.DataBindings.Add("text", bs, "msi_cortado");
+            chk_process.DataBindings.Add("Checked", bs, "procesado");
+            chk_anulado.DataBindings.Add("Checked", bs, "anulada");
             //binding del detalle
             bsdetalle.DataSource = bs;
             bsdetalle.DataMember = "FK_ORDEN_DETAILS";
             grid_rollos.DataSource = bsdetalle;
+            VERIFICAR_DOCUMENTO();
         }
+      
         private void BOT_NUEVO_Click(object sender, EventArgs e)
         {
+            chk_process.DataBindings.Clear();
+            chk_anulado.DataBindings.Clear();
             ParentRow = (DataRowView)bs.AddNew();
             ParentRow.BeginEdit();
             ParentRow["numero"] = "0";
@@ -66,6 +72,9 @@ namespace RitramaAPP
             ParentRow["lenght_2"] = "0";
             ParentRow["cant_cortado"] = "0";
             ParentRow["width_cortado"] = "0";
+            ParentRow["lenght_cortado"] = "0";
+            ParentRow["procesado"] = false;
+            ParentRow["anulada"] = false;
             ParentRow["lenght_cortado"] = "0";
             ParentRow.EndEdit();
             txt_width_cortado.Text = "0";
@@ -111,6 +120,7 @@ namespace RitramaAPP
                     bot_buscar_rollid1.Enabled = false;
                     bot_buscar_rollid2.Enabled = false;
                     bot_generar_rollos_cortados.Enabled = false;
+                    grid_rollos.ReadOnly = true;
                     break;
                 case 2:
                     txt_fecha_orden.Enabled = true;
@@ -127,6 +137,18 @@ namespace RitramaAPP
                     bot_buscar_rollid1.Enabled = true;
                     bot_buscar_rollid2.Enabled = true;
                     bot_generar_rollos_cortados.Enabled = true;
+                    Bot_procesar.Enabled = false;
+                    Bot_Anular.Enabled = false;
+                    btn_eliminar_renglon.Enabled = true;
+                    grid_rollos.ReadOnly = false;
+                    grid_rollos.Columns[0].ReadOnly = true;
+                    grid_rollos.Columns[1].ReadOnly = true;
+                    grid_rollos.Columns[2].ReadOnly = true;
+                    grid_rollos.Columns[3].ReadOnly = true;
+                    grid_rollos.Columns[6].ReadOnly = true;
+                    grid_rollos.Columns[8].ReadOnly = true;
+
+
                     break;
             }
         }
@@ -159,7 +181,6 @@ namespace RitramaAPP
                     BOT_EXCEL_EXPORT.Enabled = true;
                     BOT_SAVE.Enabled = false;
                     bot_modificar.Enabled = true;
-
                     break;
             }
         }
@@ -171,24 +192,25 @@ namespace RitramaAPP
         {
             bs.Position += 1;
             ContadorRegistros();
+            VERIFICAR_DOCUMENTO();
         }
-
         private void Bot_anterior_Click(object sender, EventArgs e)
         {
             bs.Position -= 1;
             ContadorRegistros();
+            VERIFICAR_DOCUMENTO();
         }
-
         private void Bot_primero_Click(object sender, EventArgs e)
         {
             bs.Position = 0;
             ContadorRegistros();
+            VERIFICAR_DOCUMENTO();
         }
-
         private void Bot_ultimo_Click(object sender, EventArgs e)
         {
             bs.Position = bs.Count - 1;
             ContadorRegistros();
+            VERIFICAR_DOCUMENTO();
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd)
         {
@@ -295,6 +317,8 @@ namespace RitramaAPP
             {
                 managerorden.UpdateRollId(orden.Rollid_2);
             }
+            chk_process.DataBindings.Add("Checked", bs, "procesado");
+            chk_anulado.DataBindings.Add("Checked", bs, "anulada");
             OptionsMenu(1);
             OptionsForm(1);
             EditMode = 0;
@@ -655,6 +679,38 @@ namespace RitramaAPP
 
         }
 
+        private void Bot_procesar_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Esta seguro de procesar este documento (S/N)?",
+                 "Advertencia", MessageBoxButtons.YesNo);
+            switch (dr)
+            {
+                case DialogResult.Yes:
+                    managerorden.ProcesarOrden(txt_numero_oc.Text.Trim());
+                    chk_process.Checked = true;
+                    VERIFICAR_DOCUMENTO();
+                    break;
+                case DialogResult.No:
+                    break;
+            }
+        }
+
+        private void Bot_Anular_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Esta seguro de Anular este documento (S/N)?",
+                "Advertencia", MessageBoxButtons.YesNo);
+            switch (dr)
+            {
+                case DialogResult.Yes:
+                    managerorden.AnularOrden(txt_numero_oc.Text.Trim());
+                    chk_anulado.Checked = true;
+                    VERIFICAR_DOCUMENTO();
+                    break;
+                case DialogResult.No:
+                    break;
+            }
+        }
+
         private void Txt_cant_cortado_Validating(object sender, CancelEventArgs e)
         {
             if (txt_cant_cortado.Text == string.Empty)
@@ -776,6 +832,31 @@ namespace RitramaAPP
                 OptionsForm(1);
                 EditMode = 0;
             }
+        }
+        private void VERIFICAR_DOCUMENTO() 
+        {
+            if (chk_process.Checked || chk_anulado.Checked) 
+            {
+                DOCUMENTO_CERRADO();    
+            }
+            else 
+            {
+                DOCUMENTO_ABIERTO();   
+            }
+        }
+        private void DOCUMENTO_CERRADO() 
+        {
+            bot_modificar.Enabled = false;
+            Bot_procesar.Enabled = false;
+            Bot_Anular.Enabled = false;
+            BOT_EXCEL_EXPORT.Enabled = false;
+        }
+        private void DOCUMENTO_ABIERTO() 
+        {
+            bot_modificar.Enabled = true;
+            Bot_procesar.Enabled = true;
+            Bot_Anular.Enabled = true;
+            BOT_EXCEL_EXPORT.Enabled = true;
         }
     }
 }
