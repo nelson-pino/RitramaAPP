@@ -598,14 +598,14 @@ namespace RitramaAPP
         }
         private void CONVERT_INCH_METROS()
         {
-            double width_inch_metros = Convert.ToDouble(txt_width.Text) * 
-                R.CONSTANTES.FACTOR_PULGADAS_METROS;
+            double width_inch_metros = Math.Round(Convert.ToDouble(txt_width.Text)
+                *R.CONSTANTES.FACTOR_PULGADAS_METROS,2);
             txt_width_metros.Text = width_inch_metros.ToString();
         }
         private void CONVERT_PIES_METROS()
         {
-            double width_pie_metros = Convert.ToDouble(txt_lenght.Text) * 
-                R.CONSTANTES.FACTOR_PIES_METROS;
+            double width_pie_metros = Math.Round(Convert.ToDouble(txt_lenght.Text) 
+                * R.CONSTANTES.FACTOR_PIES_METROS, 2);
             txt_lenght_metros.Text = width_pie_metros.ToString();
         }
     }
