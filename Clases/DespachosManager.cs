@@ -163,7 +163,9 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.Decimal, Value = datos.ratio},
                 new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Decimal, Value = datos.kilo_rollo},
                 new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.Decimal, Value = datos.precio},
-                new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Decimal, Value = datos.subtotal}
+                new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Decimal, Value = datos.subtotal},
+                new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.Decimal, Value = datos.total_pie_lineal},
+                new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.Decimal, Value = datos.kilo_total}
             };
             return sp;
         }
@@ -304,6 +306,31 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
+        public string GetRatioProduct(string product_id) 
+        {
+            Micomm.Conectar(R.SQL.DATABASE.NAME);
+            SqlCommand comando = new SqlCommand
+            {
+                CommandType = CommandType.Text,
+                CommandText = R.SQL.QUERY_SQL.DESPACHOS.SQL_QUERY_SELECT_GET_RATIO_PRODUCTS,
+                Connection = Micomm.cnn
+            };
+            SqlParameter p1 = new SqlParameter("@p1", product_id);
+            comando.Parameters.Add(p1);
+            string ratio;
+            try
+            {
+                ratio = comando.ExecuteScalar().ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al traer el valor del ratio de un producto...error code:" + ex);
+                ratio = "vacio";
+            }
+            Micomm.Desconectar();
+            comando.Dispose();
+            return ratio;
+        }
         public List<Roll_Details> GetDataUniqueCode(string conduce)
         {
             List<Roll_Details> lista = new List<Roll_Details>();
@@ -353,9 +380,6 @@ namespace RitramaAPP.Clases
                 return lista;
             }
         }
-
-
-
 
     }
 }

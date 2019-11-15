@@ -62,8 +62,8 @@ namespace RitramaAPP.form
         {
             //grid renglones
             grid_items.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("product_id", 70, "Product Id.", "product_id",grid_items);
-            AGREGAR_COLUMN_GRID("product_name", 200, "Nombre del Producto", "product_name", grid_items);
+            AGREGAR_COLUMN_GRID("product_id", 50, "Product Id.", "product_id",grid_items);
+            AGREGAR_COLUMN_GRID("product_name", 180, "Nombre del Producto", "product_name", grid_items);
             AGREGAR_COLUMN_GRID("unidad", 50, "Unidad", "unid_id", grid_items);
             DataGridViewButtonColumn col3 = new DataGridViewButtonColumn
             {
@@ -72,13 +72,16 @@ namespace RitramaAPP.form
                 HeaderText = "..."
             };
             grid_items.Columns.Add(col3);
-            AGREGAR_COLUMN_GRID("cant", 50, "Cant.", "cant", grid_items);
-            AGREGAR_COLUMN_GRID("ancho", 50, "Ancho (inch)", "width", grid_items);
-            AGREGAR_COLUMN_GRID("msi", 50, "Msi.", "msi", grid_items);
-            AGREGAR_COLUMN_GRID("ratio", 50, "Ratio", "ratio", grid_items);
-            AGREGAR_COLUMN_GRID("kilo_rollo", 50, "kilo rollo", "kilo_rollo", grid_items);
-            AGREGAR_COLUMN_GRID("precio", 50, "precio", "precio", grid_items);
-            AGREGAR_COLUMN_GRID("total_renglon", 50, "Total renglon", "total_renglon", grid_items);
+            AGREGAR_COLUMN_GRID("cant", 45, "Cant.", "cant", grid_items);
+            AGREGAR_COLUMN_GRID("ancho", 45, "Ancho (inch)", "width", grid_items);
+            AGREGAR_COLUMN_GRID("largo", 45, "Largo (pies)", "lenght", grid_items);
+            AGREGAR_COLUMN_GRID("msi", 45, "Msi.", "msi", grid_items);
+            AGREGAR_COLUMN_GRID("pie_lin", 45, "Total Pie Lin.", "total_pie_lin", grid_items);
+            AGREGAR_COLUMN_GRID("ratio", 45, "Ratio", "ratio", grid_items);
+            AGREGAR_COLUMN_GRID("kilo_rollo", 45, "kilo rollo", "kilo_rollo", grid_items);
+            AGREGAR_COLUMN_GRID("kilo_total", 45, "kilo Total", "kilo_total", grid_items);
+            AGREGAR_COLUMN_GRID("precio", 60, "precio", "precio", grid_items);
+            AGREGAR_COLUMN_GRID("total_renglon", 80, "Total renglon", "total_renglon", grid_items);
             // grid detalle rc.
             grid_UniqueCode.AutoGenerateColumns = false;
             AGREGAR_COLUMN_GRID("code_unique", 60, "Codigo Unico", "unique_code", grid_UniqueCode);
@@ -314,19 +317,29 @@ namespace RitramaAPP.form
 
         private void Grid_items_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 4 || e.ColumnIndex == 9)
+            //Calcular el subtotal
+            if (e.ColumnIndex == 4 || e.ColumnIndex == 12)
             {
                 if (Convert.ToString(grid_items.Rows[e.RowIndex].Cells["cant"].Value ) == "") 
                 {
                     return;
                 }
                 grid_items.Rows[e.RowIndex].Cells["total_renglon"].Value =
-                Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["cant"].Value) *
+                Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["pie_lin"].Value) *
                 Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["precio"].Value);
                 //calcular el subtotal.
                 txt_subtotal.Text = CalcularSubtotal();
                 txt_monto_itbis.Text = CalcularIva(PORC_ITBIS, Convert.ToDecimal(txt_subtotal.Text));
                 txt_total_despacho.Text = CalcularTotal(Convert.ToDecimal(txt_subtotal.Text), Convert.ToDecimal(txt_monto_itbis.Text));
+            }
+            //Calcular los pesos 
+            if (e.ColumnIndex == 9) 
+            {
+                grid_items.Rows[e.RowIndex].Cells["kilo_rollo"].Value = Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["msi"].Value) / 
+                    Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["ratio"].Value);
+
+                grid_items.Rows[e.RowIndex].Cells["kilo_total"].Value = Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["kilo_rollo"].Value) *
+                    Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["cant"].Value);
             }
         }
 
@@ -499,7 +512,7 @@ namespace RitramaAPP.form
                 {
                     return;
                 }
-                //llenar el grid de renglones. 
+                //llenar el grid de renglones desde la sincronizacion. 
                 foreach (Producto item in pl.List_products) 
                 {
                     AgregarRenglon();
@@ -507,7 +520,20 @@ namespace RitramaAPP.form
                     grid_items.Rows[fila].Cells["cant"].Value = pl.List_products.ElementAt(fila).Product_quantity;
                     grid_items.Rows[fila].Cells["unidad"].Value = "rollo cortado.";
                     grid_items.Rows[fila].Cells["ancho"].Value = pl.List_products.ElementAt(fila).width;
+                    grid_items.Rows[fila].Cells["largo"].Value = pl.List_products.ElementAt(fila).lenght;
                     grid_items.Rows[fila].Cells["msi"].Value = pl.List_products.ElementAt(fila).msi;
+                    grid_items.Rows[fila].Cells["pie_lin"].Value = Convert.ToDouble(pl.List_products.ElementAt(fila).msi) *
+                        Convert.ToDouble(pl.List_products.ElementAt(fila).Product_quantity);
+                    grid_items.Rows[fila].Cells["ratio"].Value = despachomanager
+                        .GetRatioProduct(pl.List_products.ElementAt(fila).Product_id);
+                    grid_items.Rows[fila].Cells["kilo_rollo"].Value = 
+                        Convert.ToDouble(grid_items.Rows[fila].Cells["msi"].Value) /
+                        Convert.ToDouble(grid_items.Rows[fila].Cells["ratio"].Value);
+
+                    grid_items.Rows[fila].Cells["kilo_total"].Value = 
+                        Convert.ToDouble(grid_items.Rows[fila].Cells["kilo_rollo"].Value) *
+                        Convert.ToDouble(grid_items.Rows[fila].Cells["cant"].Value);
+
                     fila += 1;
                 }
                 //llenar el grid de unique_code.
@@ -554,22 +580,30 @@ namespace RitramaAPP.form
             {
                 Items_despacho item = new Items_despacho
                 {
-                    product_id = grid_items.Rows[fila].Cells[0].Value.ToString(),
-                    product_name = grid_items.Rows[fila].Cells[1].Value.ToString(),
-                    cantidad = Convert.ToDecimal(grid_items.Rows[fila].Cells[4].Value),
-                    unidad = grid_items.Rows[fila].Cells[2].Value.ToString(),
-                    width = Convert.ToDecimal(grid_items.Rows[fila].Cells[5].Value),
-                    lenght = 0,
-                    msi = Convert.ToDecimal(grid_items.Rows[fila].Cells[6].Value),
-                    ratio = Convert.ToDecimal(grid_items.Rows[fila].Cells[7].Value),
-                    kilo_rollo = Convert.ToDecimal(grid_items.Rows[fila].Cells[8].Value),
-                    precio = Convert.ToDecimal(grid_items.Rows[fila].Cells[9].Value),
-                    subtotal = Convert.ToDecimal(grid_items.Rows[fila].Cells[10].Value)
+                    product_id = grid_items.Rows[fila].Cells["product_id"].Value.ToString(),
+                    product_name = grid_items.Rows[fila].Cells["product_name"].Value.ToString(),
+                    cantidad = Convert.ToDecimal(grid_items.Rows[fila].Cells["cant"].Value),
+                    unidad = grid_items.Rows[fila].Cells["unidad"].Value.ToString(),
+                    width = Convert.ToDecimal(grid_items.Rows[fila].Cells["ancho"].Value),
+                    lenght = Convert.ToDecimal(grid_items.Rows[fila].Cells["largo"].Value),
+                    msi = Convert.ToDecimal(grid_items.Rows[fila].Cells["msi"].Value),
+                    total_pie_lineal = Convert.ToDecimal(grid_items.Rows[fila].Cells["pie_lin"].Value),
+                    ratio = Convert.ToDecimal(grid_items.Rows[fila].Cells["ratio"].Value),
+                    kilo_rollo = Convert.ToDecimal(grid_items.Rows[fila].Cells["kilo_rollo"].Value),
+                    kilo_total = Convert.ToDecimal(grid_items.Rows[fila].Cells["kilo_total"].Value),
+                    precio = Convert.ToDecimal(grid_items.Rows[fila].Cells["precio"].Value),
+                    subtotal = Convert.ToDecimal(grid_items.Rows[fila].Cells["total_renglon"].Value)
                 };
                 despacho.items.Add(item);
             }
             return despacho;
         }
+
+        private void Bot_modificar_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private Boolean ValidarRenglon()
         {
             Boolean chk = true;

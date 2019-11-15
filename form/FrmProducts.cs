@@ -37,6 +37,7 @@ namespace RitramaAPP
             RAD_RESMAS.DataBindings.Add("checked", bs, "Resmas");
             RAD_GRAPHICS.DataBindings.Add("checked", bs, "graphics");
             txt_codeRC.DataBindings.Add("text", bs, "code_RC");
+            txt_ratio.DataBindings.Add("text", bs, "ratio");
             ContadorRegistros();
         }
         private void ContadorRegistros()
@@ -84,6 +85,7 @@ namespace RitramaAPP
             txt_code_bar.ReadOnly = false;
             txt_precio.ReadOnly = false;
             txt_referencia.ReadOnly = false;
+            txt_ratio.ReadOnly = false;
             cbo_category.Enabled = true;
             RAD_MASTER_ROLLS.Enabled = true;
             RAD_RESMAS.Enabled = true;
@@ -105,6 +107,7 @@ namespace RitramaAPP
             dr["Resmas"] = false;
             dr["graphics"] = false;
             dr["precio"] = 0;
+            dr["ratio"] = 0;
             ds.Tables["dtproducto"].Rows.Add(dr);
             bs.MoveLast();
             EditMode = 1;
@@ -132,7 +135,8 @@ namespace RitramaAPP
                 Resmas = RAD_RESMAS.Checked,
                 Code_RC = "",
                 Anulado = CHK_ANULADO.Checked,
-                Graphics = RAD_GRAPHICS.Checked
+                Graphics = RAD_GRAPHICS.Checked,
+                Ratio = Convert.ToDecimal(txt_ratio.Text)
             };
             ProductsManager productoManager = new ProductsManager();
             productoManager.Update(producto);
@@ -141,6 +145,7 @@ namespace RitramaAPP
             txt_referencia.ReadOnly = true;
             txt_code_bar.ReadOnly = true;
             txt_precio.ReadOnly = true;
+            txt_ratio.ReadOnly = true;
             cbo_category.Enabled = false;
             CHK_ANULADO.Enabled = false;
             RAD_GRAPHICS.Enabled = false;
@@ -204,6 +209,8 @@ namespace RitramaAPP
             FilaActual["Graphics"] = RAD_GRAPHICS.Checked;
             FilaActual["Product_Ref"] = txt_referencia.Text;
             FilaActual["Codebar"] = txt_code_bar.Text;
+            FilaActual["Ratio"] = txt_ratio.Text;
+
             if (RAD_MASTER_ROLLS.Checked)
             {
                 FilaActual["Code_RC"] = txt_product_id.Text + "0";
@@ -226,7 +233,8 @@ namespace RitramaAPP
                 MasterRolls = RAD_MASTER_ROLLS.Checked,
                 Resmas = RAD_RESMAS.Checked,
                 Graphics = RAD_GRAPHICS.Checked,
-                Code_RC = FilaActual["Code_RC"].ToString()
+                Code_RC = FilaActual["Code_RC"].ToString(),
+                Ratio = Convert.ToDecimal(txt_ratio.Text)
             };
             producto.Precio = Convert.ToDouble(txt_precio.Text);
             producto.Anulado = false;
@@ -260,6 +268,7 @@ namespace RitramaAPP
             txt_code_bar.ReadOnly = true;
             txt_referencia.ReadOnly = true;
             txt_precio.ReadOnly = true;
+            txt_ratio.ReadOnly = true;
             cbo_category.Enabled = true;
             RAD_MASTER_ROLLS.Enabled = false;
             RAD_RESMAS.Enabled = false;
@@ -290,12 +299,12 @@ namespace RitramaAPP
             txt_code_bar.ReadOnly = false;
             txt_referencia.ReadOnly = false;
             txt_precio.ReadOnly = false;
+            txt_ratio.ReadOnly = false;
             cbo_category.Enabled = true;
             CHK_ANULADO.Enabled = true;
             RAD_MASTER_ROLLS.Enabled = true;
             RAD_RESMAS.Enabled = true;
             RAD_GRAPHICS.Enabled = true;
-
             BOT_PRIMERO.Enabled = false;
             BOT_SIGUIENTE.Enabled = false;
             BOT_ANTERIOR.Enabled = false;
@@ -305,7 +314,6 @@ namespace RitramaAPP
             BOT_GRABAR.Enabled = true;
             BOT_MODIFICAR.Enabled = false;
             BOT_BUSCAR.Enabled = false;
-
             EditMode = 2;
         }
 
@@ -348,6 +356,7 @@ namespace RitramaAPP
                 txt_referencia.ReadOnly = true;
                 txt_precio.ReadOnly = true;
                 cbo_category.Enabled = true;
+                txt_ratio.ReadOnly = true;
                 RAD_MASTER_ROLLS.DataBindings.Add("checked", bs, "MasterRolls");
                 RAD_RESMAS.DataBindings.Add("checked", bs, "Resmas");
                 RAD_GRAPHICS.DataBindings.Add("checked", bs, "graphics");
@@ -374,6 +383,7 @@ namespace RitramaAPP
                 txt_code_bar.ReadOnly = true;
                 txt_referencia.ReadOnly = true;
                 txt_precio.ReadOnly = true;
+                txt_ratio.ReadOnly = true;
                 cbo_category.Enabled = true;
                 RAD_MASTER_ROLLS.Enabled = false;
                 RAD_RESMAS.Enabled = false;

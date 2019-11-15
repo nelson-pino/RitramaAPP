@@ -20,12 +20,12 @@ namespace RitramaAPP
             {
                 public class PRODUCTS
                 {
-                    public static string SQL_QUERY_SELECT_PRODUCT_ALL = "SELECT Product_ID,Product_Name,Product_Descrip,Product_Ref,Codebar,Category_ID,MasterRolls,rollo_cortado,Resmas,anulado,precio,graphics,code_RC FROM producto";
+                    public static string SQL_QUERY_SELECT_PRODUCT_ALL = "SELECT Product_ID,Product_Name,Product_Descrip,Product_Ref,Codebar,Category_ID,MasterRolls,rollo_cortado,Resmas,anulado,precio,graphics,code_RC,ratio FROM producto";
                     public static string SQL_QUERY_SELECT_PRODUCTS = "SELECT Product_ID, Product_Name,case when MasterRolls = 1 then 'Master' when rollo_cortado = 1 then 'Rollo Cortado' when Graphics = 1 then 'Graphics' when Resmas = 1 then 'Hojas' else 'sin tipo' end as tipo FROM producto";
                     public static string SQL_QUERY_SELECT_TYPE_PRODUCT = "SELECT MasterRolls,rollo_cortado,Resmas,Graphics FROM producto WHERE product_id=@p1";
                     public static string SQL_QUERY_SELECT_PRODUCT_NAME = "SELECT  Product_Name FROM producto WHERE product_id=@p1";
-                    public static string SQL_QUERY_INSERT_PRODUCT = "INSERT INTO producto (Product_ID,Product_Name,Product_Descrip,Product_Ref,Codebar,Category_ID,MasterRolls,rollo_cortado,Resmas,Graphics,anulado,precio,code_RC) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13)";
-                    public static string SQL_QUERY_UPDATE_PRODUCTS = "UPDATE producto SET Product_Name=@p2,Product_Descrip=@p3,Product_Ref=@p4,Codebar=@p5,Category_ID=@p6,Resmas=@p9,Graphics=@p10,anulado=@p11,precio=@p12 WHERE Product_ID=@p1";
+                    public static string SQL_QUERY_INSERT_PRODUCT = "INSERT INTO producto (Product_ID,Product_Name,Product_Descrip,Product_Ref,Codebar,Category_ID,MasterRolls,rollo_cortado,Resmas,Graphics,anulado,precio,code_RC,ratio) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14)";
+                    public static string SQL_QUERY_UPDATE_PRODUCTS = "UPDATE producto SET Product_Name=@p2,Product_Descrip=@p3,Product_Ref=@p4,Codebar=@p5,Category_ID=@p6,Resmas=@p9,Graphics=@p10,anulado=@p11,precio=@p12,ratio=@p14 WHERE Product_ID=@p1";
                     public static string SQL_QUERY_COUNT_PRODUCTS = "SELECT count(*) FROM producto WHERE product_id=@p1";
                     public static string SQL_QUERY_CATEGORY_PRODUCTS = "select case when MasterRolls = 1 then 'Master' when rollo_cortado = 1 then 'Rollo Cortado' when Graphics = 1 then 'Graphics' when Resmas = 1 then 'Hojas' else 'sin tipo' end from producto where Product_ID=@p1";
                 }
@@ -100,7 +100,7 @@ namespace RitramaAPP
                 public class DESPACHOS
                 {
                     public static string SQL_SELECT_DESPACHOS_HEADER = "SELECT numero,fecha,customer_id,person_contact,vendor_id,transport_id,chofer_id,placas_id,packing,orden_trabajo,orden_compra,subtotal,porc_itbis,itbis,total$rd FROM despacho";
-                    public static string SQL_SELECT_DESPACHOS_DETAILS = "SELECT numero,product_id,cant,unid_id,width,lenght,msi,ratio,kilo_rollo,precio,total_renglon FROM item_despacho";
+                    public static string SQL_SELECT_DESPACHOS_DETAILS = "SELECT numero,product_id,cant,unid_id,width,lenght,msi,ratio,kilo_rollo,precio,total_renglon,total_pie_lin,kilo_total FROM item_despacho";
                     public static string SQL_SELECT_CUSTOMERS = "SELECT Customer_ID,Customer_Name,Customer_Category,Customer_Dir,Customer_Email,Anulado  FROM customer";
                     public static string SQL_SELECT_VENDEDORES = "SELECT vendor_id,vendor_name FROM vendedor";
                     public static string SQL_SELECT_TRANSPORTE = "SELECT transport_id,transport_name FROM transporte";
@@ -108,9 +108,10 @@ namespace RitramaAPP
                     public static string SQL_SELECT_CAMION = "SELECT placas_id,camion_name FROM camion";
                     public static string SQL_SELECT_PRODUCTOS = "SELECT product_id,product_name,masterRolls,Resmas,Graphics FROM producto";
                     public static string SQL_INSERT_HEADER_ORDEN_DESPACHO = "INSERT INTO despacho (numero,fecha,customer_id,person_contact,vendor_id,transport_id,chofer_id,placas_id,packing,orden_trabajo,orden_compra,subtotal,itbis,total$rd) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14)";
-                    public static string SQL_INSERT_HEADER_DETAILS_DESPACHO = "INSERT INTO item_despacho (numero,product_id,cant,unid_id,width,lenght,msi,ratio,kilo_rollo,precio,total_renglon) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11)";
+                    public static string SQL_INSERT_HEADER_DETAILS_DESPACHO = "INSERT INTO item_despacho (numero,product_id,cant,unid_id,width,lenght,msi,ratio,kilo_rollo,precio,total_renglon,total_pie_lin,kilo_total) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13)";
                     public static string SQL_INSERT_UNIQUECODE_LIST_DESPACHO = "INSERT INTO rcdespacho (conduce,unique_code,product_id,roll_number,width,lenght,msi,roll_id,splice) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9)";
                     public static string SQL_SELECT_UNIQUECODE_DETAILS_DESPACHO = "select a.product_id,b.Product_Name,a.roll_number,a.width,a.lenght,a.msi,a.splice,a.roll_id,a.unique_code from rcdespacho a left join producto b on a.product_id=b.Product_ID where a.conduce=@p1";
+                    public static string SQL_QUERY_SELECT_GET_RATIO_PRODUCTS = "SELECT ratio FROM producto WHERE product_id=@p1";
                 }
                 public class INVENTARIO
                 {

@@ -422,9 +422,9 @@
             this.grid_items.Margin = new System.Windows.Forms.Padding(2);
             this.grid_items.Name = "grid_items";
             this.grid_items.ReadOnly = true;
-            this.grid_items.RowHeadersWidth = 28;
+            this.grid_items.RowHeadersWidth = 25;
             this.grid_items.RowTemplate.Height = 24;
-            this.grid_items.Size = new System.Drawing.Size(703, 195);
+            this.grid_items.Size = new System.Drawing.Size(823, 196);
             this.grid_items.TabIndex = 33;
             this.grid_items.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_items_CellContentClick);
             this.grid_items.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_items_CellEndEdit);
@@ -438,19 +438,19 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(827, 54);
+            this.panel1.Size = new System.Drawing.Size(923, 54);
             this.panel1.TabIndex = 34;
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.Location = new System.Drawing.Point(325, 9);
             this.label20.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(120, 25);
+            this.label20.Size = new System.Drawing.Size(185, 31);
             this.label20.TabIndex = 0;
-            this.label20.Text = "Despachos";
+            this.label20.Text = "DESPACHOS";
             // 
             // toolStrip1
             // 
@@ -469,7 +469,7 @@
             this.bot_sincro});
             this.toolStrip1.Location = new System.Drawing.Point(0, 54);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(827, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(923, 27);
             this.toolStrip1.TabIndex = 35;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -546,6 +546,7 @@
             this.bot_modificar.Name = "bot_modificar";
             this.bot_modificar.Size = new System.Drawing.Size(80, 24);
             this.bot_modificar.Text = "Modif";
+            this.bot_modificar.Click += new System.EventHandler(this.Bot_modificar_Click);
             // 
             // BOT_BUSCAR
             // 
@@ -644,18 +645,18 @@
             // 
             // txt_subtotal
             // 
-            this.txt_subtotal.Location = new System.Drawing.Point(594, 522);
+            this.txt_subtotal.Location = new System.Drawing.Point(668, 514);
             this.txt_subtotal.Margin = new System.Windows.Forms.Padding(2);
             this.txt_subtotal.Name = "txt_subtotal";
             this.txt_subtotal.ReadOnly = true;
-            this.txt_subtotal.Size = new System.Drawing.Size(145, 20);
+            this.txt_subtotal.Size = new System.Drawing.Size(182, 20);
             this.txt_subtotal.TabIndex = 44;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(525, 522);
+            this.label17.Location = new System.Drawing.Point(599, 514);
             this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(62, 13);
@@ -664,18 +665,18 @@
             // 
             // txt_monto_itbis
             // 
-            this.txt_monto_itbis.Location = new System.Drawing.Point(594, 544);
+            this.txt_monto_itbis.Location = new System.Drawing.Point(668, 536);
             this.txt_monto_itbis.Margin = new System.Windows.Forms.Padding(2);
             this.txt_monto_itbis.Name = "txt_monto_itbis";
             this.txt_monto_itbis.ReadOnly = true;
-            this.txt_monto_itbis.Size = new System.Drawing.Size(145, 20);
+            this.txt_monto_itbis.Size = new System.Drawing.Size(182, 20);
             this.txt_monto_itbis.TabIndex = 46;
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(490, 547);
+            this.label18.Location = new System.Drawing.Point(564, 539);
             this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(31, 13);
@@ -684,18 +685,18 @@
             // 
             // txt_total_despacho
             // 
-            this.txt_total_despacho.Location = new System.Drawing.Point(594, 567);
+            this.txt_total_despacho.Location = new System.Drawing.Point(668, 559);
             this.txt_total_despacho.Margin = new System.Windows.Forms.Padding(2);
             this.txt_total_despacho.Name = "txt_total_despacho";
             this.txt_total_despacho.ReadOnly = true;
-            this.txt_total_despacho.Size = new System.Drawing.Size(145, 20);
+            this.txt_total_despacho.Size = new System.Drawing.Size(182, 20);
             this.txt_total_despacho.TabIndex = 48;
             // 
             // label19
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(548, 570);
+            this.label19.Location = new System.Drawing.Point(622, 562);
             this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(44, 13);
@@ -704,7 +705,7 @@
             // 
             // txt_porc_itbis
             // 
-            this.txt_porc_itbis.Location = new System.Drawing.Point(528, 544);
+            this.txt_porc_itbis.Location = new System.Drawing.Point(602, 536);
             this.txt_porc_itbis.Margin = new System.Windows.Forms.Padding(2);
             this.txt_porc_itbis.Name = "txt_porc_itbis";
             this.txt_porc_itbis.ReadOnly = true;
@@ -726,9 +727,9 @@
             // bot_agregar_renglon
             // 
             this.bot_agregar_renglon.Enabled = false;
-            this.bot_agregar_renglon.Location = new System.Drawing.Point(741, 292);
+            this.bot_agregar_renglon.Location = new System.Drawing.Point(850, 292);
             this.bot_agregar_renglon.Name = "bot_agregar_renglon";
-            this.bot_agregar_renglon.Size = new System.Drawing.Size(77, 23);
+            this.bot_agregar_renglon.Size = new System.Drawing.Size(66, 23);
             this.bot_agregar_renglon.TabIndex = 53;
             this.bot_agregar_renglon.Text = "Agregar";
             this.bot_agregar_renglon.UseVisualStyleBackColor = true;
@@ -737,9 +738,9 @@
             // bot_eliminar_renglon
             // 
             this.bot_eliminar_renglon.Enabled = false;
-            this.bot_eliminar_renglon.Location = new System.Drawing.Point(741, 321);
+            this.bot_eliminar_renglon.Location = new System.Drawing.Point(850, 321);
             this.bot_eliminar_renglon.Name = "bot_eliminar_renglon";
-            this.bot_eliminar_renglon.Size = new System.Drawing.Size(77, 23);
+            this.bot_eliminar_renglon.Size = new System.Drawing.Size(66, 23);
             this.bot_eliminar_renglon.TabIndex = 54;
             this.bot_eliminar_renglon.Text = "Eliminar";
             this.bot_eliminar_renglon.UseVisualStyleBackColor = true;
@@ -748,10 +749,10 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(25, 270);
+            this.tabControl1.Location = new System.Drawing.Point(12, 270);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(714, 231);
+            this.tabControl1.Size = new System.Drawing.Size(838, 231);
             this.tabControl1.TabIndex = 55;
             // 
             // tabPage1
@@ -760,7 +761,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(706, 205);
+            this.tabPage1.Size = new System.Drawing.Size(830, 205);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Renglones";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -771,7 +772,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(706, 205);
+            this.tabPage2.Size = new System.Drawing.Size(830, 205);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Detalle RC";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -787,18 +788,18 @@
             // BOT_DESPACHOS_RC
             // 
             this.BOT_DESPACHOS_RC.Enabled = false;
-            this.BOT_DESPACHOS_RC.Location = new System.Drawing.Point(742, 350);
+            this.BOT_DESPACHOS_RC.Location = new System.Drawing.Point(851, 350);
             this.BOT_DESPACHOS_RC.Name = "BOT_DESPACHOS_RC";
-            this.BOT_DESPACHOS_RC.Size = new System.Drawing.Size(77, 23);
+            this.BOT_DESPACHOS_RC.Size = new System.Drawing.Size(66, 23);
             this.BOT_DESPACHOS_RC.TabIndex = 56;
             this.BOT_DESPACHOS_RC.Text = "Desp. RC";
             this.BOT_DESPACHOS_RC.UseVisualStyleBackColor = true;
             // 
             // BOT_DETALLE_RC
             // 
-            this.BOT_DETALLE_RC.Location = new System.Drawing.Point(741, 379);
+            this.BOT_DETALLE_RC.Location = new System.Drawing.Point(850, 379);
             this.BOT_DETALLE_RC.Name = "BOT_DETALLE_RC";
-            this.BOT_DETALLE_RC.Size = new System.Drawing.Size(77, 23);
+            this.BOT_DETALLE_RC.Size = new System.Drawing.Size(66, 23);
             this.BOT_DETALLE_RC.TabIndex = 57;
             this.BOT_DETALLE_RC.Text = "Detalle RC";
             this.BOT_DETALLE_RC.UseVisualStyleBackColor = true;
@@ -808,7 +809,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(827, 614);
+            this.ClientSize = new System.Drawing.Size(923, 614);
             this.Controls.Add(this.BOT_DETALLE_RC);
             this.Controls.Add(this.BOT_DESPACHOS_RC);
             this.Controls.Add(this.tabControl1);

@@ -75,7 +75,8 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.Bit, Value = datos.Graphics},
                 new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Bit, Value = datos.Anulado},
                 new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.Decimal, Value = datos.Precio},
-                new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.NVarChar, Value = datos.Code_RC}
+                new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.NVarChar, Value = datos.Code_RC},
+                new SqlParameter() {ParameterName = "@p14", SqlDbType = SqlDbType.Decimal, Value = datos.Ratio}
             };
             return sp;
         }

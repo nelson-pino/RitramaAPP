@@ -17,5 +17,6 @@ namespace RitramaAPP
         public Boolean Anulado { get; set; }
         public double Precio { get; set; }
         public string Code_RC { get; set; }
+        public decimal Ratio { get; set; }
     }
 }

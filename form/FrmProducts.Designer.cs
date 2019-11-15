@@ -66,6 +66,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txt_codeRC = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txt_ratio = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -206,7 +208,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(248, 24);
+            this.label15.Location = new System.Drawing.Point(458, 22);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(140, 25);
@@ -455,7 +457,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(22, 422);
+            this.label8.Location = new System.Drawing.Point(22, 467);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(113, 13);
@@ -464,18 +466,39 @@
             // 
             // txt_codeRC
             // 
-            this.txt_codeRC.Location = new System.Drawing.Point(25, 438);
+            this.txt_codeRC.Location = new System.Drawing.Point(25, 483);
             this.txt_codeRC.Margin = new System.Windows.Forms.Padding(2);
             this.txt_codeRC.Name = "txt_codeRC";
             this.txt_codeRC.ReadOnly = true;
             this.txt_codeRC.Size = new System.Drawing.Size(113, 20);
             this.txt_codeRC.TabIndex = 46;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(22, 418);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(38, 13);
+            this.label9.TabIndex = 49;
+            this.label9.Text = "Ratio :";
+            // 
+            // txt_ratio
+            // 
+            this.txt_ratio.Location = new System.Drawing.Point(25, 434);
+            this.txt_ratio.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_ratio.Name = "txt_ratio";
+            this.txt_ratio.ReadOnly = true;
+            this.txt_ratio.Size = new System.Drawing.Size(113, 20);
+            this.txt_ratio.TabIndex = 48;
+            // 
             // FrmProducts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(676, 489);
+            this.ClientSize = new System.Drawing.Size(676, 558);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.txt_ratio);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.txt_codeRC);
             this.Controls.Add(this.groupBox2);
@@ -555,5 +578,7 @@
         private System.Windows.Forms.RadioButton RAD_ROLLO_CORTADO;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txt_codeRC;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txt_ratio;
     }
 }
