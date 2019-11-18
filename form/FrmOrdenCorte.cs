@@ -58,7 +58,7 @@ namespace RitramaAPP
             grid_rollos.DataSource = bsdetalle;
             VERIFICAR_DOCUMENTO();
         }
-      
+
         private void BOT_NUEVO_Click(object sender, EventArgs e)
         {
             chk_process.DataBindings.Clear();
@@ -274,10 +274,10 @@ namespace RitramaAPP
         private void ToSaveAdd()
         {
             //validar el formulario
-            if(txt_numero_oc.Text.Length == 0 || txt_numero_oc.Text == "0") 
+            if (txt_numero_oc.Text.Length == 0 || txt_numero_oc.Text == "0")
             {
                 MessageBox.Show("introduzca el numero de la orden");
-                return; 
+                return;
             }
             if (txt_rollid_1.Text.Length == 0)
             {
@@ -289,7 +289,7 @@ namespace RitramaAPP
                 MessageBox.Show("introduzca el product id.");
                 return;
             }
-            if ( Convert.ToDouble(txt_cant_cortado.Text) <= 0) 
+            if (Convert.ToDouble(txt_cant_cortado.Text) <= 0)
             {
                 MessageBox.Show("introduzca la cantidad a producir.");
                 return;
@@ -304,7 +304,7 @@ namespace RitramaAPP
                 MessageBox.Show("introduzca el lenght de la cantidad a producir.");
                 return;
             }
-            if (grid_rollos.Rows.Count == 0) 
+            if (grid_rollos.Rows.Count == 0)
             {
                 MessageBox.Show("No puede grabar una orden sin renglones...");
                 return;
@@ -313,7 +313,7 @@ namespace RitramaAPP
             managerorden.Add(CrearObjectOrden(), false);
             //actualizar los rollid.
             managerorden.UpdateRollId(orden.Rollid_1);
-            if(txt_rollid_2.Text.Length > 0) 
+            if (txt_rollid_2.Text.Length > 0)
             {
                 managerorden.UpdateRollId(orden.Rollid_2);
             }
@@ -521,13 +521,13 @@ namespace RitramaAPP
         {
             CargarRollIDNumber(1);
         }
-        private void CargarRollIDNumber(int state) 
+        private void CargarRollIDNumber(int state)
         {
             using (FrmBuscarRollid rollid = new FrmBuscarRollid())
             {
                 rollid.Dtrollid = managerorden.CargarRollsId();
                 rollid.ShowDialog();
-               
+
                 if (state == 0)
                 {
                     txt_rollid_1.Text = rollid.GetrollId;
@@ -536,7 +536,7 @@ namespace RitramaAPP
                     txt_product_id.Text = rollid.Getproduct_id;
                     txt_product_name.Text = rollid.GetProduct_name;
                 }
-                else 
+                else
                 {
                     txt_rollid_2.Text = rollid.GetrollId;
                     txt_width2_rollid.Text = rollid.GetValueWidth;
@@ -546,13 +546,13 @@ namespace RitramaAPP
         }
         private void CALCULAR_MSI()
         {
-            if (EditMode != 0 || Convert.ToDouble(txt_lenght_cortado.Text)>0 ||
+            if (EditMode != 0 || Convert.ToDouble(txt_lenght_cortado.Text) > 0 ||
                 Convert.ToDouble(txt_width_cortado.Text) > 0)
             {
                 try
                 {
                     double msi = ((Convert.ToDouble(txt_width_cortado.Text)
-                            * Convert.ToDouble(txt_lenght_cortado.Text)) 
+                            * Convert.ToDouble(txt_lenght_cortado.Text))
                             * R.CONSTANTES.FACTOR_CALCULO_MSI);
                     txt_msi_cortado.Text = msi.ToString();
                 }
@@ -603,13 +603,14 @@ namespace RitramaAPP
 
         private void Txt_width_cortado_KeyUp(object sender, KeyEventArgs e)
         {
-            if(txt_width_cortado.Text == "") 
+            if (txt_width_cortado.Text == "")
             {
                 return;
             }
-            if(Convert.ToDouble(txt_width_cortado.Text)>0 && Convert.ToDouble(txt_lenght_cortado.Text) > 0) 
+            if (Convert.ToDouble(txt_width_cortado.Text) > 0 && Convert.ToDouble(txt_lenght_cortado.Text) > 0)
             {
                 CALCULAR_MSI();
+               
             }
         }
 
@@ -622,9 +623,9 @@ namespace RitramaAPP
             if (Convert.ToDouble(txt_width_cortado.Text) > 0 && Convert.ToDouble(txt_lenght_cortado.Text) > 0)
             {
                 CALCULAR_MSI();
+                
             }
         }
-
         private void Txt_numero_oc_Validating(object sender, CancelEventArgs e)
         {
             if (managerorden.OrderExiste(txt_numero_oc.Text) && EditMode == 1)
@@ -633,25 +634,24 @@ namespace RitramaAPP
                 txt_numero_oc.Text = "";
             }
         }
-
         private void Grid_rollos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 4 || e.ColumnIndex == 5) 
+            if (e.ColumnIndex == 4 || e.ColumnIndex == 5)
             {
                 CALCULAR_MSI_RENGLON(e.RowIndex);
             }
         }
-       private void CALCULAR_MSI_RENGLON(int fila) 
-       {
+        private void CALCULAR_MSI_RENGLON(int fila)
+        {
             if (EditMode != 0 || Convert.ToDouble(grid_rollos.Rows[fila].Cells["largo"].Value) > 0 ||
                  Convert.ToDouble(grid_rollos.Rows[fila].Cells["ancho"].Value) > 0)
             {
                 try
                 {
                     double msi = ((Convert.ToDouble(grid_rollos.Rows[fila].Cells["ancho"].Value)
-                            * Convert.ToDouble(grid_rollos.Rows[fila].Cells["largo"].Value)) 
+                            * Convert.ToDouble(grid_rollos.Rows[fila].Cells["largo"].Value))
                             * R.CONSTANTES.FACTOR_CALCULO_MSI);
-                    grid_rollos.Rows[fila].Cells["msi"].Value  = msi.ToString();
+                    grid_rollos.Rows[fila].Cells["msi"].Value = msi.ToString();
                 }
                 catch (Exception)
                 {
@@ -663,7 +663,6 @@ namespace RitramaAPP
 
             }
         }
-
         private void Btn_eliminar_renglon_Click(object sender, EventArgs e)
         {
             //ACTUALIZAR LA INTERFAZ GRAFICA.
@@ -678,7 +677,6 @@ namespace RitramaAPP
             managerorden.DeleteUniqueCode(rc);
 
         }
-
         private void Bot_procesar_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show("Esta seguro de procesar este documento (S/N)?",
@@ -694,7 +692,6 @@ namespace RitramaAPP
                     break;
             }
         }
-
         private void Bot_Anular_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show("Esta seguro de Anular este documento (S/N)?",
@@ -710,7 +707,6 @@ namespace RitramaAPP
                     break;
             }
         }
-
         private void Txt_cant_cortado_Validating(object sender, CancelEventArgs e)
         {
             if (txt_cant_cortado.Text == string.Empty)
@@ -720,7 +716,7 @@ namespace RitramaAPP
         }
         private void Bot_generar_rollos_cortados_Click(object sender, EventArgs e)
         {
-            
+
             if (EditMode == 2 || grid_rollos.Rows.Count > 0)
             {
                 try
@@ -810,7 +806,6 @@ namespace RitramaAPP
             OptionsMenu(0);
             OptionsForm(2);
         }
-
         private void BOT_CANCELAR_Click(object sender, EventArgs e)
         {
             if (EditMode == 1)
@@ -833,30 +828,122 @@ namespace RitramaAPP
                 EditMode = 0;
             }
         }
-        private void VERIFICAR_DOCUMENTO() 
+
+        private void button1_Click_1(object sender, EventArgs e)
         {
-            if (chk_process.Checked || chk_anulado.Checked) 
+            CALCULAR_RENDIMIENTO_MASTER();
+        }
+
+        private void VERIFICAR_DOCUMENTO()
+        {
+            if (chk_process.Checked || chk_anulado.Checked)
             {
-                DOCUMENTO_CERRADO();    
+                DOCUMENTO_CERRADO();
             }
-            else 
+            else
             {
-                DOCUMENTO_ABIERTO();   
+                DOCUMENTO_ABIERTO();
             }
         }
-        private void DOCUMENTO_CERRADO() 
+        private void DOCUMENTO_CERRADO()
         {
             bot_modificar.Enabled = false;
             Bot_procesar.Enabled = false;
             Bot_Anular.Enabled = false;
             BOT_EXCEL_EXPORT.Enabled = false;
         }
-        private void DOCUMENTO_ABIERTO() 
+        private void DOCUMENTO_ABIERTO()
         {
             bot_modificar.Enabled = true;
             Bot_procesar.Enabled = true;
             Bot_Anular.Enabled = true;
             BOT_EXCEL_EXPORT.Enabled = true;
         }
+        private void CALCULAR_RENDIMIENTO_MASTER()
+        {
+            //VALIDAR LOS PAERAMETROS PARA EL CALCULO.
+
+
+            //CALCULAR EL RENDIMIENTO DEL MASTER.
+
+            Double rollosxmaster = Convert.ToDouble(txt_width1_rollid.Text) /
+                Convert.ToDouble(txt_width_cortado.Text);
+
+            Double nrovueltas = Convert.ToDouble(txt_lenght1_rollid.Text) /
+                Convert.ToDouble(txt_lenght_cortado.Text);
+
+            double cant = 0;
+
+            if (chk_todo_master.Checked == false)
+            {
+                cant = Math.Truncate(rollosxmaster) * Math.Truncate(nrovueltas);
+            }
+            else
+            {
+
+            }
+
+            if (cant >= Convert.ToDouble(txt_cant_cortado.Text))
+            {
+                //hay capacidad para producir lo planificado.
+                chk_capacity.Checked = true;
+                bot_generar_rollos_cortados.Enabled = true;
+
+                //Calculo de vueltas reales.
+                int rolloMax = Convert.ToInt32(Math.Truncate(rollosxmaster));
+                int vueltaMax =  Convert.ToInt16(Math.Truncate(nrovueltas));
+
+                //crear tabla de las vueltas
+                List<TablaMaster> tabla = new List<TablaMaster>();
+                int lim1 = 1;
+                int lim2 = rolloMax;
+                for (int i=0; i < vueltaMax; i++) 
+                {
+                    TablaMaster fila = new TablaMaster();
+                    fila.L1 = lim1;
+                    fila.L2 = lim2;
+                    fila.Vuelta = (i + 1);
+                    tabla.Add(fila);
+                    txt_tabla1.Text = txt_tabla1.Text + lim1 + " - " + lim2 + " - " + (i + 1).ToString() + Environment.NewLine;
+                    lim1 += 11;
+                    lim2 += 11;
+                    
+                }
+                //calculo las vueltas reales
+                foreach (TablaMaster item in tabla) 
+                {
+                    if (Convert.ToDouble(txt_cant_cortado.Text) >= item.L1 && Convert.ToDouble(txt_cant_cortado.Text) <= item.L2) 
+                    {
+                        txt_vueltas_real.Text = item.Vuelta.ToString();
+                        txt_sobran.Text = (Convert.ToInt16(item.L2)-Convert.ToInt16(txt_cant_cortado.Text)).ToString();
+                    }
+                }
+
+                
+            }
+            else
+            {
+                //no hay capacidad para producir lo planificado.
+                chk_capacity.Checked = false;
+                bot_generar_rollos_cortados.Enabled = false;
+            }
+
+
+
+
+
+            txt_rollosxmaster.Text = rollosxmaster.ToString();
+            txt_numero_vueltas.Text = nrovueltas.ToString();
+            txt_cant_master1.Text = cant.ToString();
+
+
+
+        }
+    }
+    public class TablaMaster
+    {
+        public int L1 { get; set; }
+        public int L2 { get; set; }
+        public int Vuelta { get; set; }
     }
 }

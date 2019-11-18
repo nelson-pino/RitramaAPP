@@ -46,6 +46,7 @@
             this.bot_modificar = new System.Windows.Forms.ToolStripButton();
             this.BOT_BUSCAR = new System.Windows.Forms.ToolStripButton();
             this.Bot_procesar = new System.Windows.Forms.ToolStripButton();
+            this.Bot_Anular = new System.Windows.Forms.ToolStripButton();
             this.BOT_EXCEL_EXPORT = new System.Windows.Forms.ToolStripButton();
             this.txt_fecha_orden = new System.Windows.Forms.DateTimePicker();
             this.grid_rollos = new System.Windows.Forms.DataGridView();
@@ -81,10 +82,34 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.Bot_Anular = new System.Windows.Forms.ToolStripButton();
+            this.txt_master_ = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txt_rollosxmaster = new System.Windows.Forms.TextBox();
+            this.txt_numero_vueltas = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.chk_todo_master = new System.Windows.Forms.CheckBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.txt_sobran = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txt_vueltas_real = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.chk_capacity = new System.Windows.Forms.CheckBox();
+            this.txt_cant_master1 = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txt_tabla1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_rollos)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // txt_numero_oc
@@ -138,7 +163,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1113, 65);
+            this.panel1.Size = new System.Drawing.Size(902, 65);
             this.panel1.TabIndex = 35;
             // 
             // contador
@@ -170,7 +195,7 @@
             this.BOT_EXCEL_EXPORT});
             this.toolStrip1.Location = new System.Drawing.Point(0, 65);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1113, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(902, 27);
             this.toolStrip1.TabIndex = 45;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -271,6 +296,15 @@
             this.Bot_procesar.Text = "Procesar";
             this.Bot_procesar.Click += new System.EventHandler(this.Bot_procesar_Click);
             // 
+            // Bot_Anular
+            // 
+            this.Bot_Anular.Image = ((System.Drawing.Image)(resources.GetObject("Bot_Anular.Image")));
+            this.Bot_Anular.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Bot_Anular.Name = "Bot_Anular";
+            this.Bot_Anular.Size = new System.Drawing.Size(66, 24);
+            this.Bot_Anular.Text = "Anular";
+            this.Bot_Anular.Click += new System.EventHandler(this.Bot_Anular_Click);
+            // 
             // BOT_EXCEL_EXPORT
             // 
             this.BOT_EXCEL_EXPORT.Image = ((System.Drawing.Image)(resources.GetObject("BOT_EXCEL_EXPORT.Image")));
@@ -296,14 +330,14 @@
             this.grid_rollos.AllowUserToResizeRows = false;
             this.grid_rollos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.grid_rollos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grid_rollos.Location = new System.Drawing.Point(9, 346);
+            this.grid_rollos.Location = new System.Drawing.Point(2, 5);
             this.grid_rollos.Margin = new System.Windows.Forms.Padding(2);
             this.grid_rollos.MultiSelect = false;
             this.grid_rollos.Name = "grid_rollos";
             this.grid_rollos.ReadOnly = true;
             this.grid_rollos.RowHeadersWidth = 25;
             this.grid_rollos.RowTemplate.Height = 24;
-            this.grid_rollos.Size = new System.Drawing.Size(814, 281);
+            this.grid_rollos.Size = new System.Drawing.Size(795, 271);
             this.grid_rollos.TabIndex = 17;
             this.grid_rollos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_rollos_CellEndEdit);
             // 
@@ -477,7 +511,7 @@
             this.txt_product_name.Margin = new System.Windows.Forms.Padding(2);
             this.txt_product_name.Name = "txt_product_name";
             this.txt_product_name.ReadOnly = true;
-            this.txt_product_name.Size = new System.Drawing.Size(405, 20);
+            this.txt_product_name.Size = new System.Drawing.Size(252, 20);
             this.txt_product_name.TabIndex = 11;
             // 
             // label6
@@ -550,9 +584,9 @@
             // bot_generar_rollos_cortados
             // 
             this.bot_generar_rollos_cortados.Enabled = false;
-            this.bot_generar_rollos_cortados.Location = new System.Drawing.Point(419, 165);
+            this.bot_generar_rollos_cortados.Location = new System.Drawing.Point(546, 117);
             this.bot_generar_rollos_cortados.Name = "bot_generar_rollos_cortados";
-            this.bot_generar_rollos_cortados.Size = new System.Drawing.Size(135, 66);
+            this.bot_generar_rollos_cortados.Size = new System.Drawing.Size(136, 71);
             this.bot_generar_rollos_cortados.TabIndex = 9;
             this.bot_generar_rollos_cortados.Text = "Generar Rollos";
             this.bot_generar_rollos_cortados.UseVisualStyleBackColor = true;
@@ -562,7 +596,7 @@
             // 
             this.chk_anulado.AutoSize = true;
             this.chk_anulado.Enabled = false;
-            this.chk_anulado.Location = new System.Drawing.Point(700, 122);
+            this.chk_anulado.Location = new System.Drawing.Point(755, 149);
             this.chk_anulado.Name = "chk_anulado";
             this.chk_anulado.Size = new System.Drawing.Size(123, 17);
             this.chk_anulado.TabIndex = 16;
@@ -573,7 +607,7 @@
             // 
             this.chk_process.AutoSize = true;
             this.chk_process.Enabled = false;
-            this.chk_process.Location = new System.Drawing.Point(700, 142);
+            this.chk_process.Location = new System.Drawing.Point(801, 117);
             this.chk_process.Name = "chk_process";
             this.chk_process.Size = new System.Drawing.Size(77, 17);
             this.chk_process.TabIndex = 88;
@@ -583,9 +617,9 @@
             // btn_eliminar_renglon
             // 
             this.btn_eliminar_renglon.Enabled = false;
-            this.btn_eliminar_renglon.Location = new System.Drawing.Point(735, 318);
+            this.btn_eliminar_renglon.Location = new System.Drawing.Point(828, 346);
             this.btn_eliminar_renglon.Name = "btn_eliminar_renglon";
-            this.btn_eliminar_renglon.Size = new System.Drawing.Size(88, 23);
+            this.btn_eliminar_renglon.Size = new System.Drawing.Size(37, 23);
             this.btn_eliminar_renglon.TabIndex = 89;
             this.btn_eliminar_renglon.Text = "- Fila";
             this.btn_eliminar_renglon.UseVisualStyleBackColor = true;
@@ -631,21 +665,238 @@
             this.label14.TabIndex = 93;
             this.label14.Text = "Lenght [PIES]";
             // 
-            // Bot_Anular
+            // txt_master_
             // 
-            this.Bot_Anular.Image = ((System.Drawing.Image)(resources.GetObject("Bot_Anular.Image")));
-            this.Bot_Anular.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Bot_Anular.Name = "Bot_Anular";
-            this.Bot_Anular.Size = new System.Drawing.Size(66, 24);
-            this.Bot_Anular.Text = "Anular";
-            this.Bot_Anular.Click += new System.EventHandler(this.Bot_Anular_Click);
+            this.txt_master_.Location = new System.Drawing.Point(405, 165);
+            this.txt_master_.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_master_.Name = "txt_master_";
+            this.txt_master_.Size = new System.Drawing.Size(104, 20);
+            this.txt_master_.TabIndex = 94;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(405, 211);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(104, 20);
+            this.textBox2.TabIndex = 95;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(402, 146);
+            this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(118, 13);
+            this.label18.TabIndex = 97;
+            this.label18.Text = "Material Dañado [PIES]";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(402, 192);
+            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(118, 13);
+            this.label17.TabIndex = 98;
+            this.label17.Text = "Material Dañado [PIES]";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(27, 47);
+            this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(82, 13);
+            this.label19.TabIndex = 99;
+            this.label19.Text = "Rollos x Master:";
+            // 
+            // txt_rollosxmaster
+            // 
+            this.txt_rollosxmaster.Location = new System.Drawing.Point(30, 62);
+            this.txt_rollosxmaster.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_rollosxmaster.Name = "txt_rollosxmaster";
+            this.txt_rollosxmaster.Size = new System.Drawing.Size(59, 20);
+            this.txt_rollosxmaster.TabIndex = 100;
+            // 
+            // txt_numero_vueltas
+            // 
+            this.txt_numero_vueltas.Location = new System.Drawing.Point(111, 62);
+            this.txt_numero_vueltas.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_numero_vueltas.Name = "txt_numero_vueltas";
+            this.txt_numero_vueltas.Size = new System.Drawing.Size(69, 20);
+            this.txt_numero_vueltas.TabIndex = 102;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(108, 47);
+            this.label20.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(55, 13);
+            this.label20.TabIndex = 101;
+            this.label20.Text = "# Vueltas:";
+            // 
+            // chk_todo_master
+            // 
+            this.chk_todo_master.AutoSize = true;
+            this.chk_todo_master.Location = new System.Drawing.Point(36, 244);
+            this.chk_todo_master.Name = "chk_todo_master";
+            this.chk_todo_master.Size = new System.Drawing.Size(127, 17);
+            this.chk_todo_master.TabIndex = 103;
+            this.chk_todo_master.Text = "Utilizar todo el Master";
+            this.chk_todo_master.UseVisualStyleBackColor = true;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(12, 331);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(810, 307);
+            this.tabControl1.TabIndex = 104;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.grid_rollos);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(802, 281);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Rollos Cortados";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.txt_tabla1);
+            this.tabPage2.Controls.Add(this.txt_sobran);
+            this.tabPage2.Controls.Add(this.label24);
+            this.tabPage2.Controls.Add(this.txt_vueltas_real);
+            this.tabPage2.Controls.Add(this.label23);
+            this.tabPage2.Controls.Add(this.label22);
+            this.tabPage2.Controls.Add(this.chk_capacity);
+            this.tabPage2.Controls.Add(this.txt_cant_master1);
+            this.tabPage2.Controls.Add(this.label21);
+            this.tabPage2.Controls.Add(this.chk_todo_master);
+            this.tabPage2.Controls.Add(this.txt_numero_vueltas);
+            this.tabPage2.Controls.Add(this.label20);
+            this.tabPage2.Controls.Add(this.label19);
+            this.tabPage2.Controls.Add(this.txt_rollosxmaster);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(802, 281);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Rendimiento";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // txt_sobran
+            // 
+            this.txt_sobran.Location = new System.Drawing.Point(435, 63);
+            this.txt_sobran.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_sobran.Name = "txt_sobran";
+            this.txt_sobran.Size = new System.Drawing.Size(69, 20);
+            this.txt_sobran.TabIndex = 111;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(432, 48);
+            this.label24.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(86, 13);
+            this.label24.TabIndex = 110;
+            this.label24.Text = "# Rollos Sobran:";
+            // 
+            // txt_vueltas_real
+            // 
+            this.txt_vueltas_real.Location = new System.Drawing.Point(353, 62);
+            this.txt_vueltas_real.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_vueltas_real.Name = "txt_vueltas_real";
+            this.txt_vueltas_real.Size = new System.Drawing.Size(69, 20);
+            this.txt_vueltas_real.TabIndex = 109;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(350, 47);
+            this.label23.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(80, 13);
+            this.label23.TabIndex = 108;
+            this.label23.Text = "# Vueltas Real:";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(81, 19);
+            this.label22.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(94, 13);
+            this.label22.TabIndex = 107;
+            this.label22.Text = "MASTER NRO. 1:";
+            // 
+            // chk_capacity
+            // 
+            this.chk_capacity.AutoSize = true;
+            this.chk_capacity.Enabled = false;
+            this.chk_capacity.Location = new System.Drawing.Point(256, 65);
+            this.chk_capacity.Name = "chk_capacity";
+            this.chk_capacity.Size = new System.Drawing.Size(77, 17);
+            this.chk_capacity.TabIndex = 106;
+            this.chk_capacity.Text = "Capacidad";
+            this.chk_capacity.UseVisualStyleBackColor = true;
+            // 
+            // txt_cant_master1
+            // 
+            this.txt_cant_master1.Location = new System.Drawing.Point(184, 62);
+            this.txt_cant_master1.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_cant_master1.Name = "txt_cant_master1";
+            this.txt_cant_master1.Size = new System.Drawing.Size(67, 20);
+            this.txt_cant_master1.TabIndex = 105;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(181, 47);
+            this.label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(55, 13);
+            this.label21.TabIndex = 104;
+            this.label21.Text = "Cantidad :";
+            // 
+            // txt_tabla1
+            // 
+            this.txt_tabla1.Location = new System.Drawing.Point(659, 20);
+            this.txt_tabla1.Multiline = true;
+            this.txt_tabla1.Name = "txt_tabla1";
+            this.txt_tabla1.Size = new System.Drawing.Size(125, 63);
+            this.txt_tabla1.TabIndex = 112;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(559, 304);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 105;
+            this.button1.Text = "Rendimiento";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // FrmOrdenCorte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1113, 673);
+            this.ClientSize = new System.Drawing.Size(902, 673);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txt_master_);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label9);
@@ -678,7 +929,6 @@
             this.Controls.Add(this.txt_rollid_1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txt_fecha_producc);
-            this.Controls.Add(this.grid_rollos);
             this.Controls.Add(this.txt_fecha_orden);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panel1);
@@ -695,6 +945,10 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_rollos)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -755,5 +1009,27 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ToolStripButton Bot_procesar;
         private System.Windows.Forms.ToolStripButton Bot_Anular;
+        private System.Windows.Forms.TextBox txt_master_;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox txt_rollosxmaster;
+        private System.Windows.Forms.TextBox txt_numero_vueltas;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.CheckBox chk_todo_master;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TextBox txt_cant_master1;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.CheckBox chk_capacity;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox txt_vueltas_real;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox txt_sobran;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox txt_tabla1;
+        private System.Windows.Forms.Button button1;
     }
 }
