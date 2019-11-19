@@ -834,6 +834,11 @@ namespace RitramaAPP
             CALCULAR_RENDIMIENTO_MASTER();
         }
 
+        private void txt_tabla1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void VERIFICAR_DOCUMENTO()
         {
             if (chk_process.Checked || chk_anulado.Checked)
@@ -861,16 +866,23 @@ namespace RitramaAPP
         }
         private void CALCULAR_RENDIMIENTO_MASTER()
         {
+            txt_tabla1.Text = "";
+            txt_width_dif.Text = "";
+            txt_lenght_dif.Text = "";
+            txt_msi_dif.Text = "";
+            txt_vueltas_real.Text = "";
+            txt_sobran.Text = "";
+            txt_rollos_real.Text = "";
             //VALIDAR LOS PAERAMETROS PARA EL CALCULO.
 
 
             //CALCULAR EL RENDIMIENTO DEL MASTER.
 
-            Double rollosxmaster = Convert.ToDouble(txt_width1_rollid.Text) /
-                Convert.ToDouble(txt_width_cortado.Text);
+            Double rollosxmaster = Math.Round(Convert.ToDouble(txt_width1_rollid.Text) /
+                Convert.ToDouble(txt_width_cortado.Text),2);
 
-            Double nrovueltas = Convert.ToDouble(txt_lenght1_rollid.Text) /
-                Convert.ToDouble(txt_lenght_cortado.Text);
+            Double nrovueltas = Math.Round(Convert.ToDouble(txt_lenght1_rollid.Text) /
+                Convert.ToDouble(txt_lenght_cortado.Text),2);
 
             double cant = 0;
 
@@ -889,7 +901,7 @@ namespace RitramaAPP
                 chk_capacity.Checked = true;
                 bot_generar_rollos_cortados.Enabled = true;
 
-                //Calculo de vueltas reales.
+                //rollos x master a lo ancho y numero de vueltas.
                 int rolloMax = Convert.ToInt32(Math.Truncate(rollosxmaster));
                 int vueltaMax =  Convert.ToInt16(Math.Truncate(nrovueltas));
 
@@ -905,9 +917,9 @@ namespace RitramaAPP
                     fila.Vuelta = (i + 1);
                     tabla.Add(fila);
                     txt_tabla1.Text = txt_tabla1.Text + lim1 + " - " + lim2 + " - " + (i + 1).ToString() + Environment.NewLine;
-                    lim1 += 11;
-                    lim2 += 11;
-                    
+                    lim1 += rolloMax;
+                    lim2 += rolloMax;
+      
                 }
                 //calculo las vueltas reales
                 foreach (TablaMaster item in tabla) 
@@ -919,7 +931,24 @@ namespace RitramaAPP
                     }
                 }
 
-                
+                txt_rollos_real.Text = (Convert.ToDouble(txt_vueltas_real.Text) * rolloMax).ToString();
+
+                //calculo del master sobrante.
+                double width_dif = Convert.ToDouble(txt_width1_rollid.Text) - 
+                    (rolloMax * Convert.ToInt16(txt_width_cortado.Text));
+
+                double lenght_dif = Convert.ToDouble(txt_lenght1_rollid.Text) -
+                    (Convert.ToDouble(txt_lenght_cortado.Text) * Convert.ToInt16(txt_vueltas_real.Text));
+
+                double msi_dif = (width_dif * lenght_dif) * R.CONSTANTES.FACTOR_CALCULO_MSI;
+
+
+
+                txt_width_dif.Text = width_dif.ToString();
+                txt_lenght_dif.Text = lenght_dif.ToString();
+                txt_msi_dif.Text = msi_dif.ToString();
+
+
             }
             else
             {

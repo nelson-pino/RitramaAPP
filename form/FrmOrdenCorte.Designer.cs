@@ -94,6 +94,15 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.txt_msi_dif = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.txt_lenght_dif = new System.Windows.Forms.TextBox();
+            this.txt_width_dif = new System.Windows.Forms.TextBox();
+            this.txt_tabla1 = new System.Windows.Forms.TextBox();
             this.txt_sobran = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.txt_vueltas_real = new System.Windows.Forms.TextBox();
@@ -102,8 +111,10 @@
             this.chk_capacity = new System.Windows.Forms.CheckBox();
             this.txt_cant_master1 = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.txt_tabla1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.label30 = new System.Windows.Forms.Label();
+            this.txt_rollos_real = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_rollos)).BeginInit();
@@ -704,7 +715,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(27, 47);
+            this.label19.Location = new System.Drawing.Point(2, 47);
             this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(82, 13);
@@ -713,7 +724,7 @@
             // 
             // txt_rollosxmaster
             // 
-            this.txt_rollosxmaster.Location = new System.Drawing.Point(30, 62);
+            this.txt_rollosxmaster.Location = new System.Drawing.Point(5, 62);
             this.txt_rollosxmaster.Margin = new System.Windows.Forms.Padding(2);
             this.txt_rollosxmaster.Name = "txt_rollosxmaster";
             this.txt_rollosxmaster.Size = new System.Drawing.Size(59, 20);
@@ -721,7 +732,7 @@
             // 
             // txt_numero_vueltas
             // 
-            this.txt_numero_vueltas.Location = new System.Drawing.Point(111, 62);
+            this.txt_numero_vueltas.Location = new System.Drawing.Point(88, 63);
             this.txt_numero_vueltas.Margin = new System.Windows.Forms.Padding(2);
             this.txt_numero_vueltas.Name = "txt_numero_vueltas";
             this.txt_numero_vueltas.Size = new System.Drawing.Size(69, 20);
@@ -730,7 +741,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(108, 47);
+            this.label20.Location = new System.Drawing.Point(85, 48);
             this.label20.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(55, 13);
@@ -740,7 +751,7 @@
             // chk_todo_master
             // 
             this.chk_todo_master.AutoSize = true;
-            this.chk_todo_master.Location = new System.Drawing.Point(36, 244);
+            this.chk_todo_master.Location = new System.Drawing.Point(98, 258);
             this.chk_todo_master.Name = "chk_todo_master";
             this.chk_todo_master.Size = new System.Drawing.Size(127, 17);
             this.chk_todo_master.TabIndex = 103;
@@ -770,6 +781,17 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.txt_rollos_real);
+            this.tabPage2.Controls.Add(this.label31);
+            this.tabPage2.Controls.Add(this.label30);
+            this.tabPage2.Controls.Add(this.label29);
+            this.tabPage2.Controls.Add(this.label28);
+            this.tabPage2.Controls.Add(this.label27);
+            this.tabPage2.Controls.Add(this.txt_msi_dif);
+            this.tabPage2.Controls.Add(this.label26);
+            this.tabPage2.Controls.Add(this.label25);
+            this.tabPage2.Controls.Add(this.txt_lenght_dif);
+            this.tabPage2.Controls.Add(this.txt_width_dif);
             this.tabPage2.Controls.Add(this.txt_tabla1);
             this.tabPage2.Controls.Add(this.txt_sobran);
             this.tabPage2.Controls.Add(this.label24);
@@ -792,9 +814,95 @@
             this.tabPage2.Text = "Rendimiento";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(713, 5);
+            this.label29.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(77, 13);
+            this.label29.TabIndex = 120;
+            this.label29.Text = "Rollos x Vuelta";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(540, 24);
+            this.label28.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(98, 13);
+            this.label28.TabIndex = 119;
+            this.label28.Text = "Residuo del Master";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(639, 47);
+            this.label27.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(26, 13);
+            this.label27.TabIndex = 118;
+            this.label27.Text = "Msi:";
+            // 
+            // txt_msi_dif
+            // 
+            this.txt_msi_dif.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_msi_dif.Location = new System.Drawing.Point(637, 64);
+            this.txt_msi_dif.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_msi_dif.Name = "txt_msi_dif";
+            this.txt_msi_dif.Size = new System.Drawing.Size(69, 20);
+            this.txt_msi_dif.TabIndex = 117;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(564, 49);
+            this.label26.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(43, 13);
+            this.label26.TabIndex = 116;
+            this.label26.Text = "Lenght:";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(488, 47);
+            this.label25.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(38, 13);
+            this.label25.TabIndex = 115;
+            this.label25.Text = "Width:";
+            // 
+            // txt_lenght_dif
+            // 
+            this.txt_lenght_dif.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_lenght_dif.Location = new System.Drawing.Point(564, 64);
+            this.txt_lenght_dif.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_lenght_dif.Name = "txt_lenght_dif";
+            this.txt_lenght_dif.Size = new System.Drawing.Size(69, 20);
+            this.txt_lenght_dif.TabIndex = 114;
+            // 
+            // txt_width_dif
+            // 
+            this.txt_width_dif.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_width_dif.Location = new System.Drawing.Point(491, 64);
+            this.txt_width_dif.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_width_dif.Name = "txt_width_dif";
+            this.txt_width_dif.Size = new System.Drawing.Size(69, 20);
+            this.txt_width_dif.TabIndex = 113;
+            // 
+            // txt_tabla1
+            // 
+            this.txt_tabla1.Location = new System.Drawing.Point(716, 21);
+            this.txt_tabla1.Multiline = true;
+            this.txt_tabla1.Name = "txt_tabla1";
+            this.txt_tabla1.Size = new System.Drawing.Size(80, 63);
+            this.txt_tabla1.TabIndex = 112;
+            this.txt_tabla1.TextChanged += new System.EventHandler(this.txt_tabla1_TextChanged);
+            // 
             // txt_sobran
             // 
-            this.txt_sobran.Location = new System.Drawing.Point(435, 63);
+            this.txt_sobran.Location = new System.Drawing.Point(405, 64);
             this.txt_sobran.Margin = new System.Windows.Forms.Padding(2);
             this.txt_sobran.Name = "txt_sobran";
             this.txt_sobran.Size = new System.Drawing.Size(69, 20);
@@ -803,7 +911,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(432, 48);
+            this.label24.Location = new System.Drawing.Point(402, 49);
             this.label24.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(86, 13);
@@ -812,7 +920,7 @@
             // 
             // txt_vueltas_real
             // 
-            this.txt_vueltas_real.Location = new System.Drawing.Point(353, 62);
+            this.txt_vueltas_real.Location = new System.Drawing.Point(247, 64);
             this.txt_vueltas_real.Margin = new System.Windows.Forms.Padding(2);
             this.txt_vueltas_real.Name = "txt_vueltas_real";
             this.txt_vueltas_real.Size = new System.Drawing.Size(69, 20);
@@ -821,7 +929,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(350, 47);
+            this.label23.Location = new System.Drawing.Point(244, 49);
             this.label23.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(80, 13);
@@ -831,10 +939,11 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(81, 19);
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(33, 18);
             this.label22.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(94, 13);
+            this.label22.Size = new System.Drawing.Size(108, 13);
             this.label22.TabIndex = 107;
             this.label22.Text = "MASTER NRO. 1:";
             // 
@@ -842,16 +951,17 @@
             // 
             this.chk_capacity.AutoSize = true;
             this.chk_capacity.Enabled = false;
-            this.chk_capacity.Location = new System.Drawing.Point(256, 65);
+            this.chk_capacity.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_capacity.Location = new System.Drawing.Point(6, 258);
             this.chk_capacity.Name = "chk_capacity";
-            this.chk_capacity.Size = new System.Drawing.Size(77, 17);
+            this.chk_capacity.Size = new System.Drawing.Size(86, 17);
             this.chk_capacity.TabIndex = 106;
             this.chk_capacity.Text = "Capacidad";
             this.chk_capacity.UseVisualStyleBackColor = true;
             // 
             // txt_cant_master1
             // 
-            this.txt_cant_master1.Location = new System.Drawing.Point(184, 62);
+            this.txt_cant_master1.Location = new System.Drawing.Point(161, 63);
             this.txt_cant_master1.Margin = new System.Windows.Forms.Padding(2);
             this.txt_cant_master1.Name = "txt_cant_master1";
             this.txt_cant_master1.Size = new System.Drawing.Size(67, 20);
@@ -860,20 +970,12 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(181, 47);
+            this.label21.Location = new System.Drawing.Point(158, 48);
             this.label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(55, 13);
             this.label21.TabIndex = 104;
             this.label21.Text = "Cantidad :";
-            // 
-            // txt_tabla1
-            // 
-            this.txt_tabla1.Location = new System.Drawing.Point(659, 20);
-            this.txt_tabla1.Multiline = true;
-            this.txt_tabla1.Name = "txt_tabla1";
-            this.txt_tabla1.Size = new System.Drawing.Size(125, 63);
-            this.txt_tabla1.TabIndex = 112;
             // 
             // button1
             // 
@@ -884,6 +986,34 @@
             this.button1.Text = "Rendimiento";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(335, 24);
+            this.label30.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(76, 13);
+            this.label30.TabIndex = 121;
+            this.label30.Text = "Consumo Real";
+            // 
+            // txt_rollos_real
+            // 
+            this.txt_rollos_real.Location = new System.Drawing.Point(323, 64);
+            this.txt_rollos_real.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_rollos_real.Name = "txt_rollos_real";
+            this.txt_rollos_real.Size = new System.Drawing.Size(69, 20);
+            this.txt_rollos_real.TabIndex = 123;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(320, 49);
+            this.label31.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(52, 13);
+            this.label31.TabIndex = 122;
+            this.label31.Text = "# Rollos :";
             // 
             // FrmOrdenCorte
             // 
@@ -1031,5 +1161,16 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox txt_tabla1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox txt_msi_dif;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox txt_lenght_dif;
+        private System.Windows.Forms.TextBox txt_width_dif;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox txt_rollos_real;
+        private System.Windows.Forms.Label label31;
     }
 }
