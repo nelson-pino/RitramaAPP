@@ -95,7 +95,8 @@ namespace RitramaAPP
                     public static string SQL_QUERY_DELETE_UNIQUE_CODE = "DELETE FROM rolls_details WHERE unique_code=@p1";
                     public static string SQL_QUERY_PROCESAR_ORDEN_OC = "UPDATE orden_corte SET Procesado=1 WHERE numero=@p1";
                     public static string SQL_QUERY_ANULAR_ORDEN_OC = "UPDATE orden_corte SET anulada=1 WHERE numero=@p1";
-
+                    public static string SQL_QUERY_ADD_DATOS_RENDIMIENTO_MASTER = "INSERT INTO Rendim (WidRollosMax1,nVueltasMax1,CantRollosMax1,nVueltasReal1,CantRollosReal1,RollosSobran1,WidResidual1,LenResidual1,MsiResidual1,Tabla1,WidRollosMax2,nVueltasMax2,CantRollosMax2,nVueltasReal2,CantRollosReal2,RollosSobran2,WidResidual2,LenResidual2,MsiResidual2,Tabla2,numero_oc) VALUES (@P1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14,@p15,@p16,@p17,@p18,@p19,@p20,@p21)";
+                    public static string SQL_QUERY_SELECT_DATOS_RENDIMIENTO_MASTER = "SELECT WidRollosMax1,nVueltasMax1,CantRollosMax1,nVueltasReal1,CantRollosReal1,RollosSobran1,WidResidual1,LenResidual1,MsiResidual1,Tabla1,WidRollosMax2,nVueltasMax2,CantRollosMax2,nVueltasReal2,CantRollosReal2,RollosSobran2,WidResidual2,LenResidual2,MsiResidual2,Tabla2,numero_oc FROM rendim WHERE numero_oc=@p1";
                 }
                 public class DESPACHOS
                 {
@@ -168,6 +169,7 @@ namespace RitramaAPP
                 public static string MESSAGE_UPDATE_ERROR_UPDATE_ROLLID = "Error al actualizar la disponibilidad de los numeros ROLL ID.";
                 public static string MESSAGE_UPDATE_PROCESAR_ORDEN_OC = "Error al procesar documento de orden de corte";
                 public static string MESSAGE_UPDATE_ANULAR_ORDEN_OC = "Error al Anular documento de orden de corte";
+                public static string MESSAGE_ADD_RENDIM_MASTER = "Error al Anular documento de orden de corte";
             }
             public class DESPACHOS
             {

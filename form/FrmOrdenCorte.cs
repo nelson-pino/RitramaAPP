@@ -5,9 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using DataTable = System.Data.DataTable;
 
 namespace RitramaAPP
 {
@@ -19,15 +21,16 @@ namespace RitramaAPP
         }
         readonly ProduccionManager managerorden = new ProduccionManager();
         readonly ConfigManager configmanager = new ConfigManager();
-        readonly BindingSource bs = new BindingSource();
-        readonly BindingSource bsdetalle = new BindingSource();
-        readonly System.Data.DataTable dtproducts = new System.Data.DataTable();
+        BindingSource bs = new BindingSource();
+        BindingSource bsdetalle = new BindingSource();
+        DataTable dtproducts = new System.Data.DataTable();
         DataSet ds = new DataSet();
         private DataRowView ParentRow;
         int EditMode = 0;
         string modproduct_id, modcan_cortado, modwidth, modlenght, modmsi;
         Boolean ischanged_rollos = false;
         Orden orden;
+        int CantMaxRollo1, CantMaxRollo2;
 
         private void FrmOrdenCorte_Load(object sender, EventArgs e)
         {
@@ -35,28 +38,13 @@ namespace RitramaAPP
             ds = managerorden.ds;
             bs.DataSource = ds;
             bs.DataMember = "dtordenes";
-            txt_numero_oc.DataBindings.Add("text", bs, "numero");
-            txt_fecha_orden.DataBindings.Add("text", bs, "fecha");
-            txt_fecha_producc.DataBindings.Add("text", bs, "fecha_produccion");
-            txt_rollid_1.DataBindings.Add("text", bs, "rollid_1");
-            txt_width1_rollid.DataBindings.Add("text", bs, "width_1");
-            txt_lenght1_rollid.DataBindings.Add("text", bs, "lenght_1");
-            txt_rollid_2.DataBindings.Add("text", bs, "rollid_2");
-            txt_width2_rollid.DataBindings.Add("text", bs, "width_2");
-            txt_lenght2_rollid.DataBindings.Add("text", bs, "lenght_2");
-            txt_product_id.DataBindings.Add("text", bs, "product_id");
-            txt_product_name.DataBindings.Add("text", bs, "product_name");
-            txt_cant_cortado.DataBindings.Add("text", bs, "cant_cortado");
-            txt_width_cortado.DataBindings.Add("text", bs, "width_cortado");
-            txt_lenght_cortado.DataBindings.Add("text", bs, "lenght_cortado");
-            txt_msi_cortado.DataBindings.Add("text", bs, "msi_cortado");
-            chk_process.DataBindings.Add("Checked", bs, "procesado");
-            chk_anulado.DataBindings.Add("Checked", bs, "anulada");
+            DataBinding();
             //binding del detalle
             bsdetalle.DataSource = bs;
             bsdetalle.DataMember = "FK_ORDEN_DETAILS";
             grid_rollos.DataSource = bsdetalle;
             VERIFICAR_DOCUMENTO();
+            GetRendimiento();
         }
 
         private void BOT_NUEVO_Click(object sender, EventArgs e)
@@ -82,6 +70,7 @@ namespace RitramaAPP
             ContadorRegistros();
             OptionsMenu(0);
             OptionsForm(0);
+            LIMPIAR_CAMPOS_RENDIMIENTO();
             EditMode = 1;
         }
         private void OptionsForm(int state)
@@ -193,24 +182,28 @@ namespace RitramaAPP
             bs.Position += 1;
             ContadorRegistros();
             VERIFICAR_DOCUMENTO();
+            GetRendimiento();
         }
         private void Bot_anterior_Click(object sender, EventArgs e)
         {
             bs.Position -= 1;
             ContadorRegistros();
             VERIFICAR_DOCUMENTO();
+            GetRendimiento();
         }
         private void Bot_primero_Click(object sender, EventArgs e)
         {
             bs.Position = 0;
             ContadorRegistros();
             VERIFICAR_DOCUMENTO();
+            GetRendimiento();
         }
         private void Bot_ultimo_Click(object sender, EventArgs e)
         {
             bs.Position = bs.Count - 1;
             ContadorRegistros();
             VERIFICAR_DOCUMENTO();
+            GetRendimiento();
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd)
         {
@@ -317,6 +310,8 @@ namespace RitramaAPP
             {
                 managerorden.UpdateRollId(orden.Rollid_2);
             }
+            //guardar los datos del Rendimiento del Master
+            managerorden.AddRendim(GetParametersRendimiento());
             chk_process.DataBindings.Add("Checked", bs, "procesado");
             chk_anulado.DataBindings.Add("Checked", bs, "anulada");
             OptionsMenu(1);
@@ -819,6 +814,7 @@ namespace RitramaAPP
                 //activo la funciones del menu
                 OptionsMenu(1);
                 OptionsForm(1);
+                LIMPIAR_CAMPOS_RENDIMIENTO();
                 EditMode = 0;
             }
             if (EditMode == 2)
@@ -829,16 +825,10 @@ namespace RitramaAPP
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void Button1_Click_1(object sender, EventArgs e)
         {
             CALCULAR_RENDIMIENTO_MASTER();
         }
-
-        private void txt_tabla1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void VERIFICAR_DOCUMENTO()
         {
             if (chk_process.Checked || chk_anulado.Checked)
@@ -866,6 +856,28 @@ namespace RitramaAPP
         }
         private void CALCULAR_RENDIMIENTO_MASTER()
         {
+            //VALIDAR LOS PAERAMETROS PARA EL CALCULO.
+            //CALCULO DEL MASTER 1.
+            //CALCULAR EL RENDIMIENTO DEL MASTER.
+
+            if ( (txt_rollid_1.Text.Length > 0) & (txt_rollid_2.Text == string.Empty)) 
+            {
+                CALCULO_MASTER_1();           
+            }
+            if ((txt_rollid_1.Text.Length > 0) && (txt_rollid_2.Text.Length > 0))
+            {
+                CALCULO_MASTER_1();
+                CALCULO_MASTER_2();
+            }
+        }
+
+        private void get_data_rend_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void CALCULO_MASTER_1() 
+        {
             txt_tabla1.Text = "";
             txt_width_dif.Text = "";
             txt_lenght_dif.Text = "";
@@ -873,100 +885,286 @@ namespace RitramaAPP
             txt_vueltas_real.Text = "";
             txt_sobran.Text = "";
             txt_rollos_real.Text = "";
-            //VALIDAR LOS PAERAMETROS PARA EL CALCULO.
-
-
-            //CALCULAR EL RENDIMIENTO DEL MASTER.
+            //CALCULAS LAS VUELTAS Y EL NUMERO DE ROLLOS POR ANCHO.
 
             Double rollosxmaster = Math.Round(Convert.ToDouble(txt_width1_rollid.Text) /
-                Convert.ToDouble(txt_width_cortado.Text),2);
+            Convert.ToDouble(txt_width_cortado.Text), 2);
 
             Double nrovueltas = Math.Round(Convert.ToDouble(txt_lenght1_rollid.Text) /
-                Convert.ToDouble(txt_lenght_cortado.Text),2);
+                Convert.ToDouble(txt_lenght_cortado.Text), 2);
 
-            double cant = 0;
+            // CALCULO UTILIZADO TODO EL MATERIAL. 
+            if (chk_todo_master.Checked == false)
+            {
+                CantMaxRollo1 = Convert.ToInt32(Math.Truncate(rollosxmaster) * Math.Truncate(nrovueltas));
+            }
+            else
+            {
+            }
+
+            // VERIFICAR LA CAPACIDAD DE PRODUCCION.
+            if (CantMaxRollo1 >= Convert.ToDouble(txt_cant_cortado.Text)) 
+            {
+                //puedo sacar la planificacion de produccion
+                chk_capacity.Checked = true;
+
+            }
+            else 
+            {
+                chk_capacity.Checked = false;
+            }
+
+            //ASIGNO LOS VALORES MAXIMOS DE RENDIMIENTO DE MASTER
+            txt_rollosxmaster.Text = rollosxmaster.ToString();
+            txt_numero_vueltas.Text = nrovueltas.ToString();
+            txt_cant_master1.Text = CantMaxRollo1.ToString();
+
+            //rollos x master a lo ancho y numero de vueltas.
+            int rolloMax = Convert.ToInt32(Math.Truncate(rollosxmaster));
+            int vueltaMax = Convert.ToInt16(Math.Truncate(nrovueltas));
+
+            //crear tabla de las vueltas
+            List<TablaMaster> tabla = new List<TablaMaster>();
+            int lim1 = 1;
+            int lim2 = rolloMax;
+            for (int i = 0; i < vueltaMax; i++)
+            {
+                TablaMaster fila = new TablaMaster
+                {
+                    L1 = lim1,
+                    L2 = lim2,
+                    Vuelta = (i + 1)
+                };
+                tabla.Add(fila);
+                txt_tabla1.Text = txt_tabla1.Text + lim1 + " - " + lim2 + " - " +
+                    (i + 1).ToString() + Environment.NewLine;
+                lim1 += rolloMax;
+                lim2 += rolloMax;
+            }
+
+            //calculo las vueltas reales
+            foreach (TablaMaster item in tabla)
+            {
+                if (Convert.ToDouble(txt_cant_cortado.Text) >= item.L1 && Convert.ToDouble(txt_cant_cortado.Text) <= item.L2)
+                {
+                    txt_vueltas_real.Text = item.Vuelta.ToString();
+                    txt_sobran.Text = (Convert.ToInt16(item.L2) -
+                    Convert.ToInt16(txt_cant_cortado.Text)).ToString();
+                }
+            }
+            //si la planificacion es mayor que el rendimiento del master.
+            if (txt_vueltas_real.Text == string.Empty) 
+            {
+                txt_vueltas_real.Text = vueltaMax.ToString();
+                txt_sobran.Text = "0";
+            }
+            txt_rollos_real.Text = (Convert.ToDouble(txt_vueltas_real.Text) * rolloMax).ToString();
+
+            //calculo del master sobrante.
+            double width_dif = Convert.ToDouble(txt_width1_rollid.Text) -
+                  (rolloMax * Convert.ToInt16(txt_width_cortado.Text));
+
+            double lenght_dif = Convert.ToDouble(txt_lenght1_rollid.Text) -
+                   (Convert.ToDouble(txt_lenght_cortado.Text) * Convert.ToInt16(txt_vueltas_real.Text));
+            if (lenght_dif == 0) 
+            {
+                lenght_dif = Convert.ToDouble(txt_lenght1_rollid.Text);
+            }
+            if (width_dif == 0)
+            {
+                width_dif = Convert.ToDouble(txt_width1_rollid.Text);
+            }
+            double msi_dif = (width_dif * lenght_dif) * R.CONSTANTES.FACTOR_CALCULO_MSI;
+            txt_width_dif.Text = width_dif.ToString();
+            txt_lenght_dif.Text = lenght_dif.ToString();
+            txt_msi_dif.Text = msi_dif.ToString();
+        }
+        private void CALCULO_MASTER_2()
+        {
+            Double rollosxWidth = Math.Round(Convert.ToDouble(txt_width2_rollid.Text) /
+                   Convert.ToDouble(txt_width_cortado.Text),2);
+
+            Double nrovueltas = Math.Round(Convert.ToDouble(txt_lenght2_rollid.Text) /
+                Convert.ToDouble(txt_lenght_cortado.Text), 2);
 
             if (chk_todo_master.Checked == false)
             {
-                cant = Math.Truncate(rollosxmaster) * Math.Truncate(nrovueltas);
+                CantMaxRollo2 = Convert.ToInt32( Math.Truncate(rollosxWidth) * Math.Truncate(nrovueltas));
             }
             else
             {
 
             }
+            // VERIFICAR LA CAPACIDAD DE PRODUCCION.
 
-            if (cant >= Convert.ToDouble(txt_cant_cortado.Text))
+            if (CantMaxRollo1+CantMaxRollo2 >= Convert.ToDouble(txt_cant_cortado.Text)) 
             {
-                //hay capacidad para producir lo planificado.
                 chk_capacity.Checked = true;
                 bot_generar_rollos_cortados.Enabled = true;
-
-                //rollos x master a lo ancho y numero de vueltas.
-                int rolloMax = Convert.ToInt32(Math.Truncate(rollosxmaster));
-                int vueltaMax =  Convert.ToInt16(Math.Truncate(nrovueltas));
-
-                //crear tabla de las vueltas
-                List<TablaMaster> tabla = new List<TablaMaster>();
-                int lim1 = 1;
-                int lim2 = rolloMax;
-                for (int i=0; i < vueltaMax; i++) 
-                {
-                    TablaMaster fila = new TablaMaster();
-                    fila.L1 = lim1;
-                    fila.L2 = lim2;
-                    fila.Vuelta = (i + 1);
-                    tabla.Add(fila);
-                    txt_tabla1.Text = txt_tabla1.Text + lim1 + " - " + lim2 + " - " + (i + 1).ToString() + Environment.NewLine;
-                    lim1 += rolloMax;
-                    lim2 += rolloMax;
-      
-                }
-                //calculo las vueltas reales
-                foreach (TablaMaster item in tabla) 
-                {
-                    if (Convert.ToDouble(txt_cant_cortado.Text) >= item.L1 && Convert.ToDouble(txt_cant_cortado.Text) <= item.L2) 
-                    {
-                        txt_vueltas_real.Text = item.Vuelta.ToString();
-                        txt_sobran.Text = (Convert.ToInt16(item.L2)-Convert.ToInt16(txt_cant_cortado.Text)).ToString();
-                    }
-                }
-
-                txt_rollos_real.Text = (Convert.ToDouble(txt_vueltas_real.Text) * rolloMax).ToString();
-
-                //calculo del master sobrante.
-                double width_dif = Convert.ToDouble(txt_width1_rollid.Text) - 
-                    (rolloMax * Convert.ToInt16(txt_width_cortado.Text));
-
-                double lenght_dif = Convert.ToDouble(txt_lenght1_rollid.Text) -
-                    (Convert.ToDouble(txt_lenght_cortado.Text) * Convert.ToInt16(txt_vueltas_real.Text));
-
-                double msi_dif = (width_dif * lenght_dif) * R.CONSTANTES.FACTOR_CALCULO_MSI;
-
-
-
-                txt_width_dif.Text = width_dif.ToString();
-                txt_lenght_dif.Text = lenght_dif.ToString();
-                txt_msi_dif.Text = msi_dif.ToString();
-
-
             }
-            else
+
+            //rollos x master a lo ancho y numero de vueltas.
+            int rolloMax = Convert.ToInt32(Math.Truncate(rollosxWidth));
+            int vueltaMax = Convert.ToInt16(Math.Truncate(nrovueltas));
+
+
+            //ASIGNAR LOS VALORES MAXIMOS. 
+            txt_rollosxWidth2.Text = rollosxWidth.ToString();
+            txt_num_vueltas2.Text = nrovueltas.ToString();
+            txt_cant_master2.Text = CantMaxRollo2.ToString();
+
+            //crear tabla de las vueltas
+            List<TablaMaster> tabla = new List<TablaMaster>();
+            int lim1 = 1;
+            int lim2 = rolloMax;
+            for (int i = 0; i < vueltaMax; i++)
             {
-                //no hay capacidad para producir lo planificado.
-                chk_capacity.Checked = false;
-                bot_generar_rollos_cortados.Enabled = false;
+                TablaMaster fila = new TablaMaster
+                {
+                    L1 = lim1,
+                    L2 = lim2,
+                    Vuelta = (i + 1)
+                };
+                tabla.Add(fila);
+                txt_tabla2.Text = txt_tabla2.Text + lim1 + " - " + lim2 + " - " + (i + 1).ToString() + Environment.NewLine;
+                lim1 += rolloMax;
+                lim2 += rolloMax;
+
             }
 
+            //CALCULAR LOS ROLLOS FALTANTES.
+
+            txt_rollos_real2.Text = (Convert.ToInt32(txt_cant_cortado.Text) 
+                - Convert.ToInt32(txt_rollos_real.Text)).ToString();
+
+            //calculo las vueltas reales
+            foreach (TablaMaster item in tabla)
+            {
+                if (Convert.ToDouble(txt_rollos_real2.Text) >= item.L1 && Convert.ToDouble(txt_rollos_real2.Text) <= item.L2)
+                {
+                    txt_vueltas_real2.Text = item.Vuelta.ToString();
+                    txt_sobran2.Text = (Convert.ToInt16(item.L2) -
+                    Convert.ToInt16(txt_rollos_real2.Text)).ToString();
+                }
+            }
+
+            //calculo del master sobrante.
+            double width_dif = Convert.ToDouble(txt_width2_rollid.Text) -
+                  (rolloMax * Convert.ToInt16(txt_width_cortado.Text));
+
+            double lenght_dif = Convert.ToDouble(txt_lenght2_rollid.Text) -
+                   (Convert.ToDouble(txt_lenght_cortado.Text) * Convert.ToInt16(txt_vueltas_real2.Text));
+            if (lenght_dif == 0)
+            {
+                lenght_dif = Convert.ToDouble(txt_lenght2_rollid.Text);
+            }
+            if (width_dif == 0)
+            {
+                width_dif = Convert.ToDouble(txt_width2_rollid.Text);
+            }
+            double msi_dif = (width_dif * lenght_dif) * R.CONSTANTES.FACTOR_CALCULO_MSI;
+            txt_width_dif2.Text = width_dif.ToString();
+            txt_lenght_dif2.Text = lenght_dif.ToString();
+            txt_msi_dif2.Text = msi_dif.ToString();
 
 
 
+        }
 
-            txt_rollosxmaster.Text = rollosxmaster.ToString();
-            txt_numero_vueltas.Text = nrovueltas.ToString();
-            txt_cant_master1.Text = cant.ToString();
-
-
-
+        private List<SqlParameter> GetParametersRendimiento() 
+        {
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_rollosxmaster.Text)},
+                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_numero_vueltas.Text)},
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_cant_master1.Text)},
+                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_vueltas_real.Text)},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_rollos_real.Text)},
+                new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_sobran.Text)},
+                new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_width_dif.Text)},
+                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_lenght_dif.Text)},
+                new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_msi_dif.Text)},
+                new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.Text, Value = txt_tabla1.Text},
+                new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_rollosxWidth2.Text)},
+                new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_num_vueltas2.Text)},
+                new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_cant_master2.Text)},
+                new SqlParameter() {ParameterName = "@p14", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_vueltas_real2.Text)},
+                new SqlParameter() {ParameterName = "@p15", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_rollos_real2.Text)},
+                new SqlParameter() {ParameterName = "@p16", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_sobran2.Text)},
+                new SqlParameter() {ParameterName = "@p17", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_width_dif2.Text)},
+                new SqlParameter() {ParameterName = "@p18", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_lenght_dif2.Text)},
+                new SqlParameter() {ParameterName = "@p19", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_msi_dif2.Text)},
+                new SqlParameter() {ParameterName = "@p20", SqlDbType = SqlDbType.Text, Value = txt_tabla2.Text},
+                new SqlParameter() {ParameterName = "@p21", SqlDbType = SqlDbType.Text, Value = txt_numero_oc.Text}
+            };
+            return sp;
+        }
+        private void LIMPIAR_CAMPOS_RENDIMIENTO() 
+        {
+            txt_rollosxmaster.Text = "";
+            txt_numero_vueltas.Text = "";
+            txt_cant_master1.Text = "";
+            txt_vueltas_real.Text = "";
+            txt_rollos_real.Text = "";
+            txt_sobran.Text = "";
+            txt_width_dif.Text = "";
+            txt_lenght_dif.Text = "";
+            txt_msi_dif.Text = "";
+            txt_tabla1.Text = "";
+            txt_rollosxWidth2.Text = "";
+            txt_num_vueltas2.Text = "";
+            txt_cant_master2.Text = "";
+            txt_vueltas_real2.Text = "";
+            txt_rollos_real2.Text = "";
+            txt_sobran2.Text = "";
+            txt_width_dif2.Text = "";
+            txt_lenght_dif2.Text = "";
+            txt_msi_dif2.Text = "";
+            txt_tabla2.Text = "";
+        }
+        private void DataBinding() 
+        {
+            txt_numero_oc.DataBindings.Add("text", bs, "numero");
+            txt_fecha_orden.DataBindings.Add("text", bs, "fecha");
+            txt_fecha_producc.DataBindings.Add("text", bs, "fecha_produccion");
+            txt_rollid_1.DataBindings.Add("text", bs, "rollid_1");
+            txt_width1_rollid.DataBindings.Add("text", bs, "width_1");
+            txt_lenght1_rollid.DataBindings.Add("text", bs, "lenght_1");
+            txt_rollid_2.DataBindings.Add("text", bs, "rollid_2");
+            txt_width2_rollid.DataBindings.Add("text", bs, "width_2");
+            txt_lenght2_rollid.DataBindings.Add("text", bs, "lenght_2");
+            txt_product_id.DataBindings.Add("text", bs, "product_id");
+            txt_product_name.DataBindings.Add("text", bs, "product_name");
+            txt_cant_cortado.DataBindings.Add("text", bs, "cant_cortado");
+            txt_width_cortado.DataBindings.Add("text", bs, "width_cortado");
+            txt_lenght_cortado.DataBindings.Add("text", bs, "lenght_cortado");
+            txt_msi_cortado.DataBindings.Add("text", bs, "msi_cortado");
+            chk_process.DataBindings.Add("Checked", bs, "procesado");
+            chk_anulado.DataBindings.Add("Checked", bs, "anulada");
+        }
+        private void GetRendimiento() 
+        {
+            string[] data = managerorden.GetDataRendimiento(txt_numero_oc.Text.Trim());
+            txt_rollosxmaster.Text = data[0];
+            txt_numero_vueltas.Text = data[1];
+            txt_cant_master1.Text = data[2];
+            txt_vueltas_real.Text = data[3];
+            txt_rollos_real.Text = data[4];
+            txt_sobran.Text = data[5];
+            txt_width_dif.Text = data[6];
+            txt_lenght_dif.Text = data[7];
+            txt_msi_dif.Text = data[8];
+            txt_tabla1.Text = data[9];
+            txt_rollosxWidth2.Text = data[10];
+            txt_num_vueltas2.Text = data[11];
+            txt_cant_master2.Text = data[12];
+            txt_vueltas_real2.Text = data[13];
+            txt_rollos_real2.Text = data[14];
+            txt_sobran2.Text = data[15];
+            txt_width_dif2.Text = data[16];
+            txt_lenght_dif2.Text = data[17];
+            txt_msi_dif2.Text = data[18];
+            txt_tabla2.Text = data[19];
         }
     }
     public class TablaMaster

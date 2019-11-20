@@ -557,5 +557,59 @@ namespace RitramaAPP.Clases
                     R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_ANULAR_ORDEN_OC, orden,
                     false, R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_ANULAR_ORDEN_OC);
         }
+        public void AddRendim(List<SqlParameter> sp)
+        {
+            CommandSqlGeneric(R.SQL.DATABASE.NAME,
+                R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_ADD_DATOS_RENDIMIENTO_MASTER,
+                sp, false, R.ERROR_MESSAGES.PRODUCCION.MESSAGE_ADD_RENDIM_MASTER);
+        }
+        public string [] GetDataRendimiento(string orden)
+        {
+            string[] data = new string[20];
+            try
+            {
+                Micomm.Conectar(R.SQL.DATABASE.NAME);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = Micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_SELECT_DATOS_RENDIMIENTO_MASTER
+                };
+                SqlParameter p1 = new SqlParameter("@p1", orden);
+                comando.Parameters.Add(p1);
+                SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    data[0] = reader.GetDecimal(0).ToString();
+                    data[1] = reader.GetDecimal(1).ToString();
+                    data[2] = reader.GetDecimal(2).ToString();
+                    data[3] = reader.GetDecimal(3).ToString();
+                    data[4] = reader.GetDecimal(4).ToString();
+                    data[5] = reader.GetDecimal(5).ToString();
+                    data[6] = reader.GetDecimal(6).ToString();
+                    data[7] = reader.GetDecimal(7).ToString();
+                    data[8] = reader.GetDecimal(8).ToString();
+                    data[9] = reader.GetString(9).ToString();
+                    data[10] = reader.GetDecimal(10).ToString();
+                    data[11] = reader.GetDecimal(11).ToString();
+                    data[12] = reader.GetDecimal(12).ToString();
+                    data[13] = reader.GetDecimal(13).ToString();
+                    data[14] = reader.GetDecimal(14).ToString();
+                    data[15] = reader.GetDecimal(15).ToString();
+                    data[16] = reader.GetDecimal(16).ToString();
+                    data[17] = reader.GetDecimal(17).ToString();
+                    data[18] = reader.GetDecimal(18).ToString();
+                    data[19] = reader.GetString(19).ToString();
+                }
+                comando.Dispose();
+                Micomm.Desconectar();
+                return data;
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("error al tratar de cargar la data de los rendimiento de los master en produccion..." + ex);
+                return data;
+            }
+        }
     }
 }
