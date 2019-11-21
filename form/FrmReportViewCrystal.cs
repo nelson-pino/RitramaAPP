@@ -14,5 +14,10 @@ namespace RitramaAPP.form
         {
 
         }
+
+        private void FrmReportViewCrystal_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

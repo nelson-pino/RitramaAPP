@@ -1,5 +1,8 @@
 ﻿using System.Linq;
-//using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using CrystalDecisions.Windows.Forms;
+
 using RitramaAPP.Clases;
 using System;
 using System.Collections.Generic;
@@ -15,7 +18,6 @@ namespace RitramaAPP.form
         {
             InitializeComponent();
         }
-
         readonly DespachosManager despachomanager = new DespachosManager();
         DataSet ds = new DataSet();
         readonly BindingSource bs = new BindingSource();
@@ -109,15 +111,15 @@ namespace RitramaAPP.form
         {
             using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
             {
-                //ReportDocument reporte = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
-                //string PathReport = @"C:\Users\Npino\Desktop\RITRAMA\RitramaAPP\RitramaAPP\RitramaAPP\Reports\Format_Despacho.rpt";
-                //reporte.Load(PathReport);
-                ////reporte.SetParameterValue("NUMERO", "");
-                //frmReportView.crystalReportViewer.ReportSource = reporte;
-                //frmReportView.Text = "Formato de Facturacion";
-                //frmReportView.Width = 860;
-                //frmReportView.Height = 700;
-                //frmReportView.Show();
+                ReportDocument reporte = new ReportDocument();
+                reporte.Load(R.PATH_FILES.PATH_REPORTS_CRYSTAL_REPORTS);
+                reporte.SetParameterValue("NUMERO", txt_numero_despacho.Text.Trim());
+                frmReportView.crystalReportViewer1.ReportSource = reporte;
+                frmReportView.crystalReportViewer1.Zoom(150);
+                frmReportView.Text = "Formato de Facturacion";
+                frmReportView.Width = 920;
+                frmReportView.Height = 820;
+                frmReportView.ShowDialog();
             }
         }
 

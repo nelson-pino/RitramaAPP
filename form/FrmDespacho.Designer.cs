@@ -98,6 +98,8 @@
             this.grid_UniqueCode = new System.Windows.Forms.DataGridView();
             this.BOT_DESPACHOS_RC = new System.Windows.Forms.Button();
             this.BOT_DETALLE_RC = new System.Windows.Forms.Button();
+            this.chk_print_unique = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.grid_items)).BeginInit();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -588,7 +590,7 @@
             // 
             // txt_tipo_embalaje
             // 
-            this.txt_tipo_embalaje.Location = new System.Drawing.Point(24, 531);
+            this.txt_tipo_embalaje.Location = new System.Drawing.Point(185, 532);
             this.txt_tipo_embalaje.Margin = new System.Windows.Forms.Padding(2);
             this.txt_tipo_embalaje.Name = "txt_tipo_embalaje";
             this.txt_tipo_embalaje.ReadOnly = true;
@@ -598,7 +600,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(22, 514);
+            this.label14.Location = new System.Drawing.Point(183, 515);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(89, 13);
@@ -607,7 +609,7 @@
             // 
             // txt_otrabajo
             // 
-            this.txt_otrabajo.Location = new System.Drawing.Point(24, 574);
+            this.txt_otrabajo.Location = new System.Drawing.Point(185, 575);
             this.txt_otrabajo.Margin = new System.Windows.Forms.Padding(2);
             this.txt_otrabajo.Name = "txt_otrabajo";
             this.txt_otrabajo.ReadOnly = true;
@@ -617,7 +619,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(22, 558);
+            this.label15.Location = new System.Drawing.Point(183, 559);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(90, 13);
@@ -626,7 +628,7 @@
             // 
             // txt_ocompra
             // 
-            this.txt_ocompra.Location = new System.Drawing.Point(117, 574);
+            this.txt_ocompra.Location = new System.Drawing.Point(278, 575);
             this.txt_ocompra.Margin = new System.Windows.Forms.Padding(2);
             this.txt_ocompra.Name = "txt_ocompra";
             this.txt_ocompra.ReadOnly = true;
@@ -636,7 +638,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(115, 558);
+            this.label16.Location = new System.Drawing.Point(276, 559);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(75, 13);
@@ -804,12 +806,34 @@
             this.BOT_DETALLE_RC.Text = "Detalle RC";
             this.BOT_DETALLE_RC.UseVisualStyleBackColor = true;
             // 
+            // chk_print_unique
+            // 
+            this.chk_print_unique.AutoSize = true;
+            this.chk_print_unique.Location = new System.Drawing.Point(16, 523);
+            this.chk_print_unique.Name = "chk_print_unique";
+            this.chk_print_unique.Size = new System.Drawing.Size(113, 17);
+            this.chk_print_unique.TabIndex = 58;
+            this.chk_print_unique.Text = "Imprimir detalle RC";
+            this.chk_print_unique.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(16, 546);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(146, 17);
+            this.checkBox1.TabIndex = 59;
+            this.checkBox1.Text = "Imprimir reporte sin Precio";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // FrmDespacho
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(923, 614);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.chk_print_unique);
             this.Controls.Add(this.BOT_DETALLE_RC);
             this.Controls.Add(this.BOT_DESPACHOS_RC);
             this.Controls.Add(this.tabControl1);
@@ -953,5 +977,7 @@
         private System.Windows.Forms.DataGridView grid_UniqueCode;
         private System.Windows.Forms.Button BOT_DESPACHOS_RC;
         private System.Windows.Forms.Button BOT_DETALLE_RC;
+        private System.Windows.Forms.CheckBox chk_print_unique;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

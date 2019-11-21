@@ -28,33 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            //this.crystalReportViewer = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
+            this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
             this.SuspendLayout();
-            //// 
-            //// crystalReportViewer
-            //// 
-            //this.crystalReportViewer.ActiveViewIndex = -1;
-            //this.crystalReportViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            //this.crystalReportViewer.Cursor = System.Windows.Forms.Cursors.Default;
-            //this.crystalReportViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            //this.crystalReportViewer.Location = new System.Drawing.Point(0, 0);
-            //this.crystalReportViewer.Name = "crystalReportViewer";
-            //this.crystalReportViewer.Size = new System.Drawing.Size(979, 667);
-            //this.crystalReportViewer.TabIndex = 0;
-            //this.crystalReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
-            //// 
-            //// FrmReportViewCrystal
-            //// 
-            //this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            //this.ClientSize = new System.Drawing.Size(979, 667);
-            //this.Controls.Add(this.crystalReportViewer);
-            //this.Name = "FrmReportViewCrystal";
-            //this.Text = "Visualizador de Reportes del Sistema";
-            //this.Load += new System.EventHandler(this.FrmReportViewCrystal_Load);
-            //this.ResumeLayout(false);
+            // 
+            // crystalReportViewer1
+            // 
+            this.crystalReportViewer1.ActiveViewIndex = -1;
+            this.crystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.crystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.crystalReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.crystalReportViewer1.Location = new System.Drawing.Point(0, 0);
+            this.crystalReportViewer1.Name = "crystalReportViewer1";
+            this.crystalReportViewer1.Size = new System.Drawing.Size(810, 585);
+            this.crystalReportViewer1.TabIndex = 0;
+            this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
+            // 
+            // FrmReportViewCrystal
+            // 
+            this.ClientSize = new System.Drawing.Size(810, 585);
+            this.Controls.Add(this.crystalReportViewer1);
+            this.Name = "FrmReportViewCrystal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.FrmReportViewCrystal_Load_1);
+            this.ResumeLayout(false);
 
         }
+
+        public CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
 
         #endregion
 

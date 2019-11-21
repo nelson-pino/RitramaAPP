@@ -193,6 +193,7 @@ namespace RitramaAPP
             public static string FILE_TXT_DATA_ETIQUETA = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data\data.txt";
             public static string FILE_TXT_DATA_PICKING_DESPACHO = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data\picking.txt";
             public static string FILE_TXT_DATA_CANT_INICIALES = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data\iniciales.txt";
+            public static string PATH_REPORTS_CRYSTAL_REPORTS = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\Reports\Format_Despacho.rpt";
 
         }
         public class CONSTANTES 
