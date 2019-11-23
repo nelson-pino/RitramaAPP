@@ -224,7 +224,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(676, 65);
+            this.panel1.Size = new System.Drawing.Size(710, 65);
             this.panel1.TabIndex = 35;
             // 
             // groupBox1
@@ -326,7 +326,7 @@
             this.BOT_BUSCAR});
             this.toolStrip1.Location = new System.Drawing.Point(0, 65);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(676, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(710, 27);
             this.toolStrip1.TabIndex = 41;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -496,7 +496,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(676, 558);
+            this.ClientSize = new System.Drawing.Size(710, 558);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txt_ratio);
             this.Controls.Add(this.label8);

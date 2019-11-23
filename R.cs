@@ -20,7 +20,7 @@ namespace RitramaAPP
             {
                 public class PRODUCTS
                 {
-                    public static string SQL_QUERY_SELECT_PRODUCT_ALL = "SELECT Product_ID,Product_Name,Product_Descrip,Product_Ref,Codebar,Category_ID,MasterRolls,rollo_cortado,Resmas,anulado,precio,graphics,code_RC,ratio FROM producto";
+                    public static string SQL_QUERY_SELECT_PRODUCT_ALL = "SELECT Product_ID,Product_Name,Product_Descrip,Product_Ref,Codebar,Category_ID,MasterRolls,rollo_cortado,Resmas,anulado,precio,graphics,code_RC,ratio,case when MasterRolls = 1 then 'Master' when rollo_cortado = 1 then 'Rollo Cortado' when Graphics = 1 then 'Graphics' when Resmas = 1 then 'Hojas' else 'sin tipo' end as tipo FROM producto";
                     public static string SQL_QUERY_SELECT_PRODUCTS = "SELECT Product_ID, Product_Name,case when MasterRolls = 1 then 'Master' when rollo_cortado = 1 then 'Rollo Cortado' when Graphics = 1 then 'Graphics' when Resmas = 1 then 'Hojas' else 'sin tipo' end as tipo FROM producto";
                     public static string SQL_QUERY_SELECT_TYPE_PRODUCT = "SELECT MasterRolls,rollo_cortado,Resmas,Graphics FROM producto WHERE product_id=@p1";
                     public static string SQL_QUERY_SELECT_PRODUCT_NAME = "SELECT  Product_Name FROM producto WHERE product_id=@p1";
@@ -62,6 +62,10 @@ namespace RitramaAPP
                         "@p15,@p16,@p17,@p18,@p19,@p20,@p21,@p22,@p23,@p24,@p25,@p26)";
                     public static string SQL_QUERY_VERIFY_ORDEN_REPEAT = "SELECT count(*) FROM OrdenRecepcion WHERE " +
                         "OrderPurchase=@p1";
+                   
+                
+                
+                
                 }
                 public class PRODUCCION
                 {
@@ -117,11 +121,27 @@ namespace RitramaAPP
                 public class INVENTARIO
                 {
                     public static string SQL_INSERT_INVENTARIO_SAVE_INICIALES = "INSERT INTO iniciales (product_id,cantidad,width,lenght,msi,ubic,documento) values (@p1,@p2,@p3,@p4,@p5,@p6,@p7)";
-                    public static string SQL_SELECT_INVENTARIO_INICIALES = "SELECT a.product_id,b.Product_Name,case when b.MasterRolls = 1 then 'Master' when b.rollo_cortado = 1 then 'Rollo Cortado' when b.Graphics = 1 then 'Graphics' when b.Resmas = 1 then 'Resma' else 'sin tipo' end as tipo,cantidad, width,lenght,msi,ubic,documento FROM iniciales a LEFT JOIN producto b ON a.product_id= b.Product_ID ";
-                    public static string SQL_SELECT_INVENTARIO_QUERY_MASTER = "SELECT a.Product_ID,a.Product_Name,case when a.MasterRolls = 1 then 'Master' when a.rollo_cortado = 1 then 'Rollo Cortado' when a.Graphics = 1 then 'Graphics' when a.Resmas = 1 then 'Resma' else 'sin tipo' end as tipo,ISNULL((SELECT sum(cantidad) from iniciales b where a.Product_ID = b.product_id),0) as cant_ini,CASE WHEN a.MasterRolls=1 or a.Resmas=1 or a.Graphics= 1 THEN " +
+                    public static string SQL_SELECT_INVENTARIO_INICIALES = "SELECT a.product_id,b.Product_Name,case when b.MasterRolls = 1 then 'Master' when b.rollo_cortado = 1 then 'Rollo Cortado' when b.Graphics = 1 then 'Graphics' when b.Resmas = 1 then 'Hojas' else 'sin tipo' end as tipo,cantidad, width,lenght,msi,ubic,documento FROM iniciales a LEFT JOIN producto b ON a.product_id= b.Product_ID ";
+                    public static string SQL_SELECT_INVENTARIO_QUERY_MASTER = "SELECT a.Product_ID,a.Product_Name,case when a.MasterRolls = 1 then 'Master' when a.rollo_cortado = 1 then 'Rollo Cortado' when a.Graphics = 1 then 'Graphics' when a.Resmas = 1 then 'Hojas' else 'sin tipo' end as tipo,ISNULL((SELECT sum(cantidad) from iniciales b where a.Product_ID = b.product_id),0) as cant_ini,CASE WHEN a.MasterRolls=1 or a.Resmas=1 or a.Graphics= 1 THEN " +
                     "ISNULL((SELECT CASE WHEN b.master= 1 THEN count(*) ELSE SUM(b.palet_cant) END FROM OrdenRecepcion b where a.Product_ID = b.Part_Number GROUP BY b.Part_Number, b.master),0) ELSE ISNULL((select count(*) from rolls_details b where b.product_id = a.Product_ID group by b.product_id),0) END AS cant_ENT,CASE WHEN a.MasterRolls=1 THEN ISNULL((SELECT CASE WHEN b.master= 1 THEN COUNT(*) END FROM OrdenRecepcion b where a.Product_ID = b.Part_Number AND b.disponible= 0 " +
                     "GROUP BY b.Part_Number, b.master),0) WHEN a.Resmas=1 OR a.Graphics= 1 THEN ISNULL((SELECT sum(cant) from item_despacho b where a.Product_ID= b.product_id group by b.product_id),0)  WHEN a.rollo_cortado=1 THEN 0 END AS cant_sal FROM producto a";
+                    public static string SQL_QUERY_ENTRADAS_MASTER_WHERE_PRODUCT_ID = "SELECT a.OrderPurchase,a.Part_Number,a.Width,a.Lenght,a.Roll_Id,a.Proveedor_Id,a.Ubicacion," +
+                    "a.Core,a.Splice,a.Anulado,a.fecha_reg,a.hora_reg,a.fecha_pro,a.master,a.resma,a.graphics,a.embarque,a.palet_num,a.palet_cant,a.palet_pag,a.num_sincro,a.registro_movil," +
+                    "a.disponible,a.width_metros,a.lenght_metros,a.fecha_recep,b.Proveedor_Name FROM OrdenRecepcion a left join Provider b on a.Proveedor_Id=b.Proveedor_ID WHERE part_number=@p1";
+                    public static string SQL_QUERY_ENTRADAS_ROLLO_CORTADO_WHERE_PRODUCT_ID = "SELECT a.numero,a.Procesado,a.anulada,a.fecha,a.fecha_produccion,b.product_id,b.product_name,"+
+                    "b.disponible,b.roll_number,b.unique_code,b.width,b.large,b.msi,b.splice,b.code_person,b.roll_id,b.status FROM orden_corte a left join rolls_details b on a.numero = b.numero " +
+                    "where b.product_id=@p1";
+                    public static string SQL_QUERY_SALIDAS_ROLLOS_CORTADOS_WHERE_PRODUCT_ID = "SELECT a.conduce,c.fecha,c.customer_id,d.Customer_Name,"+
+                    "a.unique_code,a.product_id,b.Product_Name,a.roll_number,a.width,a.lenght,a.msi,splice,roll_id FROM rcdespacho a "+
+                    "left join producto b on a.product_id=b.Product_ID left join despacho c on a.conduce = c.numero " + 
+                    "left join Customer d on c.customer_id= d.Customer_ID";
+
+
+
+
+
                 }
+                
             }
         }
         public class ERROR_MESSAGES
@@ -131,6 +151,9 @@ namespace RitramaAPP
                 public static string MESSAGE_INSERT_INICIALES_ERROR = "Error al tratar de grabar la data de los iniciales.";
                 public static string MESSAGE_SELECT_INICIALES_ERROR = "Error al de cargar la data de los iniciales.";
                 public static string MESSAGE_CARGAR_INVENTARIO_ERROR = "ERROR AL CARGAR LOS INVENTARIO DEL SISTEMA.";
+                public static string MESSAGE_CARGAR_MOVIMIENTO_MASTER = "Error al cargar los movimiento de inventarios tipo master...";
+                public static string MESSAGE_CARGAR_ENTREDAS_ROLLO_CORTADO = "Error al cargar las entredas de inventarios tipo ROLLO CORTADO...";
+                public static string MESSAGE_CARGAR_SALIDAS_ROLLO_CORTADO = "Error al cargar las salidas de inventarios tipo ROLLO CORTADO...";
 
             }
             public class MODULO_PRODUCTOS
@@ -193,7 +216,9 @@ namespace RitramaAPP
             public static string FILE_TXT_DATA_ETIQUETA = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data\data.txt";
             public static string FILE_TXT_DATA_PICKING_DESPACHO = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data\picking.txt";
             public static string FILE_TXT_DATA_CANT_INICIALES = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\data\iniciales.txt";
-            public static string PATH_REPORTS_CRYSTAL_REPORTS = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\Reports\Format_Despacho.rpt";
+            public static string PATH_REPORTS_FORMAT_CONDUCE = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\Reports\Format_Despacho.rpt";
+            public static string PATH_REPORTS_DETALLE_RC = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\Reports\detalle_RC.rpt";
+            public static string PATH_REPORTS_FORMAT_CONDUCE_SP = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\Reports\Format_Despacho_sinprecio.rpt";
 
         }
         public class CONSTANTES 

@@ -109,18 +109,59 @@ namespace RitramaAPP.form
         }
         private void BOT_IMPRIMIR_Click(object sender, EventArgs e)
         {
-            using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
+            //entra al detalle de los Unique Code RC
+            if (chk_print_unique.Checked) 
             {
-                ReportDocument reporte = new ReportDocument();
-                reporte.Load(R.PATH_FILES.PATH_REPORTS_CRYSTAL_REPORTS);
-                reporte.SetParameterValue("NUMERO", txt_numero_despacho.Text.Trim());
-                frmReportView.crystalReportViewer1.ReportSource = reporte;
-                frmReportView.crystalReportViewer1.Zoom(150);
-                frmReportView.Text = "Formato de Facturacion";
-                frmReportView.Width = 920;
-                frmReportView.Height = 820;
-                frmReportView.ShowDialog();
+                using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
+                {
+                    ReportDocument reporte = new ReportDocument();
+                    reporte.Load(R.PATH_FILES.PATH_REPORTS_DETALLE_RC);
+                    reporte.SetParameterValue("NUMERO", txt_numero_despacho.Text.Trim());
+                    frmReportView.crystalReportViewer1.ReportSource = reporte;
+                    frmReportView.crystalReportViewer1.Zoom(80);
+                    frmReportView.Text = "Detalle de los Unique Code (RC)";
+                    frmReportView.Width = 920;
+                    frmReportView.Height = 820;
+                    frmReportView.ShowDialog();
+                }
             }
+            //formato de conduce sin precio
+            else if (chk_without_price.Checked) 
+            {
+                using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
+                {
+                    ReportDocument reporte = new ReportDocument();
+                    reporte.Load(R.PATH_FILES.PATH_REPORTS_FORMAT_CONDUCE_SP);
+                    reporte.SetParameterValue("NUMERO", txt_numero_despacho.Text.Trim());
+                    frmReportView.crystalReportViewer1.ReportSource = reporte;
+                    frmReportView.crystalReportViewer1.Zoom(150);
+                    frmReportView.Text = "(Formato de Conduce Ritrama Sin precio)";
+                    frmReportView.Width = 920;
+                    frmReportView.Height = 820;
+                    frmReportView.ShowDialog();
+                }
+
+            }
+            //formato de conduce con precio
+            else 
+            {
+                using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
+                {
+                    ReportDocument reporte = new ReportDocument();
+                    reporte.Load(R.PATH_FILES.PATH_REPORTS_FORMAT_CONDUCE);
+                    reporte.SetParameterValue("NUMERO", txt_numero_despacho.Text.Trim());
+                    frmReportView.crystalReportViewer1.ReportSource = reporte;
+                    frmReportView.crystalReportViewer1.Zoom(150);
+                    frmReportView.Text = "Formato de Conduce Ritrama";
+                    frmReportView.Width = 920;
+                    frmReportView.Height = 820;
+                    frmReportView.ShowDialog();
+                }
+            }
+            
+            
+            
+            
         }
 
         private void Bot_nuevo_Click(object sender, EventArgs e)

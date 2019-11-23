@@ -138,7 +138,6 @@
             this.txt_cant_master1 = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.get_data_rend = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_rollos)).BeginInit();
@@ -1275,23 +1274,12 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
-            // get_data_rend
-            // 
-            this.get_data_rend.Location = new System.Drawing.Point(640, 304);
-            this.get_data_rend.Name = "get_data_rend";
-            this.get_data_rend.Size = new System.Drawing.Size(75, 23);
-            this.get_data_rend.TabIndex = 106;
-            this.get_data_rend.Text = "Get Data";
-            this.get_data_rend.UseVisualStyleBackColor = true;
-            this.get_data_rend.Click += new System.EventHandler(this.get_data_rend_Click);
-            // 
             // FrmOrdenCorte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(902, 673);
-            this.Controls.Add(this.get_data_rend);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label17);
@@ -1466,6 +1454,5 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.Button get_data_rend;
     }
 }

@@ -4,7 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using RitramaAPP.Clases;
+using RitramaAPP.form;
+
 using System.Data;
+
 
 namespace RitramaAPP
 {
@@ -113,15 +116,7 @@ namespace RitramaAPP
             dtinventario = inimanager.CargarInventario();
             dvinventario = dtinventario.DefaultView;
             grid_inventario.DataSource = dvinventario;
-            //Calculo de la Columna de Existencia Final.
-            for (int i = 0; i <= grid_inventario.Rows.Count-1; i++) 
-            {
-                grid_inventario.Rows[i].Cells["cant_final"].Value = Convert.ToDouble(grid_inventario.Rows[i].Cells["cant_ini"].Value) +
-                    Convert.ToDouble(grid_inventario.Rows[i].Cells["cant_ent"].Value)-Convert.ToDouble(grid_inventario.Rows[i].Cells["cant_sal"].Value);
-            }
-            CONTA_REGISTER_INVENTARIO.Text = "Numero de Registros: "  + dvinventario.Count.ToString();
-
-            
+            CALCULAR_EXISTENCIA();
         }
 
         private void Txt_buscar_inventario_TextChanged(object sender, EventArgs e)
@@ -139,6 +134,42 @@ namespace RitramaAPP
                 dvinventario.RowFilter = "tipo LIKE '%" + this.txt_buscar_inventario.Text + "%'";
             }
             CONTA_REGISTER_INVENTARIO.Text = "Numero de Registros: " + Convert.ToString(dvinventario.Count);
+            CALCULAR_EXISTENCIA();
+        }
+        private void CALCULAR_EXISTENCIA() 
+        {
+            //Calculo de la Columna de Existencia Final.
+            for (int i = 0; i <= grid_inventario.Rows.Count - 1; i++)
+            {
+                grid_inventario.Rows[i].Cells["cant_final"].Value = Convert.ToDouble(grid_inventario.Rows[i].Cells["cant_ini"].Value) +
+                    Convert.ToDouble(grid_inventario.Rows[i].Cells["cant_ent"].Value) - Convert.ToDouble(grid_inventario.Rows[i].Cells["cant_sal"].Value);
+            }
+            CONTA_REGISTER_INVENTARIO.Text = "Numero de Registros: " + dvinventario.Count.ToString();
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void grid_inventario_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+           
+        }
+
+        private void grid_inventario_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            string product_id = grid_inventario.Rows[e.RowIndex].Cells[1].Value.ToString();
+            string product_name = grid_inventario.Rows[e.RowIndex].Cells[2].Value.ToString();
+            string product_tipo = grid_inventario.Rows[e.RowIndex].Cells[3].Value.ToString();
+
+            FrmMovimInventario screenMovim = new FrmMovimInventario();
+            screenMovim.SetProduct_Id = product_id;
+            screenMovim.SetProduct_Name = product_name;
+            screenMovim.SetProduct_Tipo = product_tipo;
+
+            screenMovim.ShowDialog();
         }
     }
 }

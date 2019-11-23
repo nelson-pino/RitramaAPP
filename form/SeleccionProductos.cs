@@ -89,6 +89,10 @@ namespace RitramaAPP.form
             {
                 dv.RowFilter = "Product_Name LIKE '%" + this.txt_buscar.Text + "%'";
             }
+            if (ra_tipo.Checked)
+            {
+                dv.RowFilter = "tipo LIKE '%" + this.txt_buscar.Text + "%'";
+            }
             lbl_contador_registros.Text = Convert.ToString(dv.Count) + " registros encontrados.";
         }
 

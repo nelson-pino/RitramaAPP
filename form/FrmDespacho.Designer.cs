@@ -99,7 +99,7 @@
             this.BOT_DESPACHOS_RC = new System.Windows.Forms.Button();
             this.BOT_DETALLE_RC = new System.Windows.Forms.Button();
             this.chk_print_unique = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chk_without_price = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.grid_items)).BeginInit();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -816,15 +816,15 @@
             this.chk_print_unique.Text = "Imprimir detalle RC";
             this.chk_print_unique.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // chk_without_price
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(16, 546);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(146, 17);
-            this.checkBox1.TabIndex = 59;
-            this.checkBox1.Text = "Imprimir reporte sin Precio";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chk_without_price.AutoSize = true;
+            this.chk_without_price.Location = new System.Drawing.Point(16, 546);
+            this.chk_without_price.Name = "chk_without_price";
+            this.chk_without_price.Size = new System.Drawing.Size(146, 17);
+            this.chk_without_price.TabIndex = 59;
+            this.chk_without_price.Text = "Imprimir reporte sin Precio";
+            this.chk_without_price.UseVisualStyleBackColor = true;
             // 
             // FrmDespacho
             // 
@@ -832,7 +832,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(923, 614);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.chk_without_price);
             this.Controls.Add(this.chk_print_unique);
             this.Controls.Add(this.BOT_DETALLE_RC);
             this.Controls.Add(this.BOT_DESPACHOS_RC);
@@ -978,6 +978,6 @@
         private System.Windows.Forms.Button BOT_DESPACHOS_RC;
         private System.Windows.Forms.Button BOT_DETALLE_RC;
         private System.Windows.Forms.CheckBox chk_print_unique;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chk_without_price;
     }
 }

@@ -76,6 +76,38 @@ namespace RitramaAPP.Clases
             da.Dispose();
             return dt;
         }
+        public DataTable CommandSqlGenericDtOnePar(string db, string query, string messagefail,string product_id)
+        {
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
+
+                Micomm.Conectar(db);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = Micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = query
+                };
+                SqlParameter p1 = new SqlParameter("@p1",product_id);
+                comando.Parameters.Add(@p1);
+                comando.ExecuteNonQuery();
+                da.SelectCommand = comando;
+                da.Fill(dt);
+                comando.Dispose();
+                Micomm.Desconectar();
+
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(messagefail + ex);
+
+            }
+            da.Dispose();
+            return dt;
+        }
         public List<Item> GetDataIni() 
         {
             //extraer data del txt de inventario inicial
@@ -160,6 +192,26 @@ namespace RitramaAPP.Clases
             return  CommandSqlGenericDt(R.SQL.DATABASE.NAME,R.
                 SQL.QUERY_SQL.INVENTARIO.SQL_SELECT_INVENTARIO_QUERY_MASTER,
                 R.ERROR_MESSAGES.INVENTARIO.MESSAGE_CARGAR_INVENTARIO_ERROR);
+        }
+        public DataTable CargarMovimientoEntradaMaster(string product_id) 
+        {    
+            return CommandSqlGenericDtOnePar(R.SQL.DATABASE.NAME,
+                R.SQL.QUERY_SQL.INVENTARIO.SQL_QUERY_ENTRADAS_MASTER_WHERE_PRODUCT_ID,
+                R.ERROR_MESSAGES.INVENTARIO.MESSAGE_CARGAR_MOVIMIENTO_MASTER,product_id);
+        }
+
+        public DataTable CargaMovimientoEntradaRollosCortados(string product_id) 
+        {
+            return CommandSqlGenericDtOnePar(R.SQL.DATABASE.NAME,
+                   R.SQL.QUERY_SQL.INVENTARIO.SQL_QUERY_ENTRADAS_ROLLO_CORTADO_WHERE_PRODUCT_ID,
+                   R.ERROR_MESSAGES.INVENTARIO.MESSAGE_CARGAR_ENTREDAS_ROLLO_CORTADO, product_id);
+           
+        }
+        public DataTable CargaMovimientoSalidasRollosCortados(string product_id)
+        {
+            return CommandSqlGenericDtOnePar(R.SQL.DATABASE.NAME,
+                   R.SQL.QUERY_SQL.INVENTARIO.SQL_QUERY_SALIDAS_ROLLOS_CORTADOS_WHERE_PRODUCT_ID,
+                   R.ERROR_MESSAGES.INVENTARIO.MESSAGE_CARGAR_SALIDAS_ROLLO_CORTADO, product_id);
         }
     }
     public class Item

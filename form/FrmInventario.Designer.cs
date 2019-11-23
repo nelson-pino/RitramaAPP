@@ -260,6 +260,7 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Consulta de Inventario";
             this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
             // label4
             // 
@@ -370,6 +371,8 @@
             this.grid_inventario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grid_inventario.Size = new System.Drawing.Size(710, 388);
             this.grid_inventario.TabIndex = 0;
+            this.grid_inventario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_inventario_CellContentClick);
+            this.grid_inventario.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grid_inventario_CellMouseDoubleClick);
             // 
             // FrmInventario
             // 

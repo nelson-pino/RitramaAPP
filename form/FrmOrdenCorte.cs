@@ -67,10 +67,11 @@ namespace RitramaAPP
             ParentRow.EndEdit();
             txt_width_cortado.Text = "0";
             txt_numero_oc.Focus();
+            INICIALIZAR_RENDIMIENTOS();
             ContadorRegistros();
             OptionsMenu(0);
             OptionsForm(0);
-            LIMPIAR_CAMPOS_RENDIMIENTO();
+           
             EditMode = 1;
         }
         private void OptionsForm(int state)
@@ -1165,6 +1166,31 @@ namespace RitramaAPP
             txt_lenght_dif2.Text = data[17];
             txt_msi_dif2.Text = data[18];
             txt_tabla2.Text = data[19];
+        }
+        private void INICIALIZAR_RENDIMIENTOS() 
+        {
+            //INICIALIZAR MASTER1
+            txt_rollosxmaster.Text = "0";
+            txt_numero_vueltas.Text = "0";
+            txt_cant_master1.Text = "0";
+            txt_vueltas_real.Text = "0";
+            txt_rollos_real.Text = "0";
+            txt_sobran.Text = "0";
+            txt_width_dif.Text = "0";
+            txt_lenght_dif.Text = "0";
+            txt_msi_dif.Text = "0";
+            txt_tabla1.Text = "";
+            //INICIALIZAR MASTER2
+            txt_rollosxWidth2.Text = "0";
+            txt_num_vueltas2.Text = "0";
+            txt_cant_master2.Text = "0";
+            txt_vueltas_real2.Text = "0";
+            txt_rollos_real2.Text = "0";
+            txt_sobran2.Text = "0";
+            txt_width_dif2.Text = "0";
+            txt_lenght_dif2.Text = "0";
+            txt_msi_dif2.Text = "0";
+            txt_tabla2.Text = "";
         }
     }
     public class TablaMaster
