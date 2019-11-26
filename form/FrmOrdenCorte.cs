@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using DataTable = System.Data.DataTable;
 
@@ -31,6 +32,7 @@ namespace RitramaAPP
         Boolean ischanged_rollos = false;
         Orden orden;
         int CantMaxRollo1, CantMaxRollo2;
+        public static List<Corte> listacorte; 
 
         private void FrmOrdenCorte_Load(object sender, EventArgs e)
         {
@@ -45,6 +47,32 @@ namespace RitramaAPP
             grid_rollos.DataSource = bsdetalle;
             VERIFICAR_DOCUMENTO();
             GetRendimiento();
+            grid_cortes.AutoGenerateColumns = false;
+            AGREGAR_COLUMN_GRID("div",35,"It.","division",grid_cortes);
+            AGREGAR_COLUMN_GRID("width", 60, "Width", "width", grid_cortes);
+            AGREGAR_COLUMN_GRID("lenght", 60, "Lenght", "lenght", grid_cortes);
+
+
+            listacorte = new List<Corte>();
+
+            Corte item = new Corte();
+            item.Division = 1;
+            listacorte.Add(item);
+
+            Corte item1 = new Corte();
+            item1.Division = 2;
+            listacorte.Add(item1);
+            
+            grid_cortes.DataSource = listacorte;
+
+            Corte item2 = new Corte();
+            item2.Division = 3;
+            listacorte.Add(item2);
+            
+            Corte itemx = new Corte();
+            itemx.Division = 4;
+            listacorte.Add(itemx);
+
         }
 
         private void BOT_NUEVO_Click(object sender, EventArgs e)
@@ -206,7 +234,7 @@ namespace RitramaAPP
             VERIFICAR_DOCUMENTO();
             GetRendimiento();
         }
-        private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd)
+        private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd,DataGridView grid)
         {
             DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
             {
@@ -215,21 +243,21 @@ namespace RitramaAPP
                 HeaderText = title,
                 DataPropertyName = field_bd
             };
-            grid_rollos.Columns.Add(col);
+            grid.Columns.Add(col);
         }
         private void AplicarEstilosGridRollos()
         {
             grid_rollos.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("roll", 30, "#", "roll_number");
-            AGREGAR_COLUMN_GRID("product_id", 50, "Prod. Id", "product_id");
-            AGREGAR_COLUMN_GRID("product_name", 190, "Descripcion Producto", "product_name");
-            AGREGAR_COLUMN_GRID("Unique_Code", 65, "Unique Code", "unique_code");
-            AGREGAR_COLUMN_GRID("ancho", 52, "Ancho", "width");
-            AGREGAR_COLUMN_GRID("largo", 52, "largo", "large");
-            AGREGAR_COLUMN_GRID("msi", 40, "Msi", "msi");
-            AGREGAR_COLUMN_GRID("splice", 40, "Splice", "splice");
-            AGREGAR_COLUMN_GRID("roll_id", 70, "Roll Id.", "Roll_id");
-            AGREGAR_COLUMN_GRID("code_personalize", 100, "Code Person.", "code_person");
+            AGREGAR_COLUMN_GRID("roll", 30, "#", "roll_number",grid_rollos);
+            AGREGAR_COLUMN_GRID("product_id", 50, "Prod. Id", "product_id", grid_rollos);
+            AGREGAR_COLUMN_GRID("product_name", 190, "Descripcion Producto", "product_name", grid_rollos);
+            AGREGAR_COLUMN_GRID("Unique_Code", 65, "Unique Code", "unique_code", grid_rollos);
+            AGREGAR_COLUMN_GRID("ancho", 52, "Ancho", "width", grid_rollos);
+            AGREGAR_COLUMN_GRID("largo", 52, "largo", "large", grid_rollos);
+            AGREGAR_COLUMN_GRID("msi", 40, "Msi", "msi", grid_rollos);
+            AGREGAR_COLUMN_GRID("splice", 40, "Splice", "splice", grid_rollos);
+            AGREGAR_COLUMN_GRID("roll_id", 70, "Roll Id.", "Roll_id", grid_rollos);
+            AGREGAR_COLUMN_GRID("code_personalize", 100, "Code Person.", "code_person", grid_rollos);
             DataGridViewComboBoxColumn col = new DataGridViewComboBoxColumn();
             col.Items.Add("Ok");
             col.Items.Add("Rechazado");
@@ -876,7 +904,6 @@ namespace RitramaAPP
         {
            
         }
-
         private void CALCULO_MASTER_1() 
         {
             txt_tabla1.Text = "";
@@ -1071,6 +1098,68 @@ namespace RitramaAPP
 
 
         }
+        private void bot_add_cortes_Click(object sender, EventArgs e)
+        {
+            Corte item = new Corte();
+            item.Division = listacorte.Count+1;
+            listacorte.Add(item);
+            grid_cortes.DataSource = null;
+            grid_cortes.DataSource = listacorte;
+            if (listacorte.Count > 0)
+            {
+                bot_delete_cortes.Enabled = true;
+
+            }
+        }
+
+        private void bot_delete_cortes_Click(object sender, EventArgs e)
+        {
+            
+
+            bot_delete_cortes.Enabled = true;
+            var itemToRemove = listacorte.Single(r => r.Division == 
+            Convert.ToInt32(grid_cortes.Rows[grid_cortes.CurrentRow.Index].Cells["div"].Value));
+            listacorte.Remove(itemToRemove);
+
+            int row = 1; 
+            foreach (Corte item in listacorte) 
+            {
+                item.Division = row;
+                row++;
+            }
+            
+            
+            grid_cortes.DataSource = null;
+            grid_cortes.DataSource = listacorte;
+
+            if (listacorte.Count == 0)
+            {
+                bot_delete_cortes.Enabled = false;
+
+            }
+        }
+
+        private void grid_cortes_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            double total_inch_ancho = 0;
+            for (int i = 0; i <= grid_cortes.Rows.Count-1; i++) 
+            {
+                total_inch_ancho += Convert.ToDouble(grid_cortes.Rows[i].Cells["width"].Value);
+            }
+            txt_cort_total_ancho.Text = total_inch_ancho.ToString();
+            txt_cort_ancho.Text = grid_cortes.Rows.Count.ToString();
+        }
+
+        private void label46_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_cort_largo_KeyUp(object sender, KeyEventArgs e)
+        {
+            double total_rollos = Convert.ToDouble(txt_cort_ancho.Text) * Convert.ToDouble(txt_cort_largo.Text);
+            txt_cort_rollos_cortar.Text = total_rollos.ToString();
+        }
 
         private List<SqlParameter> GetParametersRendimiento() 
         {
@@ -1198,5 +1287,11 @@ namespace RitramaAPP
         public int L1 { get; set; }
         public int L2 { get; set; }
         public int Vuelta { get; set; }
+    }
+    public class Corte 
+    {
+        public int Division { get; set; }
+        public double Width { get; set; }
+        public double Lenght { get; set; }
     }
 }

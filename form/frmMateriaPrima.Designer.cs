@@ -66,6 +66,7 @@
             this.bot_modificar = new System.Windows.Forms.ToolStripButton();
             this.bot_buscar = new System.Windows.Forms.ToolStripButton();
             this.bot_sincro = new System.Windows.Forms.ToolStripButton();
+            this.bot_excel = new System.Windows.Forms.ToolStripButton();
             this.CHK_ANULADO = new System.Windows.Forms.CheckBox();
             this.LABEL_CONTADOR_REGISTRO = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -343,7 +344,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(832, 82);
+            this.panel1.Size = new System.Drawing.Size(908, 82);
             this.panel1.TabIndex = 33;
             // 
             // label15
@@ -380,10 +381,11 @@
             this.bot_grabar,
             this.bot_modificar,
             this.bot_buscar,
-            this.bot_sincro});
+            this.bot_sincro,
+            this.bot_excel});
             this.toolsbar.Location = new System.Drawing.Point(0, 82);
             this.toolsbar.Name = "toolsbar";
-            this.toolsbar.Size = new System.Drawing.Size(832, 27);
+            this.toolsbar.Size = new System.Drawing.Size(908, 27);
             this.toolsbar.TabIndex = 35;
             this.toolsbar.Text = "toolStrip1";
             this.toolsbar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Toolsbar_ItemClicked);
@@ -489,6 +491,16 @@
             this.bot_sincro.Size = new System.Drawing.Size(80, 24);
             this.bot_sincro.Text = "Sincro";
             this.bot_sincro.Click += new System.EventHandler(this.Bot_sincro_Click);
+            // 
+            // bot_excel
+            // 
+            this.bot_excel.AutoSize = false;
+            this.bot_excel.Image = ((System.Drawing.Image)(resources.GetObject("bot_excel.Image")));
+            this.bot_excel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bot_excel.Name = "bot_excel";
+            this.bot_excel.Size = new System.Drawing.Size(80, 24);
+            this.bot_excel.Text = "Import";
+            this.bot_excel.Click += new System.EventHandler(this.bot_excel_Click);
             // 
             // CHK_ANULADO
             // 
@@ -828,7 +840,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(832, 609);
+            this.ClientSize = new System.Drawing.Size(908, 609);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.Txt_fecha_recep);
             this.Controls.Add(this.txt_width_metros);
@@ -964,5 +976,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.DateTimePicker Txt_fecha_recep;
+        private System.Windows.Forms.ToolStripButton bot_excel;
     }
 }

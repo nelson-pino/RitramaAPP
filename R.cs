@@ -80,7 +80,7 @@ namespace RitramaAPP
                         "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14,@p15,@p16) ";
                     public static string SQL_QUERY_INSERT_DETAILS_OC = "INSERT rolls_details (numero,product_id,product_name,roll_number,unique_code,splice,width,large,msi,roll_id,code_person,status,disponible) " +
                         "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13)";
-                    public static string SQL_QUERY_SELECT_ROLLID = "SELECT a.roll_id,a.part_number,a.master,a.resma,a.graphics,b.product_name,a.width,a.lenght,disponible,fecha_pro,fecha_recep,splice FROM OrdenRecepcion a LEFT JOIN producto b ON a.part_number = b.product_id where b.MasterRolls = 1 and a.disponible = 1 ORDER BY fecha_recep,splice ASC";
+                    public static string SQL_QUERY_SELECT_ROLLID = "SELECT a.roll_id,a.part_number,a.master,a.resma,a.graphics,b.product_name,a.width,a.lenght,disponible,fecha_pro,fecha_recep,splice,Ubicacion FROM OrdenRecepcion a LEFT JOIN producto b ON a.part_number = b.product_id where b.MasterRolls = 1 and a.disponible = 1 ORDER BY fecha_recep,splice ASC";
                     public static string SQL_QUERY_SELECT_ROLLOS_CORTADOS = "SELECT numero,product_id,product_name,roll_number,unique_code,splice,width,large,msi,roll_id,code_person,status FROM rolls_details";
                     public static string SQL_QUERY_INSERT_ROLLID = "INSERT INTO roll_id (numero,roll_id) VALUES (@P1,@p2)";
                     public static string SQL_QUERY_INSERT_ROLLS_DETAILS = "INSERT rolls_details (fecha,numero,roll_number,product_id," +
@@ -219,6 +219,7 @@ namespace RitramaAPP
             public static string PATH_REPORTS_FORMAT_CONDUCE = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\Reports\Format_Despacho.rpt";
             public static string PATH_REPORTS_DETALLE_RC = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\Reports\detalle_RC.rpt";
             public static string PATH_REPORTS_FORMAT_CONDUCE_SP = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\Reports\Format_Despacho_sinprecio.rpt";
+            public static string PATH_DATA_IMPORT_EXCEL_RECEPCIONES = @"C:\Users\npino\Desktop\";
 
         }
         public class CONSTANTES 

@@ -608,5 +608,11 @@ namespace RitramaAPP
                 * R.CONSTANTES.FACTOR_PIES_METROS, 2);
             txt_lenght_metros.Text = width_pie_metros.ToString();
         }
+
+        private void bot_excel_Click(object sender, EventArgs e)
+        {
+            FrmImportExcelMP excel = new FrmImportExcelMP();
+            excel.ShowDialog();
+        }
     }
 }

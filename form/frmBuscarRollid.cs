@@ -35,6 +35,7 @@ namespace RitramaAPP.form
             AGREGAR_COLUMN_GRID("fecha_pro", 67, "Fecha produccion", "fecha_pro");
             AGREGAR_COLUMN_GRID("fecha_doc", 67, "Fecha Recepcion", "fecha_recep");
             AGREGAR_COLUMN_GRID("splice", 40, "Splice", "splice");
+            AGREGAR_COLUMN_GRID("ubicacion", 60, "Ubicacion", "ubicacion");
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd)
         {

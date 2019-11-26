@@ -138,12 +138,27 @@
             this.txt_cant_master1 = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.label45 = new System.Windows.Forms.Label();
+            this.bot_add_cortes = new System.Windows.Forms.Button();
+            this.bot_delete_cortes = new System.Windows.Forms.Button();
+            this.grid_cortes = new System.Windows.Forms.DataGridView();
+            this.label46 = new System.Windows.Forms.Label();
+            this.txt_cort_total_ancho = new System.Windows.Forms.TextBox();
+            this.txt_cort_long_cortar = new System.Windows.Forms.TextBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.txt_cort_ancho = new System.Windows.Forms.TextBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.txt_cort_largo = new System.Windows.Forms.TextBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.txt_cort_rollos_cortar = new System.Windows.Forms.TextBox();
+            this.label50 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_rollos)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_cortes)).BeginInit();
             this.SuspendLayout();
             // 
             // txt_numero_oc
@@ -618,9 +633,9 @@
             // bot_generar_rollos_cortados
             // 
             this.bot_generar_rollos_cortados.Enabled = false;
-            this.bot_generar_rollos_cortados.Location = new System.Drawing.Point(546, 117);
+            this.bot_generar_rollos_cortados.Location = new System.Drawing.Point(544, 305);
             this.bot_generar_rollos_cortados.Name = "bot_generar_rollos_cortados";
-            this.bot_generar_rollos_cortados.Size = new System.Drawing.Size(136, 71);
+            this.bot_generar_rollos_cortados.Size = new System.Drawing.Size(191, 26);
             this.bot_generar_rollos_cortados.TabIndex = 9;
             this.bot_generar_rollos_cortados.Text = "Generar Rollos";
             this.bot_generar_rollos_cortados.UseVisualStyleBackColor = true;
@@ -630,7 +645,7 @@
             // 
             this.chk_anulado.AutoSize = true;
             this.chk_anulado.Enabled = false;
-            this.chk_anulado.Location = new System.Drawing.Point(755, 149);
+            this.chk_anulado.Location = new System.Drawing.Point(101, 644);
             this.chk_anulado.Name = "chk_anulado";
             this.chk_anulado.Size = new System.Drawing.Size(123, 17);
             this.chk_anulado.TabIndex = 16;
@@ -641,7 +656,7 @@
             // 
             this.chk_process.AutoSize = true;
             this.chk_process.Enabled = false;
-            this.chk_process.Location = new System.Drawing.Point(801, 117);
+            this.chk_process.Location = new System.Drawing.Point(18, 644);
             this.chk_process.Name = "chk_process";
             this.chk_process.Size = new System.Drawing.Size(77, 17);
             this.chk_process.TabIndex = 88;
@@ -651,9 +666,9 @@
             // btn_eliminar_renglon
             // 
             this.btn_eliminar_renglon.Enabled = false;
-            this.btn_eliminar_renglon.Location = new System.Drawing.Point(828, 346);
+            this.btn_eliminar_renglon.Location = new System.Drawing.Point(828, 353);
             this.btn_eliminar_renglon.Name = "btn_eliminar_renglon";
-            this.btn_eliminar_renglon.Size = new System.Drawing.Size(37, 23);
+            this.btn_eliminar_renglon.Size = new System.Drawing.Size(54, 23);
             this.btn_eliminar_renglon.TabIndex = 89;
             this.btn_eliminar_renglon.Text = "- Fila";
             this.btn_eliminar_renglon.UseVisualStyleBackColor = true;
@@ -1266,7 +1281,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(559, 304);
+            this.button1.Location = new System.Drawing.Point(406, 260);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 105;
@@ -1274,12 +1289,152 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(591, 94);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(89, 13);
+            this.label45.TabIndex = 107;
+            this.label45.Text = "Dimension Cortes";
+            // 
+            // bot_add_cortes
+            // 
+            this.bot_add_cortes.Location = new System.Drawing.Point(738, 116);
+            this.bot_add_cortes.Name = "bot_add_cortes";
+            this.bot_add_cortes.Size = new System.Drawing.Size(75, 23);
+            this.bot_add_cortes.TabIndex = 108;
+            this.bot_add_cortes.Text = "Add";
+            this.bot_add_cortes.UseVisualStyleBackColor = true;
+            this.bot_add_cortes.Click += new System.EventHandler(this.bot_add_cortes_Click);
+            // 
+            // bot_delete_cortes
+            // 
+            this.bot_delete_cortes.Location = new System.Drawing.Point(738, 141);
+            this.bot_delete_cortes.Name = "bot_delete_cortes";
+            this.bot_delete_cortes.Size = new System.Drawing.Size(75, 23);
+            this.bot_delete_cortes.TabIndex = 109;
+            this.bot_delete_cortes.Text = "Delete";
+            this.bot_delete_cortes.UseVisualStyleBackColor = true;
+            this.bot_delete_cortes.Click += new System.EventHandler(this.bot_delete_cortes_Click);
+            // 
+            // grid_cortes
+            // 
+            this.grid_cortes.AllowUserToAddRows = false;
+            this.grid_cortes.AllowUserToDeleteRows = false;
+            this.grid_cortes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grid_cortes.Location = new System.Drawing.Point(546, 108);
+            this.grid_cortes.MultiSelect = false;
+            this.grid_cortes.Name = "grid_cortes";
+            this.grid_cortes.RowHeadersWidth = 25;
+            this.grid_cortes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.grid_cortes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.grid_cortes.Size = new System.Drawing.Size(189, 195);
+            this.grid_cortes.TabIndex = 110;
+            this.grid_cortes.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_cortes_CellEndEdit);
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(741, 167);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(89, 13);
+            this.label46.TabIndex = 111;
+            this.label46.Text = "Total Inch Ancho";
+            this.label46.Click += new System.EventHandler(this.label46_Click);
+            // 
+            // txt_cort_total_ancho
+            // 
+            this.txt_cort_total_ancho.Location = new System.Drawing.Point(741, 180);
+            this.txt_cort_total_ancho.Name = "txt_cort_total_ancho";
+            this.txt_cort_total_ancho.Size = new System.Drawing.Size(100, 20);
+            this.txt_cort_total_ancho.TabIndex = 112;
+            // 
+            // txt_cort_long_cortar
+            // 
+            this.txt_cort_long_cortar.Location = new System.Drawing.Point(741, 218);
+            this.txt_cort_long_cortar.Name = "txt_cort_long_cortar";
+            this.txt_cort_long_cortar.Size = new System.Drawing.Size(100, 20);
+            this.txt_cort_long_cortar.TabIndex = 114;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(738, 204);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(88, 13);
+            this.label47.TabIndex = 113;
+            this.label47.Text = "Longitud a Cortar";
+            // 
+            // txt_cort_ancho
+            // 
+            this.txt_cort_ancho.Location = new System.Drawing.Point(741, 254);
+            this.txt_cort_ancho.Name = "txt_cort_ancho";
+            this.txt_cort_ancho.Size = new System.Drawing.Size(100, 20);
+            this.txt_cort_ancho.TabIndex = 116;
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(738, 241);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(91, 13);
+            this.label48.TabIndex = 115;
+            this.label48.Text = "Cortes a lo Ancho";
+            // 
+            // txt_cort_largo
+            // 
+            this.txt_cort_largo.Location = new System.Drawing.Point(741, 290);
+            this.txt_cort_largo.Name = "txt_cort_largo";
+            this.txt_cort_largo.Size = new System.Drawing.Size(100, 20);
+            this.txt_cort_largo.TabIndex = 118;
+            this.txt_cort_largo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txt_cort_largo_KeyUp);
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(738, 277);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(87, 13);
+            this.label49.TabIndex = 117;
+            this.label49.Text = "Cortes a lo Largo";
+            // 
+            // txt_cort_rollos_cortar
+            // 
+            this.txt_cort_rollos_cortar.Location = new System.Drawing.Point(742, 325);
+            this.txt_cort_rollos_cortar.Name = "txt_cort_rollos_cortar";
+            this.txt_cort_rollos_cortar.Size = new System.Drawing.Size(100, 20);
+            this.txt_cort_rollos_cortar.TabIndex = 120;
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(740, 312);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(98, 13);
+            this.label50.TabIndex = 119;
+            this.label50.Text = "Total rollos a Cortar";
+            // 
             // FrmOrdenCorte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(902, 673);
+            this.Controls.Add(this.txt_cort_rollos_cortar);
+            this.Controls.Add(this.label50);
+            this.Controls.Add(this.txt_cort_largo);
+            this.Controls.Add(this.label49);
+            this.Controls.Add(this.txt_cort_ancho);
+            this.Controls.Add(this.label48);
+            this.Controls.Add(this.txt_cort_long_cortar);
+            this.Controls.Add(this.label47);
+            this.Controls.Add(this.txt_cort_total_ancho);
+            this.Controls.Add(this.label46);
+            this.Controls.Add(this.grid_cortes);
+            this.Controls.Add(this.bot_delete_cortes);
+            this.Controls.Add(this.bot_add_cortes);
+            this.Controls.Add(this.label45);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label17);
@@ -1338,6 +1493,7 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_cortes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1454,5 +1610,19 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Button bot_add_cortes;
+        private System.Windows.Forms.Button bot_delete_cortes;
+        public System.Windows.Forms.DataGridView grid_cortes;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.TextBox txt_cort_total_ancho;
+        private System.Windows.Forms.TextBox txt_cort_long_cortar;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.TextBox txt_cort_ancho;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.TextBox txt_cort_largo;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.TextBox txt_cort_rollos_cortar;
+        private System.Windows.Forms.Label label50;
     }
 }
