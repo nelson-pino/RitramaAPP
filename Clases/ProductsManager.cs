@@ -49,7 +49,7 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-        public void Add(ClassProduct datos,Boolean mensajeok)
+        public void Add(ClassProduct datos, Boolean mensajeok)
         {
             CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_INSERT_PRODUCT,
                 SetParameters(datos), mensajeok, R.ERROR_MESSAGES.MODULO_PRODUCTOS.MESSAGE_ADD_PRODUCTS_ERROR);
@@ -161,9 +161,9 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-        public string GetProductName(string product_id) 
+        public string GetProductName(string product_id)
         {
-            string productName;    
+            string productName;
             micomm.Conectar(R.SQL.DATABASE.NAME);
             SqlCommand comando = new SqlCommand
             {
@@ -178,7 +178,7 @@ namespace RitramaAPP.Clases
             comando.Dispose();
             return productName;
         }
-        public string GetProductType(string product_id) 
+        public string GetProductType(string product_id)
         {
             string category;
             micomm.Conectar(R.SQL.DATABASE.NAME);

@@ -163,8 +163,37 @@ namespace RitramaAPP.Clases
         }
         public DataTable CargarRollsId()
         {
-            return CommandSqlGenericDt(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_SELECT_ROLLID, 
+            return CommandSqlGenericDt(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_SELECT_ROLLID,
                 R.ERROR_MESSAGES.PRODUCCION.MESSAGE_LOAD_ROLLID_ERROR_FAIL);
+        }
+        public DataTable CargarDataCortes(string orden)
+        {
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
+
+                Micomm.Conectar(R.SQL.DATABASE.NAME);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = Micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_SELECT_ITEMS_CORTES
+                };
+                SqlParameter p1 = new SqlParameter("@p1", orden);
+                comando.Parameters.Add(p1);
+                comando.ExecuteNonQuery();
+                da.SelectCommand = comando;
+                da.Fill(dt);
+                comando.Dispose();
+                Micomm.Desconectar();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(R.ERROR_MESSAGES.PRODUCCION.MESSAGE_SELECT_ITEMS_CORTES + ex);
+            }
+            da.Dispose();
+            return dt;
         }
         public void Add(Orden datos, Boolean ismessage)
         {
@@ -179,6 +208,15 @@ namespace RitramaAPP.Clases
                 SetParametersAddOrdenDetails(item), ismessage,
                 R.ERROR_MESSAGES.PRODUCCION.MESSAGE_ADD_ORDEN_ERROR_FAIL_DETAILS);
             }
+            //ADD ITEM CORTES.
+            foreach (Corte item in datos.Cortes)
+            {
+                item.Orden = datos.Numero;
+                CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_INSERT_ITEMS_CORTES,
+                SetParametersItemsCortes(item), ismessage,
+                R.ERROR_MESSAGES.PRODUCCION.MESSAGE_ADD_ITEMS_CORTES);
+            }
+
         }
         public void Update_INSERT(Orden datos, Boolean ismessage)
         {
@@ -340,6 +378,18 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
+        private List<SqlParameter> SetParametersItemsCortes(Corte item)
+        {
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.Int, Value = item.Num},
+                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.Decimal, Value = item.Width},
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.Decimal, Value = item.Lenght},
+                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.Decimal, Value = item.Msi},
+                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.Decimal, Value = item.Orden},
+            };
+            return sp;
+        }
         public List<SqlParameter> SetParametersAddHeaderOrden(Orden datos)
         {
             List<SqlParameter> sp = new List<SqlParameter>()
@@ -354,12 +404,26 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.NVarChar, Value = datos.Rollid_2},
                 new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Decimal, Value = datos.Width_2},
                 new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.Decimal, Value = datos.Lenght_2},
-                new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Decimal, Value = datos.Cant_cortados},
-                new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.Decimal, Value = datos.Widht_cortados},
-                new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.Decimal, Value = datos.Lenght_cortados},
-                new SqlParameter() {ParameterName = "@p14", SqlDbType = SqlDbType.Decimal, Value = datos.Msi_cortados},
-                new SqlParameter() {ParameterName = "@p15", SqlDbType = SqlDbType.Bit, Value = datos.Anulada},
-                new SqlParameter() {ParameterName = "@p16", SqlDbType = SqlDbType.Bit, Value = datos.Procesado}
+                new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Bit, Value = datos.Anulada},
+                new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.Bit, Value = datos.Procesado},
+                new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.Decimal, Value = datos.Inch_Ancho},
+                new SqlParameter() {ParameterName = "@p14", SqlDbType = SqlDbType.Decimal, Value = datos.Longitud_Cortar},
+                new SqlParameter() {ParameterName = "@p15", SqlDbType = SqlDbType.Int, Value = datos.Cortes_Ancho},
+                new SqlParameter() {ParameterName = "@p16", SqlDbType = SqlDbType.Int, Value = datos.Cortes_Largo},
+                new SqlParameter() {ParameterName = "@p17", SqlDbType = SqlDbType.Int, Value = datos.Cantidad_Rollos},
+                new SqlParameter() {ParameterName = "@p18", SqlDbType = SqlDbType.Decimal, Value = datos.Descartable1_pies},
+                new SqlParameter() {ParameterName = "@p19", SqlDbType = SqlDbType.Decimal, Value = datos.Master_lenght1_Real},
+                new SqlParameter() {ParameterName = "@p20", SqlDbType = SqlDbType.Decimal, Value = datos.Util1_Real_Width},
+                new SqlParameter() {ParameterName = "@p21", SqlDbType = SqlDbType.Decimal, Value = datos.Util1_real_Lenght},
+                new SqlParameter() {ParameterName = "@p22", SqlDbType = SqlDbType.Decimal, Value = datos.rest1_width},
+                new SqlParameter() {ParameterName = "@p23", SqlDbType = SqlDbType.Decimal, Value = datos.rest1_lenght},
+                new SqlParameter() {ParameterName = "@p24", SqlDbType = SqlDbType.Decimal, Value = datos.Descartable2_pies},
+                new SqlParameter() {ParameterName = "@p25", SqlDbType = SqlDbType.Decimal, Value = datos.Master_lenght2_Real},
+                new SqlParameter() {ParameterName = "@p26", SqlDbType = SqlDbType.Decimal, Value = datos.Util2_Real_Width},
+                new SqlParameter() {ParameterName = "@p27", SqlDbType = SqlDbType.Decimal, Value = datos.Util2_real_Lenght},
+                new SqlParameter() {ParameterName = "@p28", SqlDbType = SqlDbType.Decimal, Value = datos.rest2_width},
+                new SqlParameter() {ParameterName = "@p29", SqlDbType = SqlDbType.Decimal, Value = datos.rest2_lenght},
+                new SqlParameter() {ParameterName = "@p30", SqlDbType = SqlDbType.Decimal, Value = datos.rest2_lenght}
             };
             return sp;
         }
@@ -406,18 +470,7 @@ namespace RitramaAPP.Clases
             {
                 new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = datos.Numero},
                 new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.DateTime, Value = datos.Fecha},
-                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.DateTime, Value = datos.Fecha_produccion},
-                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.NVarChar, Value = datos.Product_id},
-                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.NVarChar, Value = datos.Rollid_1},
-                new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.Decimal, Value = datos.Width_1},
-                new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.Decimal, Value = datos.Lenght_1},
-                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.NVarChar, Value = datos.Rollid_2},
-                new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Decimal, Value = datos.Width_2},
-                new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.Decimal, Value = datos.Lenght_2},
-                new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Int, Value = datos.Cant_cortados},
-                new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.Decimal, Value = datos.Widht_cortados},
-                new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.Decimal, Value = datos.Lenght_cortados},
-                new SqlParameter() {ParameterName = "@p14", SqlDbType = SqlDbType.Decimal, Value = datos.Msi_cortados}
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.DateTime, Value = datos.Fecha_produccion}
             };
             return sp;
         }
@@ -427,7 +480,7 @@ namespace RitramaAPP.Clases
                 SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_DELETE_ORDEN_ROLLDETAILS, numero, false,
                 R.ERROR_MESSAGES.PRODUCCION.MESSAGE_DELETE_ORDER_ROLLSDETAIL);
         }
-        public Roll_Details GetDataUniqueCode(string rc) 
+        public Roll_Details GetDataUniqueCode(string rc)
         {
             Roll_Details rollo = new Roll_Details();
             try
@@ -452,7 +505,7 @@ namespace RitramaAPP.Clases
                     rollo.Msi = reader.GetDecimal(6);
                     rollo.Splice = reader.GetInt32(7);
                     rollo.Roll_id = reader.GetString(8);
-                    rollo.Code_Person = reader.GetString(9); 
+                    rollo.Code_Person = reader.GetString(9);
                     rollo.Status = reader.GetString(10);
                     rollo.Unique_code = reader.GetString(11);
                 }
@@ -466,7 +519,7 @@ namespace RitramaAPP.Clases
                 return rollo;
             }
         }
-        public string GetCodeRC(string product_id) 
+        public string GetCodeRC(string product_id)
         {
             Micomm.Conectar(R.SQL.DATABASE.NAME);
             SqlCommand comando = new SqlCommand
@@ -491,11 +544,11 @@ namespace RitramaAPP.Clases
             comando.Dispose();
             return coderc;
         }
-        public void UpdateRollId(string numberRollId) 
+        public void UpdateRollId(string numberRollId)
         {
             CommandSqlGenericOneParameter(R.SQL.DATABASE.NAME,
                 R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_UPDATE_ROLLID_DISPONIBILIDAD,
-                numberRollId,false,R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_ERROR_UPDATE_ROLLID);
+                numberRollId, false, R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_ERROR_UPDATE_ROLLID);
         }
         public Boolean OrderExiste(string codigo)
         {
@@ -521,7 +574,7 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-        public Boolean DeleteUniqueCode(string Unique_Code) 
+        public Boolean DeleteUniqueCode(string Unique_Code)
         {
             int result;
             Micomm.Conectar(R.SQL.DATABASE.NAME);
@@ -545,13 +598,13 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-        public void ProcesarOrden(string orden) 
+        public void ProcesarOrden(string orden)
         {
             CommandSqlGenericOneParameter(R.SQL.DATABASE.NAME,
-                R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_PROCESAR_ORDEN_OC,orden,
-                false,R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_PROCESAR_ORDEN_OC);
+                R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_PROCESAR_ORDEN_OC, orden,
+                false, R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_PROCESAR_ORDEN_OC);
         }
-        public void AnularOrden(string orden) 
+        public void AnularOrden(string orden)
         {
             CommandSqlGenericOneParameter(R.SQL.DATABASE.NAME,
                     R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_ANULAR_ORDEN_OC, orden,
@@ -563,7 +616,7 @@ namespace RitramaAPP.Clases
                 R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_ADD_DATOS_RENDIMIENTO_MASTER,
                 sp, false, R.ERROR_MESSAGES.PRODUCCION.MESSAGE_ADD_RENDIM_MASTER);
         }
-        public string [] GetDataRendimiento(string orden)
+        public string[] GetDataRendimiento(string orden)
         {
             string[] data = new string[20];
             try

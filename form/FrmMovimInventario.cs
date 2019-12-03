@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RitramaAPP.Clases;
+using System;
 using System.Windows.Forms;
-using RitramaAPP.Clases;
 
 namespace RitramaAPP.form
 {
@@ -30,9 +23,9 @@ namespace RitramaAPP.form
             product_tipo.Text = "Tipo Producto :" + SetProduct_Tipo;
             FORMAT_DATAGRID();
         }
-        private void FORMAT_DATAGRID() 
+        private void FORMAT_DATAGRID()
         {
-            switch (productTipo) 
+            switch (productTipo)
             {
                 //master
                 case 1:
@@ -48,14 +41,14 @@ namespace RitramaAPP.form
 
                     break;
                 case 3:
-                    
+
                     break;
                 case 4:
-                    
+
                     break;
             }
         }
-        private void SelectProductTipo() 
+        private void SelectProductTipo()
         {
             switch (SetProduct_Tipo)
             {
@@ -84,7 +77,7 @@ namespace RitramaAPP.form
             };
             grid.Columns.Add(col);
         }
-        private void FORMAT_GRIDS_MASTER() 
+        private void FORMAT_GRIDS_MASTER()
         {
             grid_entradas.AutoGenerateColumns = false;
             AGREGAR_COLUMN_GRID("numdoc", 60, "Num Orden", "OrderPurchase", grid_entradas);
@@ -97,9 +90,9 @@ namespace RitramaAPP.form
             AGREGAR_COLUMN_GRID("splice", 55, "Splice", "splice", grid_entradas);
             AGREGAR_COLUMN_GRID("core", 55, "Core", "core", grid_entradas);
             AGREGAR_COLUMN_GRID("ubic", 70, "Ubicacion", "Ubicacion", grid_entradas);
-            
+
         }
-        private void FORMAT_ROLLO_CORTADO() 
+        private void FORMAT_ROLLO_CORTADO()
         {
             grid_entradas.AutoGenerateColumns = false;
             AGREGAR_COLUMN_GRID("oc", 60, "Orden Corte", "numero", grid_entradas);

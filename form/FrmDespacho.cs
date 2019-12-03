@@ -1,12 +1,9 @@
-﻿using System.Linq;
-using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.Shared;
-using CrystalDecisions.Windows.Forms;
-
+﻿using CrystalDecisions.CrystalReports.Engine;
 using RitramaAPP.Clases;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 
 
@@ -24,7 +21,7 @@ namespace RitramaAPP.form
         readonly ConfigManager config = new ConfigManager();
         readonly BindingSource bsitem = new BindingSource();
         DataRowView ParentRow, ChildRows;
-        int EditMode = 0,Consec = 0;
+        int EditMode = 0, Consec = 0;
         readonly decimal PORC_ITBIS = 18;
         ClassDespacho despacho;
         List<Roll_Details> listarc;
@@ -64,7 +61,7 @@ namespace RitramaAPP.form
         {
             //grid renglones
             grid_items.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("product_id", 50, "Product Id.", "product_id",grid_items);
+            AGREGAR_COLUMN_GRID("product_id", 50, "Product Id.", "product_id", grid_items);
             AGREGAR_COLUMN_GRID("product_name", 180, "Nombre del Producto", "product_name", grid_items);
             AGREGAR_COLUMN_GRID("unidad", 50, "Unidad", "unid_id", grid_items);
             DataGridViewButtonColumn col3 = new DataGridViewButtonColumn
@@ -96,7 +93,7 @@ namespace RitramaAPP.form
             AGREGAR_COLUMN_GRID("splice", 50, "Splice", "splice", grid_UniqueCode);
             AGREGAR_COLUMN_GRID("rollid", 50, "Roll Id", "roll_id", grid_UniqueCode);
         }
-        private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd,DataGridView grid)
+        private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd, DataGridView grid)
         {
             DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
             {
@@ -110,7 +107,7 @@ namespace RitramaAPP.form
         private void BOT_IMPRIMIR_Click(object sender, EventArgs e)
         {
             //entra al detalle de los Unique Code RC
-            if (chk_print_unique.Checked) 
+            if (chk_print_unique.Checked)
             {
                 using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
                 {
@@ -126,7 +123,7 @@ namespace RitramaAPP.form
                 }
             }
             //formato de conduce sin precio
-            else if (chk_without_price.Checked) 
+            else if (chk_without_price.Checked)
             {
                 using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
                 {
@@ -143,7 +140,7 @@ namespace RitramaAPP.form
 
             }
             //formato de conduce con precio
-            else 
+            else
             {
                 using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
                 {
@@ -158,10 +155,10 @@ namespace RitramaAPP.form
                     frmReportView.ShowDialog();
                 }
             }
-            
-            
-            
-            
+
+
+
+
         }
 
         private void Bot_nuevo_Click(object sender, EventArgs e)
@@ -363,7 +360,7 @@ namespace RitramaAPP.form
             //Calcular el subtotal
             if (e.ColumnIndex == 4 || e.ColumnIndex == 12)
             {
-                if (Convert.ToString(grid_items.Rows[e.RowIndex].Cells["cant"].Value ) == "") 
+                if (Convert.ToString(grid_items.Rows[e.RowIndex].Cells["cant"].Value) == "")
                 {
                     return;
                 }
@@ -376,9 +373,9 @@ namespace RitramaAPP.form
                 txt_total_despacho.Text = CalcularTotal(Convert.ToDecimal(txt_subtotal.Text), Convert.ToDecimal(txt_monto_itbis.Text));
             }
             //Calcular los pesos 
-            if (e.ColumnIndex == 9) 
+            if (e.ColumnIndex == 9)
             {
-                grid_items.Rows[e.RowIndex].Cells["kilo_rollo"].Value = Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["msi"].Value) / 
+                grid_items.Rows[e.RowIndex].Cells["kilo_rollo"].Value = Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["msi"].Value) /
                     Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["ratio"].Value);
 
                 grid_items.Rows[e.RowIndex].Cells["kilo_total"].Value = Convert.ToDouble(grid_items.Rows[e.RowIndex].Cells["kilo_rollo"].Value) *
@@ -461,7 +458,7 @@ namespace RitramaAPP.form
                 return;
             }
             //validar que exista 
-            if (grid_items.Rows.Count < 1) 
+            if (grid_items.Rows.Count < 1)
             {
                 MessageBox.Show("Ingrese los datos del renglon antes de grabar.?");
                 return;
@@ -474,12 +471,12 @@ namespace RitramaAPP.form
             // grabar la orden de conduce.
             despachomanager.Add(CrearObjectDespacho(), false);
             // grabar el detalle de los uniques code
-            despachomanager.AddRC(listarc,txt_numero_despacho.Text.Trim());
+            despachomanager.AddRC(listarc, txt_numero_despacho.Text.Trim());
             //grabar el consecutivo en la tabla de parametros.
             config.SetParametersControl(Consec.ToString(), "CONSEC_DP");
             //Actualizar los inventarios
             Actualizarinventarios();
-            
+
             OptionsMenu(1);
             OptionsForm(1);
 
@@ -551,12 +548,12 @@ namespace RitramaAPP.form
             {
                 pl.ShowDialog();
                 int fila = 0;
-                if (pl.List_products.Count() == 0) 
+                if (pl.List_products.Count() == 0)
                 {
                     return;
                 }
                 //llenar el grid de renglones desde la sincronizacion. 
-                foreach (Producto item in pl.List_products) 
+                foreach (Producto item in pl.List_products)
                 {
                     AgregarRenglon();
                     grid_items.Rows[fila].Cells["product_id"].Value = pl.List_products.ElementAt(fila).Product_id;
@@ -569,11 +566,11 @@ namespace RitramaAPP.form
                         Convert.ToDouble(pl.List_products.ElementAt(fila).Product_quantity);
                     grid_items.Rows[fila].Cells["ratio"].Value = despachomanager
                         .GetRatioProduct(pl.List_products.ElementAt(fila).Product_id);
-                    grid_items.Rows[fila].Cells["kilo_rollo"].Value = 
+                    grid_items.Rows[fila].Cells["kilo_rollo"].Value =
                         Convert.ToDouble(grid_items.Rows[fila].Cells["msi"].Value) /
                         Convert.ToDouble(grid_items.Rows[fila].Cells["ratio"].Value);
 
-                    grid_items.Rows[fila].Cells["kilo_total"].Value = 
+                    grid_items.Rows[fila].Cells["kilo_total"].Value =
                         Convert.ToDouble(grid_items.Rows[fila].Cells["kilo_rollo"].Value) *
                         Convert.ToDouble(grid_items.Rows[fila].Cells["cant"].Value);
 
@@ -586,9 +583,9 @@ namespace RitramaAPP.form
 
                 listarc = pl.Lista_rollos.ToList();
             }
-            
+
         }
-        private void LoadDataRC() 
+        private void LoadDataRC()
         {
             grid_UniqueCode.DataSource = despachomanager.GetDataUniqueCode(txt_numero_despacho.Text.Trim());
         }
@@ -673,9 +670,9 @@ namespace RitramaAPP.form
             }
             return chk;
         }
-        private void Actualizarinventarios() 
+        private void Actualizarinventarios()
         {
-            
+
         }
     }
 }

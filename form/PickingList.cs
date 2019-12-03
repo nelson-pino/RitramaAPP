@@ -1,9 +1,9 @@
-﻿using System;
+﻿using RitramaAPP.Clases;
+using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using RitramaAPP.Clases;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace RitramaAPP.form
 {
@@ -16,7 +16,7 @@ namespace RitramaAPP.form
         public List<Roll_Details> Lista_rollos { get; set; }
         public IEnumerable<Producto> List_products { get; set; }
 
-        
+
         readonly ProduccionManager produccionManager = new ProduccionManager();
 
         private void PickingList_Load(object sender, EventArgs e)
@@ -29,8 +29,8 @@ namespace RitramaAPP.form
         {
             ExtraerDataAppMovil();
             //getdata de los unique code.
-           foreach (Roll_Details item in Lista_rollos) 
-           {
+            foreach (Roll_Details item in Lista_rollos)
+            {
                 Roll_Details rollo = produccionManager.GetDataUniqueCode(item.Unique_code);
                 item.Product_id = rollo.Product_id;
                 item.Product_name = rollo.Product_name;
@@ -50,11 +50,11 @@ namespace RitramaAPP.form
 
             grid_productos.DataSource = List_products.ToList();
 
-            
-            REGISTROS_TOTALES.Text = "Numero de Registros : "+Lista_rollos.Count.ToString();
+
+            REGISTROS_TOTALES.Text = "Numero de Registros : " + Lista_rollos.Count.ToString();
 
         }
-        private void CALCULATE_DATA() 
+        private void CALCULATE_DATA()
         {
             List_products = from line in Lista_rollos
                             group line by new { line.Product_id, line.Width, line.Large } into g
@@ -70,10 +70,10 @@ namespace RitramaAPP.form
 
             grid_productos.DataSource = List_products.ToList();
         }
-        private void AplicarEstiloGrid() 
+        private void AplicarEstiloGrid()
         {
             grid_itemRC.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("unique_code",60,"Codigo Unico","unique_code",grid_itemRC);
+            AGREGAR_COLUMN_GRID("unique_code", 60, "Codigo Unico", "unique_code", grid_itemRC);
             AGREGAR_COLUMN_GRID("product_id", 60, "Product Id.", "product_id", grid_itemRC);
             AGREGAR_COLUMN_GRID("product_name", 180, "Nombre del Proudcto", "product_name", grid_itemRC);
             AGREGAR_COLUMN_GRID("roll_number", 40, "Roll number", "roll_number", grid_itemRC);
@@ -92,7 +92,7 @@ namespace RitramaAPP.form
             AGREGAR_COLUMN_GRID("lenght", 60, "Lenght", "lenght", grid_productos);
             AGREGAR_COLUMN_GRID("msi", 60, "Msi", "msi", grid_productos);
         }
-        private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd,DataGridView grid)
+        private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd, DataGridView grid)
         {
             DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
             {
@@ -103,7 +103,7 @@ namespace RitramaAPP.form
             };
             grid.Columns.Add(col);
         }
-        private void ExtraerDataAppMovil() 
+        private void ExtraerDataAppMovil()
         {
             //extraigo los unique code
             Lista_rollos = new List<Roll_Details>();
@@ -149,14 +149,14 @@ namespace RitramaAPP.form
         {
             this.Close();
         }
-       private void LoadRC() 
-       {
+        private void LoadRC()
+        {
             string prefix;
-            if(txt_uniqueCode.Text.Length == 7)
+            if (txt_uniqueCode.Text.Length == 7)
             {
                 prefix = "";
             }
-            else 
+            else
             {
                 prefix = "RC";
             }
@@ -170,7 +170,7 @@ namespace RitramaAPP.form
                 {
                     MessageBox.Show("esta repetido");
                     txt_uniqueCode.Text = "";
-                    return; 
+                    return;
                 }
             }
 
@@ -184,7 +184,7 @@ namespace RitramaAPP.form
         {
             if (e.KeyData == Keys.Enter)
             {
-                if (txt_uniqueCode.Text == string.Empty) 
+                if (txt_uniqueCode.Text == string.Empty)
                 {
                     return;
                 }
@@ -193,7 +193,7 @@ namespace RitramaAPP.form
             }
         }
     }
-    public class Producto 
+    public class Producto
     {
         public string Product_id { get; set; }
         public string Product_name { get; set; }

@@ -1,14 +1,9 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 
 namespace RitramaAPP.form
@@ -89,7 +84,7 @@ namespace RitramaAPP.form
                     item.Width = Convert.ToDouble(sheet.Cells[fila, 12].Value);
                     item.Lenght = Convert.ToDouble(sheet.Cells[fila, 13].Value);
                     item.Splice = Convert.ToInt32(sheet.Cells[fila, 14].Value);
-                    item.Core = Convert.ToDecimal(sheet.Cells [fila, 15].Value);
+                    item.Core = Convert.ToDecimal(sheet.Cells[fila, 15].Value);
                     item.Palet_cant = Convert.ToInt32(sheet.Cells[fila, 16].Value);
                     item.Palet_paginas = Convert.ToInt32(sheet.Cells[fila, 17].Value);
                     lista.Add(item);
@@ -102,9 +97,9 @@ namespace RitramaAPP.form
             catch (Exception)
             {
 
-                
+
             }
-       
-        }   
+
+        }
     }
 }

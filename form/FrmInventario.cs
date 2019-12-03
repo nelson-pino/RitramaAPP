@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using RitramaAPP.Clases;
+﻿using RitramaAPP.Clases;
 using RitramaAPP.form;
-
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Windows.Forms;
 
 
 namespace RitramaAPP
@@ -25,7 +22,7 @@ namespace RitramaAPP
         DataView dvinventario = new DataView();
         DataTable dtinicial;
         DataTable dtinventario;
-        
+
         private void FrmInventario_Load(object sender, EventArgs e)
         {
             dvini.RowFilter = "";
@@ -36,7 +33,7 @@ namespace RitramaAPP
             CONTADOR_REGISTROS.Text = "Numero de Registros: " + Convert.ToString(dvini.Count);
             FormOptions();
         }
-        private void FormOptions() 
+        private void FormOptions()
         {
             if (dvini.Count > 0)
             {
@@ -51,17 +48,17 @@ namespace RitramaAPP
         {
             items = inimanager.GetDataIni();
             grid_iniciales.DataSource = items;
-            CONTADOR_REGISTROS.Text = "Numero de Registros: "+items.Count.ToString();
+            CONTADOR_REGISTROS.Text = "Numero de Registros: " + items.Count.ToString();
             //buscar los nombre de los productos.
             foreach (Item elemento in items)
             {
                 elemento.Product_name = productmanager.GetProductName(elemento.Product_id);
                 elemento.Tipo = productmanager.GetProductType(elemento.Product_id);
             }
-            inimanager.SaveDataIni(items); 
+            inimanager.SaveDataIni(items);
         }
-        
-        private void AplicarEstilosGrid() 
+
+        private void AplicarEstilosGrid()
         {
             grid_iniciales.AutoGenerateColumns = false;
             AGREGAR_COLUMN_GRID("product_id", 60, "Product Id.", "product_id", grid_iniciales);
@@ -81,7 +78,7 @@ namespace RitramaAPP
             AGREGAR_COLUMN_GRID("cant_ent", 60, "Entradas", "cant_ent", grid_inventario);
             AGREGAR_COLUMN_GRID("cant_sal", 60, "Salidas", "cant_sal", grid_inventario);
             AGREGAR_COLUMN_GRID("cant_final", 60, "Existencia", "cant_final", grid_inventario);
-        }        
+        }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd, DataGridView grid)
         {
             DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
@@ -121,7 +118,7 @@ namespace RitramaAPP
 
         private void Txt_buscar_inventario_TextChanged(object sender, EventArgs e)
         {
-            if(radinv_productid.Checked)
+            if (radinv_productid.Checked)
             {
                 dvinventario.RowFilter = "product_id LIKE '%" + this.txt_buscar_inventario.Text + "%'";
             }
@@ -136,7 +133,7 @@ namespace RitramaAPP
             CONTA_REGISTER_INVENTARIO.Text = "Numero de Registros: " + Convert.ToString(dvinventario.Count);
             CALCULAR_EXISTENCIA();
         }
-        private void CALCULAR_EXISTENCIA() 
+        private void CALCULAR_EXISTENCIA()
         {
             //Calculo de la Columna de Existencia Final.
             for (int i = 0; i <= grid_inventario.Rows.Count - 1; i++)
@@ -154,8 +151,8 @@ namespace RitramaAPP
 
         private void grid_inventario_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
-           
+
+
         }
 
         private void grid_inventario_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

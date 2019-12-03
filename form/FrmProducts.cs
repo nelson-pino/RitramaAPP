@@ -162,7 +162,7 @@ namespace RitramaAPP
             BOT_CANCELAR.Enabled = false;
             EditMode = 0;
         }
-        private ClassProduct CreateProductRollCut(ClassProduct producto) 
+        private ClassProduct CreateProductRollCut(ClassProduct producto)
         {
             //creo el producto rollo cortado.
             DataRow dr = ds.Tables["dtproducto"].NewRow();
@@ -193,7 +193,7 @@ namespace RitramaAPP
                 Descripcion = "",
                 Categoria = "",
                 Precio = 0,
-                Code_RC =""
+                Code_RC = ""
             };
             return rollo_cortado;
         }
@@ -215,7 +215,7 @@ namespace RitramaAPP
             {
                 FilaActual["Code_RC"] = txt_product_id.Text + "0";
             }
-            else 
+            else
             {
                 FilaActual["Code_RC"] = "";
             }
@@ -255,12 +255,12 @@ namespace RitramaAPP
                 MessageBox.Show("Introduzca el tipo de producto Master Roll,Resma,Graphics.");
                 return;
             }
-            productoManager.Add(producto,false);
+            productoManager.Add(producto, false);
             // Verifico que el producto creado es un master rolls
             // para crear tambien el producto como rollo cortado.
             if (producto.MasterRolls)
             {
-                productoManager.Add(CreateProductRollCut(producto),true);
+                productoManager.Add(CreateProductRollCut(producto), true);
             }
             txt_product_id.ReadOnly = true;
             txt_product_name.ReadOnly = true;

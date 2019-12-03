@@ -74,7 +74,7 @@ namespace RitramaAPP.form
                 Visible = false
             };
             grid_productos.Columns.Add(col6);
-            
+
             dv.RowFilter = "";
             grid_productos.DataSource = dv;
             lbl_contador_registros.Text = Convert.ToString(dv.Count) + " registros encontrados.";

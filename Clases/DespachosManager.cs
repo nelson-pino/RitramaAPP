@@ -137,7 +137,7 @@ namespace RitramaAPP.Clases
             foreach (Items_despacho item in datos.items)
             {
                 CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_INSERT_HEADER_DETAILS_DESPACHO,
-                SetParametersAddDetailsDespacho(item,datos.numero), ismessage,
+                SetParametersAddDetailsDespacho(item, datos.numero), ismessage,
                 R.ERROR_MESSAGES.DESPACHOS.MESSAGE_INSERT_ERROR_ADD_DETAILS_DESPACHOS);
             }
         }
@@ -146,10 +146,10 @@ namespace RitramaAPP.Clases
             foreach (Roll_Details item in datos)
             {
                 CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.DESPACHOS.SQL_INSERT_UNIQUECODE_LIST_DESPACHO,
-                SetParametersAddRCDespacho(item,numero),false,R.ERROR_MESSAGES.DESPACHOS.MESSAGE_INSERT_UNIQUECODE_ADD_DETAILS_DESPACHOS);
+                SetParametersAddRCDespacho(item, numero), false, R.ERROR_MESSAGES.DESPACHOS.MESSAGE_INSERT_UNIQUECODE_ADD_DETAILS_DESPACHOS);
             }
         }
-        public List<SqlParameter> SetParametersAddDetailsDespacho(Items_despacho datos,string numero)
+        public List<SqlParameter> SetParametersAddDetailsDespacho(Items_despacho datos, string numero)
         {
             List<SqlParameter> sp = new List<SqlParameter>()
             {
@@ -190,7 +190,7 @@ namespace RitramaAPP.Clases
             };
             return sp;
         }
-        public List<SqlParameter> SetParametersAddRCDespacho(Roll_Details datos,string numero)
+        public List<SqlParameter> SetParametersAddRCDespacho(Roll_Details datos, string numero)
         {
             List<SqlParameter> sp = new List<SqlParameter>()
             {
@@ -306,7 +306,7 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-        public string GetRatioProduct(string product_id) 
+        public string GetRatioProduct(string product_id)
         {
             Micomm.Conectar(R.SQL.DATABASE.NAME);
             SqlCommand comando = new SqlCommand
@@ -344,7 +344,7 @@ namespace RitramaAPP.Clases
                     CommandType = CommandType.Text,
                     CommandText = R.SQL.QUERY_SQL.DESPACHOS.SQL_SELECT_UNIQUECODE_DETAILS_DESPACHO
                 };
-            
+
                 SqlParameter p1 = new SqlParameter("@p1", conduce);
                 comando.Parameters.Add(p1);
                 SqlDataReader reader = comando.ExecuteReader();
@@ -352,7 +352,7 @@ namespace RitramaAPP.Clases
                 while (reader.Read())
                 {
                     Roll_Details rollo = new Roll_Details();
-                    
+
                     rollo.Product_id = reader.GetString(0);
                     rollo.Product_name = reader.GetString(1);
                     rollo.Roll_number = reader.GetInt32(2).ToString();

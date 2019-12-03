@@ -62,34 +62,29 @@ namespace RitramaAPP
                         "@p15,@p16,@p17,@p18,@p19,@p20,@p21,@p22,@p23,@p24,@p25,@p26)";
                     public static string SQL_QUERY_VERIFY_ORDEN_REPEAT = "SELECT count(*) FROM OrdenRecepcion WHERE " +
                         "OrderPurchase=@p1";
-                   
-                
-                
-                
                 }
                 public class PRODUCCION
                 {
-                    public static string SQL_SELECT_ORDEN_CORTE = "SELECT  numero,fecha,fecha_produccion,product_id,rollid_1,width_1," +
-                        "lenght_1,rollid_2,width_2,lenght_2,cant_cortado,width_cortado,lenght_cortado,msi_cortado,anulada,Procesado " +
-                        "FROM orden_corte ORDER BY numero DESC";
+                    public static string SQL_SELECT_ORDEN_CORTE = "SELECT numero,fecha,fecha_produccion,product_id,rollid_1,width_1," +
+                        "lenght_1,rollid_2,width_2,lenght_2,cant_cortado,width_cortado,lenght_cortado,msi_cortado,anulada,Procesado,tot_inch_ancho,longitud_cortar,"+
+                        "cortes_ancho,cortes_largo,cant_rollos,decartable1_pies,lenght_master_real,util1_real_width,util1_real_lenght,rest1_width,rest1_lenght, " +
+                        "util2_real_width,util2_real_lenght,descartable2_pies,lenght_master_real2,rest2_width,rest2_lenght FROM orden_corte ORDER BY numero DESC";
                     public static string SQL_SELECT_DETALLE_OC = "SELECT reng_num,numero,product_id,cantidad,unidad,width,large,msi FROM  detalle_oc";
                     public static string SQL_UPDATE_ROLLS_DETAILS = "SELECT product_id,roll_number,unique_code,splice,width,large,product_name,roll_id,msi," +
                         "code_perso FROM rolls_details WHERE numero=@p1 and product_id=@p2";
                     public static string SQL_QUERY_INSERT_MASTER_OC = "INSERT orden_corte (numero,fecha,fecha_produccion,product_id,rollid_1,width_1,lenght_1," +
-                        "rollid_2,width_2,lenght_2,cant_cortado,width_cortado,lenght_cortado,msi_cortado,anulada,Procesado) " +
-                        "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14,@p15,@p16) ";
+                        "rollid_2,width_2,lenght_2,anulada,Procesado,tot_inch_ancho,longitud_cortar,cortes_ancho,cortes_largo,cant_rollos,decartable1_pies,lenght_master_real,util1_real_width,util1_real_lenght,rest1_width,rest1_lenght,descartable2_pies,lenght_master_real2,util2_real_width,util2_real_lenght,rest2_width,rest2_lenght) " +
+                        "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14,@p15,@p16,@p17,@p18,@p19,@p20,@p21,@p22,@p23,@p24,@p25,@p26,@p27,@p28,@p29) ";
                     public static string SQL_QUERY_INSERT_DETAILS_OC = "INSERT rolls_details (numero,product_id,product_name,roll_number,unique_code,splice,width,large,msi,roll_id,code_person,status,disponible) " +
                         "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13)";
                     public static string SQL_QUERY_SELECT_ROLLID = "SELECT a.roll_id,a.part_number,a.master,a.resma,a.graphics,b.product_name,a.width,a.lenght,disponible,fecha_pro,fecha_recep,splice,Ubicacion FROM OrdenRecepcion a LEFT JOIN producto b ON a.part_number = b.product_id where b.MasterRolls = 1 and a.disponible = 1 ORDER BY fecha_recep,splice ASC";
-                    public static string SQL_QUERY_SELECT_ROLLOS_CORTADOS = "SELECT numero,product_id,product_name,roll_number,unique_code,splice,width,large,msi,roll_id,code_person,status FROM rolls_details";
+                    public static string SQL_QUERY_SELECT_ROLLOS_CORTADOS = "SELECT numero,product_id,product_name,roll_number,unique_code,splice,width,large,msi,roll_id,code_person,status FROM rolls_details ORDER BY roll_number";
                     public static string SQL_QUERY_INSERT_ROLLID = "INSERT INTO roll_id (numero,roll_id) VALUES (@P1,@p2)";
                     public static string SQL_QUERY_INSERT_ROLLS_DETAILS = "INSERT rolls_details (fecha,numero,roll_number,product_id," +
                         "product_name,roll_id,width,large,msi,splice,code_perso,unique_code) VALUES (@r1,@r2,@r3,@r4,@r5,@r6,@r7,@r8,@r9,@r10,@r11,@r12)";
                     public static string SQL_QUERY_DELETE_ROLLID = "DELETE roll_id WHERE (numero=@p1 AND roll_id=@p2)";
                     public static string SQL_QUERY_UPDATE_ROLLID = "UPDATE rolls_details SET roll_id=@p3 WHERE (numero=@p1 AND product_id=@p2)";
-                    public static string SQL_QUERY_UPDATE_ORDEN_PRODUCCION = "UPDATE orden_corte SET fecha=@p2,fecha_produccion=@P3," +
-                        "product_id=@p4,rollid_1=@p5,width_1=@p6,lenght_1=@p7,rollid_2=@p8,width_2=@p9,lenght_2=@p10,cant_cortado=@p11," +
-                        "width_cortado=@p12,lenght_cortado=@p13,msi_cortado=@p14 WHERE numero=@p1";
+                    public static string SQL_QUERY_UPDATE_ORDEN_PRODUCCION = "UPDATE orden_corte SET fecha=@p2,fecha_produccion=@P3 WHERE numero=@p1";
                     public static string SQL_QUERY_DELETE_ORDEN_ROLLDETAILS = "DELETE rolls_details WHERE numero=@p1";
                     public static string SQL_QUERY_UPDATE_ROLLSDETAILS_RENGLON = "UPDATE rolls_details SET splice=@p3,code_person=@p4,status=@p5,width=@p6,large=@p7,msi=@p8,roll_id=@p9 WHERE (numero=@p1 AND unique_code=@p2)";
                     public static string SQL_QUERY_SELECT_GETDATA_UNIQUE_CODE = "SELECT numero,product_id,product_name,roll_number,width,large,msi,splice,roll_id,code_person,status,unique_code FROM rolls_details WHERE unique_code=@p1";
@@ -101,6 +96,9 @@ namespace RitramaAPP
                     public static string SQL_QUERY_ANULAR_ORDEN_OC = "UPDATE orden_corte SET anulada=1 WHERE numero=@p1";
                     public static string SQL_QUERY_ADD_DATOS_RENDIMIENTO_MASTER = "INSERT INTO Rendim (WidRollosMax1,nVueltasMax1,CantRollosMax1,nVueltasReal1,CantRollosReal1,RollosSobran1,WidResidual1,LenResidual1,MsiResidual1,Tabla1,WidRollosMax2,nVueltasMax2,CantRollosMax2,nVueltasReal2,CantRollosReal2,RollosSobran2,WidResidual2,LenResidual2,MsiResidual2,Tabla2,numero_oc) VALUES (@P1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14,@p15,@p16,@p17,@p18,@p19,@p20,@p21)";
                     public static string SQL_QUERY_SELECT_DATOS_RENDIMIENTO_MASTER = "SELECT WidRollosMax1,nVueltasMax1,CantRollosMax1,nVueltasReal1,CantRollosReal1,RollosSobran1,WidResidual1,LenResidual1,MsiResidual1,Tabla1,WidRollosMax2,nVueltasMax2,CantRollosMax2,nVueltasReal2,CantRollosReal2,RollosSobran2,WidResidual2,LenResidual2,MsiResidual2,Tabla2,numero_oc FROM rendim WHERE numero_oc=@p1";
+                    public static string SQL_QUERY_INSERT_ITEMS_CORTES = "INSERT INTO Cortes (num,width,lenght,msi,orden) VALUES (@P1,@p2,@p3,@p4,@p5)";
+                    public static string SQL_QUERY_SELECT_ITEMS_CORTES = "SELECT num,width,lenght,msi,orden FROM Cortes WHERE orden=@p1";
+
                 }
                 public class DESPACHOS
                 {
@@ -128,12 +126,12 @@ namespace RitramaAPP
                     public static string SQL_QUERY_ENTRADAS_MASTER_WHERE_PRODUCT_ID = "SELECT a.OrderPurchase,a.Part_Number,a.Width,a.Lenght,a.Roll_Id,a.Proveedor_Id,a.Ubicacion," +
                     "a.Core,a.Splice,a.Anulado,a.fecha_reg,a.hora_reg,a.fecha_pro,a.master,a.resma,a.graphics,a.embarque,a.palet_num,a.palet_cant,a.palet_pag,a.num_sincro,a.registro_movil," +
                     "a.disponible,a.width_metros,a.lenght_metros,a.fecha_recep,b.Proveedor_Name FROM OrdenRecepcion a left join Provider b on a.Proveedor_Id=b.Proveedor_ID WHERE part_number=@p1";
-                    public static string SQL_QUERY_ENTRADAS_ROLLO_CORTADO_WHERE_PRODUCT_ID = "SELECT a.numero,a.Procesado,a.anulada,a.fecha,a.fecha_produccion,b.product_id,b.product_name,"+
+                    public static string SQL_QUERY_ENTRADAS_ROLLO_CORTADO_WHERE_PRODUCT_ID = "SELECT a.numero,a.Procesado,a.anulada,a.fecha,a.fecha_produccion,b.product_id,b.product_name," +
                     "b.disponible,b.roll_number,b.unique_code,b.width,b.large,b.msi,b.splice,b.code_person,b.roll_id,b.status FROM orden_corte a left join rolls_details b on a.numero = b.numero " +
                     "where b.product_id=@p1";
-                    public static string SQL_QUERY_SALIDAS_ROLLOS_CORTADOS_WHERE_PRODUCT_ID = "SELECT a.conduce,c.fecha,c.customer_id,d.Customer_Name,"+
-                    "a.unique_code,a.product_id,b.Product_Name,a.roll_number,a.width,a.lenght,a.msi,splice,roll_id FROM rcdespacho a "+
-                    "left join producto b on a.product_id=b.Product_ID left join despacho c on a.conduce = c.numero " + 
+                    public static string SQL_QUERY_SALIDAS_ROLLOS_CORTADOS_WHERE_PRODUCT_ID = "SELECT a.conduce,c.fecha,c.customer_id,d.Customer_Name," +
+                    "a.unique_code,a.product_id,b.Product_Name,a.roll_number,a.width,a.lenght,a.msi,splice,roll_id FROM rcdespacho a " +
+                    "left join producto b on a.product_id=b.Product_ID left join despacho c on a.conduce = c.numero " +
                     "left join Customer d on c.customer_id= d.Customer_ID";
 
 
@@ -141,12 +139,12 @@ namespace RitramaAPP
 
 
                 }
-                
+
             }
         }
         public class ERROR_MESSAGES
         {
-            public class INVENTARIO 
+            public class INVENTARIO
             {
                 public static string MESSAGE_INSERT_INICIALES_ERROR = "Error al tratar de grabar la data de los iniciales.";
                 public static string MESSAGE_SELECT_INICIALES_ERROR = "Error al de cargar la data de los iniciales.";
@@ -193,6 +191,9 @@ namespace RitramaAPP
                 public static string MESSAGE_UPDATE_PROCESAR_ORDEN_OC = "Error al procesar documento de orden de corte";
                 public static string MESSAGE_UPDATE_ANULAR_ORDEN_OC = "Error al Anular documento de orden de corte";
                 public static string MESSAGE_ADD_RENDIM_MASTER = "Error al Anular documento de orden de corte";
+                public static string MESSAGE_ADD_ITEMS_CORTES = "Error al intentar grabar la informacion de la dimension de los cortes...";
+                public static string MESSAGE_SELECT_ITEMS_CORTES = "Error al cargar los datos de la dimension de los cortes...";
+
             }
             public class DESPACHOS
             {
@@ -222,7 +223,7 @@ namespace RitramaAPP
             public static string PATH_DATA_IMPORT_EXCEL_RECEPCIONES = @"C:\Users\npino\Desktop\";
 
         }
-        public class CONSTANTES 
+        public class CONSTANTES
         {
             public static Double FACTOR_METROS_PULDADAS = 39.3701;
             public static Double FACTOR_METROS_PIES = 3.28084;

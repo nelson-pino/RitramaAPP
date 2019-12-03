@@ -22,17 +22,16 @@ namespace RitramaAPP
         }
         readonly ProduccionManager managerorden = new ProduccionManager();
         readonly ConfigManager configmanager = new ConfigManager();
-        BindingSource bs = new BindingSource();
-        BindingSource bsdetalle = new BindingSource();
-        DataTable dtproducts = new System.Data.DataTable();
+        readonly BindingSource bs = new BindingSource();
+        readonly BindingSource bsdetalle = new BindingSource();
+        readonly DataTable dtproducts = new System.Data.DataTable();
         DataSet ds = new DataSet();
         private DataRowView ParentRow;
         int EditMode = 0;
-        string modproduct_id, modcan_cortado, modwidth, modlenght, modmsi;
+        string modproduct_id;
         Boolean ischanged_rollos = false;
         Orden orden;
-        int CantMaxRollo1, CantMaxRollo2;
-        public static List<Corte> listacorte; 
+        public static List<Corte> listacorte;
 
         private void FrmOrdenCorte_Load(object sender, EventArgs e)
         {
@@ -45,254 +44,55 @@ namespace RitramaAPP
             bsdetalle.DataSource = bs;
             bsdetalle.DataMember = "FK_ORDEN_DETAILS";
             grid_rollos.DataSource = bsdetalle;
-            VERIFICAR_DOCUMENTO();
-            GetRendimiento();
             grid_cortes.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("div",35,"It.","division",grid_cortes);
-            AGREGAR_COLUMN_GRID("width", 60, "Width", "width", grid_cortes);
-            AGREGAR_COLUMN_GRID("lenght", 60, "Lenght", "lenght", grid_cortes);
-
-
-            listacorte = new List<Corte>();
-
-            Corte item = new Corte();
-            item.Division = 1;
-            listacorte.Add(item);
-
-            Corte item1 = new Corte();
-            item1.Division = 2;
-            listacorte.Add(item1);
-            
-            grid_cortes.DataSource = listacorte;
-
-            Corte item2 = new Corte();
-            item2.Division = 3;
-            listacorte.Add(item2);
-            
-            Corte itemx = new Corte();
-            itemx.Division = 4;
-            listacorte.Add(itemx);
-
-        }
-
-        private void BOT_NUEVO_Click(object sender, EventArgs e)
-        {
-            chk_process.DataBindings.Clear();
-            chk_anulado.DataBindings.Clear();
-            ParentRow = (DataRowView)bs.AddNew();
-            ParentRow.BeginEdit();
-            ParentRow["numero"] = "0";
-            ParentRow["width_1"] = "0";
-            ParentRow["lenght_1"] = "0";
-            ParentRow["width_2"] = "0";
-            ParentRow["lenght_2"] = "0";
-            ParentRow["cant_cortado"] = "0";
-            ParentRow["width_cortado"] = "0";
-            ParentRow["lenght_cortado"] = "0";
-            ParentRow["procesado"] = false;
-            ParentRow["anulada"] = false;
-            ParentRow["lenght_cortado"] = "0";
-            ParentRow.EndEdit();
-            txt_width_cortado.Text = "0";
-            txt_numero_oc.Focus();
-            INICIALIZAR_RENDIMIENTOS();
-            ContadorRegistros();
-            OptionsMenu(0);
-            OptionsForm(0);
-           
-            EditMode = 1;
-        }
-        private void OptionsForm(int state)
-        {
-            switch (state)
-            {
-                case 0:
-                    //modo agregar nuevo orden.
-                    txt_numero_oc.ReadOnly = false;
-                    txt_fecha_orden.Enabled = true;
-                    txt_fecha_producc.Enabled = true;
-                    txt_lenght_cortado.ReadOnly = false;
-                    txt_cant_cortado.ReadOnly = false;
-                    txt_width_cortado.ReadOnly = false;
-                    txt_rollid_1.ReadOnly = false;
-                    txt_rollid_2.ReadOnly = false;
-                    bot_buscar_rollid1.Enabled = true;
-                    bot_buscar_rollid2.Enabled = true;
-                    bot_generar_rollos_cortados.Enabled = true;
-                    break;
-                case 1:
-                    // modo cerra forms despues de agregar orden colocar en lectura.
-                    txt_numero_oc.ReadOnly = true;
-                    txt_fecha_orden.Enabled = false;
-                    txt_fecha_producc.Enabled = false;
-                    txt_lenght_cortado.ReadOnly = true;
-                    txt_cant_cortado.ReadOnly = true;
-                    txt_msi_cortado.ReadOnly = true;
-                    txt_width_cortado.ReadOnly = true;
-                    txt_rollid_1.ReadOnly = true;
-                    txt_rollid_2.ReadOnly = true;
-                    txt_width1_rollid.ReadOnly = true;
-                    txt_width2_rollid.ReadOnly = true;
-                    txt_lenght1_rollid.ReadOnly = true;
-                    txt_lenght2_rollid.ReadOnly = true;
-                    bot_buscar_rollid1.Enabled = false;
-                    bot_buscar_rollid2.Enabled = false;
-                    bot_generar_rollos_cortados.Enabled = false;
-                    grid_rollos.ReadOnly = true;
-                    break;
-                case 2:
-                    txt_fecha_orden.Enabled = true;
-                    txt_fecha_producc.Enabled = true;
-                    txt_rollid_1.ReadOnly = false;
-                    txt_width1_rollid.ReadOnly = false;
-                    txt_lenght1_rollid.ReadOnly = false;
-                    txt_rollid_2.ReadOnly = false;
-                    txt_width2_rollid.ReadOnly = false;
-                    txt_lenght2_rollid.ReadOnly = false;
-                    txt_cant_cortado.ReadOnly = false;
-                    txt_width_cortado.ReadOnly = false;
-                    txt_lenght_cortado.ReadOnly = false;
-                    bot_buscar_rollid1.Enabled = true;
-                    bot_buscar_rollid2.Enabled = true;
-                    bot_generar_rollos_cortados.Enabled = true;
-                    Bot_procesar.Enabled = false;
-                    Bot_Anular.Enabled = false;
-                    btn_eliminar_renglon.Enabled = true;
-                    grid_rollos.ReadOnly = false;
-                    grid_rollos.Columns[0].ReadOnly = true;
-                    grid_rollos.Columns[1].ReadOnly = true;
-                    grid_rollos.Columns[2].ReadOnly = true;
-                    grid_rollos.Columns[3].ReadOnly = true;
-                    grid_rollos.Columns[6].ReadOnly = true;
-                    grid_rollos.Columns[8].ReadOnly = true;
-
-
-                    break;
-            }
-        }
-        private void OptionsMenu(int state)
-        {
-            switch (state)
-            {
-                case 0:
-                    //modo agregar nuevo orden.
-                    bot_primero.Enabled = false;
-                    bot_siguiente.Enabled = false;
-                    bot_anterior.Enabled = false;
-                    bot_ultimo.Enabled = false;
-                    BOT_NUEVO.Enabled = false;
-                    BOT_BUSCAR.Enabled = false;
-                    BOT_EXCEL_EXPORT.Enabled = false;
-                    BOT_CANCELAR.Enabled = true;
-                    BOT_SAVE.Enabled = true;
-                    bot_modificar.Enabled = false;
-                    break;
-                case 1:
-                    //modo agregar despues de grabar.
-                    bot_primero.Enabled = true;
-                    bot_siguiente.Enabled = true;
-                    bot_anterior.Enabled = true;
-                    bot_ultimo.Enabled = true;
-                    BOT_NUEVO.Enabled = true;
-                    BOT_CANCELAR.Enabled = false;
-                    BOT_BUSCAR.Enabled = true;
-                    BOT_EXCEL_EXPORT.Enabled = true;
-                    BOT_SAVE.Enabled = false;
-                    bot_modificar.Enabled = true;
-                    break;
-            }
-        }
-        private void ContadorRegistros()
-        {
-            contador.Text = "Documento :" + (bs.Position + 1).ToString() + "/" + bs.Count.ToString();
-        }
-        private void Bot_siguiente_Click(object sender, EventArgs e)
-        {
-            bs.Position += 1;
-            ContadorRegistros();
+            AGREGAR_COLUMN_GRID("num", 25, "It.", "Num", grid_cortes);
+            AGREGAR_COLUMN_GRID("width", 45, "Width", "width", grid_cortes);
+            AGREGAR_COLUMN_GRID("lenght", 45, "Lenght", "lenght", grid_cortes);
+            AGREGAR_COLUMN_GRID("msi", 45, "Msi", "msi", grid_cortes);
             VERIFICAR_DOCUMENTO();
-            GetRendimiento();
+
         }
-        private void Bot_anterior_Click(object sender, EventArgs e)
+        
+        #region ENLACE_DATOS
+        private void DataBinding()
         {
-            bs.Position -= 1;
-            ContadorRegistros();
-            VERIFICAR_DOCUMENTO();
-            GetRendimiento();
+            txt_numero_oc.DataBindings.Add("text", bs, "numero");
+            txt_fecha_orden.DataBindings.Add("text", bs, "fecha");
+            txt_fecha_producc.DataBindings.Add("text", bs, "fecha_produccion");
+            txt_rollid_1.DataBindings.Add("text", bs, "rollid_1");
+            txt_width1_rollid.DataBindings.Add("text", bs, "width_1");
+            txt_lenght1_rollid.DataBindings.Add("text", bs, "lenght_1");
+            txt_rollid_2.DataBindings.Add("text", bs, "rollid_2");
+            txt_width2_rollid.DataBindings.Add("text", bs, "width_2");
+            txt_lenght2_rollid.DataBindings.Add("text", bs, "lenght_2");
+            txt_product_id.DataBindings.Add("text", bs, "product_id");
+            txt_product_name.DataBindings.Add("text", bs, "product_name");
+            chk_process.DataBindings.Add("Checked", bs, "procesado");
+            chk_anulado.DataBindings.Add("Checked", bs, "anulada");
+            txt_cort_total_ancho.DataBindings.Add("text", bs, "tot_inch_ancho");
+            txt_cort_long_cortar.DataBindings.Add("text", bs, "longitud_cortar");
+            txt_cort_ancho.DataBindings.Add("text", bs, "cortes_ancho");
+            txt_cort_largo.DataBindings.Add("text", bs, "cortes_largo");
+            txt_cort_rollos_cortar.DataBindings.Add("text", bs, "cant_rollos");
+            txt_pies_malos.DataBindings.Add("text", bs, "decartable1_pies");
+            txt_pies_real.DataBindings.Add("text", bs, "lenght_master_real");
+            txt_width_u.DataBindings.Add("text", bs, "util1_real_width");
+            txt_lenght_u.DataBindings.Add("text", bs, "util1_real_lenght");
+            txt_width1_r.DataBindings.Add("text", bs, "rest1_width");
+            txt_lenght1_r.DataBindings.Add("text", bs, "rest1_lenght");
+            txt_pies_malos2.DataBindings.Add("text", bs, "descartable2_pies");
+            txt_pies_real2.DataBindings.Add("text", bs, "lenght_master_real2");
+            txt_width2_r.DataBindings.Add("text", bs, "rest2_width");
+            txt_lenght2_r.DataBindings.Add("text",bs, "rest2_lenght");
+            txt_width_u2.DataBindings.Add("text", bs, "util2_real_width");
+            txt_lenght_u2.DataBindings.Add("text",bs, "util2_real_lenght");
+            txt_cort_largo2.DataBindings.Add("text", bs, "cortes_largo2");
+            txt_cort_rollos_cortar2.DataBindings.Add("text", bs, "cant_rollos2");
+
         }
-        private void Bot_primero_Click(object sender, EventArgs e)
-        {
-            bs.Position = 0;
-            ContadorRegistros();
-            VERIFICAR_DOCUMENTO();
-            GetRendimiento();
-        }
-        private void Bot_ultimo_Click(object sender, EventArgs e)
-        {
-            bs.Position = bs.Count - 1;
-            ContadorRegistros();
-            VERIFICAR_DOCUMENTO();
-            GetRendimiento();
-        }
-        private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd,DataGridView grid)
-        {
-            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
-            {
-                Name = name,
-                Width = size,
-                HeaderText = title,
-                DataPropertyName = field_bd
-            };
-            grid.Columns.Add(col);
-        }
-        private void AplicarEstilosGridRollos()
-        {
-            grid_rollos.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("roll", 30, "#", "roll_number",grid_rollos);
-            AGREGAR_COLUMN_GRID("product_id", 50, "Prod. Id", "product_id", grid_rollos);
-            AGREGAR_COLUMN_GRID("product_name", 190, "Descripcion Producto", "product_name", grid_rollos);
-            AGREGAR_COLUMN_GRID("Unique_Code", 65, "Unique Code", "unique_code", grid_rollos);
-            AGREGAR_COLUMN_GRID("ancho", 52, "Ancho", "width", grid_rollos);
-            AGREGAR_COLUMN_GRID("largo", 52, "largo", "large", grid_rollos);
-            AGREGAR_COLUMN_GRID("msi", 40, "Msi", "msi", grid_rollos);
-            AGREGAR_COLUMN_GRID("splice", 40, "Splice", "splice", grid_rollos);
-            AGREGAR_COLUMN_GRID("roll_id", 70, "Roll Id.", "Roll_id", grid_rollos);
-            AGREGAR_COLUMN_GRID("code_personalize", 100, "Code Person.", "code_person", grid_rollos);
-            DataGridViewComboBoxColumn col = new DataGridViewComboBoxColumn();
-            col.Items.Add("Ok");
-            col.Items.Add("Rechazado");
-            col.Items.Add("Retenido");
-            col.Items.Add("Reservado");
-            col.Name = "status";
-            col.HeaderText = "status";
-            col.DataPropertyName = "status";
-            col.Width = 80;
-            col.FlatStyle = FlatStyle.Popup;
-            grid_rollos.Columns.Add(col);
-        }
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            CustomerManager custom = new CustomerManager();
-            using (SeleccionCustomers miformc = new SeleccionCustomers
-            {
-                dtcustomer = custom.GetCustomersTableOnly()
-            })
-            {
-                miformc.ShowDialog();
-            }
-        }
-        private void BOT_SAVE_Click(object sender, EventArgs e)
-        {
-            switch (EditMode)
-            {
-                case 1:
-                    ToSaveAdd();
-                    break;
-                case 2:
-                    ToSaveUpdate();
-                    break;
-            }
-        }
+        #endregion
+
+        #region FUNCTIONS
         private void ToSaveAdd()
         {
             //validar el formulario
@@ -311,21 +111,7 @@ namespace RitramaAPP
                 MessageBox.Show("introduzca el product id.");
                 return;
             }
-            if (Convert.ToDouble(txt_cant_cortado.Text) <= 0)
-            {
-                MessageBox.Show("introduzca la cantidad a producir.");
-                return;
-            }
-            if (Convert.ToDouble(txt_width_cortado.Text) <= 0)
-            {
-                MessageBox.Show("introduzca el width de la cantidad a producir.");
-                return;
-            }
-            if (Convert.ToDouble(txt_lenght_cortado.Text) <= 0)
-            {
-                MessageBox.Show("introduzca el lenght de la cantidad a producir.");
-                return;
-            }
+
             if (grid_rollos.Rows.Count == 0)
             {
                 MessageBox.Show("No puede grabar una orden sin renglones...");
@@ -339,8 +125,6 @@ namespace RitramaAPP
             {
                 managerorden.UpdateRollId(orden.Rollid_2);
             }
-            //guardar los datos del Rendimiento del Master
-            managerorden.AddRendim(GetParametersRendimiento());
             chk_process.DataBindings.Add("Checked", bs, "procesado");
             chk_anulado.DataBindings.Add("Checked", bs, "anulada");
             OptionsMenu(1);
@@ -349,134 +133,41 @@ namespace RitramaAPP
         }
         private void ToSaveUpdate()
         {
-            // Si hubo modificaciones en los renglones de rollos cortados.
-            if (ischanged_rollos)
-            {
-                managerorden.DeleteRollDetailsOrden(txt_numero_oc.Text);
-                managerorden.Update_INSERT(CrearObjectOrden(), false);
-            }
-            else
-            {
-                managerorden.Update_Only(CrearObjectOrden(), false);
-            }
-
+            managerorden.Update_Only(CrearObjectOrden(), false);
             EditMode = 0;
             ischanged_rollos = false;
             OptionsMenu(1);
             OptionsForm(1);
         }
-        private Orden CrearObjectOrden()
+        private void CargarRollIDNumber(int state)
         {
-            orden = new Orden
+            using (FrmBuscarRollid rollid = new FrmBuscarRollid())
             {
-                Numero = (txt_numero_oc.Text),
-                Fecha = Convert.ToDateTime(txt_fecha_orden.Text),
-                Fecha_produccion = Convert.ToDateTime(txt_fecha_producc.Text),
-                Product_id = txt_product_id.Text,
-                Rollid_1 = txt_rollid_1.Text.ToString(),
-                Width_1 = Convert.ToDecimal(txt_width1_rollid.Text),
-                Lenght_1 = Convert.ToDecimal(txt_lenght1_rollid.Text),
-                Rollid_2 = txt_rollid_2.Text,
-                Width_2 = Convert.ToDecimal(txt_width2_rollid.Text),
-                Lenght_2 = Convert.ToDecimal(txt_lenght2_rollid.Text),
-                Cant_cortados = Convert.ToInt32(txt_cant_cortado.Text),
-                Widht_cortados = Convert.ToDecimal(txt_width_cortado.Text),
-                Lenght_cortados = Convert.ToDecimal(txt_lenght_cortado.Text),
-                Msi_cortados = Convert.ToDecimal(txt_msi_cortado.Text),
-                Anulada = false,
-                Procesado = false
-            };
-            orden.rollos = new List<Roll_Details>();
-            for (int fila = 0; fila <= grid_rollos.Rows.Count - 1; fila++)
-            {
-                Roll_Details rollo_cortado = new Roll_Details
-                {
-                    Numero_Orden = txt_numero_oc.Text,
-                    Roll_number = grid_rollos.Rows[fila].Cells[0].Value.ToString(),
-                    Product_id = grid_rollos.Rows[fila].Cells[1].Value.ToString(),
-                    Product_name = grid_rollos.Rows[fila].Cells[2].Value.ToString(),
-                    Unique_code = grid_rollos.Rows[fila].Cells[3].Value.ToString(),
-                    Width = Convert.ToDecimal(grid_rollos.Rows[fila].Cells[4].Value),
-                    Large = Convert.ToDecimal(grid_rollos.Rows[fila].Cells[5].Value),
-                    Msi = Convert.ToDecimal(grid_rollos.Rows[fila].Cells[6].Value),
-                    Splice = Convert.ToInt32(grid_rollos.Rows[fila].Cells[7].Value),
-                    Roll_id = grid_rollos.Rows[fila].Cells[8].Value.ToString(),
-                    Code_Person = grid_rollos.Rows[fila].Cells[9].Value.ToString(),
-                    Status = grid_rollos.Rows[fila].Cells[10].Value.ToString(),
-                    Disponible = true
-                };
-                orden.rollos.Add(rollo_cortado);
-            }
-            return orden;
-        }
+                rollid.Dtrollid = managerorden.CargarRollsId();
+                rollid.ShowDialog();
 
-        private List<Roll_Details> GENERAR_DETALLE_ROLLOS_CORTADOS()
-        {
-            List<Roll_Details> rollos = new List<Roll_Details>();
-            int code_unique = Convert.ToInt32(configmanager.GetParameterControl("UC"));
-            int filas = Convert.ToInt32(txt_cant_cortado.Text);
-            for (int j = 0; j < filas; j++)
-            {
-                Roll_Details item = new Roll_Details
+                if (state == 0)
                 {
-                    Roll_number = (j + 1).ToString(),
-                    Fecha = Convert.ToDateTime(txt_fecha_orden.Text),
-                    Numero_Orden = txt_numero_oc.Text,
-                    Product_id = txt_product_id.Text.ToString(),
-                    Product_name = txt_product_name.Text,
-                    Unique_code = "RC" + code_unique,
-                    Roll_id = txt_rollid_1.Text,
-                    Width = Convert.ToDecimal(txt_width_cortado.Text),
-                    Large = Convert.ToDecimal(txt_lenght_cortado.Text),
-                    Msi = Convert.ToDecimal(txt_msi_cortado.Text),
-                    Splice = 0,
-                    Code_Person = "N/A",
-                    Status = "Ok"
-                };
-                rollos.Add(item);
-                code_unique += 1;
-            }
-            configmanager.SetParametersControl(code_unique.ToString(), "UC");
-            return rollos;
-        }
-
-        private void BOT_EXCEL_EXPORT_Click(object sender, EventArgs e)
-        {
-            string separator = ",";
-
-            using (StreamWriter sr = new StreamWriter(R.PATH_FILES.FILE_TXT_DATA_ETIQUETA))
-            {
-                foreach (DataGridViewRow row in grid_rollos.Rows)
-                {
-                    sr.WriteLine(row.Cells[0].Value.ToString() + separator +
-                    row.Cells[1].Value.ToString().Trim() + separator +
-                    row.Cells[2].Value.ToString() + separator +
-                    row.Cells[3].Value.ToString() + separator +
-                    Convert.ToString(row.Cells[4].Value).Replace(",", ".") + separator +
-                    Convert.ToString(row.Cells[5].Value).Replace(",", ".") + separator +
-                    Convert.ToString(row.Cells[6].Value).Replace(",", ".") + separator +
-                    row.Cells[7].Value.ToString() + separator +
-                    row.Cells[8].Value.ToString() + separator +
-                    row.Cells[9].Value.ToString() + separator +
-                    row.Cells[10].Value.ToString() + separator +
-                    Convert.ToDateTime(txt_fecha_orden.Text).ToShortDateString() + separator +
-                    txt_numero_oc.Text);
+                    txt_rollid_1.Text = rollid.GetrollId;
+                    txt_width1_rollid.Text = rollid.GetValueWidth;
+                    txt_lenght1_rollid.Text = rollid.GetvalueLenght;
+                    txt_pies_real.Text = rollid.GetvalueLenght;
+                    txt_product_id.Text = rollid.Getproduct_id;
+                    txt_product_name.Text = rollid.GetProduct_name;
                 }
-                MessageBox.Show("se genero la data de etiquetado...");
+                else
+                {
+                    txt_rollid_2.Text = rollid.GetrollId;
+                    txt_width2_rollid.Text = rollid.GetValueWidth;
+                    txt_lenght2_rollid.Text = rollid.GetvalueLenght;
+                    txt_pies_real2.Text = rollid.GetvalueLenght;
+
+                }
             }
         }
-        private void BOT_BUSCAR_Click(object sender, EventArgs e)
+        private void ContadorRegistros()
         {
-            using (FrmBuscarOrdenes fBuscarOrden = new FrmBuscarOrdenes
-            {
-                dtordenes = ds.Tables["dtordenes"]
-            })
-            {
-                fBuscarOrden.ShowDialog();
-                int itemFound = bs.Find("numero", fBuscarOrden.orden);
-                bs.Position = itemFound;
-            }
-            grid_rollos.DataSource = "";
+            contador.Text = "Documento :" + (bs.Position + 1).ToString() + "/" + bs.Count.ToString();
         }
         private void ExportDatatoExcel()
         {
@@ -537,133 +228,145 @@ namespace RitramaAPP
             }
 
         }
-        private void Bot_buscar_rollid1_Click(object sender, EventArgs e)
+        private void AplicarEstilosGridRollos()
         {
-            CargarRollIDNumber(0);
+            grid_rollos.AutoGenerateColumns = false;
+            AGREGAR_COLUMN_GRID("roll", 30, "#", "roll_number", grid_rollos);
+            AGREGAR_COLUMN_GRID("product_id", 50, "Prod. Id", "product_id", grid_rollos);
+            AGREGAR_COLUMN_GRID("product_name", 190, "Descripcion Producto", "product_name", grid_rollos);
+            AGREGAR_COLUMN_GRID("Unique_Code", 65, "Unique Code", "unique_code", grid_rollos);
+            AGREGAR_COLUMN_GRID("ancho", 52, "Ancho", "width", grid_rollos);
+            AGREGAR_COLUMN_GRID("largo", 52, "largo", "large", grid_rollos);
+            AGREGAR_COLUMN_GRID("msi", 40, "Msi", "msi", grid_rollos);
+            AGREGAR_COLUMN_GRID("splice", 40, "Splice", "splice", grid_rollos);
+            AGREGAR_COLUMN_GRID("roll_id", 70, "Roll Id.", "Roll_id", grid_rollos);
+            AGREGAR_COLUMN_GRID("code_personalize", 100, "Code Person.", "code_person", grid_rollos);
+            DataGridViewComboBoxColumn col = new DataGridViewComboBoxColumn();
+            col.Items.Add("Ok");
+            col.Items.Add("Rechazado");
+            col.Items.Add("Retenido");
+            col.Items.Add("Reservado");
+            col.Name = "status";
+            col.HeaderText = "status";
+            col.DataPropertyName = "status";
+            col.Width = 80;
+            col.FlatStyle = FlatStyle.Popup;
+            grid_rollos.Columns.Add(col);
         }
-        private void Bot_buscar_rollid2_Click(object sender, EventArgs e)
+        private void ConfigurarCortes()
         {
-            CargarRollIDNumber(1);
-        }
-        private void CargarRollIDNumber(int state)
-        {
-            using (FrmBuscarRollid rollid = new FrmBuscarRollid())
-            {
-                rollid.Dtrollid = managerorden.CargarRollsId();
-                rollid.ShowDialog();
+            listacorte = new List<Corte>();
 
-                if (state == 0)
+            for (int i = 1; i <= 5; i++)
+            {
+                Corte item = new Corte
                 {
-                    txt_rollid_1.Text = rollid.GetrollId;
-                    txt_width1_rollid.Text = rollid.GetValueWidth;
-                    txt_lenght1_rollid.Text = rollid.GetvalueLenght;
-                    txt_product_id.Text = rollid.Getproduct_id;
-                    txt_product_name.Text = rollid.GetProduct_name;
-                }
-                else
-                {
-                    txt_rollid_2.Text = rollid.GetrollId;
-                    txt_width2_rollid.Text = rollid.GetValueWidth;
-                    txt_lenght2_rollid.Text = rollid.GetvalueLenght;
-                }
+                    Num = i
+                };
+                listacorte.Add(item);
             }
+            grid_cortes.DataSource = listacorte;
+
+            txt_cort_total_ancho.Text = "0";
+            txt_cort_long_cortar.Text = "0";
+            txt_cort_ancho.Text = "0";
+            txt_cort_largo.Text = "0";
+            txt_cort_rollos_cortar.Text = "0";
+
         }
-        private void CALCULAR_MSI()
+        private void VERIFICAR_DOCUMENTO()
         {
-            if (EditMode != 0 || Convert.ToDouble(txt_lenght_cortado.Text) > 0 ||
-                Convert.ToDouble(txt_width_cortado.Text) > 0)
+            if (chk_process.Checked || chk_anulado.Checked)
+            {
+                DOCUMENTO_CERRADO();
+            }
+            else
+            {
+                DOCUMENTO_ABIERTO();
+            }
+            //buscar los datos de los cortes de la orden.
+            grid_cortes.DataSource = managerorden.CargarDataCortes(txt_numero_oc.Text.Trim());
+        }
+        private void DOCUMENTO_CERRADO()
+        {
+            bot_modificar.Enabled = false;
+            Bot_procesar.Enabled = false;
+            Bot_Anular.Enabled = false;
+            BOT_EXCEL_EXPORT.Enabled = false;
+        }
+        private void DOCUMENTO_ABIERTO()
+        {
+            bot_modificar.Enabled = true;
+            Bot_procesar.Enabled = true;
+            Bot_Anular.Enabled = true;
+            BOT_EXCEL_EXPORT.Enabled = true;
+        }
+        private void FUNCTION_GENERATE_ROLL_DETAILS()
+        {
+            if (EditMode == 2 || grid_rollos.Rows.Count > 0)
             {
                 try
                 {
-                    double msi = ((Convert.ToDouble(txt_width_cortado.Text)
-                            * Convert.ToDouble(txt_lenght_cortado.Text))
-                            * R.CONSTANTES.FACTOR_CALCULO_MSI);
-                    txt_msi_cortado.Text = msi.ToString();
+                    //borrar los todos registros
+                    List<DataRow> toDelete = new List<DataRow>();
+                    foreach (DataGridViewRow row in grid_rollos.Rows)
+                    {
+                        toDelete.Add(((DataRowView)row.DataBoundItem).Row);
+                    }
+                    toDelete.ForEach(row => row.Delete());
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    txt_msi_cortado.Text = "0";
+                    MessageBox.Show(ex.Message);
                 }
             }
-        }
-        private void Txt_numero_oc_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            string CaracValid = "0123456789";
-            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
-            {
-                // si no es bakcspace y no es un numero se omite.   
-                e.Handled = true;
-            }
-        }
-        private void Txt_cant_cortado_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            string CaracValid = "0123456789";
-            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
-            {
-                // si no es bakcspace y no es un numero se omite.   
-                e.Handled = true;
-            }
-        }
+            List<Roll_Details> lista = GENERAR_DETALLE_ROLLOS_CORTADOS();
 
-        private void Txt_width_cortado_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            string CaracValid = "0123456789.";
-            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
-            {
-                // si no es bakcspace y no es un numero se omite.   
-                e.Handled = true;
-            }
-        }
 
-        private void Txt_lenght_cortado_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            string CaracValid = "0123456789,.";
-            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            //Agregar encabezado a la orden.
+            ParentRow.BeginEdit();
+            ParentRow["numero"] = txt_numero_oc.Text;
+            ParentRow["fecha"] = txt_fecha_orden.Text;
+            ParentRow["fecha_produccion"] = txt_fecha_producc.Text;
+            ParentRow["rollid_1"] = txt_rollid_1.Text;
+            ParentRow["width_1"] = txt_width1_rollid.Text;
+            ParentRow["lenght_1"] = txt_lenght1_rollid.Text;
+            ParentRow["rollid_2"] = txt_rollid_2.Text;
+            ParentRow["width_2"] = txt_width2_rollid.Text;
+            ParentRow["lenght_2"] = txt_lenght2_rollid.Text;
+            ParentRow["product_id"] = txt_product_id.Text;
+            ParentRow["anulada"] = false;
+            ParentRow["procesado"] = false;
+            ParentRow.EndEdit();
+            //Agregar el detalle de la Orden.
+            DataRowView ChildRows;
+            string CodeRC = managerorden.GetCodeRC(txt_product_id.Text.Trim());
+            foreach (Roll_Details item in lista)
             {
-                // si no es bakcspace y no es un numero se omite.   
-                e.Handled = true;
+                ChildRows = (DataRowView)bsdetalle.AddNew();
+                ChildRows.BeginEdit();
+                ChildRows["numero"] = item.Numero_Orden;
+                ChildRows["roll_number"] = item.Roll_number;
+                ChildRows["product_id"] = CodeRC;
+                ChildRows["product_name"] = item.Product_name;
+                ChildRows["unique_code"] = item.Unique_code;
+                ChildRows["width"] = double.Parse(item.Width.ToString(), CultureInfo.InvariantCulture);
+                ChildRows["large"] = item.Large;
+                ChildRows["Msi"] = item.Msi;
+                ChildRows["Splice"] = item.Splice;
+                ChildRows["Roll_id"] = item.Roll_id;
+                ChildRows["Code_Person"] = item.Code_Person;
+                ChildRows["Status"] = item.Status;
+                ChildRows.Row.SetParentRow(ParentRow.Row);
+                ChildRows.EndEdit();
             }
-        }
-
-        private void Txt_width_cortado_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (txt_width_cortado.Text == "")
+            bs.EndEdit();
+            if (EditMode == 1)
             {
-                return;
+                bs.Position = bs.Count - 1;
+                bot_generar_rollos_cortados.Enabled = false;
             }
-            if (Convert.ToDouble(txt_width_cortado.Text) > 0 && Convert.ToDouble(txt_lenght_cortado.Text) > 0)
-            {
-                CALCULAR_MSI();
-               
-            }
-        }
-
-        private void Txt_lenght_cortado_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (txt_lenght_cortado.Text == "")
-            {
-                return;
-            }
-            if (Convert.ToDouble(txt_width_cortado.Text) > 0 && Convert.ToDouble(txt_lenght_cortado.Text) > 0)
-            {
-                CALCULAR_MSI();
-                
-            }
-        }
-        private void Txt_numero_oc_Validating(object sender, CancelEventArgs e)
-        {
-            if (managerorden.OrderExiste(txt_numero_oc.Text) && EditMode == 1)
-            {
-                MessageBox.Show("La Orden produccion : " + txt_numero_oc.Text + " ya existe.");
-                txt_numero_oc.Text = "";
-            }
-        }
-        private void Grid_rollos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 4 || e.ColumnIndex == 5)
-            {
-                CALCULAR_MSI_RENGLON(e.RowIndex);
-            }
+            ischanged_rollos = true;
         }
         private void CALCULAR_MSI_RENGLON(int fila)
         {
@@ -685,6 +388,389 @@ namespace RitramaAPP
                 }
 
 
+            }
+        }
+        private Orden CrearObjectOrden()
+        {
+            orden = new Orden
+            {
+                Numero = (txt_numero_oc.Text),
+                Fecha = Convert.ToDateTime(txt_fecha_orden.Text),
+                Fecha_produccion = Convert.ToDateTime(txt_fecha_producc.Text),
+                Product_id = txt_product_id.Text,
+                Rollid_1 = txt_rollid_1.Text.ToString(),
+                Width_1 = Convert.ToDecimal(txt_width1_rollid.Text),
+                Lenght_1 = Convert.ToDecimal(txt_lenght1_rollid.Text),
+                Rollid_2 = txt_rollid_2.Text,
+                Width_2 = Convert.ToDecimal(txt_width2_rollid.Text),
+                Lenght_2 = Convert.ToDecimal(txt_lenght2_rollid.Text),
+                Inch_Ancho = Convert.ToDouble(txt_cort_total_ancho.Text),
+                Longitud_Cortar = Convert.ToDouble(txt_cort_long_cortar.Text),
+                Cortes_Ancho = Convert.ToInt32(txt_cort_ancho.Text),
+                Cortes_Largo = Convert.ToInt32(txt_cort_largo.Text),
+                Cantidad_Rollos = Convert.ToInt32(txt_cort_rollos_cortar.Text),
+                Master_lenght1_Real = Convert.ToDouble(txt_pies_real.Text),
+                Descartable1_pies = Convert.ToDouble(txt_pies_malos.Text),
+                Util1_real_Lenght = Convert.ToDouble(txt_lenght_u.Text),
+                Util1_Real_Width = Convert.ToDouble(txt_width_u.Text),
+                rest1_width = Convert.ToDouble(txt_width1_r.Text),
+                rest1_lenght = Convert.ToDouble(txt_lenght1_r.Text),
+                Util2_Real_Width = Convert.ToDouble(txt_width_u2.Text),
+                Util2_real_Lenght = Convert.ToDouble(txt_lenght_u2.Text),
+                Descartable2_pies = Convert.ToDouble(txt_pies_malos2.Text),
+                rest2_width = Convert.ToDouble(txt_width2_r.Text),
+                rest2_lenght = Convert.ToDouble(txt_lenght2_r.Text),
+                Master_lenght2_Real = Convert.ToDouble(txt_pies_real2.Text),
+                Anulada = false,
+                Procesado = false
+            };
+            orden.rollos = new List<Roll_Details>();
+            orden.Cortes = new List<Corte>();
+            for (int fila = 0; fila <= grid_rollos.Rows.Count - 1; fila++)
+            {
+                Roll_Details rollo_cortado = new Roll_Details
+                {
+                    Numero_Orden = txt_numero_oc.Text,
+                    Roll_number = grid_rollos.Rows[fila].Cells[0].Value.ToString(),
+                    Product_id = grid_rollos.Rows[fila].Cells[1].Value.ToString(),
+                    Product_name = grid_rollos.Rows[fila].Cells[2].Value.ToString(),
+                    Unique_code = grid_rollos.Rows[fila].Cells[3].Value.ToString(),
+                    Width = Convert.ToDecimal(grid_rollos.Rows[fila].Cells[4].Value),
+                    Large = Convert.ToDecimal(grid_rollos.Rows[fila].Cells[5].Value),
+                    Msi = Convert.ToDecimal(grid_rollos.Rows[fila].Cells[6].Value),
+                    Splice = Convert.ToInt32(grid_rollos.Rows[fila].Cells[7].Value),
+                    Roll_id = grid_rollos.Rows[fila].Cells[8].Value.ToString(),
+                    Code_Person = grid_rollos.Rows[fila].Cells[9].Value.ToString(),
+                    Status = grid_rollos.Rows[fila].Cells[10].Value.ToString(),
+                    Disponible = true
+                };
+                orden.rollos.Add(rollo_cortado);
+                //Agregar los cortes.
+                orden.Cortes = listacorte;
+            }
+            return orden;
+        }
+        private List<Roll_Details> GENERAR_DETALLE_ROLLOS_CORTADOS()
+        {
+            List<Roll_Details> rollos = new List<Roll_Details>();
+            int code_unique = Convert.ToInt32(configmanager.GetParameterControl("UC"));
+            int vueltas = Convert.ToInt16(txt_cort_largo.Text);
+            int cortes = grid_cortes.Rows.Count;
+            int rn = 1;
+            for (int i = 1; i <= vueltas; i++)
+            {
+                for (int j = 0; j <= cortes - 1; j++)
+                {
+                    Roll_Details item = new Roll_Details
+                    {
+                        Roll_number = (rn).ToString(),
+                        Product_id = txt_product_id.Text.ToString(),
+                        Product_name = txt_product_name.Text,
+                        Unique_code = "RC" + code_unique,
+                        Width = Convert.ToDecimal(grid_cortes.Rows[j].Cells["width"].Value),
+                        Large = Convert.ToDecimal(grid_cortes.Rows[j].Cells["lenght"].Value),
+                        Msi = Convert.ToDecimal(grid_cortes.Rows[j].Cells["msi"].Value),
+                        Splice = 0,
+                        Roll_id = txt_rollid_1.Text,
+                        Code_Person = "N/A",
+                        Status = "Ok",
+                        Fecha = Convert.ToDateTime(txt_fecha_orden.Text),
+                        Numero_Orden = txt_numero_oc.Text
+                    };
+                    rn += 1;
+                    rollos.Add(item);
+                    code_unique += 1;
+                }
+            }
+            configmanager.SetParametersControl(code_unique.ToString(), "UC");
+            return rollos;
+        }
+        private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd, DataGridView grid)
+        {
+            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
+            {
+                Name = name,
+                Width = size,
+                HeaderText = title,
+                DataPropertyName = field_bd
+            };
+            grid.Columns.Add(col);
+        }
+        #endregion
+
+        #region FORM_CONTROLS
+        private void BOT_EXCEL_EXPORT_Click(object sender, EventArgs e)
+        {
+            string separator = ",";
+
+            using (StreamWriter sr = new StreamWriter(R.PATH_FILES.FILE_TXT_DATA_ETIQUETA))
+            {
+                foreach (DataGridViewRow row in grid_rollos.Rows)
+                {
+                    sr.WriteLine(row.Cells[0].Value.ToString() + separator +
+                    row.Cells[1].Value.ToString().Trim() + separator +
+                    row.Cells[2].Value.ToString() + separator +
+                    row.Cells[3].Value.ToString() + separator +
+                    Convert.ToString(row.Cells[4].Value).Replace(",", ".") + separator +
+                    Convert.ToString(row.Cells[5].Value).Replace(",", ".") + separator +
+                    Convert.ToString(row.Cells[6].Value).Replace(",", ".") + separator +
+                    row.Cells[7].Value.ToString() + separator +
+                    row.Cells[8].Value.ToString() + separator +
+                    row.Cells[9].Value.ToString() + separator +
+                    row.Cells[10].Value.ToString() + separator +
+                    Convert.ToDateTime(txt_fecha_orden.Text).ToShortDateString() + separator +
+                    txt_numero_oc.Text);
+                }
+                MessageBox.Show("se genero la data de etiquetado...");
+            }
+        }
+        private void BOT_BUSCAR_Click(object sender, EventArgs e)
+        {
+            using (FrmBuscarOrdenes fBuscarOrden = new FrmBuscarOrdenes
+            {
+                dtordenes = ds.Tables["dtordenes"]
+            })
+            {
+                fBuscarOrden.ShowDialog();
+                int itemFound = bs.Find("numero", fBuscarOrden.orden);
+                bs.Position = itemFound;
+            }
+            grid_rollos.DataSource = "";
+        }
+        private void Bot_buscar_rollid1_Click(object sender, EventArgs e)
+        {
+            CargarRollIDNumber(0);
+        }
+        private void Bot_buscar_rollid2_Click(object sender, EventArgs e)
+        {
+            CargarRollIDNumber(1);
+        }
+        private void BOT_NUEVO_Click(object sender, EventArgs e)
+        {
+            chk_process.DataBindings.Clear();
+            chk_anulado.DataBindings.Clear();
+            ParentRow = (DataRowView)bs.AddNew();
+            ParentRow.BeginEdit();
+            ParentRow["numero"] = "0";
+            ParentRow["width_1"] = "0";
+            ParentRow["lenght_1"] = "0";
+            ParentRow["width_2"] = "0";
+            ParentRow["lenght_2"] = "0";
+            ParentRow["tot_inch_ancho"] = "0";
+            ParentRow["longitud_cortar"] = "0";
+            ParentRow["cortes_ancho"] = "0";
+            ParentRow["cortes_largo"] = "0";
+            ParentRow["cant_rollos"] = "0";
+            ParentRow["procesado"] = false;
+            ParentRow["anulada"] = false;
+            ParentRow["lenght_cortado"] = "0";
+            ParentRow["decartable1_pies"] = 0;
+            ParentRow["descartable2_pies"] = 0;
+            ParentRow["lenght_master_real"] = 0;
+            ParentRow["util1_real_width"] = 0;
+            ParentRow["util1_real_lenght"] = 0;
+            ParentRow["util2_real_width"] = 0;
+            ParentRow["util2_real_lenght"] = 0;
+            ParentRow["rest1_width"] = 0;
+            ParentRow["rest1_lenght"] = 0;
+            ParentRow["rest2_width"] = 0;
+            ParentRow["rest2_lenght"] = 0;
+            ParentRow["lenght_master_real2"] = 0;
+            txt_lenght_u2.Text = "0";
+            txt_width_u.Text = "0";
+            txt_lenght_u.Text = "0";
+            txt_width1_r.Text = "0";
+            txt_lenght1_r.Text = "0";
+            txt_pies_real2.Text = "0";
+            txt_width_u2.Text = "0";
+            txt_pies_real2.Text = "0";
+            txt_width2_r.Text = "0";
+            txt_lenght2_r.Text = "0";
+            ParentRow.EndEdit();
+            txt_numero_oc.Focus();
+            ContadorRegistros();
+            OptionsMenu(0);
+            OptionsForm(0);
+            ConfigurarCortes();
+            EditMode = 1;
+        }
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            CustomerManager custom = new CustomerManager();
+            using (SeleccionCustomers miformc = new SeleccionCustomers
+            {
+                dtcustomer = custom.GetCustomersTableOnly()
+            })
+            {
+                miformc.ShowDialog();
+            }
+        }
+        private void BOT_SAVE_Click(object sender, EventArgs e)
+        {
+            switch (EditMode)
+            {
+                case 1:
+                    ToSaveAdd();
+                    break;
+                case 2:
+                    ToSaveUpdate();
+                    break;
+            }
+        }
+        private void Txt_numero_oc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
+        private void Txt_cant_cortado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
+        private void Txt_width_cortado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789.";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
+        private void Txt_numero_oc_Validating(object sender, CancelEventArgs e)
+        {
+            if (managerorden.OrderExiste(txt_numero_oc.Text) && EditMode == 1)
+            {
+                MessageBox.Show("La Orden produccion : " + txt_numero_oc.Text + " ya existe.");
+                txt_numero_oc.Text = "";
+            }
+        }
+        private void Grid_rollos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 4 || e.ColumnIndex == 5)
+            {
+                CALCULAR_MSI_RENGLON(e.RowIndex);
+            }
+        }
+        private void Bot_siguiente_Click(object sender, EventArgs e)
+        {
+            bs.Position += 1;
+            ContadorRegistros();
+            VERIFICAR_DOCUMENTO();
+        }
+        private void Bot_anterior_Click(object sender, EventArgs e)
+        {
+            bs.Position -= 1;
+            ContadorRegistros();
+            VERIFICAR_DOCUMENTO();
+        }
+        private void Bot_primero_Click(object sender, EventArgs e)
+        {
+            bs.Position = 0;
+            ContadorRegistros();
+            VERIFICAR_DOCUMENTO();
+        }
+        private void Bot_ultimo_Click(object sender, EventArgs e)
+        {
+            bs.Position = bs.Count - 1;
+            ContadorRegistros();
+            VERIFICAR_DOCUMENTO();
+        }
+        private void OptionsForm(int state)
+        {
+            switch (state)
+            {
+                case 0:
+                    //modo agregar nuevo orden.
+                    txt_numero_oc.ReadOnly = false;
+                    txt_fecha_orden.Enabled = true;
+                    txt_fecha_producc.Enabled = true;
+                    txt_rollid_1.ReadOnly = false;
+                    txt_rollid_2.ReadOnly = false;
+                    bot_buscar_rollid1.Enabled = true;
+                    bot_buscar_rollid2.Enabled = true;
+                    bot_generar_rollos_cortados.Enabled = true;
+                    break;
+                case 1:
+                    // modo cerra forms despues de agregar orden colocar en lectura.
+                    txt_numero_oc.ReadOnly = true;
+                    txt_fecha_orden.Enabled = false;
+                    txt_fecha_producc.Enabled = false;
+                    txt_rollid_1.ReadOnly = true;
+                    txt_rollid_2.ReadOnly = true;
+                    txt_width1_rollid.ReadOnly = true;
+                    txt_width2_rollid.ReadOnly = true;
+                    txt_lenght1_rollid.ReadOnly = true;
+                    txt_lenght2_rollid.ReadOnly = true;
+                    bot_buscar_rollid1.Enabled = false;
+                    bot_buscar_rollid2.Enabled = false;
+                    bot_generar_rollos_cortados.Enabled = false;
+                    grid_rollos.ReadOnly = true;
+                    break;
+                case 2:
+                    txt_fecha_orden.Enabled = true;
+                    txt_fecha_producc.Enabled = true;
+                    txt_rollid_1.ReadOnly = false;
+                    txt_width1_rollid.ReadOnly = false;
+                    txt_lenght1_rollid.ReadOnly = false;
+                    txt_rollid_2.ReadOnly = false;
+                    txt_width2_rollid.ReadOnly = false;
+                    txt_lenght2_rollid.ReadOnly = false;
+                    bot_buscar_rollid1.Enabled = true;
+                    bot_buscar_rollid2.Enabled = true;
+                    bot_generar_rollos_cortados.Enabled = true;
+                    Bot_procesar.Enabled = false;
+                    Bot_Anular.Enabled = false;
+                    btn_eliminar_renglon.Enabled = true;
+                    grid_rollos.ReadOnly = false;
+                    grid_rollos.Columns[0].ReadOnly = true;
+                    grid_rollos.Columns[1].ReadOnly = true;
+                    grid_rollos.Columns[2].ReadOnly = true;
+                    grid_rollos.Columns[3].ReadOnly = true;
+                    grid_rollos.Columns[6].ReadOnly = true;
+                    grid_rollos.Columns[8].ReadOnly = true;
+
+
+                    break;
+            }
+        }
+        private void OptionsMenu(int state)
+        {
+            switch (state)
+            {
+                case 0:
+                    //modo agregar nuevo orden.
+                    bot_primero.Enabled = false;
+                    bot_siguiente.Enabled = false;
+                    bot_anterior.Enabled = false;
+                    bot_ultimo.Enabled = false;
+                    BOT_NUEVO.Enabled = false;
+                    BOT_BUSCAR.Enabled = false;
+                    BOT_EXCEL_EXPORT.Enabled = false;
+                    BOT_CANCELAR.Enabled = true;
+                    BOT_SAVE.Enabled = true;
+                    bot_modificar.Enabled = false;
+                    break;
+                case 1:
+                    //modo agregar despues de grabar.
+                    bot_primero.Enabled = true;
+                    bot_siguiente.Enabled = true;
+                    bot_anterior.Enabled = true;
+                    bot_ultimo.Enabled = true;
+                    BOT_NUEVO.Enabled = true;
+                    BOT_CANCELAR.Enabled = false;
+                    BOT_BUSCAR.Enabled = true;
+                    BOT_EXCEL_EXPORT.Enabled = true;
+                    BOT_SAVE.Enabled = false;
+                    bot_modificar.Enabled = true;
+                    break;
             }
         }
         private void Btn_eliminar_renglon_Click(object sender, EventArgs e)
@@ -731,42 +817,10 @@ namespace RitramaAPP
                     break;
             }
         }
-        private void Txt_cant_cortado_Validating(object sender, CancelEventArgs e)
-        {
-            if (txt_cant_cortado.Text == string.Empty)
-            {
-                e.Cancel = true;
-            }
-        }
         private void Bot_generar_rollos_cortados_Click(object sender, EventArgs e)
         {
 
-            if (EditMode == 2 || grid_rollos.Rows.Count > 0)
-            {
-                try
-                {
 
-                    if (modcan_cortado == txt_cant_cortado.Text &&
-                        modproduct_id == txt_product_id.Text &&
-                        modwidth == txt_width_cortado.Text)
-                    {
-                        MessageBox.Show("no ha cambiado los datos de la orden");
-                        return;
-                    }
-
-                    //borrar los todos registros
-                    List<DataRow> toDelete = new List<DataRow>();
-                    foreach (DataGridViewRow row in grid_rollos.Rows)
-                    {
-                        toDelete.Add(((DataRowView)row.DataBoundItem).Row);
-                    }
-                    toDelete.ForEach(row => row.Delete());
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
             List<Roll_Details> lista = GENERAR_DETALLE_ROLLOS_CORTADOS();
             //Agregar encabezado a la orden.
             ParentRow.BeginEdit();
@@ -780,10 +834,20 @@ namespace RitramaAPP
             ParentRow["width_2"] = txt_width2_rollid.Text;
             ParentRow["lenght_2"] = txt_lenght2_rollid.Text;
             ParentRow["product_id"] = txt_product_id.Text;
-            //ParentRow["product_name"] = txt_product_name.Text;
-            ParentRow["cant_cortado"] = txt_cant_cortado.Text;
-            ParentRow["width_cortado"] = txt_width_cortado.Text;
-            ParentRow["lenght_cortado"] = txt_lenght_cortado.Text;
+            ParentRow["tot_inch_ancho"] = txt_cort_total_ancho.Text;
+            ParentRow["cant_rollos"] = txt_cort_rollos_cortar.Text;
+            ParentRow["cortes_ancho"] = txt_cort_ancho.Text;
+            ParentRow["decartable1_pies"] = txt_pies_malos.Text;
+            ParentRow["lenght_master_real"] = txt_pies_real.Text;
+            ParentRow["util1_real_width"] = txt_width_u.Text;
+            ParentRow["util1_real_lenght"] = txt_lenght_u.Text;
+            ParentRow["rest1_width"] = txt_width1_r.Text;
+            ParentRow["rest1_lenght"] = txt_lenght1_r.Text;
+            ParentRow["util2_real_width"] = txt_width_u2.Text;
+            ParentRow["util2_real_lenght"] = txt_lenght_u2.Text;
+            ParentRow["rest2_width"] = txt_width2_r.Text;
+            ParentRow["rest2_lenght"] = txt_lenght2_r.Text;
+            ParentRow["lenght_master_real2"] = txt_pies_real2.Text;
             ParentRow["anulada"] = false;
             ParentRow["procesado"] = false;
             ParentRow.EndEdit();
@@ -816,19 +880,127 @@ namespace RitramaAPP
                 bot_generar_rollos_cortados.Enabled = false;
             }
             ischanged_rollos = true;
-            CALCULAR_MSI();
+            grid_rollos.Rows[0].Selected = true;
         }
         private void Bot_modificar_Click(object sender, EventArgs e)
         {
             EditMode = 2;
             modproduct_id = txt_product_id.Text;
-            modcan_cortado = txt_cant_cortado.Text;
-            modwidth = txt_width_cortado.Text;
-            modlenght = txt_lenght_cortado.Text;
-            modmsi = txt_msi_cortado.Text;
             ParentRow = (DataRowView)bs.Current;
             OptionsMenu(0);
             OptionsForm(2);
+        }
+        private void Txt_cort_largo_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txt_cort_largo.Text == "")
+            {
+                return;
+            }
+            CALCULAR_NUMERO_ROLLOS();
+            CALCULAR_MATERIAL_RESTANTE();
+        }
+        private void CALCULAR_NUMERO_ROLLOS()
+        {
+            double total_rollos = Convert.ToDouble(txt_cort_ancho.Text) * Convert.ToDouble(txt_cort_largo.Text);
+            txt_cort_rollos_cortar.Text = total_rollos.ToString();
+            txt_lenght_u.Text = (Convert.ToDouble(txt_cort_largo.Text)
+                * Convert.ToDouble(txt_cort_long_cortar.Text)).ToString();
+        }
+
+        private void CALCULAR_NUMERO_ROLLOS2()
+        {
+            double total_rollos = Convert.ToDouble(txt_cort_ancho.Text) * Convert.ToDouble(txt_cort_largo2.Text);
+            txt_cort_rollos_cortar2.Text = total_rollos.ToString();
+            txt_lenght_u2.Text = (Convert.ToDouble(txt_cort_largo2.Text)
+                * Convert.ToDouble(txt_cort_long_cortar.Text)).ToString();
+        }
+
+
+        private void Grid_cortes_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            //calculo del msi.
+            grid_cortes.Rows[e.RowIndex].Cells["msi"].Value =
+                Convert.ToDouble(grid_cortes.Rows[e.RowIndex].Cells["width"].Value) *
+                Convert.ToDouble(grid_cortes.Rows[e.RowIndex].Cells["lenght"].Value)
+                * R.CONSTANTES.FACTOR_CALCULO_MSI;
+            CALCULAR_CORTES_ANCHOS();
+        }
+        private void CALCULAR_CORTES_ANCHOS()
+        {
+            double total_inch_ancho = 0;
+            for (int i = 0; i <= grid_cortes.Rows.Count - 1; i++)
+            {
+                total_inch_ancho += Convert.ToDouble(grid_cortes.Rows[i].Cells["width"].Value);
+            }
+            txt_cort_total_ancho.Text = total_inch_ancho.ToString();
+            txt_width_u.Text = total_inch_ancho.ToString();
+            txt_cort_ancho.Text = grid_cortes.Rows.Count.ToString();
+            CALCULAR_MATERIAL_RESTANTE();
+        }
+        private void CALCULAR_MATERIAL_RESTANTE()
+        {
+            //Calculo de material restante
+            txt_width1_r.Text = (Convert.ToDouble(txt_width1_rollid.Text)
+            - Convert.ToDouble(txt_width_u.Text)).ToString();
+            txt_lenght1_r.Text = (Convert.ToDouble(txt_pies_real.Text)
+            - Convert.ToDouble(txt_lenght_u.Text)).ToString();
+            if (Convert.ToDouble(txt_width1_r.Text) == 0)
+            {
+                txt_width1_r.Text = txt_width1_rollid.Text;
+            }
+        }
+        private void CALCULAR_MATERIAL_RESTANTE2()
+        {
+            //Calculo de material restante
+            txt_width2_r.Text = (Convert.ToDouble(txt_width2_rollid.Text)
+            - Convert.ToDouble(txt_width_u2.Text)).ToString();
+
+            txt_lenght2_r.Text = (Convert.ToDouble(txt_pies_real2.Text)
+            - Convert.ToDouble(txt_lenght_u2.Text)).ToString();
+            
+            if (Convert.ToDouble(txt_width2_r.Text) == 0)
+            {
+                txt_width2_r.Text = txt_width2_rollid.Text;
+            }
+        }
+
+        private void Bot_delete_cortes_Click(object sender, EventArgs e)
+        {
+            bot_delete_cortes.Enabled = true;
+            var itemToRemove = listacorte.Single(r => r.Num ==
+            Convert.ToInt32(grid_cortes.Rows[grid_cortes.CurrentRow.Index].Cells["num"].Value));
+            listacorte.Remove(itemToRemove);
+            int row = 1;
+            foreach (Corte item in listacorte)
+            {
+                item.Num = row;
+                row++;
+            }
+            grid_cortes.DataSource = null;
+            grid_cortes.DataSource = listacorte;
+
+            if (listacorte.Count == 0)
+            {
+                bot_delete_cortes.Enabled = false;
+
+            }
+            CALCULAR_CORTES_ANCHOS();
+            CALCULAR_NUMERO_ROLLOS();
+        }
+        private void Bot_add_cortes_Click(object sender, EventArgs e)
+        {
+            Corte item = new Corte
+            {
+                Num = listacorte.Count + 1
+            };
+            listacorte.Add(item);
+            grid_cortes.DataSource = null;
+            grid_cortes.DataSource = listacorte;
+            if (listacorte.Count > 0)
+            {
+                bot_delete_cortes.Enabled = true;
+
+            }
         }
         private void BOT_CANCELAR_Click(object sender, EventArgs e)
         {
@@ -843,7 +1015,6 @@ namespace RitramaAPP
                 //activo la funciones del menu
                 OptionsMenu(1);
                 OptionsForm(1);
-                LIMPIAR_CAMPOS_RENDIMIENTO();
                 EditMode = 0;
             }
             if (EditMode == 2)
@@ -853,445 +1024,73 @@ namespace RitramaAPP
                 EditMode = 0;
             }
         }
-
-        private void Button1_Click_1(object sender, EventArgs e)
+        private void Txt_lenght_cortado_KeyPress(object sender, KeyPressEventArgs e)
         {
-            CALCULAR_RENDIMIENTO_MASTER();
-        }
-        private void VERIFICAR_DOCUMENTO()
-        {
-            if (chk_process.Checked || chk_anulado.Checked)
+            string CaracValid = "0123456789,.";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
             {
-                DOCUMENTO_CERRADO();
-            }
-            else
-            {
-                DOCUMENTO_ABIERTO();
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
             }
         }
-        private void DOCUMENTO_CERRADO()
+        private void Txt_master__KeyUp(object sender, KeyEventArgs e)
         {
-            bot_modificar.Enabled = false;
-            Bot_procesar.Enabled = false;
-            Bot_Anular.Enabled = false;
-            BOT_EXCEL_EXPORT.Enabled = false;
-        }
-        private void DOCUMENTO_ABIERTO()
-        {
-            bot_modificar.Enabled = true;
-            Bot_procesar.Enabled = true;
-            Bot_Anular.Enabled = true;
-            BOT_EXCEL_EXPORT.Enabled = true;
-        }
-        private void CALCULAR_RENDIMIENTO_MASTER()
-        {
-            //VALIDAR LOS PAERAMETROS PARA EL CALCULO.
-            //CALCULO DEL MASTER 1.
-            //CALCULAR EL RENDIMIENTO DEL MASTER.
-
-            if ( (txt_rollid_1.Text.Length > 0) & (txt_rollid_2.Text == string.Empty)) 
+            if (txt_pies_malos.Text == "") 
             {
-                CALCULO_MASTER_1();           
+                return;
             }
-            if ((txt_rollid_1.Text.Length > 0) && (txt_rollid_2.Text.Length > 0))
+            double real = Convert.ToDouble(txt_lenght1_rollid.Text) - Convert.ToDouble(txt_pies_malos.Text);
+            txt_pies_real.Text = real.ToString();
+        }
+        private void txt_cort_long_cortar_KeyUp(object sender, KeyEventArgs e)
+        {
+            for (int i = 0; i <= grid_cortes.Rows.Count - 1; i++)
             {
-                CALCULO_MASTER_1();
-                CALCULO_MASTER_2();
+                grid_cortes.Rows[i].Cells["lenght"].Value = txt_cort_long_cortar.Text;
+                grid_cortes.Rows[i].Cells["msi"].Value =
+               Convert.ToDouble(grid_cortes.Rows[i].Cells["width"].Value) *
+               Convert.ToDouble(grid_cortes.Rows[i].Cells["lenght"].Value)
+               * R.CONSTANTES.FACTOR_CALCULO_MSI;
+                //CALCULAR_CORTES_ANCHOS();
             }
         }
-
-        private void get_data_rend_Click(object sender, EventArgs e)
+        private void txt_pies_malos2_KeyUp(object sender, KeyEventArgs e)
         {
-           
-        }
-        private void CALCULO_MASTER_1() 
-        {
-            txt_tabla1.Text = "";
-            txt_width_dif.Text = "";
-            txt_lenght_dif.Text = "";
-            txt_msi_dif.Text = "";
-            txt_vueltas_real.Text = "";
-            txt_sobran.Text = "";
-            txt_rollos_real.Text = "";
-            //CALCULAS LAS VUELTAS Y EL NUMERO DE ROLLOS POR ANCHO.
-
-            Double rollosxmaster = Math.Round(Convert.ToDouble(txt_width1_rollid.Text) /
-            Convert.ToDouble(txt_width_cortado.Text), 2);
-
-            Double nrovueltas = Math.Round(Convert.ToDouble(txt_lenght1_rollid.Text) /
-                Convert.ToDouble(txt_lenght_cortado.Text), 2);
-
-            // CALCULO UTILIZADO TODO EL MATERIAL. 
-            if (chk_todo_master.Checked == false)
+            if (txt_pies_malos2.Text == "") 
             {
-                CantMaxRollo1 = Convert.ToInt32(Math.Truncate(rollosxmaster) * Math.Truncate(nrovueltas));
+                return;
             }
-            else
-            {
-            }
-
-            // VERIFICAR LA CAPACIDAD DE PRODUCCION.
-            if (CantMaxRollo1 >= Convert.ToDouble(txt_cant_cortado.Text)) 
-            {
-                //puedo sacar la planificacion de produccion
-                chk_capacity.Checked = true;
-
-            }
-            else 
-            {
-                chk_capacity.Checked = false;
-            }
-
-            //ASIGNO LOS VALORES MAXIMOS DE RENDIMIENTO DE MASTER
-            txt_rollosxmaster.Text = rollosxmaster.ToString();
-            txt_numero_vueltas.Text = nrovueltas.ToString();
-            txt_cant_master1.Text = CantMaxRollo1.ToString();
-
-            //rollos x master a lo ancho y numero de vueltas.
-            int rolloMax = Convert.ToInt32(Math.Truncate(rollosxmaster));
-            int vueltaMax = Convert.ToInt16(Math.Truncate(nrovueltas));
-
-            //crear tabla de las vueltas
-            List<TablaMaster> tabla = new List<TablaMaster>();
-            int lim1 = 1;
-            int lim2 = rolloMax;
-            for (int i = 0; i < vueltaMax; i++)
-            {
-                TablaMaster fila = new TablaMaster
-                {
-                    L1 = lim1,
-                    L2 = lim2,
-                    Vuelta = (i + 1)
-                };
-                tabla.Add(fila);
-                txt_tabla1.Text = txt_tabla1.Text + lim1 + " - " + lim2 + " - " +
-                    (i + 1).ToString() + Environment.NewLine;
-                lim1 += rolloMax;
-                lim2 += rolloMax;
-            }
-
-            //calculo las vueltas reales
-            foreach (TablaMaster item in tabla)
-            {
-                if (Convert.ToDouble(txt_cant_cortado.Text) >= item.L1 && Convert.ToDouble(txt_cant_cortado.Text) <= item.L2)
-                {
-                    txt_vueltas_real.Text = item.Vuelta.ToString();
-                    txt_sobran.Text = (Convert.ToInt16(item.L2) -
-                    Convert.ToInt16(txt_cant_cortado.Text)).ToString();
-                }
-            }
-            //si la planificacion es mayor que el rendimiento del master.
-            if (txt_vueltas_real.Text == string.Empty) 
-            {
-                txt_vueltas_real.Text = vueltaMax.ToString();
-                txt_sobran.Text = "0";
-            }
-            txt_rollos_real.Text = (Convert.ToDouble(txt_vueltas_real.Text) * rolloMax).ToString();
-
-            //calculo del master sobrante.
-            double width_dif = Convert.ToDouble(txt_width1_rollid.Text) -
-                  (rolloMax * Convert.ToInt16(txt_width_cortado.Text));
-
-            double lenght_dif = Convert.ToDouble(txt_lenght1_rollid.Text) -
-                   (Convert.ToDouble(txt_lenght_cortado.Text) * Convert.ToInt16(txt_vueltas_real.Text));
-            if (lenght_dif == 0) 
-            {
-                lenght_dif = Convert.ToDouble(txt_lenght1_rollid.Text);
-            }
-            if (width_dif == 0)
-            {
-                width_dif = Convert.ToDouble(txt_width1_rollid.Text);
-            }
-            double msi_dif = (width_dif * lenght_dif) * R.CONSTANTES.FACTOR_CALCULO_MSI;
-            txt_width_dif.Text = width_dif.ToString();
-            txt_lenght_dif.Text = lenght_dif.ToString();
-            txt_msi_dif.Text = msi_dif.ToString();
-        }
-        private void CALCULO_MASTER_2()
-        {
-            Double rollosxWidth = Math.Round(Convert.ToDouble(txt_width2_rollid.Text) /
-                   Convert.ToDouble(txt_width_cortado.Text),2);
-
-            Double nrovueltas = Math.Round(Convert.ToDouble(txt_lenght2_rollid.Text) /
-                Convert.ToDouble(txt_lenght_cortado.Text), 2);
-
-            if (chk_todo_master.Checked == false)
-            {
-                CantMaxRollo2 = Convert.ToInt32( Math.Truncate(rollosxWidth) * Math.Truncate(nrovueltas));
-            }
-            else
-            {
-
-            }
-            // VERIFICAR LA CAPACIDAD DE PRODUCCION.
-
-            if (CantMaxRollo1+CantMaxRollo2 >= Convert.ToDouble(txt_cant_cortado.Text)) 
-            {
-                chk_capacity.Checked = true;
-                bot_generar_rollos_cortados.Enabled = true;
-            }
-
-            //rollos x master a lo ancho y numero de vueltas.
-            int rolloMax = Convert.ToInt32(Math.Truncate(rollosxWidth));
-            int vueltaMax = Convert.ToInt16(Math.Truncate(nrovueltas));
-
-
-            //ASIGNAR LOS VALORES MAXIMOS. 
-            txt_rollosxWidth2.Text = rollosxWidth.ToString();
-            txt_num_vueltas2.Text = nrovueltas.ToString();
-            txt_cant_master2.Text = CantMaxRollo2.ToString();
-
-            //crear tabla de las vueltas
-            List<TablaMaster> tabla = new List<TablaMaster>();
-            int lim1 = 1;
-            int lim2 = rolloMax;
-            for (int i = 0; i < vueltaMax; i++)
-            {
-                TablaMaster fila = new TablaMaster
-                {
-                    L1 = lim1,
-                    L2 = lim2,
-                    Vuelta = (i + 1)
-                };
-                tabla.Add(fila);
-                txt_tabla2.Text = txt_tabla2.Text + lim1 + " - " + lim2 + " - " + (i + 1).ToString() + Environment.NewLine;
-                lim1 += rolloMax;
-                lim2 += rolloMax;
-
-            }
-
-            //CALCULAR LOS ROLLOS FALTANTES.
-
-            txt_rollos_real2.Text = (Convert.ToInt32(txt_cant_cortado.Text) 
-                - Convert.ToInt32(txt_rollos_real.Text)).ToString();
-
-            //calculo las vueltas reales
-            foreach (TablaMaster item in tabla)
-            {
-                if (Convert.ToDouble(txt_rollos_real2.Text) >= item.L1 && Convert.ToDouble(txt_rollos_real2.Text) <= item.L2)
-                {
-                    txt_vueltas_real2.Text = item.Vuelta.ToString();
-                    txt_sobran2.Text = (Convert.ToInt16(item.L2) -
-                    Convert.ToInt16(txt_rollos_real2.Text)).ToString();
-                }
-            }
-
-            //calculo del master sobrante.
-            double width_dif = Convert.ToDouble(txt_width2_rollid.Text) -
-                  (rolloMax * Convert.ToInt16(txt_width_cortado.Text));
-
-            double lenght_dif = Convert.ToDouble(txt_lenght2_rollid.Text) -
-                   (Convert.ToDouble(txt_lenght_cortado.Text) * Convert.ToInt16(txt_vueltas_real2.Text));
-            if (lenght_dif == 0)
-            {
-                lenght_dif = Convert.ToDouble(txt_lenght2_rollid.Text);
-            }
-            if (width_dif == 0)
-            {
-                width_dif = Convert.ToDouble(txt_width2_rollid.Text);
-            }
-            double msi_dif = (width_dif * lenght_dif) * R.CONSTANTES.FACTOR_CALCULO_MSI;
-            txt_width_dif2.Text = width_dif.ToString();
-            txt_lenght_dif2.Text = lenght_dif.ToString();
-            txt_msi_dif2.Text = msi_dif.ToString();
-
-
-
-        }
-        private void bot_add_cortes_Click(object sender, EventArgs e)
-        {
-            Corte item = new Corte();
-            item.Division = listacorte.Count+1;
-            listacorte.Add(item);
-            grid_cortes.DataSource = null;
-            grid_cortes.DataSource = listacorte;
-            if (listacorte.Count > 0)
-            {
-                bot_delete_cortes.Enabled = true;
-
-            }
+            double real = Convert.ToDouble(txt_lenght2_rollid.Text) - Convert.ToDouble(txt_pies_malos2.Text);
+            txt_pies_real2.Text = real.ToString();
         }
 
-        private void bot_delete_cortes_Click(object sender, EventArgs e)
+
+
+        #endregion
+        private void txt_cort_largo2_KeyUp(object sender, KeyEventArgs e)
         {
-            
-
-            bot_delete_cortes.Enabled = true;
-            var itemToRemove = listacorte.Single(r => r.Division == 
-            Convert.ToInt32(grid_cortes.Rows[grid_cortes.CurrentRow.Index].Cells["div"].Value));
-            listacorte.Remove(itemToRemove);
-
-            int row = 1; 
-            foreach (Corte item in listacorte) 
+            if (txt_cort_largo2.Text == "")
             {
-                item.Division = row;
-                row++;
+                return; 
             }
-            
-            
-            grid_cortes.DataSource = null;
-            grid_cortes.DataSource = listacorte;
-
-            if (listacorte.Count == 0)
-            {
-                bot_delete_cortes.Enabled = false;
-
-            }
+            CALCULAR_NUMERO_ROLLOS2();
+            CALCULAR_MATERIAL_RESTANTE2();
+            txt_width_u2.Text = txt_cort_total_ancho.Text;
         }
 
-        private void grid_cortes_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            double total_inch_ancho = 0;
-            for (int i = 0; i <= grid_cortes.Rows.Count-1; i++) 
-            {
-                total_inch_ancho += Convert.ToDouble(grid_cortes.Rows[i].Cells["width"].Value);
-            }
-            txt_cort_total_ancho.Text = total_inch_ancho.ToString();
-            txt_cort_ancho.Text = grid_cortes.Rows.Count.ToString();
-        }
-
-        private void label46_Click(object sender, EventArgs e)
+        private void txt_cort_rollos_cortar_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void txt_cort_largo_KeyUp(object sender, KeyEventArgs e)
+        private void txt_width2_r_TextChanged(object sender, EventArgs e)
         {
-            double total_rollos = Convert.ToDouble(txt_cort_ancho.Text) * Convert.ToDouble(txt_cort_largo.Text);
-            txt_cort_rollos_cortar.Text = total_rollos.ToString();
+
         }
 
-        private List<SqlParameter> GetParametersRendimiento() 
+        private void txt_cort_largo2_TextChanged(object sender, EventArgs e)
         {
-            List<SqlParameter> sp = new List<SqlParameter>()
-            {
-                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_rollosxmaster.Text)},
-                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_numero_vueltas.Text)},
-                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_cant_master1.Text)},
-                new SqlParameter() {ParameterName = "@p4", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_vueltas_real.Text)},
-                new SqlParameter() {ParameterName = "@p5", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_rollos_real.Text)},
-                new SqlParameter() {ParameterName = "@p6", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_sobran.Text)},
-                new SqlParameter() {ParameterName = "@p7", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_width_dif.Text)},
-                new SqlParameter() {ParameterName = "@p8", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_lenght_dif.Text)},
-                new SqlParameter() {ParameterName = "@p9", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_msi_dif.Text)},
-                new SqlParameter() {ParameterName = "@p10", SqlDbType = SqlDbType.Text, Value = txt_tabla1.Text},
-                new SqlParameter() {ParameterName = "@p11", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_rollosxWidth2.Text)},
-                new SqlParameter() {ParameterName = "@p12", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_num_vueltas2.Text)},
-                new SqlParameter() {ParameterName = "@p13", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_cant_master2.Text)},
-                new SqlParameter() {ParameterName = "@p14", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_vueltas_real2.Text)},
-                new SqlParameter() {ParameterName = "@p15", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_rollos_real2.Text)},
-                new SqlParameter() {ParameterName = "@p16", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_sobran2.Text)},
-                new SqlParameter() {ParameterName = "@p17", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_width_dif2.Text)},
-                new SqlParameter() {ParameterName = "@p18", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_lenght_dif2.Text)},
-                new SqlParameter() {ParameterName = "@p19", SqlDbType = SqlDbType.Decimal, Value = Convert.ToDouble(txt_msi_dif2.Text)},
-                new SqlParameter() {ParameterName = "@p20", SqlDbType = SqlDbType.Text, Value = txt_tabla2.Text},
-                new SqlParameter() {ParameterName = "@p21", SqlDbType = SqlDbType.Text, Value = txt_numero_oc.Text}
-            };
-            return sp;
+
         }
-        private void LIMPIAR_CAMPOS_RENDIMIENTO() 
-        {
-            txt_rollosxmaster.Text = "";
-            txt_numero_vueltas.Text = "";
-            txt_cant_master1.Text = "";
-            txt_vueltas_real.Text = "";
-            txt_rollos_real.Text = "";
-            txt_sobran.Text = "";
-            txt_width_dif.Text = "";
-            txt_lenght_dif.Text = "";
-            txt_msi_dif.Text = "";
-            txt_tabla1.Text = "";
-            txt_rollosxWidth2.Text = "";
-            txt_num_vueltas2.Text = "";
-            txt_cant_master2.Text = "";
-            txt_vueltas_real2.Text = "";
-            txt_rollos_real2.Text = "";
-            txt_sobran2.Text = "";
-            txt_width_dif2.Text = "";
-            txt_lenght_dif2.Text = "";
-            txt_msi_dif2.Text = "";
-            txt_tabla2.Text = "";
-        }
-        private void DataBinding() 
-        {
-            txt_numero_oc.DataBindings.Add("text", bs, "numero");
-            txt_fecha_orden.DataBindings.Add("text", bs, "fecha");
-            txt_fecha_producc.DataBindings.Add("text", bs, "fecha_produccion");
-            txt_rollid_1.DataBindings.Add("text", bs, "rollid_1");
-            txt_width1_rollid.DataBindings.Add("text", bs, "width_1");
-            txt_lenght1_rollid.DataBindings.Add("text", bs, "lenght_1");
-            txt_rollid_2.DataBindings.Add("text", bs, "rollid_2");
-            txt_width2_rollid.DataBindings.Add("text", bs, "width_2");
-            txt_lenght2_rollid.DataBindings.Add("text", bs, "lenght_2");
-            txt_product_id.DataBindings.Add("text", bs, "product_id");
-            txt_product_name.DataBindings.Add("text", bs, "product_name");
-            txt_cant_cortado.DataBindings.Add("text", bs, "cant_cortado");
-            txt_width_cortado.DataBindings.Add("text", bs, "width_cortado");
-            txt_lenght_cortado.DataBindings.Add("text", bs, "lenght_cortado");
-            txt_msi_cortado.DataBindings.Add("text", bs, "msi_cortado");
-            chk_process.DataBindings.Add("Checked", bs, "procesado");
-            chk_anulado.DataBindings.Add("Checked", bs, "anulada");
-        }
-        private void GetRendimiento() 
-        {
-            string[] data = managerorden.GetDataRendimiento(txt_numero_oc.Text.Trim());
-            txt_rollosxmaster.Text = data[0];
-            txt_numero_vueltas.Text = data[1];
-            txt_cant_master1.Text = data[2];
-            txt_vueltas_real.Text = data[3];
-            txt_rollos_real.Text = data[4];
-            txt_sobran.Text = data[5];
-            txt_width_dif.Text = data[6];
-            txt_lenght_dif.Text = data[7];
-            txt_msi_dif.Text = data[8];
-            txt_tabla1.Text = data[9];
-            txt_rollosxWidth2.Text = data[10];
-            txt_num_vueltas2.Text = data[11];
-            txt_cant_master2.Text = data[12];
-            txt_vueltas_real2.Text = data[13];
-            txt_rollos_real2.Text = data[14];
-            txt_sobran2.Text = data[15];
-            txt_width_dif2.Text = data[16];
-            txt_lenght_dif2.Text = data[17];
-            txt_msi_dif2.Text = data[18];
-            txt_tabla2.Text = data[19];
-        }
-        private void INICIALIZAR_RENDIMIENTOS() 
-        {
-            //INICIALIZAR MASTER1
-            txt_rollosxmaster.Text = "0";
-            txt_numero_vueltas.Text = "0";
-            txt_cant_master1.Text = "0";
-            txt_vueltas_real.Text = "0";
-            txt_rollos_real.Text = "0";
-            txt_sobran.Text = "0";
-            txt_width_dif.Text = "0";
-            txt_lenght_dif.Text = "0";
-            txt_msi_dif.Text = "0";
-            txt_tabla1.Text = "";
-            //INICIALIZAR MASTER2
-            txt_rollosxWidth2.Text = "0";
-            txt_num_vueltas2.Text = "0";
-            txt_cant_master2.Text = "0";
-            txt_vueltas_real2.Text = "0";
-            txt_rollos_real2.Text = "0";
-            txt_sobran2.Text = "0";
-            txt_width_dif2.Text = "0";
-            txt_lenght_dif2.Text = "0";
-            txt_msi_dif2.Text = "0";
-            txt_tabla2.Text = "";
-        }
-    }
-    public class TablaMaster
-    {
-        public int L1 { get; set; }
-        public int L2 { get; set; }
-        public int Vuelta { get; set; }
-    }
-    public class Corte 
-    {
-        public int Division { get; set; }
-        public double Width { get; set; }
-        public double Lenght { get; set; }
     }
 }

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Windows.Forms;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using System.Windows.Forms;
 
 namespace RitramaAPP.Clases
 {
@@ -47,36 +44,7 @@ namespace RitramaAPP.Clases
                 return false;
             }
         }
-        public DataTable CommandSqlGenericDt(string db, string query,string messagefail)
-        {
-            SqlDataAdapter da = new SqlDataAdapter();
-            DataTable dt = new DataTable();
-            try
-            {
-                
-                Micomm.Conectar(db);
-                SqlCommand comando = new SqlCommand
-                {
-                    Connection = Micomm.cnn,
-                    CommandType = CommandType.Text,
-                    CommandText = query
-                };
-                comando.ExecuteNonQuery();
-                da.SelectCommand = comando;
-                da.Fill(dt);
-                comando.Dispose();
-                Micomm.Desconectar();
-  
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show(messagefail + ex);
-                
-            }
-            da.Dispose();
-            return dt;
-        }
-        public DataTable CommandSqlGenericDtOnePar(string db, string query, string messagefail,string product_id)
+        public DataTable CommandSqlGenericDt(string db, string query, string messagefail)
         {
             SqlDataAdapter da = new SqlDataAdapter();
             DataTable dt = new DataTable();
@@ -90,7 +58,36 @@ namespace RitramaAPP.Clases
                     CommandType = CommandType.Text,
                     CommandText = query
                 };
-                SqlParameter p1 = new SqlParameter("@p1",product_id);
+                comando.ExecuteNonQuery();
+                da.SelectCommand = comando;
+                da.Fill(dt);
+                comando.Dispose();
+                Micomm.Desconectar();
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(messagefail + ex);
+
+            }
+            da.Dispose();
+            return dt;
+        }
+        public DataTable CommandSqlGenericDtOnePar(string db, string query, string messagefail, string product_id)
+        {
+            SqlDataAdapter da = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            try
+            {
+
+                Micomm.Conectar(db);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = Micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = query
+                };
+                SqlParameter p1 = new SqlParameter("@p1", product_id);
                 comando.Parameters.Add(@p1);
                 comando.ExecuteNonQuery();
                 da.SelectCommand = comando;
@@ -108,7 +105,7 @@ namespace RitramaAPP.Clases
             da.Dispose();
             return dt;
         }
-        public List<Item> GetDataIni() 
+        public List<Item> GetDataIni()
         {
             //extraer data del txt de inventario inicial
             List<Item> items = new List<Item>();
@@ -160,7 +157,7 @@ namespace RitramaAPP.Clases
             }
             return items;
         }
-        public void SaveDataIni(List<Item> lista) 
+        public void SaveDataIni(List<Item> lista)
         {
             foreach (Item item in lista)
             {
@@ -182,30 +179,30 @@ namespace RitramaAPP.Clases
             };
             return sp;
         }
-        public DataTable ToListIni() 
+        public DataTable ToListIni()
         {
-            return CommandSqlGenericDt(R.SQL.DATABASE.NAME,R.SQL.QUERY_SQL.INVENTARIO.SQL_SELECT_INVENTARIO_INICIALES,
+            return CommandSqlGenericDt(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.INVENTARIO.SQL_SELECT_INVENTARIO_INICIALES,
                 R.ERROR_MESSAGES.INVENTARIO.MESSAGE_SELECT_INICIALES_ERROR);
         }
-        public DataTable CargarInventario() 
+        public DataTable CargarInventario()
         {
-            return  CommandSqlGenericDt(R.SQL.DATABASE.NAME,R.
+            return CommandSqlGenericDt(R.SQL.DATABASE.NAME, R.
                 SQL.QUERY_SQL.INVENTARIO.SQL_SELECT_INVENTARIO_QUERY_MASTER,
                 R.ERROR_MESSAGES.INVENTARIO.MESSAGE_CARGAR_INVENTARIO_ERROR);
         }
-        public DataTable CargarMovimientoEntradaMaster(string product_id) 
-        {    
+        public DataTable CargarMovimientoEntradaMaster(string product_id)
+        {
             return CommandSqlGenericDtOnePar(R.SQL.DATABASE.NAME,
                 R.SQL.QUERY_SQL.INVENTARIO.SQL_QUERY_ENTRADAS_MASTER_WHERE_PRODUCT_ID,
-                R.ERROR_MESSAGES.INVENTARIO.MESSAGE_CARGAR_MOVIMIENTO_MASTER,product_id);
+                R.ERROR_MESSAGES.INVENTARIO.MESSAGE_CARGAR_MOVIMIENTO_MASTER, product_id);
         }
 
-        public DataTable CargaMovimientoEntradaRollosCortados(string product_id) 
+        public DataTable CargaMovimientoEntradaRollosCortados(string product_id)
         {
             return CommandSqlGenericDtOnePar(R.SQL.DATABASE.NAME,
                    R.SQL.QUERY_SQL.INVENTARIO.SQL_QUERY_ENTRADAS_ROLLO_CORTADO_WHERE_PRODUCT_ID,
                    R.ERROR_MESSAGES.INVENTARIO.MESSAGE_CARGAR_ENTREDAS_ROLLO_CORTADO, product_id);
-           
+
         }
         public DataTable CargaMovimientoSalidasRollosCortados(string product_id)
         {

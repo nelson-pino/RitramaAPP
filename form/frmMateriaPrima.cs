@@ -14,7 +14,7 @@ namespace RitramaAPP
         {
             InitializeComponent();
         }
-       
+
         readonly RecepcionManager manager = new RecepcionManager();
         readonly BindingSource bs = new BindingSource();
         DataSet ds = new DataSet();
@@ -46,7 +46,7 @@ namespace RitramaAPP
             txt_cant_palet.DataBindings.Add("text", bs, "palet_cant");
             txt_paginas.DataBindings.Add("text", bs, "palet_pag");
             CHK_ANULADO.DataBindings.Add("checked", bs, "anulado");
-            txt_width_metros.DataBindings.Add("text",bs,"width_metros");
+            txt_width_metros.DataBindings.Add("text", bs, "width_metros");
             txt_lenght_metros.DataBindings.Add("text", bs, "lenght_metros");
             ContadorRegistros();
         }
@@ -245,7 +245,7 @@ namespace RitramaAPP
             {
                 Orden = txt_orden.Text,
                 Fecha_produccion = Convert.ToDateTime(txt_fecha_produccion.Text),
-                Fecha_recepcion  = Convert.ToDateTime(Txt_fecha_recep.Text),
+                Fecha_recepcion = Convert.ToDateTime(Txt_fecha_recep.Text),
                 Embarque = txt_num_embarque.Text,
                 Roll_ID = txt_roll_id.Text,
                 Ubicacion = txt_ubic.Text,
@@ -599,12 +599,12 @@ namespace RitramaAPP
         private void CONVERT_INCH_METROS()
         {
             double width_inch_metros = Math.Round(Convert.ToDouble(txt_width.Text)
-                *R.CONSTANTES.FACTOR_PULGADAS_METROS,2);
+                * R.CONSTANTES.FACTOR_PULGADAS_METROS, 2);
             txt_width_metros.Text = width_inch_metros.ToString();
         }
         private void CONVERT_PIES_METROS()
         {
-            double width_pie_metros = Math.Round(Convert.ToDouble(txt_lenght.Text) 
+            double width_pie_metros = Math.Round(Convert.ToDouble(txt_lenght.Text)
                 * R.CONSTANTES.FACTOR_PIES_METROS, 2);
             txt_lenght_metros.Text = width_pie_metros.ToString();
         }

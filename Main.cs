@@ -1,5 +1,4 @@
 ﻿using RitramaAPP.form;
-using System;
 using System.Windows.Forms;
 
 namespace RitramaAPP
@@ -37,7 +36,7 @@ namespace RitramaAPP
                     fcorte.TopLevel = false;
                     this.panel1.Controls.Add(fcorte);
                     fcorte.Dock = DockStyle.Fill;
-                     fcorte.Show();
+                    fcorte.Show();
                     break;
                 case "Productos":
                     panel1.Controls.Clear();
