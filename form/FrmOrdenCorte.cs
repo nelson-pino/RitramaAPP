@@ -134,13 +134,35 @@ namespace RitramaAPP
             }
             //llenar el encabezado de la orden de produccion
             managerorden.Add(CrearObjectOrden(), false);
-            UPDATE_INVENTARIO_MASTER();
+            if (chk_rebobinado.Checked == false) 
+            {
+                UPDATE_INVENTARIO_MASTER();
+            }
+            else 
+            {
+                UPDATE_INVENTARIO_REBO();
+            }
+            
 
             chk_process.DataBindings.Add("Checked", bs, "procesado");
             chk_anulado.DataBindings.Add("Checked", bs, "anulada");
             OptionsMenu(1);
             OptionsForm(1);
             EditMode = 0;
+        }
+        private void UPDATE_INVENTARIO_REBO() 
+        {
+            if (Convert.ToDouble(txt_lenght1_r.Text) > 0)
+            {
+                // RESTO EL CONSUMO ACTUALIZO MASTER1
+                managerorden.UPDATE_INVENTARIO_RC(orden.Rollid_1, orden.Util1_Real_Width
+                    , orden.Util1_real_Lenght + orden.Descartable1_pies);
+            }
+            else
+            {
+                // SE CONSUMIO TODO LO SACO DEL INVENTARIO
+                managerorden.UpdateUniqueCode(orden.Rollid_1);
+            }
         }
         private void UPDATE_INVENTARIO_MASTER() 
         {
@@ -179,6 +201,7 @@ namespace RitramaAPP
         }
         private void CargarRollIDNumber(int state)
         {
+            //state 0 = rollid1 state 1 = rollid2
             using (FrmBuscarRollid rollid = new FrmBuscarRollid())
             {
                 rollid.Dtrollid = managerorden.CargarRollsId();
@@ -192,6 +215,15 @@ namespace RitramaAPP
                     txt_pies_real.Text = rollid.GetvalueLenght;
                     txt_product_id.Text = rollid.Getproduct_id;
                     txt_product_name.Text = rollid.GetProduct_name;
+                    //verificar si es rebobinado.
+                    if (rollid.rebobinado == true)
+                    {
+                        chk_rebobinado.Checked = true;
+                    }
+                    else 
+                    {
+                        chk_rebobinado.Checked = false;
+                    }
                 }
                 else
                 {
@@ -602,6 +634,7 @@ namespace RitramaAPP
         private void Bot_buscar_rollid1_Click(object sender, EventArgs e)
         {
             CargarRollIDNumber(0);
+
         }
         private void Bot_buscar_rollid2_Click(object sender, EventArgs e)
         {

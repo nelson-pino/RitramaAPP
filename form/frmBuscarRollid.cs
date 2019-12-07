@@ -19,8 +19,11 @@ namespace RitramaAPP.form
         public string GetProduct_name { get; set; }
         public string GetValueWidth { get; set; }
         public string GetvalueLenght { get; set; }
+        public Boolean rebobinado { get; set; }
+        
         private void FrmBuscarRollid_Load(object sender, EventArgs e)
         {
+            rebobinado = false;
             dv = Dtrollid.DefaultView;
             Grid_Items.AutoGenerateColumns = false;
             AplicarEstilosGrid();
@@ -108,10 +111,7 @@ namespace RitramaAPP.form
             dv = produccionmanager.GetUniqueCodeToList().DefaultView;
             Grid_Items.DataSource = dv;
             CONTADOR_REGISTRO.Text = Convert.ToString(dv.Count) + " registros encontrados.";
-
-
+            rebobinado = true;
         }
-
-
     }
 }

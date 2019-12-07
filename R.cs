@@ -79,7 +79,7 @@ namespace RitramaAPP
                         "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13)";
                     public static string SQL_QUERY_SELECT_ROLLID = "SELECT a.roll_id,a.part_number,a.master,a.resma,a.graphics,b.product_name,case when a.Width=a.width_c then Width else a.Width-a.width_c end as width,"+
                     "lenght=a.lenght-a.lenght_c,disponible,fecha_pro,fecha_recep,splice,Ubicacion FROM OrdenRecepcion a LEFT JOIN producto b ON a.part_number = b.product_id where b.MasterRolls = 1 and a.disponible = 1 ORDER BY fecha_recep,splice ASC";
-                    public static string SQL_QUERY_SELECT_ROLLOS_CORTADOS = "SELECT numero,product_id,product_name,roll_number,unique_code,splice,width,large,msi,roll_id,code_person,status FROM rolls_details ORDER BY roll_number";
+                    public static string SQL_QUERY_SELECT_ROLLOS_CORTADOS = "SELECT numero,product_id,product_name,roll_number,unique_code,splice,width,width_c,large,lenght_c,msi,roll_id,code_person,status FROM rolls_details ORDER BY roll_number";
                     public static string SQL_QUERY_INSERT_ROLLID = "INSERT INTO roll_id (numero,roll_id) VALUES (@P1,@p2)";
                     public static string SQL_QUERY_INSERT_ROLLS_DETAILS = "INSERT rolls_details (fecha,numero,roll_number,product_id," +
                         "product_name,roll_id,width,large,msi,splice,code_perso,unique_code) VALUES (@r1,@r2,@r3,@r4,@r5,@r6,@r7,@r8,@r9,@r10,@r11,@r12)";
@@ -91,6 +91,8 @@ namespace RitramaAPP
                     public static string SQL_QUERY_SELECT_GETDATA_UNIQUE_CODE = "SELECT numero,product_id,product_name,roll_number,width,large,msi,splice,roll_id,code_person,status,unique_code FROM rolls_details WHERE unique_code=@p1";
                     public static string SQL_QUERY_SELECT_GETDATA_CODE_RC = "SELECT code_RC FROM producto WHERE product_id=@p1";
                     public static string SQL_QUERY_UPDATE_ROLLID_DISPONIBILIDAD = "UPDATE OrdenRecepcion SET disponible=0 WHERE Roll_Id=@p1";
+                    public static string SQL_QUERY_UPDATE_UNIQUE_CODE = "UPDATE rolls_details SET disponible=0 WHERE unique_code=@p1";
+
                     public static string SQL_QUERY_SELECT_VERIFIFY_REPEAT_OC = "SELECT count(*) FROM orden_corte WHERE numero=@p1";
                     public static string SQL_QUERY_DELETE_UNIQUE_CODE = "DELETE FROM rolls_details WHERE unique_code=@p1";
                     public static string SQL_QUERY_PROCESAR_ORDEN_OC = "UPDATE orden_corte SET Procesado=1 WHERE numero=@p1";
@@ -99,9 +101,10 @@ namespace RitramaAPP
                     public static string SQL_QUERY_SELECT_DATOS_RENDIMIENTO_MASTER = "SELECT WidRollosMax1,nVueltasMax1,CantRollosMax1,nVueltasReal1,CantRollosReal1,RollosSobran1,WidResidual1,LenResidual1,MsiResidual1,Tabla1,WidRollosMax2,nVueltasMax2,CantRollosMax2,nVueltasReal2,CantRollosReal2,RollosSobran2,WidResidual2,LenResidual2,MsiResidual2,Tabla2,numero_oc FROM rendim WHERE numero_oc=@p1";
                     public static string SQL_QUERY_INSERT_ITEMS_CORTES = "INSERT INTO Cortes (num,width,lenght,msi,orden) VALUES (@P1,@p2,@p3,@p4,@p5)";
                     public static string SQL_QUERY_SELECT_ITEMS_CORTES = "SELECT num,width,lenght,msi,orden FROM Cortes WHERE orden=@p1";
-                    public static string SQL_QUERY_SELECT_UNIQUE_CODE_LIST = "SELECT product_id,roll_number,unique_code,splice,width,large,product_name,roll_id,msi," +
-                        "code_person,status FROM rolls_details ORDER BY unique_code";
+                    public static string SQL_QUERY_SELECT_UNIQUE_CODE_LIST = "SELECT product_id,roll_number,unique_code,splice,case when width=width_c then width else width-width_c end as width,large=large-lenght_c,product_name,roll_id,msi," +
+                        "code_person,status FROM rolls_details WHERE disponible = 1 ORDER BY unique_code";
                     public static string SQL_UPDATE_INVENTARIO_MASTER = "UPDATE ordenRecepcion SET width_c = @p2 ,lenght_c = lenght_c + @p3 WHERE roll_id = @p1" ;
+                    public static string SQL_UPDATE_INVENTARIO_RC = "UPDATE rolls_details SET width_c = @p2 ,lenght_c = lenght_c + @p3 WHERE unique_code = @p1";
                 }
                 public class DESPACHOS
                 {
@@ -191,6 +194,7 @@ namespace RitramaAPP
                 public static string MESSAGE_DELETE_ORDER_ROLLSDETAIL = "Error al tratar de eliminar informacion de los rollos cortados...";
                 public static string MESSAGE_UPDATE_ERROR_ORDER_ROLLSDETAIL = "ERROR AL ACTUALIZAR LA DATA DE LOS ROLLOS CORTADOS...";
                 public static string MESSAGE_UPDATE_ERROR_UPDATE_ROLLID = "Error al actualizar la disponibilidad de los numeros ROLL ID.";
+                public static string MESSAGE_UPDATE_ERROR_UPDATE_UNIQUE_CODE = "Error al actualizar la disponibilidad de los numeros UNIQUE CODE.";
                 public static string MESSAGE_UPDATE_PROCESAR_ORDEN_OC = "Error al procesar documento de orden de corte";
                 public static string MESSAGE_UPDATE_ANULAR_ORDEN_OC = "Error al Anular documento de orden de corte";
                 public static string MESSAGE_ADD_RENDIM_MASTER = "Error al Anular documento de orden de corte";
@@ -198,7 +202,7 @@ namespace RitramaAPP
                 public static string MESSAGE_SELECT_ITEMS_CORTES = "Error al cargar los datos de la dimension de los cortes...";
                 public static string MESSAGE_SELECT_UNIQUE_CODE_TOLIST = "Error al cargar la data de los RC (Unique code) de la base de datos...";
                 public static string MESSAGE_UPDATE_INVENTARIO_MASTER = "Error al actualizar los inventario de master (Material remanente)...";
-
+                public static string MESSAGE_UPDATE_INVENTARIO_RC = "Error al actualizar los inventario de unique code (REBOBINADO)...";
             }
             public class DESPACHOS
             {

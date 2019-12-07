@@ -19,7 +19,6 @@ namespace RitramaAPP.Clases
         public DataTable Dtrenglones => dtrenglones;
         public DataTable Dtproducts => dtproducts;
         public DataTable Dtordenes => dtordenes;
-
         public ProduccionManager()
         {
             CargarProducts();
@@ -161,6 +160,12 @@ namespace RitramaAPP.Clases
             CommandSqlGeneric(R.SQL.DATABASE.NAME,R.SQL.QUERY_SQL.PRODUCCION.
                 SQL_UPDATE_INVENTARIO_MASTER,SetParametersUpdateinventarioMaster(rollid,wid,len),false,
                 R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_INVENTARIO_MASTER);
+        }
+        public void UPDATE_INVENTARIO_RC(string rc, Double wid, Double len) 
+        {
+            CommandSqlGeneric(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCCION.SQL_UPDATE_INVENTARIO_RC
+                    , SetParametersUpdateinventarioRc(rc,wid,len), false,
+                    R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_INVENTARIO_MASTER);
         }
         public void CargarProducts()
         {
@@ -481,7 +486,6 @@ namespace RitramaAPP.Clases
             };
             return sp;
         }
-
         public List<SqlParameter> SetParametersUpdateinventarioMaster(string rollid,double width_c,double lenght_c)
         {
             List<SqlParameter> sp = new List<SqlParameter>()
@@ -492,7 +496,16 @@ namespace RitramaAPP.Clases
             };
             return sp;
         }
-
+        public List<SqlParameter> SetParametersUpdateinventarioRc(string rc, double width_c, double lenght_c)
+        {
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = rc},
+                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.Decimal, Value = width_c},
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.Decimal, Value = lenght_c}
+            };
+            return sp;
+        }
         public void DeleteRollDetailsOrden(string numero)
         {
             CommandSqlGenericOneParameter(R.SQL.DATABASE.NAME, R.
@@ -575,6 +588,12 @@ namespace RitramaAPP.Clases
             CommandSqlGenericOneParameter(R.SQL.DATABASE.NAME,
                 R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_UPDATE_ROLLID_DISPONIBILIDAD,
                 numberRollId, false, R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_ERROR_UPDATE_ROLLID);
+        }
+        public void UpdateUniqueCode(string UniqueCode) 
+        {
+            CommandSqlGenericOneParameter(R.SQL.DATABASE.NAME,
+                   R.SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_UPDATE_UNIQUE_CODE,
+                   UniqueCode, false, R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_ERROR_UPDATE_UNIQUE_CODE);
         }
         public Boolean OrderExiste(string codigo)
         {

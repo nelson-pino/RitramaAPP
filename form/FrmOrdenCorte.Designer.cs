@@ -109,6 +109,7 @@
             this.txt_pies_real2 = new System.Windows.Forms.TextBox();
             this.txt_cort_largo2 = new System.Windows.Forms.TextBox();
             this.txt_cort_rollos_cortar2 = new System.Windows.Forms.TextBox();
+            this.chk_rebobinado = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_rollos)).BeginInit();
@@ -922,12 +923,24 @@
             this.txt_cort_rollos_cortar2.Size = new System.Drawing.Size(70, 20);
             this.txt_cort_rollos_cortar2.TabIndex = 139;
             // 
+            // chk_rebobinado
+            // 
+            this.chk_rebobinado.AutoSize = true;
+            this.chk_rebobinado.Enabled = false;
+            this.chk_rebobinado.Location = new System.Drawing.Point(365, 192);
+            this.chk_rebobinado.Name = "chk_rebobinado";
+            this.chk_rebobinado.Size = new System.Drawing.Size(116, 17);
+            this.chk_rebobinado.TabIndex = 140;
+            this.chk_rebobinado.Text = "Orden Reboninado";
+            this.chk_rebobinado.UseVisualStyleBackColor = true;
+            // 
             // FrmOrdenCorte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(921, 673);
+            this.Controls.Add(this.chk_rebobinado);
             this.Controls.Add(this.txt_cort_rollos_cortar2);
             this.Controls.Add(this.txt_cort_largo2);
             this.Controls.Add(this.txt_pies_real2);
@@ -1091,5 +1104,6 @@
         private System.Windows.Forms.TextBox txt_cort_largo2;
         private System.Windows.Forms.TextBox txt_cort_rollos_cortar2;
         private System.Windows.Forms.ToolStripButton BOT_IMPRIMIR;
+        private System.Windows.Forms.CheckBox chk_rebobinado;
     }
 }
