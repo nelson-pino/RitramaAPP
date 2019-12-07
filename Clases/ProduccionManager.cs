@@ -156,6 +156,12 @@ namespace RitramaAPP.Clases
             return true;
 
         }
+        public void Update_Inventario_Master(string rollid,Double wid, Double len) 
+        {
+            CommandSqlGeneric(R.SQL.DATABASE.NAME,R.SQL.QUERY_SQL.PRODUCCION.
+                SQL_UPDATE_INVENTARIO_MASTER,SetParametersUpdateinventarioMaster(rollid,wid,len),false,
+                R.ERROR_MESSAGES.PRODUCCION.MESSAGE_UPDATE_INVENTARIO_MASTER);
+        }
         public void CargarProducts()
         {
             CommandSqlGenericUpdateDs(R.SQL.DATABASE.NAME, R.SQL.QUERY_SQL.PRODUCTS.SQL_QUERY_SELECT_PRODUCT_ALL,
@@ -415,15 +421,16 @@ namespace RitramaAPP.Clases
                 new SqlParameter() {ParameterName = "@p19", SqlDbType = SqlDbType.Decimal, Value = datos.Master_lenght1_Real},
                 new SqlParameter() {ParameterName = "@p20", SqlDbType = SqlDbType.Decimal, Value = datos.Util1_Real_Width},
                 new SqlParameter() {ParameterName = "@p21", SqlDbType = SqlDbType.Decimal, Value = datos.Util1_real_Lenght},
-                new SqlParameter() {ParameterName = "@p22", SqlDbType = SqlDbType.Decimal, Value = datos.rest1_width},
-                new SqlParameter() {ParameterName = "@p23", SqlDbType = SqlDbType.Decimal, Value = datos.rest1_lenght},
+                new SqlParameter() {ParameterName = "@p22", SqlDbType = SqlDbType.Decimal, Value = datos.Rest1_width},
+                new SqlParameter() {ParameterName = "@p23", SqlDbType = SqlDbType.Decimal, Value = datos.Rest1_lenght},
                 new SqlParameter() {ParameterName = "@p24", SqlDbType = SqlDbType.Decimal, Value = datos.Descartable2_pies},
                 new SqlParameter() {ParameterName = "@p25", SqlDbType = SqlDbType.Decimal, Value = datos.Master_lenght2_Real},
                 new SqlParameter() {ParameterName = "@p26", SqlDbType = SqlDbType.Decimal, Value = datos.Util2_Real_Width},
                 new SqlParameter() {ParameterName = "@p27", SqlDbType = SqlDbType.Decimal, Value = datos.Util2_real_Lenght},
-                new SqlParameter() {ParameterName = "@p28", SqlDbType = SqlDbType.Decimal, Value = datos.rest2_width},
-                new SqlParameter() {ParameterName = "@p29", SqlDbType = SqlDbType.Decimal, Value = datos.rest2_lenght},
-                new SqlParameter() {ParameterName = "@p30", SqlDbType = SqlDbType.Decimal, Value = datos.rest2_lenght}
+                new SqlParameter() {ParameterName = "@p28", SqlDbType = SqlDbType.Decimal, Value = datos.Rest2_width},
+                new SqlParameter() {ParameterName = "@p29", SqlDbType = SqlDbType.Decimal, Value = datos.Rest2_lenght},
+                new SqlParameter() {ParameterName = "@p30", SqlDbType = SqlDbType.Int, Value = datos.Cortes_Largo2},
+                new SqlParameter() {ParameterName = "@p31", SqlDbType = SqlDbType.Int, Value = datos.Cantidad_Rollos2}
             };
             return sp;
         }
@@ -474,11 +481,30 @@ namespace RitramaAPP.Clases
             };
             return sp;
         }
+
+        public List<SqlParameter> SetParametersUpdateinventarioMaster(string rollid,double width_c,double lenght_c)
+        {
+            List<SqlParameter> sp = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName = "@p1", SqlDbType = SqlDbType.NVarChar, Value = rollid},
+                new SqlParameter() {ParameterName = "@p2", SqlDbType = SqlDbType.Decimal, Value = width_c},
+                new SqlParameter() {ParameterName = "@p3", SqlDbType = SqlDbType.Decimal, Value = lenght_c}
+            };
+            return sp;
+        }
+
         public void DeleteRollDetailsOrden(string numero)
         {
             CommandSqlGenericOneParameter(R.SQL.DATABASE.NAME, R.
                 SQL.QUERY_SQL.PRODUCCION.SQL_QUERY_DELETE_ORDEN_ROLLDETAILS, numero, false,
                 R.ERROR_MESSAGES.PRODUCCION.MESSAGE_DELETE_ORDER_ROLLSDETAIL);
+        }
+        public DataTable GetUniqueCodeToList() 
+        {
+            return CommandSqlGenericDt(R.SQL.DATABASE.NAME,R.SQL.QUERY_SQL.
+                PRODUCCION.SQL_QUERY_SELECT_UNIQUE_CODE_LIST, 
+                R.ERROR_MESSAGES.PRODUCCION.
+                MESSAGE_SELECT_UNIQUE_CODE_TOLIST);
         }
         public Roll_Details GetDataUniqueCode(string rc)
         {

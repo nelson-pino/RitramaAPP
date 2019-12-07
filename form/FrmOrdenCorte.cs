@@ -1,4 +1,5 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using Microsoft.Office.Interop.Excel;
 using RitramaAPP.Clases;
 using RitramaAPP.form;
 using System;
@@ -28,8 +29,8 @@ namespace RitramaAPP
         DataSet ds = new DataSet();
         private DataRowView ParentRow;
         int EditMode = 0;
-        string modproduct_id;
         Boolean ischanged_rollos = false;
+        string modproduct_id;
         Orden orden;
         public static List<Corte> listacorte;
 
@@ -49,6 +50,9 @@ namespace RitramaAPP
             AGREGAR_COLUMN_GRID("width", 45, "Width", "width", grid_cortes);
             AGREGAR_COLUMN_GRID("lenght", 45, "Lenght", "lenght", grid_cortes);
             AGREGAR_COLUMN_GRID("msi", 45, "Msi", "msi", grid_cortes);
+            grid_cortes.Columns["num"].ReadOnly = true;
+            grid_cortes.Columns["lenght"].ReadOnly = true;
+            grid_cortes.Columns["msi"].ReadOnly = true;
             VERIFICAR_DOCUMENTO();
 
         }
@@ -95,6 +99,12 @@ namespace RitramaAPP
         #region FUNCTIONS
         private void ToSaveAdd()
         {
+            if (managerorden.OrderExiste(txt_numero_oc.Text))
+            {
+                MessageBox.Show("La Orden produccion : " + txt_numero_oc.Text + " ya existe.");
+                txt_numero_oc.Text = "";
+                return;
+            }
             //validar el formulario
             if (txt_numero_oc.Text.Length == 0 || txt_numero_oc.Text == "0")
             {
@@ -111,25 +121,53 @@ namespace RitramaAPP
                 MessageBox.Show("introduzca el product id.");
                 return;
             }
-
             if (grid_rollos.Rows.Count == 0)
             {
                 MessageBox.Show("No puede grabar una orden sin renglones...");
                 return;
             }
+            //verificar si el master restante es negativo.
+            if(Convert.ToDouble(txt_width1_r.Text) < 0 || Convert.ToDouble(txt_lenght1_r.Text) < 0) 
+            {
+                MessageBox.Show("Los valores del master restante no puede ser negativo...");
+                return;
+            }
             //llenar el encabezado de la orden de produccion
             managerorden.Add(CrearObjectOrden(), false);
-            //actualizar los rollid.
-            managerorden.UpdateRollId(orden.Rollid_1);
-            if (txt_rollid_2.Text.Length > 0)
-            {
-                managerorden.UpdateRollId(orden.Rollid_2);
-            }
+            UPDATE_INVENTARIO_MASTER();
+
             chk_process.DataBindings.Add("Checked", bs, "procesado");
             chk_anulado.DataBindings.Add("Checked", bs, "anulada");
             OptionsMenu(1);
             OptionsForm(1);
             EditMode = 0;
+        }
+        private void UPDATE_INVENTARIO_MASTER() 
+        {
+            //comprobar que hay master remanente master 1.
+            if (Convert.ToDouble(txt_lenght1_r.Text) > 0)
+            {
+                // RESTO EL CONSUMO ACTUALIZO MASTER1
+                managerorden.Update_Inventario_Master(orden.Rollid_1, orden.Util1_Real_Width
+                    , orden.Util1_real_Lenght + orden.Descartable1_pies);
+            }
+            else
+            {
+                // SE CONSUMIO TODO LO SACO DEL INVENTARIO
+                managerorden.UpdateRollId(orden.Rollid_1);
+            }
+            //comprobar que hay master remanente master 2.
+            if (Convert.ToDouble(txt_lenght2_r.Text) > 0)
+            {
+                // RESTO EL CONSUMO ACTUALIZO MASTER2
+                managerorden.Update_Inventario_Master(orden.Rollid_2, orden.Util2_Real_Width
+                    , orden.Util2_real_Lenght + orden.Descartable2_pies);
+            }
+            else
+            {
+                // SE CONSUMIO TODO LO SACO DEL INVENTARIO
+                managerorden.UpdateRollId(orden.Rollid_2);
+            }
         }
         private void ToSaveUpdate()
         {
@@ -249,7 +287,7 @@ namespace RitramaAPP
             col.Name = "status";
             col.HeaderText = "status";
             col.DataPropertyName = "status";
-            col.Width = 80;
+            col.Width = 60;
             col.FlatStyle = FlatStyle.Popup;
             grid_rollos.Columns.Add(col);
         }
@@ -413,14 +451,16 @@ namespace RitramaAPP
                 Descartable1_pies = Convert.ToDouble(txt_pies_malos.Text),
                 Util1_real_Lenght = Convert.ToDouble(txt_lenght_u.Text),
                 Util1_Real_Width = Convert.ToDouble(txt_width_u.Text),
-                rest1_width = Convert.ToDouble(txt_width1_r.Text),
-                rest1_lenght = Convert.ToDouble(txt_lenght1_r.Text),
+                Rest1_width = Convert.ToDouble(txt_width1_r.Text),
+                Rest1_lenght = Convert.ToDouble(txt_lenght1_r.Text),
                 Util2_Real_Width = Convert.ToDouble(txt_width_u2.Text),
                 Util2_real_Lenght = Convert.ToDouble(txt_lenght_u2.Text),
                 Descartable2_pies = Convert.ToDouble(txt_pies_malos2.Text),
-                rest2_width = Convert.ToDouble(txt_width2_r.Text),
-                rest2_lenght = Convert.ToDouble(txt_lenght2_r.Text),
+                Rest2_width = Convert.ToDouble(txt_width2_r.Text),
+                Rest2_lenght = Convert.ToDouble(txt_lenght2_r.Text),
                 Master_lenght2_Real = Convert.ToDouble(txt_pies_real2.Text),
+                Cortes_Largo2 = Convert.ToInt16(txt_cort_largo2.Text),
+                Cantidad_Rollos2 = Convert.ToInt16(txt_cort_rollos_cortar2.Text),
                 Anulada = false,
                 Procesado = false
             };
@@ -454,36 +494,57 @@ namespace RitramaAPP
         {
             List<Roll_Details> rollos = new List<Roll_Details>();
             int code_unique = Convert.ToInt32(configmanager.GetParameterControl("UC"));
-            int vueltas = Convert.ToInt16(txt_cort_largo.Text);
             int cortes = grid_cortes.Rows.Count;
+
+            //rollid 1
+            int vueltas = Convert.ToInt16(txt_cort_largo.Text);
             int rn = 1;
             for (int i = 1; i <= vueltas; i++)
             {
                 for (int j = 0; j <= cortes - 1; j++)
                 {
-                    Roll_Details item = new Roll_Details
-                    {
-                        Roll_number = (rn).ToString(),
-                        Product_id = txt_product_id.Text.ToString(),
-                        Product_name = txt_product_name.Text,
-                        Unique_code = "RC" + code_unique,
-                        Width = Convert.ToDecimal(grid_cortes.Rows[j].Cells["width"].Value),
-                        Large = Convert.ToDecimal(grid_cortes.Rows[j].Cells["lenght"].Value),
-                        Msi = Convert.ToDecimal(grid_cortes.Rows[j].Cells["msi"].Value),
-                        Splice = 0,
-                        Roll_id = txt_rollid_1.Text,
-                        Code_Person = "N/A",
-                        Status = "Ok",
-                        Fecha = Convert.ToDateTime(txt_fecha_orden.Text),
-                        Numero_Orden = txt_numero_oc.Text
-                    };
+                    rollos.Add(CreateItemRC(rn, code_unique, j, txt_rollid_1.Text));
                     rn += 1;
-                    rollos.Add(item);
                     code_unique += 1;
+                }
+            }
+            if (Convert.ToInt16(txt_cort_rollos_cortar2.Text) > 0) 
+            {
+                //rollid 2
+                vueltas = Convert.ToInt16(txt_cort_largo2.Text);
+                for (int i = 1; i <= vueltas; i++)
+                {
+                    for (int j = 0; j <= cortes - 1; j++)
+                    {
+                        rollos.Add(CreateItemRC(rn, code_unique, j, txt_rollid_2.Text));
+                        rn += 1;
+                        code_unique += 1;
+                    }
                 }
             }
             configmanager.SetParametersControl(code_unique.ToString(), "UC");
             return rollos;
+        }
+        private Roll_Details CreateItemRC(int renglon, int rc,int cortes,string rollid) 
+        {
+
+            Roll_Details item = new Roll_Details
+            {
+                Roll_number = (renglon).ToString(),
+                Product_id = txt_product_id.Text.ToString(),
+                Product_name = txt_product_name.Text,
+                Unique_code = "RC" + rc,
+                Width = Convert.ToDecimal(grid_cortes.Rows[cortes].Cells["width"].Value),
+                Large = Convert.ToDecimal(grid_cortes.Rows[cortes].Cells["lenght"].Value),
+                Msi = Convert.ToDecimal(grid_cortes.Rows[cortes].Cells["msi"].Value),
+                Splice = 0,
+                Roll_id = rollid,
+                Code_Person = "N/A",
+                Status = "Ok",
+                Fecha = Convert.ToDateTime(txt_fecha_orden.Text),
+                Numero_Orden = txt_numero_oc.Text
+            };
+            return item;
         }
         private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd, DataGridView grid)
         {
@@ -535,7 +596,8 @@ namespace RitramaAPP
                 int itemFound = bs.Find("numero", fBuscarOrden.orden);
                 bs.Position = itemFound;
             }
-            grid_rollos.DataSource = "";
+            ContadorRegistros();
+            VERIFICAR_DOCUMENTO();
         }
         private void Bot_buscar_rollid1_Click(object sender, EventArgs e)
         {
@@ -576,6 +638,8 @@ namespace RitramaAPP
             ParentRow["rest2_width"] = 0;
             ParentRow["rest2_lenght"] = 0;
             ParentRow["lenght_master_real2"] = 0;
+            ParentRow["cant_rollos2"] = 0;
+            ParentRow["cortes_largo2"] = 0;
             txt_lenght_u2.Text = "0";
             txt_width_u.Text = "0";
             txt_lenght_u.Text = "0";
@@ -819,7 +883,11 @@ namespace RitramaAPP
         }
         private void Bot_generar_rollos_cortados_Click(object sender, EventArgs e)
         {
-
+            if (Convert.ToInt16(txt_cort_rollos_cortar.Text) <= 0) 
+            {
+                MessageBox.Show("No hay rollos por cortar...");
+                return;
+            }
 
             List<Roll_Details> lista = GENERAR_DETALLE_ROLLOS_CORTADOS();
             //Agregar encabezado a la orden.
@@ -848,12 +916,18 @@ namespace RitramaAPP
             ParentRow["rest2_width"] = txt_width2_r.Text;
             ParentRow["rest2_lenght"] = txt_lenght2_r.Text;
             ParentRow["lenght_master_real2"] = txt_pies_real2.Text;
+            ParentRow["cant_rollos2"] = txt_cort_rollos_cortar2.Text;
+            ParentRow["cortes_largo2"] = txt_cort_largo2.Text;
             ParentRow["anulada"] = false;
             ParentRow["procesado"] = false;
             ParentRow.EndEdit();
             //Agregar el detalle de la Orden.
             DataRowView ChildRows;
             string CodeRC = managerorden.GetCodeRC(txt_product_id.Text.Trim());
+            if (CodeRC == string.Empty) 
+            {
+                CodeRC = txt_product_id.Text;
+            }
             foreach (Roll_Details item in lista)
             {
                 ChildRows = (DataRowView)bsdetalle.AddNew();
@@ -906,7 +980,6 @@ namespace RitramaAPP
             txt_lenght_u.Text = (Convert.ToDouble(txt_cort_largo.Text)
                 * Convert.ToDouble(txt_cort_long_cortar.Text)).ToString();
         }
-
         private void CALCULAR_NUMERO_ROLLOS2()
         {
             double total_rollos = Convert.ToDouble(txt_cort_ancho.Text) * Convert.ToDouble(txt_cort_largo2.Text);
@@ -914,8 +987,6 @@ namespace RitramaAPP
             txt_lenght_u2.Text = (Convert.ToDouble(txt_cort_largo2.Text)
                 * Convert.ToDouble(txt_cort_long_cortar.Text)).ToString();
         }
-
-
         private void Grid_cortes_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             //calculo del msi.
@@ -1042,8 +1113,12 @@ namespace RitramaAPP
             double real = Convert.ToDouble(txt_lenght1_rollid.Text) - Convert.ToDouble(txt_pies_malos.Text);
             txt_pies_real.Text = real.ToString();
         }
-        private void txt_cort_long_cortar_KeyUp(object sender, KeyEventArgs e)
+        private void Txt_cort_long_cortar_KeyUp(object sender, KeyEventArgs e)
         {
+            if (txt_cort_long_cortar.Text == "") 
+            {
+                txt_cort_long_cortar.Text = "0";
+            }
             for (int i = 0; i <= grid_cortes.Rows.Count - 1; i++)
             {
                 grid_cortes.Rows[i].Cells["lenght"].Value = txt_cort_long_cortar.Text;
@@ -1054,7 +1129,7 @@ namespace RitramaAPP
                 //CALCULAR_CORTES_ANCHOS();
             }
         }
-        private void txt_pies_malos2_KeyUp(object sender, KeyEventArgs e)
+        private void Txt_pies_malos2_KeyUp(object sender, KeyEventArgs e)
         {
             if (txt_pies_malos2.Text == "") 
             {
@@ -1067,7 +1142,7 @@ namespace RitramaAPP
 
 
         #endregion
-        private void txt_cort_largo2_KeyUp(object sender, KeyEventArgs e)
+        private void Txt_cort_largo2_KeyUp(object sender, KeyEventArgs e)
         {
             if (txt_cort_largo2.Text == "")
             {
@@ -1078,19 +1153,86 @@ namespace RitramaAPP
             txt_width_u2.Text = txt_cort_total_ancho.Text;
         }
 
-        private void txt_cort_rollos_cortar_TextChanged(object sender, EventArgs e)
+        private void Txt_cort_rollos_cortar_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void txt_width2_r_TextChanged(object sender, EventArgs e)
+        private void Txt_width2_r_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void txt_cort_largo2_TextChanged(object sender, EventArgs e)
+        private void Txt_cort_largo2_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void grid_cortes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void txt_cort_largo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
+        private void txt_cort_largo2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
+        private void txt_cort_long_cortar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
+        private void txt_pies_malos_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
+        private void txt_pies_malos2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
+
+        private void BOT_IMPRIMIR_Click(object sender, EventArgs e)
+        {
+            using (FrmReportViewCrystal frmReportView = new FrmReportViewCrystal())
+            {
+                ReportDocument reporte = new ReportDocument();
+                reporte.Load(R.PATH_FILES.PATH_DATA_REPORT_ORDEN_CORTE);
+                reporte.SetParameterValue("number_oc", txt_numero_oc.Text.Trim());
+                frmReportView.crystalReportViewer1.ReportSource = reporte;
+                frmReportView.crystalReportViewer1.Zoom(150);
+                frmReportView.Text = "Reporte de la Orden de Corte";
+                frmReportView.Width = 920;
+                frmReportView.Height = 820;
+                frmReportView.ShowDialog();
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using RitramaAPP.Clases;
 
 namespace RitramaAPP.form
 {
@@ -10,6 +11,7 @@ namespace RitramaAPP.form
         {
             InitializeComponent();
         }
+        ProduccionManager produccionmanager = new ProduccionManager();
         public DataTable Dtrollid { get; set; }
         DataView dv = new DataView();
         public string GetrollId { get; set; }
@@ -59,6 +61,10 @@ namespace RitramaAPP.form
             {
                 dv.RowFilter = "Product_Name LIKE '%" + this.TXT_BUSCAR.Text + "%'";
             }
+            if (ra_number_rc.Checked)
+            {
+                dv.RowFilter = "unique_code LIKE '%" + this.TXT_BUSCAR.Text + "%'";
+            }
             CONTADOR_REGISTRO.Text = Convert.ToString(dv.Count) + " registros encontrados.";
         }
 
@@ -75,5 +81,37 @@ namespace RitramaAPP.form
             GetvalueLenght = Grid_Items.Rows[e.RowIndex].Cells[4].Value.ToString();
             this.Close();
         }
+
+        private void BOT_ACTUALIZAR_REBO_Click(object sender, EventArgs e)
+        {
+            if (chk_rebobinado.Checked == true) 
+            {
+                PROC_REBOBINADO_ORDEN();        
+            }
+        }
+        private void PROC_REBOBINADO_ORDEN() 
+        {
+            Grid_Items.DataSource = null;
+            Grid_Items.Columns.Clear();
+
+            AGREGAR_COLUMN_GRID("unique_code", 60, "Unique Code", "unique_code");
+            AGREGAR_COLUMN_GRID("product_id", 60, "Product Id.", "product_id");
+            AGREGAR_COLUMN_GRID("product_name", 100, "Nombre del Producto", "product_name");
+            AGREGAR_COLUMN_GRID("Width", 50, "Width", "width");
+            AGREGAR_COLUMN_GRID("Lenght", 50, "Lenght", "large");
+            AGREGAR_COLUMN_GRID("msi", 60, "Msi", "msi");
+            AGREGAR_COLUMN_GRID("splice", 45, "Splice", "splice");
+            AGREGAR_COLUMN_GRID("rollid", 70, "Roll Id.", "roll_id");
+            AGREGAR_COLUMN_GRID("code_person", 60, "Codigo Per.", "code_person");
+            AGREGAR_COLUMN_GRID("status", 50, "Status", "status");
+            AGREGAR_COLUMN_GRID("roll_number", 20, "#", "roll_number");
+            dv = produccionmanager.GetUniqueCodeToList().DefaultView;
+            Grid_Items.DataSource = dv;
+            CONTADOR_REGISTRO.Text = Convert.ToString(dv.Count) + " registros encontrados.";
+
+
+        }
+
+
     }
 }

@@ -20,8 +20,8 @@ namespace RitramaAPP
         public double Master_lenght1_Real { get; set; }
         public double Util1_Real_Width { get; set; }
         public double Util1_real_Lenght { get; set; }
-        public double rest1_width { get; set; }
-        public double rest1_lenght { get; set; }
+        public double Rest1_width { get; set; }
+        public double Rest1_lenght { get; set; }
         // rollid 2
         public string Rollid_2 { get; set; }
         public decimal Width_2 { get; set; }
@@ -30,8 +30,8 @@ namespace RitramaAPP
         public double Master_lenght2_Real { get; set; }
         public double Util2_Real_Width { get; set; }
         public double Util2_real_Lenght { get; set; }
-        public double rest2_width { get; set; }
-        public double rest2_lenght { get; set; }
+        public double Rest2_width { get; set; }
+        public double Rest2_lenght { get; set; }
         //datos del producto
         public string Product_id { get; set; }
         public string Product_name { get; set; }

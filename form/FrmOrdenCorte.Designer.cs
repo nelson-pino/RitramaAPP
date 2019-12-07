@@ -48,6 +48,7 @@
             this.Bot_procesar = new System.Windows.Forms.ToolStripButton();
             this.Bot_Anular = new System.Windows.Forms.ToolStripButton();
             this.BOT_EXCEL_EXPORT = new System.Windows.Forms.ToolStripButton();
+            this.BOT_IMPRIMIR = new System.Windows.Forms.ToolStripButton();
             this.txt_fecha_orden = new System.Windows.Forms.DateTimePicker();
             this.grid_rollos = new System.Windows.Forms.DataGridView();
             this.txt_fecha_producc = new System.Windows.Forms.DateTimePicker();
@@ -167,7 +168,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(896, 65);
+            this.panel1.Size = new System.Drawing.Size(921, 65);
             this.panel1.TabIndex = 35;
             // 
             // contador
@@ -196,10 +197,11 @@
             this.BOT_BUSCAR,
             this.Bot_procesar,
             this.Bot_Anular,
-            this.BOT_EXCEL_EXPORT});
+            this.BOT_EXCEL_EXPORT,
+            this.BOT_IMPRIMIR});
             this.toolStrip1.Location = new System.Drawing.Point(0, 65);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(896, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(921, 27);
             this.toolStrip1.TabIndex = 45;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -209,7 +211,7 @@
             this.bot_primero.Image = ((System.Drawing.Image)(resources.GetObject("bot_primero.Image")));
             this.bot_primero.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bot_primero.Name = "bot_primero";
-            this.bot_primero.Size = new System.Drawing.Size(80, 24);
+            this.bot_primero.Size = new System.Drawing.Size(65, 24);
             this.bot_primero.Text = "Primero";
             this.bot_primero.Click += new System.EventHandler(this.Bot_primero_Click);
             // 
@@ -219,7 +221,7 @@
             this.bot_anterior.Image = ((System.Drawing.Image)(resources.GetObject("bot_anterior.Image")));
             this.bot_anterior.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bot_anterior.Name = "bot_anterior";
-            this.bot_anterior.Size = new System.Drawing.Size(80, 24);
+            this.bot_anterior.Size = new System.Drawing.Size(68, 24);
             this.bot_anterior.Text = "Anterior";
             this.bot_anterior.Click += new System.EventHandler(this.Bot_anterior_Click);
             // 
@@ -230,7 +232,7 @@
             this.bot_siguiente.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.bot_siguiente.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bot_siguiente.Name = "bot_siguiente";
-            this.bot_siguiente.Size = new System.Drawing.Size(80, 24);
+            this.bot_siguiente.Size = new System.Drawing.Size(68, 24);
             this.bot_siguiente.Text = "Siguien";
             this.bot_siguiente.Click += new System.EventHandler(this.Bot_siguiente_Click);
             // 
@@ -258,8 +260,8 @@
             this.BOT_CANCELAR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_CANCELAR.Image")));
             this.BOT_CANCELAR.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.BOT_CANCELAR.Name = "BOT_CANCELAR";
-            this.BOT_CANCELAR.Size = new System.Drawing.Size(77, 24);
-            this.BOT_CANCELAR.Text = "Cancelar";
+            this.BOT_CANCELAR.Size = new System.Drawing.Size(67, 24);
+            this.BOT_CANCELAR.Text = "Cancel";
             this.BOT_CANCELAR.Click += new System.EventHandler(this.BOT_CANCELAR_Click);
             // 
             // BOT_SAVE
@@ -278,7 +280,7 @@
             this.bot_modificar.Image = ((System.Drawing.Image)(resources.GetObject("bot_modificar.Image")));
             this.bot_modificar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bot_modificar.Name = "bot_modificar";
-            this.bot_modificar.Size = new System.Drawing.Size(80, 24);
+            this.bot_modificar.Size = new System.Drawing.Size(70, 24);
             this.bot_modificar.Text = "Modif";
             this.bot_modificar.Click += new System.EventHandler(this.Bot_modificar_Click);
             // 
@@ -317,6 +319,15 @@
             this.BOT_EXCEL_EXPORT.Size = new System.Drawing.Size(78, 24);
             this.BOT_EXCEL_EXPORT.Text = "Etiquetar";
             this.BOT_EXCEL_EXPORT.Click += new System.EventHandler(this.BOT_EXCEL_EXPORT_Click);
+            // 
+            // BOT_IMPRIMIR
+            // 
+            this.BOT_IMPRIMIR.Image = ((System.Drawing.Image)(resources.GetObject("BOT_IMPRIMIR.Image")));
+            this.BOT_IMPRIMIR.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BOT_IMPRIMIR.Name = "BOT_IMPRIMIR";
+            this.BOT_IMPRIMIR.Size = new System.Drawing.Size(77, 24);
+            this.BOT_IMPRIMIR.Text = "Imprimir";
+            this.BOT_IMPRIMIR.Click += new System.EventHandler(this.BOT_IMPRIMIR_Click);
             // 
             // txt_fecha_orden
             // 
@@ -569,6 +580,7 @@
             this.txt_pies_malos.Name = "txt_pies_malos";
             this.txt_pies_malos.Size = new System.Drawing.Size(90, 20);
             this.txt_pies_malos.TabIndex = 94;
+            this.txt_pies_malos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_pies_malos_KeyPress);
             this.txt_pies_malos.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_master__KeyUp);
             // 
             // txt_pies_malos2
@@ -578,7 +590,8 @@
             this.txt_pies_malos2.Name = "txt_pies_malos2";
             this.txt_pies_malos2.Size = new System.Drawing.Size(90, 20);
             this.txt_pies_malos2.TabIndex = 95;
-            this.txt_pies_malos2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txt_pies_malos2_KeyUp);
+            this.txt_pies_malos2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_pies_malos2_KeyPress);
+            this.txt_pies_malos2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_pies_malos2_KeyUp);
             // 
             // label18
             // 
@@ -651,6 +664,7 @@
             this.grid_cortes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.grid_cortes.Size = new System.Drawing.Size(189, 195);
             this.grid_cortes.TabIndex = 110;
+            this.grid_cortes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_cortes_CellContentClick);
             this.grid_cortes.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_cortes_CellEndEdit);
             // 
             // label46
@@ -666,6 +680,7 @@
             // 
             this.txt_cort_total_ancho.Location = new System.Drawing.Point(741, 180);
             this.txt_cort_total_ancho.Name = "txt_cort_total_ancho";
+            this.txt_cort_total_ancho.ReadOnly = true;
             this.txt_cort_total_ancho.Size = new System.Drawing.Size(70, 20);
             this.txt_cort_total_ancho.TabIndex = 112;
             // 
@@ -675,7 +690,8 @@
             this.txt_cort_long_cortar.Name = "txt_cort_long_cortar";
             this.txt_cort_long_cortar.Size = new System.Drawing.Size(70, 20);
             this.txt_cort_long_cortar.TabIndex = 114;
-            this.txt_cort_long_cortar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txt_cort_long_cortar_KeyUp);
+            this.txt_cort_long_cortar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cort_long_cortar_KeyPress);
+            this.txt_cort_long_cortar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_cort_long_cortar_KeyUp);
             // 
             // label47
             // 
@@ -690,6 +706,7 @@
             // 
             this.txt_cort_ancho.Location = new System.Drawing.Point(741, 254);
             this.txt_cort_ancho.Name = "txt_cort_ancho";
+            this.txt_cort_ancho.ReadOnly = true;
             this.txt_cort_ancho.Size = new System.Drawing.Size(70, 20);
             this.txt_cort_ancho.TabIndex = 116;
             // 
@@ -708,6 +725,7 @@
             this.txt_cort_largo.Name = "txt_cort_largo";
             this.txt_cort_largo.Size = new System.Drawing.Size(70, 20);
             this.txt_cort_largo.TabIndex = 118;
+            this.txt_cort_largo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cort_largo_KeyPress);
             this.txt_cort_largo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_cort_largo_KeyUp);
             // 
             // label49
@@ -723,9 +741,10 @@
             // 
             this.txt_cort_rollos_cortar.Location = new System.Drawing.Point(742, 325);
             this.txt_cort_rollos_cortar.Name = "txt_cort_rollos_cortar";
+            this.txt_cort_rollos_cortar.ReadOnly = true;
             this.txt_cort_rollos_cortar.Size = new System.Drawing.Size(70, 20);
             this.txt_cort_rollos_cortar.TabIndex = 120;
-            this.txt_cort_rollos_cortar.TextChanged += new System.EventHandler(this.txt_cort_rollos_cortar_TextChanged);
+            this.txt_cort_rollos_cortar.TextChanged += new System.EventHandler(this.Txt_cort_rollos_cortar_TextChanged);
             // 
             // label50
             // 
@@ -835,7 +854,7 @@
             this.txt_width2_r.ReadOnly = true;
             this.txt_width2_r.Size = new System.Drawing.Size(77, 20);
             this.txt_width2_r.TabIndex = 133;
-            this.txt_width2_r.TextChanged += new System.EventHandler(this.txt_width2_r_TextChanged);
+            this.txt_width2_r.TextChanged += new System.EventHandler(this.Txt_width2_r_TextChanged);
             // 
             // label9
             // 
@@ -891,13 +910,15 @@
             this.txt_cort_largo2.Name = "txt_cort_largo2";
             this.txt_cort_largo2.Size = new System.Drawing.Size(70, 20);
             this.txt_cort_largo2.TabIndex = 138;
-            this.txt_cort_largo2.TextChanged += new System.EventHandler(this.txt_cort_largo2_TextChanged);
-            this.txt_cort_largo2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txt_cort_largo2_KeyUp);
+            this.txt_cort_largo2.TextChanged += new System.EventHandler(this.Txt_cort_largo2_TextChanged);
+            this.txt_cort_largo2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cort_largo2_KeyPress);
+            this.txt_cort_largo2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_cort_largo2_KeyUp);
             // 
             // txt_cort_rollos_cortar2
             // 
             this.txt_cort_rollos_cortar2.Location = new System.Drawing.Point(814, 325);
             this.txt_cort_rollos_cortar2.Name = "txt_cort_rollos_cortar2";
+            this.txt_cort_rollos_cortar2.ReadOnly = true;
             this.txt_cort_rollos_cortar2.Size = new System.Drawing.Size(70, 20);
             this.txt_cort_rollos_cortar2.TabIndex = 139;
             // 
@@ -906,7 +927,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(896, 673);
+            this.ClientSize = new System.Drawing.Size(921, 673);
             this.Controls.Add(this.txt_cort_rollos_cortar2);
             this.Controls.Add(this.txt_cort_largo2);
             this.Controls.Add(this.txt_pies_real2);
@@ -1069,5 +1090,6 @@
         private System.Windows.Forms.TextBox txt_pies_real2;
         private System.Windows.Forms.TextBox txt_cort_largo2;
         private System.Windows.Forms.TextBox txt_cort_rollos_cortar2;
+        private System.Windows.Forms.ToolStripButton BOT_IMPRIMIR;
     }
 }
