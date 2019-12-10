@@ -79,8 +79,9 @@ namespace RitramaAPP.form
         }
         private void FORMAT_GRIDS_MASTER()
         {
+            //grid entrada
             grid_entradas.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("numdoc", 60, "Num Orden", "OrderPurchase", grid_entradas);
+            AGREGAR_COLUMN_GRID("numdoc", 60, "Recepcion", "OrderPurchase", grid_entradas);
             AGREGAR_COLUMN_GRID("fecha", 80, "Fecha", "fecha_reg", grid_entradas);
             AGREGAR_COLUMN_GRID("embarque", 60, "Embarque", "embarque", grid_entradas);
             AGREGAR_COLUMN_GRID("rollid", 80, "Roll Id.", "Roll_Id", grid_entradas);
@@ -90,6 +91,16 @@ namespace RitramaAPP.form
             AGREGAR_COLUMN_GRID("splice", 55, "Splice", "splice", grid_entradas);
             AGREGAR_COLUMN_GRID("core", 55, "Core", "core", grid_entradas);
             AGREGAR_COLUMN_GRID("ubic", 70, "Ubicacion", "Ubicacion", grid_entradas);
+            //grid salida
+            grid_salidas.AutoGenerateColumns = false;
+            AGREGAR_COLUMN_GRID("numeroc", 60, "Orden Corte", "numero_oc", grid_salidas);
+            AGREGAR_COLUMN_GRID("fechaoc", 60, "Fecha", "fecha_oc", grid_salidas);
+            AGREGAR_COLUMN_GRID("fechaoc", 60, "Fecha", "fecha_oc", grid_salidas);
+            AGREGAR_COLUMN_GRID("width", 60, "Width", "Width", grid_salidas);
+            AGREGAR_COLUMN_GRID("width", 60, "Width", "Width", grid_salidas);
+
+
+
 
         }
         private void FORMAT_ROLLO_CORTADO()
@@ -116,6 +127,11 @@ namespace RitramaAPP.form
             AGREGAR_COLUMN_GRID("splice", 70, "Splice", "splice", grid_salidas);
             AGREGAR_COLUMN_GRID("rollid", 80, "Roll Id.", "roll_id", grid_salidas);
             AGREGAR_COLUMN_GRID("Customer_Name", 120, "Nombre del Cliente", "Customer_Name", grid_salidas);
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

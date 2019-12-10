@@ -672,7 +672,10 @@ namespace RitramaAPP.form
         }
         private void Actualizarinventarios()
         {
-
+            foreach(Roll_Details item in listarc) 
+            {
+                despachomanager.UpdateUniqueCode(item.Unique_code);
+            }
         }
     }
 }

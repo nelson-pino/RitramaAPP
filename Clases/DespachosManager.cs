@@ -126,6 +126,40 @@ namespace RitramaAPP.Clases
             da.Dispose();
             return dt;
         }
+        public Boolean CommandSqlGenericOneParameter(string db, string query, string par, Boolean msg, string messagerror)
+        {
+            // Ejecuta comando sql query y no devuleve ni valor ni datos.
+            try
+            {
+                Micomm.Conectar(db);
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = Micomm.cnn,
+                    CommandType = CommandType.Text,
+                    CommandText = query
+                };
+                SqlParameter p1 = new SqlParameter("@p1", par);
+                comando.Parameters.Add(@p1);
+                comando.ExecuteNonQuery();
+                comando.Dispose();
+                Micomm.Desconectar();
+                if (msg)
+                {
+                    MessageBox.Show("proceso realizado con exito...");
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(messagerror + ex);
+                return false;
+            }
+        }
+        public void UpdateUniqueCode(string unique_code) 
+        {
+            CommandSqlGenericOneParameter(R.SQL.DATABASE.NAME,R.SQL.QUERY_SQL.DESPACHOS.SQL_UPDATE_UNIQUE_CODE_FALSE,
+                unique_code,false, R.ERROR_MESSAGES.DESPACHOS.MESSAGE_UPDATE_UNIQUECODE_DISPOFALSE);
+        }
         public void Add(ClassDespacho datos, Boolean ismessage)
         {
             //ADD HEADER DE ORDEN DE PRODUCCION A LA BASE DE DATOS.

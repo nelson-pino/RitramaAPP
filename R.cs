@@ -88,7 +88,7 @@ namespace RitramaAPP
                     public static string SQL_QUERY_UPDATE_ORDEN_PRODUCCION = "UPDATE orden_corte SET fecha=@p2,fecha_produccion=@P3 WHERE numero=@p1";
                     public static string SQL_QUERY_DELETE_ORDEN_ROLLDETAILS = "DELETE rolls_details WHERE numero=@p1";
                     public static string SQL_QUERY_UPDATE_ROLLSDETAILS_RENGLON = "UPDATE rolls_details SET splice=@p3,code_person=@p4,status=@p5,width=@p6,large=@p7,msi=@p8,roll_id=@p9 WHERE (numero=@p1 AND unique_code=@p2)";
-                    public static string SQL_QUERY_SELECT_GETDATA_UNIQUE_CODE = "SELECT numero,product_id,product_name,roll_number,width,large,msi,splice,roll_id,code_person,status,unique_code FROM rolls_details WHERE unique_code=@p1";
+                    public static string SQL_QUERY_SELECT_GETDATA_UNIQUE_CODE = "SELECT numero,product_id,product_name,roll_number,width,large,msi,splice,roll_id,code_person,status,unique_code FROM rolls_details WHERE unique_code=@p1 AND disponible=1";
                     public static string SQL_QUERY_SELECT_GETDATA_CODE_RC = "SELECT code_RC FROM producto WHERE product_id=@p1";
                     public static string SQL_QUERY_UPDATE_ROLLID_DISPONIBILIDAD = "UPDATE OrdenRecepcion SET disponible=0 WHERE Roll_Id=@p1";
                     public static string SQL_QUERY_UPDATE_UNIQUE_CODE = "UPDATE rolls_details SET disponible=0 WHERE unique_code=@p1";
@@ -121,6 +121,7 @@ namespace RitramaAPP
                     public static string SQL_INSERT_UNIQUECODE_LIST_DESPACHO = "INSERT INTO rcdespacho (conduce,unique_code,product_id,roll_number,width,lenght,msi,roll_id,splice) VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9)";
                     public static string SQL_SELECT_UNIQUECODE_DETAILS_DESPACHO = "select a.product_id,b.Product_Name,a.roll_number,a.width,a.lenght,a.msi,a.splice,a.roll_id,a.unique_code from rcdespacho a left join producto b on a.product_id=b.Product_ID where a.conduce=@p1";
                     public static string SQL_QUERY_SELECT_GET_RATIO_PRODUCTS = "SELECT ratio FROM producto WHERE product_id=@p1";
+                    public static string SQL_UPDATE_UNIQUE_CODE_FALSE = "UPDATE rolls_details SET disponible=0 WHERE unique_code=@p1";
                 }
                 public class INVENTARIO
                 {
@@ -203,6 +204,7 @@ namespace RitramaAPP
                 public static string MESSAGE_SELECT_UNIQUE_CODE_TOLIST = "Error al cargar la data de los RC (Unique code) de la base de datos...";
                 public static string MESSAGE_UPDATE_INVENTARIO_MASTER = "Error al actualizar los inventario de master (Material remanente)...";
                 public static string MESSAGE_UPDATE_INVENTARIO_RC = "Error al actualizar los inventario de unique code (REBOBINADO)...";
+                
             }
             public class DESPACHOS
             {
@@ -218,6 +220,7 @@ namespace RitramaAPP
                 public static string MESSAGE_INSERT_ERROR_ADD_DETAILS_DESPACHOS = "Error al tratar de insertar el detalle en la orden de despacho.";
                 public static string MESSAGE_INSERT_UNIQUECODE_ADD_DETAILS_DESPACHOS = "Error insertar los detalle de los unique code en el despacho.";
                 public static string MESSAGE_SELECT_UNIQUECODE_DETAILS_DESPACHOS = "Error al tratar de traer la data ";
+                public static string MESSAGE_UPDATE_UNIQUECODE_DISPOFALSE = "Ha ocurrido un error al tratar de actualizar los unique code para el inventario.";
             }
         }
         public class PATH_FILES
