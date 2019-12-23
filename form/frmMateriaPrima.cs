@@ -614,5 +614,25 @@ namespace RitramaAPP
             FrmImportExcelMP excel = new FrmImportExcelMP();
             excel.ShowDialog();
         }
+
+        private void txt_width_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789.,";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
+
+        private void txt_lenght_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string CaracValid = "0123456789.,";
+            if (e.KeyChar != Convert.ToChar(8) && CaracValid.IndexOf(e.KeyChar) == -1)
+            {
+                // si no es bakcspace y no es un numero se omite.   
+                e.Handled = true;
+            }
+        }
     }
 }

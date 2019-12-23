@@ -196,6 +196,12 @@ namespace RitramaAPP.Clases
                 R.SQL.QUERY_SQL.INVENTARIO.SQL_QUERY_ENTRADAS_MASTER_WHERE_PRODUCT_ID,
                 R.ERROR_MESSAGES.INVENTARIO.MESSAGE_CARGAR_MOVIMIENTO_MASTER, product_id);
         }
+        public DataTable LoadMoveSalidasMaster(string rollid) 
+        {
+            return CommandSqlGenericDtOnePar(R.SQL.DATABASE.NAME,
+                R.SQL.QUERY_SQL.INVENTARIO.SQL_SELECT_SALIDAS_MASTER,
+                R.ERROR_MESSAGES.INVENTARIO.MESSAGE_ERROR_SALIDAS_MASTER, rollid);
+        }
 
         public DataTable CargaMovimientoEntradaRollosCortados(string product_id)
         {

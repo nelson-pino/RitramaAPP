@@ -29,27 +29,35 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bot_buscar = new System.Windows.Forms.Button();
             this.product_tipo = new System.Windows.Forms.Label();
             this.product_name = new System.Windows.Forms.Label();
             this.product_id = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.grid_entradas = new System.Windows.Forms.DataGridView();
-            this.grid_salidas = new System.Windows.Forms.DataGridView();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.label1 = new System.Windows.Forms.Label();
+            this.TXT_COUNT_ENT = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.TOTAL_LEN_ENT = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.grid_salidas = new System.Windows.Forms.DataGridView();
+            this.grid_entradas = new System.Windows.Forms.DataGridView();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.TXT_COUNT_SAL = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.TXT_LENGHT_SAL = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grid_entradas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid_salidas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_entradas)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.bot_buscar);
             this.panel1.Controls.Add(this.product_tipo);
             this.panel1.Controls.Add(this.product_name);
             this.panel1.Controls.Add(this.product_id);
@@ -58,6 +66,16 @@
             this.panel1.Size = new System.Drawing.Size(809, 67);
             this.panel1.TabIndex = 1;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // bot_buscar
+            // 
+            this.bot_buscar.Location = new System.Drawing.Point(703, 19);
+            this.bot_buscar.Name = "bot_buscar";
+            this.bot_buscar.Size = new System.Drawing.Size(75, 23);
+            this.bot_buscar.TabIndex = 4;
+            this.bot_buscar.Text = "Buscar";
+            this.bot_buscar.UseVisualStyleBackColor = true;
+            this.bot_buscar.Click += new System.EventHandler(this.bot_buscar_Click);
             // 
             // product_tipo
             // 
@@ -88,6 +106,14 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.TXT_COUNT_SAL);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.TXT_LENGHT_SAL);
+            this.tabPage1.Controls.Add(this.label6);
+            this.tabPage1.Controls.Add(this.TXT_COUNT_ENT);
+            this.tabPage1.Controls.Add(this.label4);
+            this.tabPage1.Controls.Add(this.TOTAL_LEN_ENT);
+            this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.grid_salidas);
@@ -95,10 +121,76 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(805, 344);
+            this.tabPage1.Size = new System.Drawing.Size(805, 461);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Movimientos";
             this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // TXT_COUNT_ENT
+            // 
+            this.TXT_COUNT_ENT.Location = new System.Drawing.Point(287, 184);
+            this.TXT_COUNT_ENT.Name = "TXT_COUNT_ENT";
+            this.TXT_COUNT_ENT.Size = new System.Drawing.Size(100, 20);
+            this.TXT_COUNT_ENT.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(199, 187);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(82, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Total Entradas :";
+            // 
+            // TOTAL_LEN_ENT
+            // 
+            this.TOTAL_LEN_ENT.Location = new System.Drawing.Point(508, 184);
+            this.TOTAL_LEN_ENT.Name = "TOTAL_LEN_ENT";
+            this.TOTAL_LEN_ENT.Size = new System.Drawing.Size(100, 20);
+            this.TOTAL_LEN_ENT.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(438, 187);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(73, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Total Lenght :";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(6, 215);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(67, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "SALIDAS :";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(6, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "ENTRADAS :";
+            // 
+            // grid_salidas
+            // 
+            this.grid_salidas.AllowUserToAddRows = false;
+            this.grid_salidas.AllowUserToDeleteRows = false;
+            this.grid_salidas.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.grid_salidas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grid_salidas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.grid_salidas.Location = new System.Drawing.Point(5, 231);
+            this.grid_salidas.Name = "grid_salidas";
+            this.grid_salidas.Size = new System.Drawing.Size(793, 141);
+            this.grid_salidas.TabIndex = 1;
+            this.grid_salidas.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grid_salidas_CellMouseDoubleClick);
             // 
             // grid_entradas
             // 
@@ -113,14 +205,8 @@
             this.grid_entradas.RowHeadersWidth = 25;
             this.grid_entradas.Size = new System.Drawing.Size(793, 143);
             this.grid_entradas.TabIndex = 0;
-            // 
-            // grid_salidas
-            // 
-            this.grid_salidas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grid_salidas.Location = new System.Drawing.Point(6, 195);
-            this.grid_salidas.Name = "grid_salidas";
-            this.grid_salidas.Size = new System.Drawing.Size(793, 141);
-            this.grid_salidas.TabIndex = 1;
+            this.grid_entradas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_entradas_CellClick);
+            this.grid_entradas.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grid_entradas_CellMouseDoubleClick);
             // 
             // tabControl1
             // 
@@ -128,41 +214,46 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 73);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(813, 370);
+            this.tabControl1.Size = new System.Drawing.Size(813, 487);
             this.tabControl1.TabIndex = 0;
             // 
-            // label1
+            // TXT_COUNT_SAL
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "ENTRADAS :";
+            this.TXT_COUNT_SAL.Location = new System.Drawing.Point(287, 389);
+            this.TXT_COUNT_SAL.Name = "TXT_COUNT_SAL";
+            this.TXT_COUNT_SAL.Size = new System.Drawing.Size(100, 20);
+            this.TXT_COUNT_SAL.TabIndex = 11;
             // 
-            // label2
+            // label5
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 181);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "SALIDAS :";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(199, 392);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(74, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Total Salidas :";
             // 
-            // button1
+            // TXT_LENGHT_SAL
             // 
-            this.button1.Location = new System.Drawing.Point(703, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Buscar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.TXT_LENGHT_SAL.Location = new System.Drawing.Point(488, 389);
+            this.TXT_LENGHT_SAL.Name = "TXT_LENGHT_SAL";
+            this.TXT_LENGHT_SAL.Size = new System.Drawing.Size(100, 20);
+            this.TXT_LENGHT_SAL.TabIndex = 9;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(409, 392);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(73, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Total Lenght :";
             // 
             // FrmMovimInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(822, 450);
+            this.ClientSize = new System.Drawing.Size(822, 561);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tabControl1);
             this.Name = "FrmMovimInventario";
@@ -173,8 +264,8 @@
             this.panel1.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grid_entradas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grid_salidas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_entradas)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -191,6 +282,14 @@
         private System.Windows.Forms.DataGridView grid_salidas;
         private System.Windows.Forms.DataGridView grid_entradas;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button bot_buscar;
+        private System.Windows.Forms.TextBox TOTAL_LEN_ENT;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox TXT_COUNT_ENT;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox TXT_COUNT_SAL;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox TXT_LENGHT_SAL;
+        private System.Windows.Forms.Label label6;
     }
 }

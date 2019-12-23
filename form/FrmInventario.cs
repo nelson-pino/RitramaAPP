@@ -120,7 +120,7 @@ namespace RitramaAPP
         {
             if (radinv_productid.Checked)
             {
-                dvinventario.RowFilter = "product_id LIKE '%" + this.txt_buscar_inventario.Text + "%'";
+               dvinventario.RowFilter = "product_id LIKE '%" + this.txt_buscar_inventario.Text + "%'";
             }
             if (radinv_productName.Checked)
             {

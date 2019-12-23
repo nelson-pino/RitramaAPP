@@ -57,9 +57,9 @@ namespace RitramaAPP
                         "WHERE OrderPurchase=@p1";
                     public static string SQL_QUERY_INSERT_DOCS_RECEPCIONES = "INSERT INTO " + R.SQL.TABLES.TABLE_RECEPCION +
                     "(OrderPurchase,Part_Number,Width,Lenght,Roll_Id,Proveedor_Id,Ubicacion,Core,Splice,Anulado,fecha_reg,hora_reg," +
-                        "fecha_pro,master,resma,graphics,embarque,palet_num,palet_cant,palet_pag,num_sincro,registro_movil,disponible,width_metros,lenght_metros,fecha_recep) " +
+                        "fecha_pro,master,resma,graphics,embarque,palet_num,palet_cant,palet_pag,num_sincro,registro_movil,disponible,width_metros,lenght_metros,fecha_recep,width_c,lenght_c) " +
                         "VALUES (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10,@p11,@p12,@p13,@p14," +
-                        "@p15,@p16,@p17,@p18,@p19,@p20,@p21,@p22,@p23,@p24,@p25,@p26)";
+                        "@p15,@p16,@p17,@p18,@p19,@p20,@p21,@p22,@p23,@p24,@p25,@p26,0,0)";
                     public static string SQL_QUERY_VERIFY_ORDEN_REPEAT = "SELECT count(*) FROM OrdenRecepcion WHERE " +
                         "OrderPurchase=@p1";
                 }
@@ -132,7 +132,7 @@ namespace RitramaAPP
                     "GROUP BY b.Part_Number, b.master),0) WHEN a.Resmas=1 OR a.Graphics= 1 THEN ISNULL((SELECT sum(cant) from item_despacho b where a.Product_ID= b.product_id group by b.product_id),0)  WHEN a.rollo_cortado=1 THEN 0 END AS cant_sal FROM producto a";
                     public static string SQL_QUERY_ENTRADAS_MASTER_WHERE_PRODUCT_ID = "SELECT a.OrderPurchase,a.Part_Number,a.Width,a.Lenght,a.Roll_Id,a.Proveedor_Id,a.Ubicacion," +
                     "a.Core,a.Splice,a.Anulado,a.fecha_reg,a.hora_reg,a.fecha_pro,a.master,a.resma,a.graphics,a.embarque,a.palet_num,a.palet_cant,a.palet_pag,a.num_sincro,a.registro_movil," +
-                    "a.disponible,a.width_metros,a.lenght_metros,a.fecha_recep,b.Proveedor_Name FROM OrdenRecepcion a left join Provider b on a.Proveedor_Id=b.Proveedor_ID WHERE part_number=@p1";
+                    "a.disponible,a.width_metros,a.lenght_metros,a.fecha_recep,b.Proveedor_Name,ISNULL((select sum(case rollid_2 when '' then util1_real_lenght+decartable1_pies else 0 end+util2_real_lenght+descartable2_pies) from orden_corte b where b.rollid_1=a.Roll_Id or b.rollid_2=a.Roll_Id),0) as consumo FROM OrdenRecepcion a left join Provider b on a.Proveedor_Id=b.Proveedor_ID WHERE part_number=@p1";
                     public static string SQL_QUERY_ENTRADAS_ROLLO_CORTADO_WHERE_PRODUCT_ID = "SELECT a.numero,a.Procesado,a.anulada,a.fecha,a.fecha_produccion,b.product_id,b.product_name," +
                     "b.disponible,b.roll_number,b.unique_code,b.width,b.large,b.msi,b.splice,b.code_person,b.roll_id,b.status FROM orden_corte a left join rolls_details b on a.numero = b.numero " +
                     "where b.product_id=@p1";
@@ -140,6 +140,9 @@ namespace RitramaAPP
                     "a.unique_code,a.product_id,b.Product_Name,a.roll_number,a.width,a.lenght,a.msi,splice,roll_id FROM rcdespacho a " +
                     "left join producto b on a.product_id=b.Product_ID left join despacho c on a.conduce = c.numero " +
                     "left join Customer d on c.customer_id= d.Customer_ID";
+
+                    public static string SQL_SELECT_SALIDAS_MASTER = "SELECT numero,fecha,rollid_1,CASE rollid_2 WHEN '' THEN util1_real_width ELSE 0 END AS util1_real_width,CASE rollid_2 WHEN '' THEN util1_real_lenght ELSE 0 END AS util1_real_lenght,lenght_1,CASE rollid_2 WHEN '' THEN decartable1_pies ELSE 0 END AS decartable1_pies ,CASE rollid_2 WHEN '' THEN (util1_real_lenght+decartable1_pies) ELSE 0 END AS total_con,CASE rollid_2 WHEN '' THEN cant_rollos ELSE 0 END AS cant_rollos,util2_real_width,util2_real_lenght,width_2,lenght_2,descartable2_pies,(util2_real_lenght+descartable2_pies) AS total_con2 FROM orden_corte WHERE rollid_1=@p1 OR rollid_2=@p1";
+
 
 
 
@@ -159,7 +162,7 @@ namespace RitramaAPP
                 public static string MESSAGE_CARGAR_MOVIMIENTO_MASTER = "Error al cargar los movimiento de inventarios tipo master...";
                 public static string MESSAGE_CARGAR_ENTREDAS_ROLLO_CORTADO = "Error al cargar las entredas de inventarios tipo ROLLO CORTADO...";
                 public static string MESSAGE_CARGAR_SALIDAS_ROLLO_CORTADO = "Error al cargar las salidas de inventarios tipo ROLLO CORTADO...";
-
+                public static string MESSAGE_ERROR_SALIDAS_MASTER = "Error al tratar de cargar la informacion de las salidas de los master en el inventario...";
             }
             public class MODULO_PRODUCTOS
             {

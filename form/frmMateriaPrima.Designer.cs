@@ -333,6 +333,7 @@
             this.txt_lenght.ReadOnly = true;
             this.txt_lenght.Size = new System.Drawing.Size(182, 20);
             this.txt_lenght.TabIndex = 9;
+            this.txt_lenght.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_lenght_KeyPress);
             this.txt_lenght.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_lenght_KeyUp);
             // 
             // panel1
@@ -366,6 +367,7 @@
             this.txt_width.ReadOnly = true;
             this.txt_width.Size = new System.Drawing.Size(143, 20);
             this.txt_width.TabIndex = 8;
+            this.txt_width.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_width_KeyPress);
             this.txt_width.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txt_width_KeyUp);
             // 
             // toolsbar
