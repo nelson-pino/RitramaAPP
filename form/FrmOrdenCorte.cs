@@ -29,7 +29,8 @@ namespace RitramaAPP
         DataSet ds = new DataSet();
         private DataRowView ParentRow;
         int EditMode = 0;
-        Boolean ischanged_rollos = false;
+        Boolean ischanged_rollos;
+
         string modproduct_id;
         Orden orden;
         public static List<Corte> listacorte;

@@ -235,7 +235,7 @@ namespace RitramaAPP
             public static string PATH_REPORTS_FORMAT_CONDUCE = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\Reports\Format_Despacho.rpt";
             public static string PATH_REPORTS_DETALLE_RC = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\Reports\detalle_RC.rpt";
             public static string PATH_REPORTS_FORMAT_CONDUCE_SP = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\Reports\Format_Despacho_sinprecio.rpt";
-            public static string PATH_DATA_IMPORT_EXCEL_RECEPCIONES = @"C:\Users\npino\Desktop\";
+            public static string PATH_DATA_IMPORT_EXCEL_RECEPCIONES = @"C:\Users\npino\Desktop\ritrama\";
             public static string PATH_DATA_REPORT_ORDEN_CORTE = @"C:\Users\npino\Documents\RITRAMA\RitramaAPP\Reports\orden_corte.rpt";
 
 
@@ -247,6 +247,7 @@ namespace RitramaAPP
             public static Double FACTOR_PULGADAS_METROS = 0.0254;
             public static Double FACTOR_PIES_METROS = 0.3048;
             public static Double FACTOR_CALCULO_MSI = 0.012;
+            public static Double FACTOR_MM_PULGADAS = 0.0393701;
         }
 
     }

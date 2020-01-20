@@ -1,10 +1,11 @@
-﻿using Microsoft.Office.Interop.Excel;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-
+using System.Data;
+using System.Data.OleDb;
+using System.Collections.Generic;
+using RitramaAPP.Clases;
+using System.Globalization;
 
 namespace RitramaAPP.form
 {
@@ -14,92 +15,387 @@ namespace RitramaAPP.form
         {
             InitializeComponent();
         }
+       
+        string fileName;
+        OpenFileDialog openFileDialog1;
+        DataTable tbContainer;
+        string strConn;
+        DataView dv = new DataView();
+        public List<ClassRecepcion> lista = new List<ClassRecepcion>();
+        readonly RecepcionManager manager = new RecepcionManager();
+        readonly ProduccionManager managerorden = new ProduccionManager();
+        string filtro_codigo = "";
+        string filtro_name = "";
+        string filtro_id = "";
 
         private void FrmImportExcelMP_Load(object sender, EventArgs e)
         {
-            GRID_IMPORT.AutoGenerateColumns = false;
-            AGREGAR_COLUMN_GRID("embarque", 60, "Numero Embarque", "embarque", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("orden", 60, "Orden", "orden", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("cantidad", 60, "Cantidad", "", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("unidad", 60, "Unidad", "", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("fecha", 60, "Fecha de Recepcion", "fecha_recepcion", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("rollid", 60, "Roll Id", "Roll_ID", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("id_proveedor", 60, "Proveedor Id.", "Supply_Id", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("proveedor_name", 120, "Nombre del Proveedor", "SupplyName", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("product_id", 60, "Product Id.", "Part_Number", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("product_name", 120, "Nombre del Producto", "ProductName", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("width", 60, "Width", "width", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("lenght", 60, "Lenght", "lenght", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("splice", 60, "Splice", "splice", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("core", 60, "Core", "core", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("numpalet", 60, "Numero de Palet", "Palet_cant", GRID_IMPORT);
-            AGREGAR_COLUMN_GRID("cantidad", 60, "Cantidad Recibida", "Palet_paginas", GRID_IMPORT);
+            
         }
-        private void AGREGAR_COLUMN_GRID(string name, int size, string title, string field_bd, DataGridView grid)
+        private void Bot_import_data_Click(object sender, EventArgs e)
         {
-            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn
+            openFileDialog1 = new OpenFileDialog();  //crea un Objeto openfileDialog. 
+            openFileDialog1.Filter = "XML Files (*.xml; *.xls; *.xlsx; *.xlsm; *.xlsb) |*.xml; *.xls; *.xlsx; *.xlsm; *.xlsb";//open file format define Excel Files(.xls)|*.xls| Excel Files(.xlsx)|*.xlsx| 
+            openFileDialog1.FilterIndex = 3;
+            openFileDialog1.Multiselect = false;        // no permite seleccionar multiples archivos
+            openFileDialog1.Title = "Seleccione la hoja de excel a Exportar";   // define el nombre de la ventana
+            openFileDialog1.InitialDirectory = @"Desktop"; // define el directorio inicial
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)        //executing when file open
             {
-                Name = name,
-                Width = size,
-                HeaderText = title,
-                DataPropertyName = field_bd
-            };
-            grid.Columns.Add(col);
-        }
+                string pathName = openFileDialog1.FileName;
+                fileName = System.IO.Path.GetFileNameWithoutExtension(openFileDialog1.FileName);
+                tbContainer = new System.Data.DataTable();
+                strConn = string.Empty;
+                string sheetName = fileName;
 
-        private void bot_import_data_Click(object sender, EventArgs e)
-        {
-            IMPORT_DATA_EXCEL();
+                FileInfo file = new FileInfo(pathName);
+                if (!file.Exists) { throw new Exception("Error, file doesn't exists!"); }
+                string extension = file.Extension;
+                switch (extension)
+                {
+                    case ".xls":
+                        strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + pathName + ";Extended Properties='Excel 8.0;HDR=No;IMEX=1;'";
+                        break;
+                    case ".xlsx":
+                        strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + pathName + ";Extended Properties='Excel 12.0;HDR=No;IMEX=1;'";
+                        break;
+                    default:
+                        strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + pathName + ";Extended Properties='Excel 8.0;HDR=No;IMEX=1;'";
+                        break;
+                }
+                TXT_PATH_FILENAME.Text = file.FullName;
+                TXT_NOMBRE_HOJA.Text = "Hoja1";
+            }
         }
-
-        private void IMPORT_DATA_EXCEL()
+        private void LOAD_DATA_EXCEL() 
         {
             try
-            {
-
-                Microsoft.Office.Interop.Excel.Application oExcel = null;
-                Workbook wb = null;
-                Worksheet sheet = null;
-                oExcel = new Microsoft.Office.Interop.Excel.Application();
-                string filePath = Path.GetFullPath(R.PATH_FILES.PATH_DATA_IMPORT_EXCEL_RECEPCIONES + TXT_PATH.Text + ".xlsx");
-                //oExcel.Visible = true;
-                wb = oExcel.Workbooks.Open(filePath);
-                sheet = wb.Worksheets[1];
-                Range range = sheet.UsedRange;
-                int rw = range.Rows.Count;
-                int cl = range.Columns.Count;
-                List<ClassRecepcion> lista = new List<ClassRecepcion>();
-
-                for (int fila = 2; fila <= rw; fila++)
+            {          
+                OleDbConnection cnnxls = new OleDbConnection(strConn);
+                OleDbCommand comando = new OleDbCommand("select * from ["+ TXT_NOMBRE_HOJA.Text.Trim()  + "$]", cnnxls);
+                OleDbDataAdapter adapter = new OleDbDataAdapter(comando);
+                adapter.Fill(tbContainer);
+            DataRow dr = tbContainer.Rows[0];
+            dr.Delete();
+            tbContainer.AcceptChanges();
+            tbContainer.Columns.Add("Fila",typeof(System.Int32));
+                for(int i = 0; i <= tbContainer.Rows.Count-1; i++) 
                 {
-                    ClassRecepcion item = new ClassRecepcion();
-                    item.Embarque = Convert.ToString(sheet.Cells[fila, 3].Value);
-                    item.Orden = Convert.ToString(sheet.Cells[fila, 4].Value);
-                    item.Fecha_recepcion = Convert.ToDateTime(sheet.Cells[fila, 5].Value);
-                    item.Roll_ID = Convert.ToString(sheet.Cells[fila, 7].Value);
-                    item.Supply_Id = Convert.ToString(sheet.Cells[fila, 8].Value);
-                    item.SupplyName = Convert.ToString(sheet.Cells[fila, 9].Value);
-                    item.Part_Number = Convert.ToString(sheet.Cells[fila, 10].Value);
-                    item.ProductName = Convert.ToString(sheet.Cells[fila, 11].Value);
-                    item.Width = Convert.ToDouble(sheet.Cells[fila, 12].Value);
-                    item.Lenght = Convert.ToDouble(sheet.Cells[fila, 13].Value);
-                    item.Splice = Convert.ToInt32(sheet.Cells[fila, 14].Value);
-                    item.Core = Convert.ToDecimal(sheet.Cells[fila, 15].Value);
-                    item.Palet_cant = Convert.ToInt32(sheet.Cells[fila, 16].Value);
-                    item.Palet_paginas = Convert.ToInt32(sheet.Cells[fila, 17].Value);
-                    lista.Add(item);
-                    GRID_IMPORT.DataSource = lista.ToList();
+                    tbContainer.Rows[i]["Fila"] = i + 2;
                 }
-                wb.Close(null, null, null);
-                oExcel.Quit();
+                dv = tbContainer.DefaultView;
+                GRID_IMPORT.DataSource = dv;
 
+                if (RA_MASTERS.Checked) 
+                {
+                    LOADATA_MASTERS();
+                }
+                if (RA_CORTADOS.Checked)
+                {
+                    LOADATA_CORTADOS();
+                }
+                GRID_IMPORT.Columns["Fila"].DisplayIndex = 0;
+                TXT_ROWS.Text = (tbContainer.Rows.Count).ToString();
+                // si la busqueda es por rollo cortado
             }
             catch (Exception)
             {
+                MessageBox.Show("Error!");
+            }
+        }
+        private void BOT_LOAD_DATA_Click(object sender, EventArgs e)
+        {
+            LOAD_DATA_EXCEL();
+        }
+        private void LOADATA_MASTERS() 
+        {
 
+            GRID_IMPORT.Columns[0].HeaderText = "Factura";
+            GRID_IMPORT.Columns[1].HeaderText = "Fecha Llegada";
+            GRID_IMPORT.Columns[2].HeaderText = "Codigo";
+            GRID_IMPORT.Columns[3].HeaderText = "Descripcion";
+            GRID_IMPORT.Columns[4].HeaderText = "ROLL ID";
+            GRID_IMPORT.Columns[5].HeaderText = "Fecha Produccion";
+            GRID_IMPORT.Columns[6].HeaderText = "# Rollo";
+            GRID_IMPORT.Columns[7].HeaderText = "Ancho mm & Pulg.";
+            GRID_IMPORT.Columns[8].HeaderText = "ML & Pies Lineales";
+            GRID_IMPORT.Columns[9].HeaderText = "# Empalmes";
+            GRID_IMPORT.Columns[10].HeaderText = "Inventario";
+            GRID_IMPORT.Columns[11].HeaderText = "Fecha Salida";
+            GRID_IMPORT.Columns[12].HeaderText = "Doc. Salida OC";
+            GRID_IMPORT.Columns[13].HeaderText = "Notas";
+            GRID_IMPORT.Columns[14].HeaderText = "Kilo Neto";
+            GRID_IMPORT.Columns[15].HeaderText = "Kilo Bruto";
+            GRID_IMPORT.Columns[16].HeaderText = "Almacen";
+            GRID_IMPORT.Columns[17].HeaderText = "Fila";
+            GRID_IMPORT.Columns[18].HeaderText = "Visto";
+            GRID_IMPORT.Columns[19].HeaderText = "M2";
+            GRID_IMPORT.Columns[20].HeaderText = "Count";
+        }
+        private void LOADATA_CORTADOS() 
+        {
+            GRID_IMPORT.Columns["F1"].HeaderText = "Fecha OC.";
+            GRID_IMPORT.Columns["F2"].HeaderText = "OC.";
+            GRID_IMPORT.Columns["F3"].HeaderText = "# Rollo.";
+            GRID_IMPORT.Columns["F4"].HeaderText = "Codigo";
+            GRID_IMPORT.Columns["F5"].HeaderText = "Nombre del Producto";
+            GRID_IMPORT.Columns["F6"].HeaderText = "Roll. ID";
+            GRID_IMPORT.Columns["F7"].HeaderText = "Ancho [Pulg.]";
+            GRID_IMPORT.Columns["F8"].HeaderText = "Largo [Pies]";
+            GRID_IMPORT.Columns["F9"].HeaderText = "Msi.";
+            GRID_IMPORT.Columns["F10"].HeaderText = "# Empalmes";
+            GRID_IMPORT.Columns["F11"].HeaderText = "Code Perso.";
+            GRID_IMPORT.Columns["F12"].HeaderText = "Codigo Unico";
+            GRID_IMPORT.Columns["F13"].HeaderText = "Ratio Kilos";
+            GRID_IMPORT.Columns["F14"].HeaderText = "Seccion";
+            GRID_IMPORT.Columns["F15"].HeaderText = "Rack";
+            GRID_IMPORT.Columns["F16"].HeaderText = "Inventario";
+            GRID_IMPORT.Columns["F17"].HeaderText = "Fecha Salida";
+            GRID_IMPORT.Columns["F18"].HeaderText = "Doc. Salida";
+            GRID_IMPORT.Columns["F19"].HeaderText = "Cliente";
+            GRID_IMPORT.Columns["F20"].HeaderText = "Comentario";
+        }
+        private void DEBUG_MASTERS()
+        {
+            double numero = 0;
+            string cadena = "";
+            string numerostr = "";
+            foreach (DataRow row in tbContainer.Rows)
+            {
+                //Columna de Ancho.
+                cadena = Convert.ToString(row["F8"]);
+                numerostr = "";
+                foreach (char str in cadena)
+                {
+                    if (!char.IsLetter(str))
+                        numerostr += str.ToString();
+                }
+                if (Convert.ToString(row["F8"]).Contains("mm"))
+                {
+                    numero = Math.Round(double.Parse(numerostr,
+                         CultureInfo.InvariantCulture)
+                        * R.CONSTANTES.FACTOR_MM_PULGADAS, 4,
+                        MidpointRounding.AwayFromZero);
+                }
+                else
+                {
+                    numero = double.Parse(numerostr,
+                         CultureInfo.InvariantCulture);
+                }
+                row["F8"] = Convert.ToString(numero);
+                GRID_IMPORT.Columns[7].HeaderText = "Ancho [PULGADAS]";
 
+                //Columna de Largo.
+                cadena = Convert.ToString(row["F9"]);
+                numerostr = "";
+                foreach (char str in cadena)
+                {
+                    if (!char.IsLetter(str))
+                        numerostr += str.ToString();
+                }
+                if (Convert.ToString(row["F9"]).Contains("Mts"))
+                {
+
+                    numero = Math.Round(double.Parse(numerostr,
+                         CultureInfo.InvariantCulture)
+                        * R.CONSTANTES.FACTOR_METROS_PIES, 4,
+                        MidpointRounding.AwayFromZero);
+                }
+                else
+                {
+                    numero = double.Parse(numerostr,
+                         CultureInfo.InvariantCulture);
+                }
+                row["F9"] = Convert.ToString(numero);
+                GRID_IMPORT.Columns[8].HeaderText = "Largo [PIES]";
+
+                //Columna splice.
+                if (Convert.ToString(row["F10"]) == "")
+                {
+                    row["F10"] = 0;
+                }
+            }
+            tbContainer.AcceptChanges();
+            MessageBox.Show("Proceso realizado con exito.");
+            TXT_LOG_PROCESS.Text += "Conversiones de Ancho y Largo realizadas con exito...";
+        }
+        private void DEBUG_CORTADOS() 
+        {
+        
+        }
+        private void SAVEDATA_MASTERS() 
+        {
+            int ord = 1;
+            foreach (DataGridViewRow row in GRID_IMPORT.Rows)
+            {
+                ClassRecepcion data = new ClassRecepcion
+                {
+                    Orden = ord.ToString(),
+                    Embarque = "1",
+                    Fecha_recepcion = DateTime.Today,
+                    Fecha_produccion = DateTime.Today,
+                    Fecha_reg = DateTime.Today,
+                    Hora_reg = DateTime.Now.ToShortTimeString(),
+                    Roll_ID = Convert.ToString(row.Cells["F5"].Value),
+                    Supply_Id = "999",
+                    Part_Number = Convert.ToString(row.Cells["F3"].Value),
+                    Master = true,
+                    Resma = false,
+                    Graphics = false,
+                    Palet_number = "0",
+                    Palet_cant = 0,
+                    Palet_paginas = 0,
+                    Width = double.Parse(Convert.ToString(row.Cells["F8"].Value),
+                    System.Globalization.NumberStyles.AllowDecimalPoint),
+                    Lenght = Convert.ToDouble(row.Cells["F9"].Value),
+                    Width_metros = Convert.ToDouble(row.Cells["F8"].Value) *
+                    R.CONSTANTES.FACTOR_PULGADAS_METROS,
+                    Lenght_metros = Convert.ToDouble(row.Cells["F9"].Value) *
+                    R.CONSTANTES.FACTOR_PIES_METROS,
+                    Splice = Convert.ToInt16(row.Cells["F10"].Value),
+                    Core = 0,
+                    Ubicacion = "",
+                    Anulado = false,
+                    Disponible = true
+                };
+                ord++;
+                lista.Add(data);
+            }
+            foreach (ClassRecepcion item in lista)
+            {
+                manager.Add(item, false);
+            }
+            MessageBox.Show("Se enviaron los datos correctamente...");
+        }
+        private void SAVEDATA_CORTADOS()
+        {
+            int OrdenCorte = 1;
+            Orden ocorte = new Orden
+            {
+                Numero = OrdenCorte.ToString(),
+                Fecha = DateTime.Today,
+                Fecha_produccion = DateTime.Today,
+                Product_id = Convert.ToString(GRID_IMPORT.Rows[0].Cells["F4"].Value),
+                Rollid_1 = "1",
+                Rollid_2 = "2",
+                Width_1 = 0,
+                Width_2 = 0,
+                Lenght_1 = 0,
+                Rest1_width = 0,
+                Rest2_width = 0,
+                Rest1_lenght = 0,
+                Rest2_lenght = 0,
+                Cantidad_Rollos = 0,
+                Cantidad_Rollos2 = 0,
+                Util1_real_Lenght = 0,
+                Util2_real_Lenght = 0,
+                Util1_Real_Width = 0,
+                Util2_Real_Width = 0,
+                Anulada = false,
+                Procesado = false,
+                Status = 0
+            };
+            ocorte.rollos = new List<Roll_Details>();
+            ocorte.Cortes = new List<Corte>();
+            Corte c = new Corte();
+            c.Num = 0;
+            c.Msi = 0;
+            c.Width = 0;
+            c.Lenght = 0;
+            c.Orden = Convert.ToString(OrdenCorte);
+            ocorte.Cortes.Add(c);
+            int fil = 1;
+            foreach (DataGridViewRow row in GRID_IMPORT.Rows)
+            {
+                Roll_Details data = new Roll_Details
+                {
+                    Fecha = DateTime.Today,
+                    Numero_Orden = Convert.ToString(OrdenCorte),
+                    Product_id = "0" + Convert.ToString(row.Cells["F4"].Value),
+                    Product_name = Convert.ToString(GRID_IMPORT.Rows[fil - 1].Cells["F5"].Value),
+                    Roll_number = Convert.ToString(fil),
+                    Code_Person = Convert.ToString(row.Cells["F11"].Value),
+                    Unique_code = Convert.ToString(row.Cells["F12"].Value),
+                    Width = Convert.ToDecimal(row.Cells["F7"].Value),
+                    Large = Convert.ToDecimal(row.Cells["F8"].Value),
+                    Msi = Convert.ToDecimal(row.Cells["F9"].Value),
+                    Roll_id = Convert.ToString(row.Cells["F6"].Value),
+                    Splice = Convert.ToInt16(row.Cells["F10"].Value),
+                    Status = "Ok",
+                    Disponible = true
+                };
+                fil += 1;
+                ocorte.rollos.Add(data);
+               
+            }
+            managerorden.Add(ocorte, false);
+            MessageBox.Show("se guardaron los datos correctamente");
+        }
+        private void TXT_BUSCAR_TextChanged(object sender, EventArgs e)
+        {
+            
+            if (RA_MASTERS.Checked) 
+            {
+                filtro_codigo = "F3 LIKE '%" + this.TXT_BUSCAR.Text + "%'";
+                filtro_name = "F4 LIKE '%" + this.TXT_BUSCAR.Text + "%'";
+                filtro_id = "F5 LIKE '%" + this.TXT_BUSCAR.Text + "%'";
+            }
+            if (RA_CORTADOS.Checked)
+            {
+                filtro_codigo = "F4 LIKE '%" + this.TXT_BUSCAR.Text + "%'";
+                filtro_name = "F5 LIKE '%" + this.TXT_BUSCAR.Text + "%'";
+                filtro_id = "F6 LIKE '%" + this.TXT_BUSCAR.Text + "%'";
             }
 
+            if (RA_CODIGO.Checked)
+            {
+                dv.RowFilter = filtro_codigo;
+            }
+            if (RA_PRODUCTNAME.Checked)
+            {
+                dv.RowFilter = filtro_name;
+            }
+            if (RA_ROLLID.Checked)
+            {
+                dv.RowFilter = filtro_id;
+            }
+
+            ROWS_FOUND.Text = Convert.ToString(dv.Count) + " registros encontrados.";
+        }
+
+        private void GRID_IMPORT_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void bot_borrar_data_Click(object sender, EventArgs e)
+        {
+            GRID_IMPORT.DataSource = "";
+        }
+
+        private void bot_convertir_Click(object sender, EventArgs e)
+        {
+            if (RA_MASTERS.Checked) 
+            {
+                DEBUG_MASTERS();
+            }
+            if (RA_CORTADOS.Checked) 
+            {
+                DEBUG_CORTADOS();
+            }
+           
+        }
+        
+        private void BOT_SEND_DATA_Click(object sender, EventArgs e)
+        {
+            if (RA_MASTERS.Checked) 
+            {
+                SAVEDATA_MASTERS();
+            }
+            if (RA_CORTADOS.Checked) 
+            {
+                SAVEDATA_CORTADOS();
+            }
         }
     }
 }

@@ -14,8 +14,8 @@ namespace RitramaAPP.Clases
         {
             try
             {
-                cnn = new SqlConnection(@"Server=SOPORTE\ETIQUETAS;" +
-                "initial catalog=" + bd + ";integrated security=true");
+                cnn = new SqlConnection(@"Server=SERVER-ETIQUETA;" +
+                "Database=" + bd + ";User Id=etiquetas;Password=123;");
                 cnn.Open();
                 return true;
             }
